@@ -16,5 +16,6 @@ public class MainActivity extends AppCompatActivity {
 
       test= (TextView) findViewById(R.id.testText);
       test.setText("testing.");
+      // testing commit and push
     }
 }
