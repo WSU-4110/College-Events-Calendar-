@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Campus Connect</string>
+    <string name="event_submit">Submit Event</string>
+    <string name="event_name">Event Name</string>
+    <string name="location">Location</string>
+    <string name="time">Event Start Time</string>
 </resources>
