@@ -69,18 +69,18 @@ public class EventCreation extends AppCompatActivity{
         startTimeInput = (EditText) findViewById(R.id.Time);
         dateInput = (EditText) findViewById(R.id.EventDate);
 
-        submitButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                EventName = EventNameInput.getText().toString();
-                location = locationInput.getText().toString();
-                startTime = startTimeInput.getText().toString();
-                date = dateInput.getText().toString();
-
+//        submitButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                EventName = EventNameInput.getText().toString();
+//                location = locationInput.getText().toString();
+//                startTime = startTimeInput.getText().toString();
+//                date = dateInput.getText().toString();
+//
 //                Event event = new Event(EventName, location, startTime,
 //                        date);
 //                db.collection("Events").document("Practice").set(event);
-            }
-        });
+//            }
+//        });
     }
 }
