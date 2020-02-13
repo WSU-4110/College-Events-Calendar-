@@ -23,8 +23,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
+        android:hint="Location"
         android:inputType="textPersonName"
-        android:text="@string/location"
         app:layout_constraintBottom_toTopOf="@+id/Time"
         app:layout_constraintStart_toStartOf="@+id/EventName"
         app:layout_constraintTop_toBottomOf="@+id/EventName"
@@ -36,26 +36,38 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="184dp"
         android:ems="10"
-        android:inputType="textPersonName"
-        android:text="@string/time"
+        android:hint="@string/time"
+        android:inputType="time"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@+id/Location"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.749" />
+        app:layout_constraintVertical_bias="0.683" />
 
     <EditText
         android:id="@+id/EventName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
+        android:hint="@string/event_name"
         android:inputType="textPersonName"
-        android:text="@string/event_name"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.08"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.298" />
+
+    <EditText
+        android:id="@+id/EventDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/event_date"
+        android:inputType="date"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/Time"
+        app:layout_constraintTop_toBottomOf="@+id/Time"
+        app:layout_constraintVertical_bias="0.07" />
 
     <EditText
         android:id="@+id/Campus_Connect"
