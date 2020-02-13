@@ -1,21 +1,14 @@
 package com.example.campusconnect;
 
-import android.os.Bundle;
-import android.widget.TextView;
-
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.os.Bundle;
 
-public class EventCreation extends AppCompatActivity{
-
-
-
+public class UserSignIn extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.event_creation);
-
-
+        setContentView(R.layout.activity_user_sign_in);
     }
 }
