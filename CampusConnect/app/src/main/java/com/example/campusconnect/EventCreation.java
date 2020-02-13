@@ -9,6 +9,41 @@ import android.widget.EditText;
 import androidx.appcompat.app.AppCompatActivity;
 
 
+
+class Event {
+
+
+    private String name;
+    private String location;
+    private String startTime;
+    private String date;
+
+    public Event() {}
+
+    public Event(String name, String location, String startTime, String date) {
+        // ...
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public String getStartTime() {
+        return startTime;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+}
+
+
+
 public class EventCreation extends AppCompatActivity{
 
     String EventName, location, startTime, date;
@@ -41,6 +76,10 @@ public class EventCreation extends AppCompatActivity{
                 location = locationInput.getText().toString();
                 startTime = startTimeInput.getText().toString();
                 date = dateInput.getText().toString();
+
+//                Event event = new Event(EventName, location, startTime,
+//                        date);
+//                db.collection("Events").document("Practice").set(event);
             }
         });
     }
