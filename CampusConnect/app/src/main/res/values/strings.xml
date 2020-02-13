@@ -4,4 +4,5 @@
     <string name="event_name">Event Name</string>
     <string name="location">Location</string>
     <string name="time">Event Start Time</string>
+    <string name="goto_event_creation">Event Creation</string>
 </resources>
