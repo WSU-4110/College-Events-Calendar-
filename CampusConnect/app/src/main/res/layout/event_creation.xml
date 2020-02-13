@@ -10,13 +10,14 @@
         android:id="@+id/event_submit_button"
         android:layout_width="382dp"
         android:layout_height="69dp"
+        android:layout_marginTop="644dp"
         android:text="@string/event_submit"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.448"
+        app:layout_constraintHorizontal_bias="0.551"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.975" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <EditText
         android:id="@+id/Location"
@@ -25,23 +26,22 @@
         android:ems="10"
         android:hint="Location"
         android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/Time"
-        app:layout_constraintStart_toStartOf="@+id/EventName"
-        app:layout_constraintTop_toBottomOf="@+id/EventName"
-        app:layout_constraintVertical_bias="0.506" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/EventName"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.386" />
 
     <EditText
         android:id="@+id/Time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="184dp"
         android:ems="10"
         android:hint="@string/time"
         android:inputType="time"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/Location"
+        app:layout_constraintEnd_toEndOf="@+id/Location"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.683" />
+        app:layout_constraintVertical_bias="0.483" />
 
     <EditText
         android:id="@+id/EventName"
@@ -52,10 +52,10 @@
         android:inputType="textPersonName"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.08"
+        app:layout_constraintHorizontal_bias="0.065"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.298" />
+        app:layout_constraintVertical_bias="0.293" />
 
     <EditText
         android:id="@+id/EventDate"
@@ -65,15 +65,15 @@
         android:hint="@string/event_date"
         android:inputType="date"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/Time"
-        app:layout_constraintTop_toBottomOf="@+id/Time"
-        app:layout_constraintVertical_bias="0.07" />
+        app:layout_constraintEnd_toEndOf="@+id/Time"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.578" />
 
     <EditText
         android:id="@+id/Campus_Connect"
         android:layout_width="316dp"
         android:layout_height="64dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginTop="64dp"
         android:ems="10"
         android:fontFamily="serif-monospace"
         android:inputType="textPersonName"
@@ -82,9 +82,9 @@
         android:textSize="36sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.392"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.055" />
+        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
