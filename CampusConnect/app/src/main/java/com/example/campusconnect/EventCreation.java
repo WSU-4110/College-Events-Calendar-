@@ -9,6 +9,7 @@ import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 
@@ -66,6 +67,8 @@ public class EventCreation extends AppCompatActivity{
     Button submitButton;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
+    //DocumentReference serializedDay = db.;                                    // ??CHECK: Can we implement a serial variable to make DB searches easy?
+
 
 
 
@@ -96,4 +99,36 @@ public class EventCreation extends AppCompatActivity{
             }
         });
     }
+
+
+    //------| Jay |-------//
+
+    // FireBase Documentation Resources:
+    // 1. [Offline Data Access] https://firebase.google.com/docs/firestore/manage-data/enable-offline
+    // 2. [Reading Data] https://firebase.google.com/docs/firestore/query-data/get-data
+
+    /*
+    
+    // ?? CHECK: Can we serialize the date in some way to make search quick and unambiguous?
+    void listTodaysEvents(String targetDay){
+        while(db.) {
+
+        }
+    }
+    
+    
+    */
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
