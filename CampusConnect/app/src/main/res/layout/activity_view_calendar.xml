@@ -23,5 +23,10 @@
         android:layout_marginStart="28dp"
         android:layout_marginTop="76dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+
+        android:minDate="01/01/2019"
+        android:maxDate="12/31/2022"
+        />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
