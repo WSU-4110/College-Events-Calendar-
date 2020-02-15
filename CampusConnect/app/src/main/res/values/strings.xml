@@ -8,4 +8,6 @@
     <string name="event_date">Event Date</string>
     <string name="calendar">Calendar</string>
     <string name="backto_main">Back</string>
+    <string name="new_phone_who_dis">-New phone. who dis</string>
+    <string name="hello_world">-Hello World!</string>
 </resources>
