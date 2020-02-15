@@ -13,18 +13,13 @@ public class MainActivity extends AppCompatActivity {
 	private Button goto_calendar;
 	private Button goto_signin;
 	
-	TextView test; // delete later
 
-
-//    testing commit and push
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		test = (TextView) findViewById(R.id.testText);                       // delete later
-		test.setText("testing.");                                           // delete later
 		
 		button = findViewById(R.id.gotoEventCreation);						// [BUTTON ACTION]: Event Creation Page
 		button.setOnClickListener(new View.OnClickListener() {
