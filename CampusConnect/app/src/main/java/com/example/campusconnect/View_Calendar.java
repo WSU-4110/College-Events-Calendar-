@@ -12,9 +12,8 @@ import android.widget.TextView;
 
 
 public class View_Calendar extends AppCompatActivity {
-    
-    // TODO: Remove button? Ultimately redundant as Android includes back button on lower toolbar
-    Button button_ReturnToHomepage;
+
+    // Button button_ReturnToHomepage;
     CalendarView calendar;
     TextView daySelectionText;
 
@@ -22,14 +21,16 @@ public class View_Calendar extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_calendar);
-        
+
+        /*
+        // Back button disabled for now. Redundant.
         button_ReturnToHomepage = findViewById(R.id.returnto_main);
         button_ReturnToHomepage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 backTo_HomeScreen();
             }
-        });
+        });*/
         
         calendar = findViewById(R.id.calendarView);
         daySelectionText = findViewById(R.id.daySelection);
@@ -60,9 +61,9 @@ public class View_Calendar extends AppCompatActivity {
     // 3. When user selects a day, they will be interacting not with the
     //      icons, but the underlying CalendarView.
     
-    
+
+
     // TODO: Add a "Jump to..." ??
-    
     public void backTo_HomeScreen(){
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
