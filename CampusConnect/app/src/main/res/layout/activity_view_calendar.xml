@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".View_Calendar">
 
-    <Button
+    <!-- <Button
         android:id="@+id/returnto_main"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -14,7 +14,7 @@
         android:layout_marginBottom="51dp"
         android:text="@string/backto_main"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent" />*/ -->
 
     <CalendarView
         android:id="@+id/calendarView"
@@ -22,8 +22,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="28dp"
         android:layout_marginTop="76dp"
-        android:minDate="01/01/2019"
         android:maxDate="12/31/2022"
+        android:minDate="01/01/2019"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -32,10 +32,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="42dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        app:layout_constraintBottom_toTopOf="@+id/returnto_main"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    <!-- app:layout_constraintBottom_toTopOf="@+id/returnto_main" -->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

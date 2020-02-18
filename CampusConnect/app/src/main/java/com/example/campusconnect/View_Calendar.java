@@ -63,10 +63,12 @@ public class View_Calendar extends AppCompatActivity {
     
 
 
+    /*
     // TODO: Add a "Jump to..." ??
     public void backTo_HomeScreen(){
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
+    */
 
 }//end [ CLASS: View_Calendar ]
