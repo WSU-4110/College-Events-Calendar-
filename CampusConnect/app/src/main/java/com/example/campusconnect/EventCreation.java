@@ -20,6 +20,8 @@ class Event {
     private String location;
     private String startTime;
     private String date;
+    private String org;
+    private String desc;
 
 //    public Event(){
 //        this.name = "";
@@ -28,11 +30,13 @@ class Event {
 //        this.date = "";
 //    }
 
-    public Event(String name, String location, String startTime, String date) {
+    public Event(String name, String location, String startTime, String date, String org, String desc) {
         this.name = name;
         this.location = location;
         this.startTime = startTime;
         this.date = date;
+        this.org = org;
+        this.desc = desc;
     }
 
     public String getName() {
@@ -51,6 +55,37 @@ class Event {
         return date;
     }
 
+    public String getOrg() {
+        return org;
+    }
+
+    public String getDesc() {
+        return desc;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public void setOrg(String org) {
+        this.org = org;
+    }
+
+    public void setDesc(String desc) {
+        this.desc = desc;
+    }
 }
 
 
@@ -89,7 +124,7 @@ public class EventCreation extends AppCompatActivity{
                 date = dateInput.getText().toString();
 
                 Event event = new Event(EventName, location, startTime,
-                        date);
+                        date, "Org", "Desc");
                 db.collection("Events").document("Practice3").set(event);
             }
         });

@@ -12,6 +12,7 @@ public class MainActivity extends AppCompatActivity {
 	private Button button;
 	private Button goto_calendar;
 	private Button goto_signin;
+	private Button goto_eventView;
 	
 
 	
@@ -26,6 +27,14 @@ public class MainActivity extends AppCompatActivity {
 			@Override
 			public void onClick(View v) {
 				openEventCreator();
+			}
+		});
+
+		goto_eventView = findViewById(R.id.gotoEventView);						// [BUTTON ACTION]: Event View Page
+		goto_eventView.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				openEventView();
 			}
 		});
 
@@ -48,6 +57,11 @@ public class MainActivity extends AppCompatActivity {
 	
 	public void openEventCreator() {
 		Intent intent = new Intent(this, EventCreation.class);
+		startActivity(intent);
+	}
+
+	public void openEventView() {
+		Intent intent = new Intent(this, EventView.class);
 		startActivity(intent);
 	}
 

@@ -20,17 +20,30 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/gotoEventCreation"
+    android:id="@+id/gotoEventCreation"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="@string/goto_event_creation"
+    android:visibility="visible"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintHorizontal_bias="0.941"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintVertical_bias="0.183" />
+
+    <Button
+        android:id="@+id/gotoEventView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/goto_event_creation"
+        android:text="@string/goto_event_view"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.941"
+        app:layout_constraintHorizontal_bias="0.126"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.183" />
+        app:layout_constraintVertical_bias="0.77" />
 
     <Button
         android:id="@+id/gotoSignIn"
