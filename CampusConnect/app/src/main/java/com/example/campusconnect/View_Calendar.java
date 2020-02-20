@@ -48,6 +48,8 @@ public class View_Calendar extends AppCompatActivity {
                 userSelectedDate.append(year);
                 
                 daySelectionText.setText(userSelectedDate);
+
+                openEventView(20);
             }
         });
     }
@@ -61,6 +63,11 @@ public class View_Calendar extends AppCompatActivity {
     // 3. When user selects a day, they will be interacting not with the
     //      icons, but the underlying CalendarView.
     
+    public void openEventView (int eventId){
+        Intent intent = new Intent (this, EventView.class);
+        intent.putExtra("Event", eventId);
+        startActivity(intent);
+    }
 
 
     /*
