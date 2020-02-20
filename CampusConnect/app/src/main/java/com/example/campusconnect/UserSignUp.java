@@ -17,6 +17,8 @@ import com.google.android.gms.tasks.Task;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 
+
+
 public class UserSignUp extends AppCompatActivity {
 
     private EditText emailText;
@@ -76,6 +78,8 @@ public class UserSignUp extends AppCompatActivity {
         });
     }
 }
+
+
 
 
 

@@ -123,12 +123,26 @@ public class EventCreation extends AppCompatActivity{
                 startTime = startTimeInput.getText().toString();
                 date = dateInput.getText().toString();
 
+                //to do: fix event date so realistic event dates are put in.
+                // month -> day -> event name -> set(event)
+                // fix XML display so a calendar pops up when they need to input an event.
+
                 Event event = new Event(EventName, location, startTime,
                         date, "Org", "Desc");
-                db.collection("Events").document("Practice3").set(event);
+                db.collection(date).document(EventName).set(event);
             }
         });
+
+
+
+
+
     }
+
+
+
+
+
 
 }
 
