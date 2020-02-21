@@ -132,18 +132,7 @@ public class EventCreation extends AppCompatActivity{
                 db.collection("Events").document("Events").collection(date).document(EventName).set(event);
             }
         });
-
-
-
-
-
     }
-
-
-
-
-
-
 }
 
 
