@@ -129,7 +129,7 @@ public class EventCreation extends AppCompatActivity{
 
                 Event event = new Event(EventName, location, startTime,
                         date, "Org", "Desc");
-                db.collection("Events").document(date).set(event);
+                db.collection("Events").document("Events").collection(date).document(EventName).set(event);
             }
         });
 

@@ -40,7 +40,7 @@ public class UserSignUp extends AppCompatActivity {
         passwordText = findViewById(R.id.input_password);
         progressBar = findViewById(R.id.progressBar);
         fAuth = FirebaseAuth.getInstance();
-        fStore = FirebaseFirestore.getInstance();
+       fStore = FirebaseFirestore.getInstance();
 
         if(fAuth.getCurrentUser() != null){
             startActivity(new Intent(getApplicationContext(),MainActivity.class));
