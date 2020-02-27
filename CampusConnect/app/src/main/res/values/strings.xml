@@ -1,3 +1,14 @@
 <resources>
-    <string name="app_name">CampusConnect</string>
+    <string name="app_name">Campus Connect</string>
+    <string name="event_submit">Submit Event</string>
+    <string name="event_name">Event Name</string>
+    <string name="location">Location</string>
+    <string name="time">Event Start Time</string>
+    <string name="goto_event_creation">Event Creation</string>
+    <string name="goto_event_view">Event View</string>
+    <string name="event_date">Event Date</string>
+    <string name="calendar">Calendar</string>
+    <string name="backto_main">Back</string>
+    <string name="new_phone_who_dis">-New phone. who dis</string>
+    <string name="hello_world">-Hello World!</string>
 </resources>
