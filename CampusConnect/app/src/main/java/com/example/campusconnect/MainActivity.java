@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 public class MainActivity extends AppCompatActivity {
 	private Button button;
 	private Button goto_calendar;
+	private Button goto_signin;
 	private Button goto_eventView;
 	
 
@@ -37,6 +38,14 @@ public class MainActivity extends AppCompatActivity {
 			}
 		});
 
+        goto_signin = findViewById(R.id.gotoSignIn);						// [BUTTON ACTION]: Sign In Page
+        goto_signin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openSignIn();
+            }
+        });
+
 		goto_calendar = findViewById(R.id.goto_calendar);					// [BUTTON ACTION]: Calendar View (Month)
 		goto_calendar.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -61,7 +70,10 @@ public class MainActivity extends AppCompatActivity {
 		startActivity(intent);
 	}
 
-
+    public void openSignIn() {
+        Intent intent = new Intent(this, UserSignIn.class);
+        startActivity(intent);
+    }
 	
 }//end [ CLASS: MainActivity ]
 

@@ -2,8 +2,10 @@ package com.example.campusconnect;
 
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
-
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -21,10 +23,7 @@ public class EventView extends AppCompatActivity {
     TextView dateInput;
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-
-    //DocumentReference serializedDay = db.;                                    // ??CHECK: Can we implement a serial variable to make DB searches easy?
-
-
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,16 +47,9 @@ public class EventView extends AppCompatActivity {
         dateInput.setText(event.getDate());
         OrgInput.setText(event.getOrg());
         DescInput.setText(event.getDesc());
-
-
     }
-}
 
-
-
-
-
-
+}// end [ CLASS: EventView ]
 
 
 
