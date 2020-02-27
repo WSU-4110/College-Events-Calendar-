@@ -8,8 +8,18 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="LoadScreen" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="android:windowBackground">@drawable/load_screen</item>
+    <style name="AppTheme.RoundedCornerMaterialButton" parent="Widget.AppCompat.Button.Colored">
+        <item name="android:background">@drawable/rounded_shape</item>
+        <item name="colorButtonNormal">@color/colorPrimary</item>
+        <item name="colorControlHighlight">@color/White</item>
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+        <item name="android:paddingLeft">20dp</item>
+        <item name="android:paddingRight">20dp</item>
+    </style>
+
+    <style name="fonts">
+        <item name="android:textColor">#fff</item>
+        <item name="android:textSize">15sp</item>
     </style>
 
 </resources>
