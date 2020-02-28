@@ -1,6 +1,7 @@
 package com.example.campusconnect;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -21,6 +22,7 @@ public class EventView extends AppCompatActivity {
     TextView locationInput;
     TextView startTimeInput;
     TextView dateInput;
+    Button backto_main;
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     
@@ -29,6 +31,13 @@ public class EventView extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.event_view);
 
+        backto_main = findViewById(R.id.back_button);
+        backto_main.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                backTo_main();
+            }
+        });
 
         Event event = new Event("Freshman Orientation", " Wayne Campus", "11.30",
                 "02/20/2020", "Wayne State University","New student welcome ceremony and tour" );
@@ -47,6 +56,11 @@ public class EventView extends AppCompatActivity {
         dateInput.setText(event.getDate());
         OrgInput.setText(event.getOrg());
         DescInput.setText(event.getDesc());
+    }
+
+    public void backTo_main(){
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
     }
 
 }// end [ CLASS: EventView ]
