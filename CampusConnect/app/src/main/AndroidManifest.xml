@@ -17,7 +17,19 @@
         <activity
             android:name=".UI.Authentication.fogetPassword"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity android:name=".UI.MainPage.home" />
+        <activity
+            android:name=".MainActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".EventCreation"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".View_Calendar"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".EventView"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+
         <activity
             android:name=".UI.Authentication.signIn"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />

@@ -5,19 +5,16 @@ package com.example.campusconnect.UI.Authentication;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.res.ResourcesCompat;
 
 import android.os.Bundle;
 
+import com.example.campusconnect.MainActivity;
 import com.example.campusconnect.R;
-import com.example.campusconnect.UI.MainPage.home;
-import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
-import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
@@ -146,7 +143,7 @@ public class signIn extends AppCompatActivity {
                                         if (emailVerified) {
                                             progressDialog.dismiss();
                                             Toast.makeText(signIn.this, "sign in Successfully", Toast.LENGTH_SHORT).show();
-                                            startActivity(new Intent(signIn.this, home.class));
+                                            startActivity(new Intent(signIn.this, MainActivity.class));
                                             finish();
                                         } else {
                                             progressDialog.dismiss();
@@ -175,7 +172,7 @@ public class signIn extends AppCompatActivity {
                             progressDialog.dismiss();
                             FirebaseUser user = mAuth.getCurrentUser();
                             Toast.makeText(signIn.this, "sign in Successfully "+user.getUid(), Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(signIn.this, home.class));
+                            startActivity(new Intent(signIn.this, MainActivity.class));
                             finish();
                         } else {
                             progressDialog.dismiss();

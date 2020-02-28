@@ -38,13 +38,6 @@ public class MainActivity extends AppCompatActivity {
 			}
 		});
 
-        goto_signin = findViewById(R.id.gotoSignIn);						// [BUTTON ACTION]: Sign In Page
-        goto_signin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openSignIn();
-            }
-        });
 
 		goto_calendar = findViewById(R.id.goto_calendar);					// [BUTTON ACTION]: Calendar View (Month)
 		goto_calendar.setOnClickListener(new View.OnClickListener() {
@@ -70,10 +63,7 @@ public class MainActivity extends AppCompatActivity {
 		startActivity(intent);
 	}
 
-    public void openSignIn() {
-        Intent intent = new Intent(this, UserSignIn.class);
-        startActivity(intent);
-    }
+
 	
 }//end [ CLASS: MainActivity ]
 
