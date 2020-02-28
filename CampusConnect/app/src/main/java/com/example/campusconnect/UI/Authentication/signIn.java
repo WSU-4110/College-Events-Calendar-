@@ -90,6 +90,16 @@ public class signIn extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
 
+        Button btn_view=findViewById(R.id.view_button);
+        btn_view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                startActivity(new Intent(signIn.this, MainActivity.class));
+
+            }
+        });
+
         email = findViewById(R.id.email);
         password = findViewById(R.id.password);
 
@@ -207,4 +217,6 @@ public class signIn extends AppCompatActivity {
         Intent i = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(i,RC_SIGN_IN);
     }
+
+
 }

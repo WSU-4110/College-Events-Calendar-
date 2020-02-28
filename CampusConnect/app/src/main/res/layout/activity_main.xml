@@ -7,7 +7,11 @@
     tools:context=".MainActivity"
     android:background="@color/colorPrimary"
     >
-
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbarStyle="insideInset"
+        android:scrollbars="vertical">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -54,6 +58,18 @@
             android:layout_marginTop="20dp"
             android:text="Event view"
             android:textStyle="bold" />
+        <Button
+            android:id="@+id/logout_button"
+            style="@style/AppTheme.RoundedCornerMaterialButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="Logout"
+            android:textStyle="bold" />
+
+
+
+
 <!--        <Button-->
 <!--        android:id="@+id/gotoEventCreation"-->
 <!--        android:layout_width="wrap_content"-->
@@ -80,13 +96,6 @@
 <!--        app:layout_constraintTop_toTopOf="parent"-->
 <!--        app:layout_constraintVertical_bias="0.382" />-->
 
-
-
-
-
-
-
-
 <!--    <Button-->
 <!--        android:id="@+id/goto_calendar"-->
 <!--        android:layout_width="wrap_content"-->
@@ -102,5 +111,5 @@
 
 
     </LinearLayout>
-
+    </ScrollView>
 </RelativeLayout>

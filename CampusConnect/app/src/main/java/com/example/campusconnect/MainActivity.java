@@ -8,6 +8,9 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.campusconnect.UI.Authentication.signIn;
+import com.google.firebase.auth.FirebaseAuth;
+
 public class MainActivity extends AppCompatActivity {
 	private Button button;
 	private Button goto_calendar;
@@ -21,6 +24,17 @@ public class MainActivity extends AppCompatActivity {
 		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		//logout button
+		final FirebaseAuth mAuth=FirebaseAuth.getInstance();
+		Button btn_logout=findViewById(R.id.logout_button);
+		btn_logout.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+
+				startActivity(new Intent(MainActivity.this, signIn.class));
+				mAuth.signOut();
+			}
+		});
 		
 		button = findViewById(R.id.gotoEventCreation);						// [BUTTON ACTION]: Event Creation Page
 		button.setOnClickListener(new View.OnClickListener() {
@@ -62,6 +76,7 @@ public class MainActivity extends AppCompatActivity {
 		Intent intent = new Intent(this, View_Calendar.class);
 		startActivity(intent);
 	}
+
 
 
 	
