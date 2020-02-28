@@ -39,13 +39,13 @@ public class MainActivity extends AppCompatActivity {
 		});
 
 
-		goto_calendar = findViewById(R.id.goto_calendar);					// [BUTTON ACTION]: Calendar View (Month)
-		goto_calendar.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				open_View_Calendar();
-			}
-		});
+//		goto_calendar = findViewById(R.id.goto_calendar);					// [BUTTON ACTION]: Calendar View (Month)
+//		goto_calendar.setOnClickListener(new View.OnClickListener() {
+//			@Override
+//			public void onClick(View v) {
+//				open_View_Calendar();
+//			}
+//		});
 	}
 	
 	public void openEventCreator() {
