@@ -6,6 +6,7 @@
     <string name="time">Event Start Time</string>
     <string name="goto_event_creation">Event Creation</string>
     <string name="goto_event_view">Event View</string>
+    <string name="goto_saved_events">Saved Events</string>
     <string name="event_date">Event Date</string>
     <string name="calendar">Calendar</string>
     <string name="backto_main">Back</string>
