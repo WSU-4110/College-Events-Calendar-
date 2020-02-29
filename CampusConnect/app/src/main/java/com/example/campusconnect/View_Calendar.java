@@ -49,22 +49,19 @@ public class View_Calendar extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        
         setContentView(R.layout.activity_view_calendar);
-
         calendar = findViewById(R.id.calendarView);
-        //daySelectionText = findViewById(R.id.daySelection);
         
         calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView calendarView, int year, int month, int day) {
-                eventDate = findViewById(R.id.Date);
+                /*eventDate = findViewById(R.id.Date);
                 eventOrganization = findViewById(R.id.Organization);
-                eventDescription = findViewById(R.id.Description);
+                eventDescription = findViewById(R.id.Description);*/
     
+                EventView eventView;
                 StringBuilder dayMonthYear = new StringBuilder();
-                
-                // TODO: wut
-                // TODO: The day "12/7/2020" is being output after the below .append()'s were added
     
                 if ((month + 1) < 10){
                     dayMonthYear.append('0');
@@ -81,64 +78,15 @@ public class View_Calendar extends AppCompatActivity {
                     dayMonthYear.append(day);
 
                 dayMonthYear.append(year);
-                
-                displayEvents(dayMonthYear.toString());
+    
+                // EventView constructor will most likely replace the old displayEvents method
+                //eventView = new EventView(year, month, day);
+                //displayEvents(dayMonthYear.toString());
             }
         });
         
         //clearTextViews();
         
     }// end [ METHOD: onCreate ]
-    
-    private void displayEvents(String dateSelected) {
-        // Current Tasks (Jay and Ponnila):
-        // 1. Have .whereEqualTo() set for Collections, Documents, or Fields
-        // 2. How to query data with a non-literal String
-        //              i.e. Date from calendar selected by user that is passed to this method
-        // 3. Clear the TextView objects (Strings are stacking between day changes)
-        // 4a. Make functional a boolean variable for scenario where user clicks on a day that
-        //          was previously chosen (optimize/minimize number of DB queries)
-        // 4b. Determine how to handle scenario outlined in 4a (be it local storage event data, etc)
-        
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        
-        // Collection: JayTesting
-        // date in .whereEqualTo is the "date" field within a document (not the document name)
-        db.collection("JayTesting")
-                .whereEqualTo("date", dateSelected)
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
-                                Event event = document.toObject(Event.class);
-                                //event = document.toObject(Event.class);
-                                
-                                eventDate.setText(event.getMonth_Name());
-                                eventDate.append(" ");
-                                eventDate.append(event.getDay());
-                                
-                                eventOrganization.setText("Organization: ");
-                                eventOrganization.append(event.getOrg());
-    
-                                eventDescription.setText("Event Description: ");
-                                eventDescription.append(event.getDesc());
-                            }
-                        }
-                    }
-                });
-    
-        //clearText();
-        
-    }// end [ METHOD: displayEvents ]*/
-    
-    private void clearText(){
-        eventDate.setText("");
-        eventOrganization.setText("");
-        eventDescription.setText("");
-        
-        System.out.println("CLEAR CALLED");
-    }
     
 }//end [ CLASS: View_Calendar ]

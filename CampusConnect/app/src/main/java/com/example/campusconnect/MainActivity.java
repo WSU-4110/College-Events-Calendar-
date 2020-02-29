@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
 			}
 		});
 		
-		button = findViewById(R.id.gotoEventCreation);						// [BUTTON ACTION]: Event Creation Page
+		button = findViewById(R.id.gotoEventCreation);								// [BUTTON ACTION]: Event Creation Page
 		button.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
 			}
 		});
 
-		goto_eventView = findViewById(R.id.gotoEventView);						// [BUTTON ACTION]: Event View Page
+		goto_eventView = findViewById(R.id.gotoEventView);							// [BUTTON ACTION]: Event View Page
 		goto_eventView.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
 		});
 
 
-//		goto_calendar = findViewById(R.id.goto_calendar);					// [BUTTON ACTION]: Calendar View (Month)
+//		goto_calendar = findViewById(R.id.goto_calendar);							// [BUTTON ACTION]: Calendar View (Month)
 //		goto_calendar.setOnClickListener(new View.OnClickListener() {
 //			@Override
 //			public void onClick(View v) {
