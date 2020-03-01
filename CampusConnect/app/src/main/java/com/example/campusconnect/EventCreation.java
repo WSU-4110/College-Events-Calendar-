@@ -34,7 +34,7 @@ class Event {
         desc = "N/A";
     }
     
-    // Look into possibility of separating day, month, year
+    
     public Event(String name, String location, String startTime, String date, String org, String desc) {
         this.name = name;
         this.location = location;
@@ -68,24 +68,52 @@ class Event {
 
     public void setDesc(String desc) { this.desc = desc; }
     
-    // Determine if below methods are best
-    public String getMonth_Integer() {
-        // Return integer?
+    
+    // !! TODO: Change date/time storage to Calendar
+    
+    // CHECK: Store time 24h?
+    public String getStartTime_Formatted(){
+        switch(this.startTime.length())
+        {
+            case 3:
+                // _H:MM
+                return String.format(" %c:%c%c",
+                        startTime.charAt(0),
+                        startTime.charAt(1),
+                        startTime.charAt(2));
+            case 4:
+                // HH:MM
+                return String.format("%c%c:%c%c",
+                        startTime.charAt(0),
+                        startTime.charAt(1),
+                        startTime.charAt(2),
+                        startTime.charAt(3));
+            default:
+                // STORED-TIME FORMAT ERROR
+                return "00:00";
+        }
+    }
+    
+    // String Formatting: Java Textbook Chapter 10.10.7
+    public String getDate_Formatted(){
+        return String.format("%s/%s/%s", getMonth_Integer(), getDay(), getYear());      // MM/DD/YYYY
+    }
+    
+    private String getMonth_Integer() {
         return new String(new char[]{date.charAt(0), date.charAt(1)});
     }
     
-    public String getDay() {
+    private String getDay() {
         //StringBuilder dayBuilder = new StringBuilder();
         String dayBuilder = new String(new char[]{date.charAt(2), date.charAt(3)});
         
         return dayBuilder + dayModifier();
     }
     
-    private String dayModifier(){
-        // Sample Date: 02052020 (i.e. Feb 3rd, 2020)
-        // Thus: character at index String[3] determines the contraction
-        // e.g. 02052020
-        //      -> String[3] == 5 -> contraction == 'rd' -> Feb 3rd 2020
+    private String dayModifier()
+    // Character at index String[3] determines the contraction
+    // e.g. 02052020: String Index[3] == 5 -> Contraction: 'rd' -> Feb 3[rd] 2020
+    {
         char dayDigit = this.date.charAt(3);
         
         if(dayDigit == '1')
@@ -98,8 +126,14 @@ class Event {
             return "th";
     }
     
-    // Java Textbook Chapter 10.10
-    public String getMonth_Name() {
+    
+    private String getYear() {
+        return new String(new char[]{date.charAt(4), date.charAt(5),
+                date.charAt(6), date.charAt(7),});
+    }
+    
+    // Int Parser: Java Textbook Chapter 10.10.6
+    private String getMonth_Name() {
         int month;
         String monthName;
         
@@ -150,11 +184,7 @@ class Event {
         
         return monthName;
     }
-    
-    
-
-    
-    
+  
 }// end [ CLASS: Event ]
 
 

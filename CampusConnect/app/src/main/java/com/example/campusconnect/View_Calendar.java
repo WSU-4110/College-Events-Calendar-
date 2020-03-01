@@ -1,3 +1,4 @@
+
 //------------------------------------------------------------------------------------------//
 //                                                                                          //
 // Consult following link on Source Options and offline data usage                          //
@@ -20,6 +21,7 @@ package com.example.campusconnect;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.CalendarView;
@@ -49,6 +51,7 @@ public class View_Calendar extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Intent intent;
         
         setContentView(R.layout.activity_view_calendar);
         calendar = findViewById(R.id.calendarView);
@@ -56,10 +59,7 @@ public class View_Calendar extends AppCompatActivity {
         calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView calendarView, int year, int month, int day) {
-                /*eventDate = findViewById(R.id.Date);
-                eventOrganization = findViewById(R.id.Organization);
-                eventDescription = findViewById(R.id.Description);*/
-    
+                
                 EventView eventView;
                 StringBuilder dayMonthYear = new StringBuilder();
     
@@ -78,15 +78,13 @@ public class View_Calendar extends AppCompatActivity {
                     dayMonthYear.append(day);
 
                 dayMonthYear.append(year);
-    
-                // EventView constructor will most likely replace the old displayEvents method
-                //eventView = new EventView(year, month, day);
-                //displayEvents(dayMonthYear.toString());
             }
         });
         
-        //clearTextViews();
+        //clearTextViews();-
         
     }// end [ METHOD: onCreate ]
     
 }//end [ CLASS: View_Calendar ]
+
+

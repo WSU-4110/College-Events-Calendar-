@@ -123,12 +123,12 @@
         </LinearLayout>
 
         <Button
-            android:id="@+id/view_button"
+            android:id="@+id/view_calendar_button"
             style="@style/AppTheme.RoundedCornerMaterialButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:text="View"
+            android:text="View Calendar"
             android:textStyle="bold" />
 
     </LinearLayout>

@@ -90,7 +90,7 @@ public class signIn extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
 
-        Button btn_view=findViewById(R.id.view_button);
+        Button btn_view=findViewById(R.id.view_calendar_button);
         btn_view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

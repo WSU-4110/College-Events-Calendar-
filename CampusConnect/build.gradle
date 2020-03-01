@@ -22,6 +22,15 @@ allprojects {
 
         maven { url "https://jitpack.io" }
     }
+
+    // Uncomment below to get detailed info on Deprecated items
+    /*
+    gradle.projectsEvaluated {
+        tasks.withType(JavaCompile) {
+            options.compilerArgs << "-Xlint:deprecation"
+        }
+    }
+    */
 }
 
 task clean(type: Delete) {

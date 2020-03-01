@@ -7,6 +7,23 @@
     android:layout_height="match_parent">
 
     <TextView
+        android:id="@+id/Campus_Connect"
+        android:layout_width="316dp"
+        android:layout_height="64dp"
+        android:layout_marginTop="64dp"
+        android:ems="10"
+        android:fontFamily="serif-monospace"
+        android:text="@string/TopBanner_EventView"
+        android:textColor="#59030303"
+        android:textSize="36sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.004" />
+
+    <TextView
         android:id="@+id/textOrg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -22,15 +39,14 @@
 
     <TextView
         android:id="@+id/Org"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="180dp"
+        android:layout_height="30dp"
         android:ems="10"
-        android:hint="Organization"
-        android:inputType="textPersonName"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/EventName"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.386" />
+        app:layout_constraintVertical_bias="0.386"
+        android:importantForAutofill="no"/>
 
     <TextView
         android:id="@+id/textDesc"
@@ -48,15 +64,16 @@
 
     <TextView
         android:id="@+id/Desc"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="180dp"
+        android:layout_height="30dp"
         android:ems="10"
-        android:hint="Description"
-        android:inputType="textPersonName"
+        android:importantForAutofill="no"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/EventName"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/textDesc"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.486" />
+        app:layout_constraintVertical_bias="0.477" />
 
     <TextView
         android:id="@+id/textLocation"
@@ -99,12 +116,10 @@
         app:layout_constraintVertical_bias="0.678"/>
 
     <TextView
-        android:id="@+id/Time"
+        android:id="@+id/StartTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="@string/time"
-        android:inputType="time"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/Location"
         app:layout_constraintTop_toTopOf="parent"
@@ -130,7 +145,6 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="@string/event_name"
-        android:inputType="textPersonName"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.65"
@@ -154,33 +168,16 @@
 
     <TextView
         android:id="@+id/EventDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="180dp"
+        android:layout_height="30dp"
         android:ems="10"
-        android:hint="@string/event_date"
-        android:inputType="date"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/Time"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.783" />
-
-    <TextView
-        android:id="@+id/Campus_Connect"
-        android:layout_width="316dp"
-        android:layout_height="64dp"
-        android:layout_marginTop="64dp"
-        android:ems="10"
-        android:fontFamily="serif-monospace"
-        android:inputType="textPersonName"
-        android:text="@string/goto_event_view"
-        android:textColor="#59030303"
-        android:textSize="36sp"
+        android:importantForAutofill="no"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHorizontal_bias="0.565"
+        app:layout_constraintStart_toEndOf="@+id/textDate"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.796" />
 
     <Button
         android:id="@+id/back_button"

@@ -12,12 +12,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.firestore.FirebaseFirestore;
 
-
+// TODO: Update. HTML.fromHtml is deprecated
+@SuppressWarnings("deprecation")
 public class SavedEvents extends AppCompatActivity {
 
     TextView event_link1;
     String linkText1 ;
-
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
