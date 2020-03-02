@@ -35,14 +35,13 @@ public class EventView extends AppCompatActivity {
     String day_selected;        // Intermediate variable for ease of reading
     Button backto_main;
     
-    TextView eventName;
+    /*TextView eventName;
     TextView eventOrganization;
     TextView eventDescription;
     TextView eventLocation;
     TextView eventStartTime;
-    TextView eventDate;
-
-
+    TextView eventDate;*/
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,8 +54,8 @@ public class EventView extends AppCompatActivity {
                 backTo_main();
             }
         });
-        /*
-        eventName = findViewById(R.id.EventName);
+        
+        /*eventName = findViewById(R.id.EventName);
         eventOrganization = findViewById(R.id.Org);
         eventDescription = findViewById(R.id.Desc);
         eventLocation = findViewById(R.id.Location);
@@ -116,7 +115,6 @@ public class EventView extends AppCompatActivity {
                                 eventDate           .setText(event.getDate_Formatted());        // MM/DD/YYYY
                                 */
 	
-								
                             }// end Query for-loop
 							
 							adapter.addAll(arrayOfEvents);
@@ -143,16 +141,14 @@ class EventListAdapter extends ArrayAdapter<Event> {
     
     @Override
     public View getView(int position, View convertView, ViewGroup parent){
-        
-        Event event;
-        
+
         if (convertView == null) {                                                                      // [1]
             convertView = LayoutInflater
                     .from(getContext())
                     .inflate(R.layout.list_events, parent, false);
         }
         
-        event = getItem(position);                                                                      // [2]
+        Event event = getItem(position);                                                                // [2]
 		
         TextView eventName =        (TextView) convertView.findViewById(R.id.list_EventName);           // [3a]
         TextView eventDate =        (TextView) convertView.findViewById(R.id.list_EventDate);			// [3b]
