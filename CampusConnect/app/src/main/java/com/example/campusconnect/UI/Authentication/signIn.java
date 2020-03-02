@@ -165,7 +165,7 @@ public class signIn extends AppCompatActivity {
                             });
                 } else {
                     progressDialog.dismiss();
-                    Toast.makeText(signIn.this, "Our password or Email never be null", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(signIn.this, "Your Password or Email Cannot be null", Toast.LENGTH_SHORT).show();
                 }
             }
 

@@ -17,13 +17,13 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 class Event {
 
-
     private String name;
     private String location;
     private String startTime;
     private String date;
     private String org;
     private String desc;
+    
     
     Event() {
         name = "EventNameNotProvided";
@@ -33,7 +33,6 @@ class Event {
         org = "EventOrgNotEntered";
         desc = "N/A";
     }
-    
     
     public Event(String name, String location, String startTime, String date, String org, String desc) {
         this.name = name;
@@ -69,9 +68,9 @@ class Event {
     public void setDesc(String desc) { this.desc = desc; }
     
     
-    // !! TODO: Change date/time storage to Calendar
+    // TODO: Discuss changing date/time storage to java.util.Calendar
     
-    // CHECK: Store time 24h?
+    // CHECK: Store time in 24h format?
     public String getStartTime_Formatted(){
         switch(this.startTime.length())
         {
@@ -125,7 +124,6 @@ class Event {
         else
             return "th";
     }
-    
     
     private String getYear() {
         return new String(new char[]{date.charAt(4), date.charAt(5),
@@ -202,8 +200,9 @@ public class EventCreation extends AppCompatActivity{
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     
 
-    // TODO: .add() auto-generates a unique ID,
-    //  but this also means you can keep clicking "Submit Event" and it'll make duplicates
+    // TODO: Add Organization and Description Inputs (perhaps temp drop-down menu for testing)
+    // TODO: .add() auto-generates a unique ID. Side Effect: "Submit Event" can make duplicates
+    // CHECK: IDE stating getName() may cause NullPointerException
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -214,7 +213,6 @@ public class EventCreation extends AppCompatActivity{
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                System.out.println("START onCreate");
                 EventNameInput = (EditText) findViewById(R.id.EventName);
                 locationInput = (EditText) findViewById(R.id.Location);
                 startTimeInput = (EditText) findViewById(R.id.Time);
