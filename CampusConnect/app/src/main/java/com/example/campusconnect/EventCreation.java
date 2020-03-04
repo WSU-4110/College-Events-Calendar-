@@ -225,8 +225,14 @@ public class EventCreation extends AppCompatActivity{
                 Event event = new Event(EventName, location, startTime,
                         date, "Org", "Desc");
                 
-                //db.collection("Events").document("Events").set(event); // Original
-                db.collection("JayTesting").add(event);
+                // Collection -> Document -> SubCollection -> Individual Events
+                // Events -> Events -> Event_SubCollectionTesting -> Individual Events
+                db.collection("Events")
+                        .document("Events")
+                        .collection("Event_SubCollectionTesting")
+                        .add(event);
+                
+                //db.collection("JayTesting").add(event);   // Temp
             }
         });
     }

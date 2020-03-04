@@ -104,7 +104,9 @@ public class EventView extends AppCompatActivity {
         
         // Current Collection: "JayTesting"
         // TODO: Return to "Events" collection once DB structuring finalized
-        db.collection("JayTesting")
+        db.collection("Events")
+                .document("Events")
+                .collection("Event_SubCollectionTesting")
                 .whereEqualTo("date", dateSelected)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -117,8 +119,8 @@ public class EventView extends AppCompatActivity {
 								
 								// BELOW: OLD OUTPUT METHOD
                                 //Event event = document.toObject(Event.class);
-                                /*
-                                eventName           .setText(event.getName());
+                                
+                                /*eventName           .setText(event.getName());
                                 eventOrganization   .setText(event.getOrg());
                                 eventDescription    .setText(event.getDesc());
                                 eventLocation       .setText(event.getLocation());
@@ -129,6 +131,9 @@ public class EventView extends AppCompatActivity {
                             }// end Query for-loop
 							
 							adapter.addAll(arrayOfEvents);
+                        }
+                        else {
+                            System.out.println("-!! DB QUERY FAILURE !!-");
                         }
                     }
                 });
