@@ -224,9 +224,8 @@ public class EventCreation extends AppCompatActivity{
                 date = dateInput.getText().toString();
                 Event event = new Event(EventName, location, startTime,
                         date, "Org", "Desc");
-                //db.collection("Events").document("Events").set(event); // Original
                 
-                // Using .add() makes FireStore auto generate a random ID (as opposed to .set())
+                //db.collection("Events").document("Events").set(event); // Original
                 db.collection("JayTesting").add(event);
             }
         });

@@ -23,7 +23,9 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.004" />
 
-    <!-- Back Button -->
+
+    <!-- Back Button (Standard) -->
+    <!--
     <Button
         android:id="@+id/back_button"
         android:layout_width="382dp"
@@ -37,19 +39,35 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.964"
         tools:visibility="visible" />
+        -->
+
+    <!-- Back Button (Floating) -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floating_back_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"/>
 
 
-    <!-- LIST OF EVENTS -->
-    <!-- Forming of actual list items within [ LAYOUT: list_events.xml ] -->
+    <!-- TODO: Review ListView/Scrolling optimization at link below -->
+    <!-- https://bit.ly/2TlNLRq -->
+    <!-- Forming of actual individual list-items => [ LAYOUT: list_events.xml ] -->
+
+    <!-- LIST OF ITEMS (Events) -->
     <ListView
         android:id="@+id/events_listView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@+id/back_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Campus_Connect">
-
     </ListView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
