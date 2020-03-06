@@ -10,8 +10,6 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.firebase.firestore.FirebaseFirestore;
-
 // TODO: Update. HTML.fromHtml is deprecated
 @SuppressWarnings("deprecation")
 public class SavedEvents extends AppCompatActivity {
@@ -46,9 +44,7 @@ public class SavedEvents extends AppCompatActivity {
     }
 
 
-    }
-
-// end [ CLASS: SavedEvents ]
+}// end [ CLASS: SavedEvents ]
 
 
 

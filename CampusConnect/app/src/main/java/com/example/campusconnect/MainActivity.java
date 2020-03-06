@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CalendarView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -62,15 +61,6 @@ public class MainActivity extends AppCompatActivity {
 				openSavedEvents();
 			}
 		});
-
-
-//		goto_calendar = findViewById(R.id.goto_calendar);							// [BUTTON ACTION]: Calendar View (Month)
-//		goto_calendar.setOnClickListener(new View.OnClickListener() {
-//			@Override
-//			public void onClick(View v) {
-//				open_View_Calendar();
-//			}
-//		});
 		
 		calendar = findViewById(R.id.calendarView);
 		calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
@@ -79,9 +69,6 @@ public class MainActivity extends AppCompatActivity {
 				
 				EventView eventView = new EventView();
 				StringBuilder dayMonthYear = new StringBuilder();
-				
-				// TODO: wut
-				// TODO: The day "12/7/2020" is being output after the below .append()'s were added
 				
 				if ((month + 1) < 10) {
 					dayMonthYear.append('0');
@@ -107,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
 		startActivity(intent);
 	}
 
-	// TODO: Determine whether name change from EventView to DayView is good idea
+	// CHECK: Determine whether name change from EventView to DayView is good idea
 	public void openEventView(String dayMonthYear) {
 		// .putExtra() allows data transfer between Activities
 		// e.g. we can send the String dayMonthYear to EventView

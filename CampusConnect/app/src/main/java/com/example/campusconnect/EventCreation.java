@@ -2,16 +2,12 @@ package com.example.campusconnect;
 
 
 import android.os.Bundle;
-import android.provider.Settings;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
-
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 
@@ -32,6 +28,10 @@ class Event {
         date = "01012019";
         org = "EventOrgNotEntered";
         desc = "N/A";
+    }
+    
+    Event(String dateSelected){
+        this.date = dateSelected;
     }
     
     public Event(String name, String location, String startTime, String date, String org, String desc) {
@@ -68,9 +68,8 @@ class Event {
     public void setDesc(String desc) { this.desc = desc; }
     
     
-    // TODO: Discuss changing date/time storage to java.util.Calendar
+    // UPDATE: to date/time storage to java.util.Calendar
     
-    // CHECK: Store time in 24h format?
     public String getStartTime_Formatted(){
         switch(this.startTime.length())
         {
@@ -93,25 +92,33 @@ class Event {
         }
     }
     
-    // String Formatting: Java Textbook Chapter 10.10.7
-    public String getDate_Formatted(){
-        return String.format("%s/%s/%s", getMonth_Integer(), getDay(), getYear());      // MM/DD/YYYY
+    // OUTPUT FORMAT: MM/DD/YYYY
+    public String getDate_Standard(){
+        return String.format("%s/%s/%s", getMonth_Integer(), getDay(), getYear());
+    }
+    
+    private String getDay() {
+        return new String(new char[]{date.charAt(2), date.charAt(3)});
     }
     
     private String getMonth_Integer() {
         return new String(new char[]{date.charAt(0), date.charAt(1)});
     }
     
-    private String getDay() {
-        //StringBuilder dayBuilder = new StringBuilder();
+    // OUTPUT FORMAT: Month (D)th, YYYY
+    public String getDate_Full(){
+        return String.format("%s %s, %s", getMonth_Name(), getDay_wContraction(), getYear());
+    }
+    
+    private String getDay_wContraction() {
         String dayBuilder = new String(new char[]{date.charAt(2), date.charAt(3)});
         
         return dayBuilder + dayModifier();
     }
     
-    private String dayModifier()
     // Character at index String[3] determines the contraction
     // e.g. 02052020: String Index[3] == 5 -> Contraction: 'rd' -> Feb 3[rd] 2020
+    private String dayModifier()
     {
         char dayDigit = this.date.charAt(3);
         
@@ -136,7 +143,7 @@ class Event {
         String monthName;
         
         month = Integer.parseInt(new String(new char[]{date.charAt(0), date.charAt(1)}));
-        month++;
+        //month++;
         
         switch(month){
             case 1:
@@ -199,11 +206,8 @@ public class EventCreation extends AppCompatActivity{
     Button submitButton;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     
-
-    // TODO: Add Organization and Description Inputs (perhaps temp drop-down menu for testing)
-    // TODO: .add() auto-generates a unique ID. Side Effect: "Submit Event" can make duplicates
-    // CHECK: IDE stating getName() may cause NullPointerException
     
+    // <Event>.add() auto-generates a unique ID. Side Effect: "Submit Event" can make duplicates
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -224,15 +228,11 @@ public class EventCreation extends AppCompatActivity{
                 date = dateInput.getText().toString();
                 Event event = new Event(EventName, location, startTime,
                         date, "Org", "Desc");
-                
-                // Collection -> Document -> SubCollection -> Individual Events
-                // Events -> Events -> Event_SubCollectionTesting -> Individual Events
+
                 db.collection("Events")
                         .document("Events")
                         .collection("Event_SubCollectionTesting")
                         .add(event);
-                
-                //db.collection("JayTesting").add(event);   // Temp
             }
         });
     }
@@ -242,6 +242,15 @@ public class EventCreation extends AppCompatActivity{
 
 
 
+
+
+
+
+//--------------------------------------------------- NOTES ---------------------------------------------------//
+
+// TODO: Add Organization and Description Inputs (perhaps temp drop-down menu for testing)
+
+// CHECK: IDE stating getName() may cause NullPointerException
 
 
 

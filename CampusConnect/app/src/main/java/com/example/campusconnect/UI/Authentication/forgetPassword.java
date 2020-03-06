@@ -1,18 +1,15 @@
 
 package com.example.campusconnect.UI.Authentication;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.res.ResourcesCompat;
-
-import android.graphics.Typeface;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.campusconnect.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -22,7 +19,7 @@ import com.kaopiz.kprogresshud.KProgressHUD;
 
 import es.dmoral.toasty.Toasty;
 
-public class fogetPassword extends AppCompatActivity {
+public class forgetPassword extends AppCompatActivity {
 
     private EditText forgotpassemail;
     private Button sendemail;
@@ -31,7 +28,7 @@ public class fogetPassword extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_foget_password);
+        setContentView(R.layout.activity_forget_password);
 
         forgotpassemail = findViewById(R.id.forgotpassemail);
         sendemail = findViewById(R.id.sendemail);
@@ -49,7 +46,7 @@ public class fogetPassword extends AppCompatActivity {
             public void onClick(View view) {
                 if (validateEmail()) {
 
-                    final KProgressHUD progressDialog = KProgressHUD.create(fogetPassword.this)
+                    final KProgressHUD progressDialog = KProgressHUD.create(forgetPassword.this)
                             .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
                             .setLabel("Please wait")
                             .setCancellable(false);
@@ -62,10 +59,10 @@ public class fogetPassword extends AppCompatActivity {
 
                                     progressDialog.dismiss();
                                     if (task.isSuccessful()) {
-                                        Toasty.info(fogetPassword.this, "Check your Email", Toast.LENGTH_LONG).show();
+                                        Toasty.info(forgetPassword.this, "Check your Email", Toast.LENGTH_LONG).show();
                                         finish();
                                     } else {
-                                        Toasty.info(fogetPassword.this, "Error sending Email", Toast.LENGTH_LONG).show();
+                                        Toasty.info(forgetPassword.this, "Error sending Email", Toast.LENGTH_LONG).show();
                                     }
                                 }
                             });
@@ -78,13 +75,13 @@ public class fogetPassword extends AppCompatActivity {
     private boolean validateEmail() {
         String check = forgotpassemail.getText().toString();
         if (check.length() < 8 || check.length() > 40) {
-            Toasty.info(fogetPassword.this, "Enter the valid email", Toast.LENGTH_LONG).show();
+            Toasty.info(forgetPassword.this, "Enter the valid email", Toast.LENGTH_LONG).show();
             return false;
         } else if (!check.matches("^[A-za-z0-9.@_]+")) {
-            Toasty.info(fogetPassword.this, "Enter the valid email", Toast.LENGTH_LONG).show();
+            Toasty.info(forgetPassword.this, "Enter the valid email", Toast.LENGTH_LONG).show();
             return false;
         } else if (!check.contains("@") || !check.contains(".")) {
-            Toasty.info(fogetPassword.this, "Enter the valid email", Toast.LENGTH_LONG).show();
+            Toasty.info(forgetPassword.this, "Enter the valid email", Toast.LENGTH_LONG).show();
             return false;
         }
         return true;

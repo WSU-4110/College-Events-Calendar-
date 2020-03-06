@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
+    android:background="@color/primaryGreen"
     android:gravity="center"
     tools:context=".UI.Authentication.signIn">
 
@@ -84,7 +84,7 @@
             android:layout_marginTop="10dp"
             android:onClick="gmailAccount"
             android:text="GMAIL"
-            android:textColor="@color/colorAccent"
+            android:textColor="@color/accentGold"
             android:textSize="15sp" />
 
 

@@ -29,35 +29,17 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.Objects;
 
-// TODO: Discuss class placements (e.g. moving the custom ArrayAdapter() to Event class)
-// CHECK: Classes without access specifiers [Seems to make items Package-Private]
 public class EventView extends AppCompatActivity {
     
-    String day_selected;        // Intermediate variable for ease of reading
+    String day_selected;        // Date selected by user and passed in from Intent
     Button backto_main;
     FloatingActionButton floating_backToMain;
-    
-    /*TextView eventName;
-    TextView eventOrganization;
-    TextView eventDescription;
-    TextView eventLocation;
-    TextView eventStartTime;
-    TextView eventDate;*/
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.event_view);
-        
-        /*
-        backto_main = findViewById(R.id.back_button);
-        backto_main.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                backTo_main();
-            }
-        });*/
-        
+    
         floating_backToMain = findViewById(R.id.floating_back_button);
         floating_backToMain.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,45 +47,42 @@ public class EventView extends AppCompatActivity {
                 backTo_main();
             }
         });
-        
-        /*eventName = findViewById(R.id.EventName);
-        eventOrganization = findViewById(R.id.Org);
-        eventDescription = findViewById(R.id.Desc);
-        eventLocation = findViewById(R.id.Location);
-        eventStartTime = findViewById(R.id.StartTime);
-        eventDate = findViewById(R.id.EventDate);*/
     
-        day_selected = getIntent().getStringExtra("EXTRA_DAY_SELECTED");                // Get String passed in from MainActivity (i.e. user's selected date from cal)
+        day_selected = getIntent().getStringExtra("EXTRA_DAY_SELECTED");                // Extract String from Intent attached from MainActivity
+        System.out.println("day: " + day_selected);
         displayEventsForSelectedDay(day_selected);
     }
     
     // Back Button
-    public void backTo_main() {
+    private void backTo_main() {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
     
+    // Local helper class for setting header/title for events list
+    class DateHeaderHelper extends Event {
+        public String dateFullFormat_helper() {
+            this.setDate(day_selected);
+            return this.getDate_Full();
+        }
+    }
     
-    // CHECK: Look into view recycling: https://bit.ly/2I6nPCV
-    // --| ATTACHING THE ADAPTER TO A LIST VIEW |--
-    // 1. Construct the data source
-    // 2. Create the Adapter to convert the array to views
-    // 3. Declare the ListView object
-    // 4. Attach the adapter to a ListView (XML)
+    // SEE BELOW for attaching adapter to a ListView
     private void displayEventsForSelectedDay(String dateSelected) {
-     
-    	FirebaseFirestore db = FirebaseFirestore.getInstance();
-		final ArrayList<Event> arrayOfEvents;
-    	final EventListAdapter adapter;
+    
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        TextView eventListHeader = findViewById(R.id.EventList_HeaderDynamic);
+        eventListHeader.setText(new DateHeaderHelper().dateFullFormat_helper());
+    
+        final ArrayList<Event> arrayOfEvents;
+        final EventListAdapter adapter;
         ListView listView;
         
-        arrayOfEvents = new ArrayList<>();											// [1]
-        adapter= new EventListAdapter(this, arrayOfEvents);					// [2]
-        listView = (ListView) findViewById(R.id.events_listView);					// [3]
-        listView.setAdapter(adapter);												// [4]
+        arrayOfEvents = new ArrayList<>();                                           // [1]
+        adapter = new EventListAdapter(this, arrayOfEvents);                 // [2]
+        listView = (ListView) findViewById(R.id.events_listView);                    // [3]
+        listView.setAdapter(adapter);                                                // [4]
         
-        // Current Collection: "JayTesting"
-        // TODO: Return to "Events" collection once DB structuring finalized
         db.collection("Events")
                 .document("Events")
                 .collection("Event_SubCollectionTesting")
@@ -113,42 +92,24 @@ public class EventView extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
                             
-								arrayOfEvents.add((Event) document.toObject(Event.class));
-								
-								// BELOW: OLD OUTPUT METHOD
-                                //Event event = document.toObject(Event.class);
-                                
-                                /*eventName           .setText(event.getName());
-                                eventOrganization   .setText(event.getOrg());
-                                eventDescription    .setText(event.getDesc());
-                                eventLocation       .setText(event.getLocation());
-                                eventStartTime      .setText(event.getStartTime_Formatted());   // HH:MM
-                                eventDate           .setText(event.getDate_Formatted());        // MM/DD/YYYY
-                                */
-	
-                            }// end Query for-loop
-							
-							adapter.addAll(arrayOfEvents);
-                        }
-                        else {
-                            System.out.println("-!! DB QUERY FAILURE !!-");
+                            for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
+                                arrayOfEvents.add((Event) document.toObject(Event.class));
+                            }
+    
+                            adapter.addAll(arrayOfEvents);
                         }
                     }
                 });
         
-    }// end [ METHOD: displayEventsForSelectedDay() ]
+        
+    }
     
-}// end [ CLASS: EventView() ]
+}
 
 
-// Custom class for displaying Events in a list using Adapters
-// 1. Check if an existing view is being reused, otherwise inflate the view
-// 2. Get the data item for this position
-// 3. Lookup view for data population
-// 4. Populate the data into the template view using the data object
-// 5. Return the completed view to render on screen
+
+// SEE BELOW for Adapter custom class procedure
 class EventListAdapter extends ArrayAdapter<Event> {
     
     public EventListAdapter(Context context, ArrayList<Event> events){
@@ -169,10 +130,8 @@ class EventListAdapter extends ArrayAdapter<Event> {
         TextView eventName =        (TextView) convertView.findViewById(R.id.list_EventName);           // [3a]
         TextView eventDate =        (TextView) convertView.findViewById(R.id.list_EventDate);			// [3b]
         TextView eventLocation =    (TextView) convertView.findViewById(R.id.list_EventLocation);		// [3c]
-        
-        // TODO: Change string literal usage for TextView setText()
-        // TODO: Once complete, switch to getDate_formatted()
-        eventName.setText("Event Name:    ");                                                         // [4]
+
+        eventName.setText("Event Name:    ");                                                           // [4]
         eventName.append(event.getName());
     
         eventDate.setText("Date:    ");
@@ -186,3 +145,28 @@ class EventListAdapter extends ArrayAdapter<Event> {
     }// end [ METHOD: getView() ]
     
 }// end [ CLASS: EventListAdapter() ]
+
+
+
+
+//--------------------------------------------------- NOTES ---------------------------------------------------//
+
+// --| ATTACHING THE ADAPTER TO A LIST VIEW |--
+// 1. Construct the data source
+// 2. Create the Adapter to convert the array to views
+// 3. Declare the ListView object
+// 4. Attach the adapter to a ListView (XML)
+
+// --| CUSTOM ADAPTER CLASS |--
+// 1. Check if an existing view is being reused, otherwise inflate the view
+// 2. Get the data item for this position
+// 3. Lookup view for data population
+// 4. Populate the data into the template view using the data object
+// 5. Return the completed view to render on screen
+
+
+
+// CHECK: Classes without access specifiers [Seems to make items Package-Private]
+// CHECK: Can we apply a method similar to the singleton DB connection example in [Lecture 11]?
+// CHECK: Also, better to make use an Event object local to DateHelper [OR] keep extends?
+// CHECK: Look into view recycling: https://bit.ly/2I6nPCV
