@@ -30,6 +30,9 @@
             android:name=".EventView"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
+            android:name=".EventDetailedView"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
             android:name=".SavedEvents"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
 

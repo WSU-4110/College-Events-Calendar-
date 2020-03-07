@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -34,12 +35,15 @@ public class EventView extends AppCompatActivity {
     String day_selected;        // Date selected by user and passed in from Intent
     Button backto_main;
     FloatingActionButton floating_backToMain;
-    
+    ListView listView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.event_view);
-    
+        listView = (ListView) findViewById(R.id.events_listView);
+
+
         floating_backToMain = findViewById(R.id.floating_back_button);
         floating_backToMain.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,6 +62,7 @@ public class EventView extends AppCompatActivity {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
+
     
     // Local helper class for setting header/title for events list
     class DateHeaderHelper extends Event {
@@ -76,12 +81,25 @@ public class EventView extends AppCompatActivity {
     
         final ArrayList<Event> arrayOfEvents;
         final EventListAdapter adapter;
-        ListView listView;
+
         
         arrayOfEvents = new ArrayList<>();                                           // [1]
         adapter = new EventListAdapter(this, arrayOfEvents);                 // [2]
         listView = (ListView) findViewById(R.id.events_listView);                    // [3]
-        listView.setAdapter(adapter);                                                // [4]
+        listView.setAdapter(adapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener()
+        {
+            public void onItemClick(AdapterView<?> arg0,View arg1, int position, long arg3)
+            {
+                Event event = (Event)listView.getAdapter().getItem(position);
+                System.out.println( " Event Obt ~~~~~~~~~~~~~~~~" + event.toString());
+                Intent intent = new Intent(getApplicationContext(), EventDetailedView.class);
+                //intent.putExtra("position", position);
+                intent.putExtra("Event", event.toString());
+                startActivity(intent);
+            }
+        });
         
         db.collection("Events")
                 .document("Events")
@@ -110,7 +128,7 @@ public class EventView extends AppCompatActivity {
 
 
 // SEE BELOW for Adapter custom class procedure
-class EventListAdapter extends ArrayAdapter<Event> {
+class EventListAdapter extends ArrayAdapter<Event>  {
     
     public EventListAdapter(Context context, ArrayList<Event> events){
         super(context, 0, events);
@@ -131,19 +149,20 @@ class EventListAdapter extends ArrayAdapter<Event> {
         TextView eventDate =        (TextView) convertView.findViewById(R.id.list_EventDate);			// [3b]
         TextView eventLocation =    (TextView) convertView.findViewById(R.id.list_EventLocation);		// [3c]
 
+
         eventName.setText("Event Name:    ");                                                           // [4]
         eventName.append(event.getName());
-    
+
         eventDate.setText("Date:    ");
         eventDate.append(event.getDate());
-    
+
         eventLocation.setText("Location:    ");
         eventLocation.append(event.getLocation());
         
         return convertView;                                                                             // [5]
         
     }// end [ METHOD: getView() ]
-    
+
 }// end [ CLASS: EventListAdapter() ]
 
 

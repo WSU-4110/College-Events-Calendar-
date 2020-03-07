@@ -2,6 +2,8 @@ package com.example.campusconnect;
 
 
 import android.os.Bundle;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -66,8 +68,11 @@ class Event {
     public void setOrg(String org) { this.org = org; }
 
     public void setDesc(String desc) { this.desc = desc; }
-    
-    
+
+    public String toString()
+    {
+        return name + "|" + location + "|" + startTime + "|" + date + "|" + org + "|" + desc;
+    }
     // UPDATE: to date/time storage to java.util.Calendar
     
     public String getStartTime_Formatted(){
@@ -189,7 +194,8 @@ class Event {
         
         return monthName;
     }
-  
+
+
 }// end [ CLASS: Event ]
 
 
