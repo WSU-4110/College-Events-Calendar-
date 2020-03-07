@@ -92,11 +92,11 @@ public class EventView extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
-                            
+
                             for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
                                 arrayOfEvents.add((Event) document.toObject(Event.class));
                             }
-    
+
                             adapter.addAll(arrayOfEvents);
                         }
                     }

@@ -196,12 +196,14 @@ class Event {
 
 public class EventCreation extends AppCompatActivity{
 
-    String EventName, location, startTime, date;
+    String EventName, location, startTime, date, desc, org;
 
     EditText EventNameInput;
     EditText locationInput;
     EditText startTimeInput;
     EditText dateInput;
+    EditText descInput;
+    EditText orgInput;
 
     Button submitButton;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -221,13 +223,17 @@ public class EventCreation extends AppCompatActivity{
                 locationInput = (EditText) findViewById(R.id.Location);
                 startTimeInput = (EditText) findViewById(R.id.Time);
                 dateInput = (EditText) findViewById(R.id.EventDate);
+                descInput = (EditText) findViewById(R.id.Description);
+                orgInput = (EditText) findViewById(R.id.Organization);
 
                 EventName = EventNameInput.getText().toString();
                 location = locationInput.getText().toString();
                 startTime = startTimeInput.getText().toString();
                 date = dateInput.getText().toString();
+                desc = descInput.getText().toString();
+                org = orgInput.getText().toString();
                 Event event = new Event(EventName, location, startTime,
-                        date, "Org", "Desc");
+                        date, org, desc);
 
                 db.collection("Events")
                         .document("Events")
