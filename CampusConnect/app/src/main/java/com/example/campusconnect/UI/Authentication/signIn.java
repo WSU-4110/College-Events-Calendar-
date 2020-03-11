@@ -51,7 +51,6 @@ public class signIn extends AppCompatActivity {
         public void onTextChanged(CharSequence s, int start, int before, int count) {
         }
         
-        // CURRENT: aftertextchange is running b/c showAlt() is executing email.setText()
         @Override
         public void afterTextChanged(Editable s) {
             String check = s.toString();
@@ -228,7 +227,6 @@ public class signIn extends AppCompatActivity {
     }
     
     public void showAlt(){
-        System.out.println("~!! ALT !!~");
         final ImageView altview = (ImageView) findViewById(R.id.alt4263336);
     
         email.setError("");
