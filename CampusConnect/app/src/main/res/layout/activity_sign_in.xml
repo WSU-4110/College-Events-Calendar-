@@ -119,7 +119,6 @@
                 android:layout_height="wrap_content"
                 android:text=" Register Now " />
 
-
         </LinearLayout>
 
         <Button
@@ -131,6 +130,18 @@
             android:text="View Calendar"
             android:textStyle="bold" />
 
+
     </LinearLayout>
+
+    <pl.droidsonroids.gif.GifImageView
+        android:id="@+id/alt4263336"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:scaleType="centerInside"
+        android:src="@drawable/alt4263336"
+        android:visibility="invisible" />
 
 </RelativeLayout>
