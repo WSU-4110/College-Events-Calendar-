@@ -41,8 +41,11 @@ public class EventDetailedView extends AppCompatActivity {
     TextView orgInput;
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
+    FloatingActionButton floating_toSavedEvents;
 
-//DocumentReference serializedDay = db.;                                    // ??CHECK: Can we implement a serial variable to make DB searches easy?
+//DocumentReference serializedDay = db.;
+//
+// ??CHECK: Can we implement a serial variable to make DB searches easy?
 
 
     @Override
@@ -77,7 +80,19 @@ public class EventDetailedView extends AppCompatActivity {
         descInput.setText(event.getDesc());
         orgInput.setText(event.getOrg());
 
-    }
+        floating_toSavedEvents = findViewById(R.id.floating_back_button);
+        /*
+        floating_toSavedEvents.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Event event = (Event)listView.getAdapter().getItem(position);
+                System.out.println( " Event Obt ~~~~~~~~~~~~~~~~" + event.toString());
+                Intent intent = new Intent(getApplicationContext(), SavedEvents.class);
+                intent.putExtra("Event", event.toString());
+                startActivity(intent);
+            }
+            }); */
+            }
 
 
     // Back Button
