@@ -81,17 +81,25 @@ public class EventDetailedView extends AppCompatActivity {
         orgInput.setText(event.getOrg());
 
         floating_toSavedEvents = findViewById(R.id.floating_back_button);
-        /*
+
         floating_toSavedEvents.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Event event = (Event)listView.getAdapter().getItem(position);
-                System.out.println( " Event Obt ~~~~~~~~~~~~~~~~" + event.toString());
+                SavedEvent sEvent = new SavedEvent("Ponnila", EventNameInput.getText().toString(),locationInput.getText().toString(),
+                        startTimeInput.getText().toString(), dateInput.getText().toString(),
+                        descInput.getText().toString(), orgInput.getText().toString());
                 Intent intent = new Intent(getApplicationContext(), SavedEvents.class);
-                intent.putExtra("Event", event.toString());
+                intent.putExtra("SavedEvent", sEvent.toString());
                 startActivity(intent);
+                /*
+                db.collection("SavedEvent")
+                        .document("SavedEvent")
+                        .collection("Event_SubCollectionTesting")
+                        .add(SavedEvent);
+
+                 */
             }
-            }); */
+            });
             }
 
 
