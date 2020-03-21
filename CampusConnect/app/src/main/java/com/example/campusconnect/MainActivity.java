@@ -12,6 +12,8 @@ import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import com.google.firebase.auth.*;
+
 
 
 
@@ -23,6 +25,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity {
 	//private Button button;
+	private MenuItem signinout;
 	private Button goto_calendar;
 	private Button goto_signin;
 	//private Button goto_eventView;
@@ -45,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
 		getSupportActionBar().setDisplayUseLogoEnabled(true);
 		*/
 
-
+/*
 		//logout button
 		final FirebaseAuth mAuth=FirebaseAuth.getInstance();
 		Button btn_logout=findViewById(R.id.logout_button);
@@ -57,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
 				mAuth.signOut();
 			}
 		});
-
+*/
 
 		/* after adding the toolbar, we dont need this
 		button = findViewById(R.id.gotoEventCreation);								// [BUTTON ACTION]: Event Creation Page
@@ -142,10 +145,18 @@ public class MainActivity extends AppCompatActivity {
 		{
 			// need to add what it will do when selected -T
 		}
-		else if(item.getItemId()==R.id.log_in_out)
+		else if(item.getItemId()==R.id.login)
 		{
-			Intent intent = new Intent(this, signIn.class);
-			startActivity(intent);
+
+				Intent intent = new Intent(this, signIn.class);
+				startActivity(intent);
+
+		}
+		else if(item.getItemId()==R.id.logout){
+			final FirebaseAuth mAuth=FirebaseAuth.getInstance();
+			startActivity(new Intent(MainActivity.this, signIn.class));
+			//FirebaseAuth.getInstance().signOut();
+			mAuth.signOut();
 		}
 		else
 		{
@@ -160,10 +171,7 @@ public class MainActivity extends AppCompatActivity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.menu_main, menu);
 
-		//Todo: check if the user is signed in or not. Depending on the result, a menu option
-		// will display either "login" or "logout" and then execute the appropriate method.
-		// For testing purposes, it will now just assume you want to sign in. -T
-		// I'll do that once everything else is set.
+
 
 		return true;
 	}

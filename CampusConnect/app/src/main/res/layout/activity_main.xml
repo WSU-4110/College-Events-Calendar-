@@ -88,7 +88,7 @@
                 android:layout_marginTop="20dp"
                 android:text="Saved Events"
                 android:textStyle="bold" />
-
+<!--
             <Button
                 android:id="@+id/logout_button"
                 style="@style/AppTheme.RoundedCornerMaterialButton"
@@ -98,7 +98,7 @@
                 android:text="Logout"
                 android:textStyle="bold" />
 
-
+-->
             <!--        <Button-->
             <!--        android:id="@+id/gotoEventCreation"-->
             <!--        android:layout_width="wrap_content"-->
