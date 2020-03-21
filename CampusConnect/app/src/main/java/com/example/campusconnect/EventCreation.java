@@ -1,15 +1,20 @@
 package com.example.campusconnect;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
+import com.example.campusconnect.UI.Authentication.signIn;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 
@@ -247,6 +252,38 @@ public class EventCreation extends AppCompatActivity{
                         .add(event);
             }
         });
+
+
+        Toolbar toolbar = findViewById(R.id.toolbar_main);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Event Creation");
+    }
+
+    @Override public boolean onOptionsItemSelected(MenuItem item){
+        if(item.getItemId() == R.id.newEvent){
+
+        }
+        else if(item.getItemId() == R.id.Option1)
+        {
+            // need to add what it will do when selected -T
+        }
+        else if(item.getItemId()==R.id.log_in_out)
+        {
+            Intent intent = new Intent(this, signIn.class);
+            startActivity(intent);
+        }
+        else
+        {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+
+        return true;
     }
     
 }// end [ CLASS: EventCreation ]
