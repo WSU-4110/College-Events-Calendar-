@@ -1,10 +1,19 @@
 package com.example.campusconnect;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CalendarView;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import android.view.ContextMenu;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+
+
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,6 +35,17 @@ public class MainActivity extends AppCompatActivity {
 		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		Toolbar toolbar = findViewById(R.id.toolbar_main);
+		setSupportActionBar(toolbar);
+		getSupportActionBar().setTitle("Home");
+		//toolbar.setTitleTextAppearance();
+		/* This code displays our icon in the toolbar, but i'm not a huge fan of the design, check it out
+		getSupportActionBar().setDisplayShowHomeEnabled(true);
+		getSupportActionBar().setLogo(R.mipmap.ic_launcher);
+		getSupportActionBar().setDisplayUseLogoEnabled(true);
+		*/
+
+
 		//logout button
 		final FirebaseAuth mAuth=FirebaseAuth.getInstance();
 		Button btn_logout=findViewById(R.id.logout_button);
@@ -87,6 +107,7 @@ public class MainActivity extends AppCompatActivity {
 				openEventView(dayMonthYear.toString());
 			}
 		});
+
 	}
 	
 	public void openEventCreator() {
@@ -108,6 +129,42 @@ public class MainActivity extends AppCompatActivity {
 		Intent intent = new Intent(this, SavedEvents.class);
 		startActivity(intent);
 	}
-	
+
+
+	@Override public boolean onOptionsItemSelected(MenuItem item){
+		if(item.getItemId() == R.id.newEvent){
+			Intent intent = new Intent(this, EventCreation.class);
+			startActivity(intent);
+		}
+		else if(item.getItemId() == R.id.Option1)
+		{
+			// need to add what it will do when selected -T
+		}
+		else if(item.getItemId()==R.id.log_in_out)
+		{
+			Intent intent = new Intent(this, signIn.class);
+			startActivity(intent);
+		}
+		else
+		{
+			return false;
+		}
+		return true;
+	}
+
+
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		getMenuInflater().inflate(R.menu.menu_main, menu);
+
+		//Todo: check if the user is signed in or not. Depending on the result, a menu option
+		// will display either "login" or "logout" and then execute the appropriate method.
+		// For testing purposes, it will now just assume you want to sign in. -T
+		// I'll do that once everything else is set.
+
+		return true;
+	}
+
 }//end [ CLASS: MainActivity ]
 

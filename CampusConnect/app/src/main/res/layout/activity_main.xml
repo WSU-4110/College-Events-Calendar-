@@ -7,62 +7,78 @@
     tools:context=".MainActivity"
     android:background="@color/primaryGreen">
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:scrollbarStyle="insideInset"
-        android:scrollbars="vertical">
-
-        <LinearLayout
+    <!--
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:minHeight="?attr/actionBarSize"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:padding="30dp">
+            android:layout_height="wrap_content"
+            app:titleTextColor="@android:color/white"
+            android:background="?attr/colorPrimary">
+        </androidx.appcompat.widget.Toolbar>
+        -->
+       <include
 
-            <TextView
-                android:id="@+id/appname"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/blacklist"
-                android:layout_below="@id/logo"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="10dp"
-                android:text="@string/app_name"
-                android:textColor="#fff"
-                android:textSize="45sp" />
+            layout="@layout/toolbar_main" />
 
-            <CalendarView
-                android:id="@+id/calendarView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
-                android:background="#ffff"
-                android:layout_marginTop="20dp"
-                android:maxDate="12/31/2022"
-                android:minDate="01/01/2019"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
 
-            <Button
-                android:id="@+id/gotoEventCreation"
-                style="@style/AppTheme.RoundedCornerMaterialButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:text="EVENT CREATION"
-                android:textStyle="bold" />
-<!--
-            <Button
-                android:id="@+id/gotoEventView"
-                style="@style/AppTheme.RoundedCornerMaterialButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text="Event view"
-                android:textStyle="bold" />
--->
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/toolbar_main"
+            android:scrollbarStyle="insideInset"
+            android:scrollbars="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="30dp">
+
+                <TextView
+                    android:id="@+id/appname"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/logo"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/blacklist"
+                    android:text="@string/app_name"
+                    android:textColor="#fff"
+                    android:textSize="45sp" />
+
+                <CalendarView
+                    android:id="@+id/calendarView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:background="#ffff"
+                    android:maxDate="12/31/2022"
+                    android:minDate="01/01/2019"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <Button
+                    android:id="@+id/gotoEventCreation"
+                    style="@style/AppTheme.RoundedCornerMaterialButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="EVENT CREATION"
+                    android:textStyle="bold" />
+                <!--
+                <Button
+                    android:id="@+id/gotoEventView"
+                    style="@style/AppTheme.RoundedCornerMaterialButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="Event view"
+                    android:textStyle="bold" />
+    -->
             <Button
                 android:id="@+id/gotoSavedEvents"
                 style="@style/AppTheme.RoundedCornerMaterialButton"
@@ -124,4 +140,5 @@
 
         </LinearLayout>
     </ScrollView>
+
 </RelativeLayout>
