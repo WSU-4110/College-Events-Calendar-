@@ -60,7 +60,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
-
+<!--
                 <Button
                     android:id="@+id/gotoEventCreation"
                     style="@style/AppTheme.RoundedCornerMaterialButton"
@@ -69,6 +69,7 @@
                     android:layout_marginTop="5dp"
                     android:text="EVENT CREATION"
                     android:textStyle="bold" />
+                    -->
                 <!--
                 <Button
                     android:id="@+id/gotoEventView"

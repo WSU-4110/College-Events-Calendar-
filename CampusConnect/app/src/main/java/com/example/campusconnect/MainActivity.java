@@ -22,7 +22,7 @@ import com.example.campusconnect.UI.Authentication.signIn;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity {
-	private Button button;
+	//private Button button;
 	private Button goto_calendar;
 	private Button goto_signin;
 	//private Button goto_eventView;
@@ -57,7 +57,9 @@ public class MainActivity extends AppCompatActivity {
 				mAuth.signOut();
 			}
 		});
-		
+
+
+		/* after adding the toolbar, we dont need this
 		button = findViewById(R.id.gotoEventCreation);								// [BUTTON ACTION]: Event Creation Page
 		button.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -65,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
 				openEventCreator();
 			}
 		});
-
+*/
 		/*goto_eventView = findViewById(R.id.gotoEventView);						// [BUTTON ACTION]: Event View Page
 		goto_eventView.setOnClickListener(new View.OnClickListener() {
 			@Override
