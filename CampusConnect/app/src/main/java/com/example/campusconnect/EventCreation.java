@@ -10,11 +10,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.example.campusconnect.UI.Authentication.signIn;
+import com.example.campusconnect.UI.Authentication.signUp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -227,7 +229,7 @@ public class EventCreation extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.event_creation);
         
-        submitButton = findViewById(R.id.event_submit_button);
+        submitButton = (Button)findViewById(R.id.event_submit_button);
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -251,6 +253,10 @@ public class EventCreation extends AppCompatActivity{
                         .document("Events")
                         .collection("Event_SubCollectionTesting")
                         .add(event);
+
+                Toast.makeText(EventCreation.this, "Event Added", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(EventCreation.this, MainActivity.class);
+                startActivity(intent);
             }
         });
 

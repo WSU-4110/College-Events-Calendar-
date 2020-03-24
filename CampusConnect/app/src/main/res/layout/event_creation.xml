@@ -134,14 +134,13 @@
             android:textStyle="bold"
             android:text="Date:"/>
 
-    <EditText
-        android:id="@+id/EventDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="@string/event_date"
-        android:inputType="date"
-/>
+        <EditText
+            android:id="@+id/EventDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/event_date"
+            android:inputType="date" />
     </LinearLayout>
 
     <LinearLayout
