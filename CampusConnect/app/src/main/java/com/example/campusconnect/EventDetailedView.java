@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -42,6 +43,7 @@ public class EventDetailedView extends AppCompatActivity {
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     FloatingActionButton floating_toSavedEvents;
+    ImageView whatsappImg;
 
 //DocumentReference serializedDay = db.;
 //
@@ -81,6 +83,16 @@ public class EventDetailedView extends AppCompatActivity {
         orgInput.setText(event.getOrg());
 
         floating_toSavedEvents = findViewById(R.id.floating_back_button);
+        whatsappImg = findViewById(R.id.whatsapplogo);
+
+        whatsappImg.setOnClickListener(new View.OnClickListener() {
+             @Override
+               public void onClick(View view) {
+                    shareOnWhatsapp();
+               }
+            });
+
+
 
         floating_toSavedEvents.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,6 +114,22 @@ public class EventDetailedView extends AppCompatActivity {
             }
             });
             }
+
+
+    // Back Button
+    private void shareOnWhatsapp() {
+        System.out.println(" Start sharing in WhatsApp");
+
+        Intent whatsappIntent = new Intent(Intent.ACTION_SEND);
+        whatsappIntent.setType("text/plain");
+        whatsappIntent.setPackage("com.whatsapp");
+        whatsappIntent.putExtra(Intent.EXTRA_TEXT, "Test Event Text from Campus Connect");
+        try {
+            startActivity(whatsappIntent);
+        } catch (android.content.ActivityNotFoundException ex) {
+            //ToastHelper.MakeShortText("Whatsapp have not been installed.");
+        }
+    }
 
 
     // Back Button

@@ -200,7 +200,7 @@
         app:srcCompat="@android:drawable/stat_notify_more" />
 
     <ImageView
-        android:id="@+id/logo"
+        android:id="@+id/twitterlogo"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginStart="22dp"
@@ -221,7 +221,7 @@
 
 
     <ImageView
-        android:id="@+id/whlogo"
+        android:id="@+id/whatsapplogo"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginStart="142dp"
