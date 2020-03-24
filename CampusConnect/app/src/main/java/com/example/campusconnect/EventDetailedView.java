@@ -91,6 +91,7 @@ public class EventDetailedView extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), SavedEvents.class);
                 intent.putExtra("SavedEvent", sEvent.toString());
                 startActivity(intent);
+
                 /*
                 db.collection("SavedEvent")
                         .document("SavedEvent")
