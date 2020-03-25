@@ -112,26 +112,30 @@ public class EventView extends AppCompatActivity {
 	
 	private String wholeDateBuilder(String day, String month, String year){
 		// !! NOTE: Jan == 0, Dec == 11
-		
+
 		StringBuilder date = new StringBuilder();
-		
+
 		int dayNumber = Integer.parseInt(day);
 		int monthNumber = Integer.parseInt(month) + 1;
-		
-		if (monthNumber < 10) {
-			date.append("0");
-		}
-		
+
+//		if (monthNumber < 10) {
+//			date.append("0");
+//		}
+
 		date.append(monthNumber);
-		
-		if(dayNumber < 10){
-			date.append("0");
-		}
-		
+        date.append("/");
+
+//		if(dayNumber < 10){
+//			date.append("0");
+//		}
+
 		date.append(day);
+        date.append("/");
 		date.append(year);
-		
+
 		return date.toString();			// StringBuilder to String
+
+
 	}
 	
 }// END CLASS [ EventView ]
