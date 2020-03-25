@@ -2,11 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="dc7acf5f-8907-4ddd-981c-18661de8d778" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/CampusConnect/app/src/main/java/com/example/campusconnect/EventCreation.java" beforeDir="false" afterPath="$PROJECT_DIR$/CampusConnect/app/src/main/java/com/example/campusconnect/EventCreation.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CampusConnect/app/src/main/java/com/example/campusconnect/EventView.java" beforeDir="false" afterPath="$PROJECT_DIR$/CampusConnect/app/src/main/java/com/example/campusconnect/EventView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CampusConnect/app/src/main/java/com/example/campusconnect/View_Calendar.java" beforeDir="false" afterPath="$PROJECT_DIR$/CampusConnect/app/src/main/java/com/example/campusconnect/View_Calendar.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CampusConnect/app/src/main/res/layout/event_view.xml" beforeDir="false" afterPath="$PROJECT_DIR$/CampusConnect/app/src/main/res/layout/event_view.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CampusConnect/app/src/main/res/layout/event_creation.xml" beforeDir="false" afterPath="$PROJECT_DIR$/CampusConnect/app/src/main/res/layout/event_creation.xml" afterDir="false" />
     </list>
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -21,26 +20,6 @@
     <option name="height" value="1047" />
   </component>
   <component name="ProjectId" id="1XoL40lySXubhLwSIvJGV1lhbbi" />
-  <component name="ProjectView">
-    <navigator currentView="ProjectPane" proportions="" version="1">
-      <foldersAlwaysOnTop value="true" />
-    </navigator>
-    <panes>
-      <pane id="ProjectPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="College-Events-Calendar-" type="b2602c69:ProjectViewProjectNode" />
-              <item name="College-Events-Calendar-" type="462c0819:PsiDirectoryNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
-    </panes>
-  </component>
   <component name="ProjectViewState">
     <option name="showExcludedFiles" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -51,18 +30,6 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-  </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
-      <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
-      </list>
-    </option>
   </component>
   <component name="ServiceViewManager">
     <option name="viewStates">
@@ -87,33 +54,14 @@
       <option name="presentableId" value="Default" />
       <updated>1581445538836</updated>
       <workItem from="1581707310829" duration="2000" />
+      <workItem from="1585096688365" duration="1000" />
     </task>
     <servers />
   </component>
-  <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="2576" height="1416" extended-state="6" />
-    <layout>
-      <window_info active="true" content_ui="combo" id="Project" visible="true" weight="0.19582348" />
-      <window_info id="Structure" side_tool="true" />
-      <window_info id="Image Layers" />
-      <window_info id="Designer" />
-      <window_info id="Resources Explorer" />
-      <window_info id="Capture Tool" />
-      <window_info id="Favorites" side_tool="true" />
-      <window_info id="Captures" order="0" weight="0.25" />
-      <window_info anchor="bottom" id="Version Control" />
-      <window_info anchor="bottom" id="TODO" />
-      <window_info anchor="bottom" id="Terminal" />
-      <window_info anchor="bottom" id="Event Log" side_tool="true" />
-      <window_info anchor="right" id="Capture Analysis" />
-      <window_info anchor="right" id="Theme Preview" />
-      <window_info anchor="right" id="Palette&#9;" />
-    </layout>
-  </component>
   <component name="WindowStateProjectService">
-    <state x="976" y="525" key="com.intellij.ide.util.TipDialog" timestamp="1581707311277">
+    <state x="976" y="525" key="com.intellij.ide.util.TipDialog" timestamp="1585096688104">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state x="976" y="525" key="com.intellij.ide.util.TipDialog/0.0.2560.1400/-1050.0.1050.1640@0.0.2560.1400" timestamp="1581707311277" />
+    <state x="976" y="525" key="com.intellij.ide.util.TipDialog/0.0.2560.1400/-1050.0.1050.1640@0.0.2560.1400" timestamp="1585096688104" />
   </component>
 </project>

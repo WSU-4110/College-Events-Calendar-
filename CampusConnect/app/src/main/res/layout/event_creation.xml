@@ -29,194 +29,192 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0" />
         -->
-<ScrollView
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_below="@+id/toolbar_main"
-    android:scrollbarStyle="insideInset"
-    android:scrollbars="vertical">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:padding="30dp">
-
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingVertical="15dp"
-        android:gravity="center">
+        android:layout_below="@+id/toolbar_main"
+        android:scrollbarStyle="insideInset"
+        android:scrollbars="vertical">
 
-        <TextView
-            android:layout_width="140dp"
-            android:layout_height="wrap_content"
-            android:ems="5"
-            android:textSize="20dp"
-            android:textColor="#fff"
-            android:textStyle="bold"
-            android:text="Location:"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="30dp">
 
-    <EditText
-        android:id="@+id/Location"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Location"
-        android:inputType="textPersonName"
-/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingVertical="15dp"
+                android:gravity="center">
 
-    </LinearLayout>
+                <TextView
+                    android:layout_width="140dp"
+                    android:layout_height="wrap_content"
+                    android:ems="5"
+                    android:textSize="20dp"
+                    android:textColor="#fff"
+                    android:textStyle="bold"
+                    android:text="Location:" />
+
+                <EditText
+                    android:id="@+id/Location"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="Location"
+                    android:inputType="textPersonName" />
+
+            </LinearLayout>
 
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingVertical="15dp"
-        android:gravity="center">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingVertical="15dp"
+                android:gravity="center">
 
-        <TextView
-            android:layout_width="140dp"
-            android:layout_height="wrap_content"
-            android:ems="5"
-            android:textSize="20dp"
-            android:textColor="#fff"
-            android:textStyle="bold"
-            android:text="Start Time:"/>
-    <EditText
-        android:id="@+id/Time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="@string/time"
-        android:inputType="time"
-/>
-    </LinearLayout>
+                <TextView
+                    android:layout_width="140dp"
+                    android:layout_height="wrap_content"
+                    android:ems="5"
+                    android:textSize="20dp"
+                    android:textColor="#fff"
+                    android:textStyle="bold"
+                    android:text="Start Time:" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingVertical="15dp"
-        android:gravity="center">
+                <EditText
+                    android:id="@+id/Time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="@string/time"
+                    android:inputType="time" />
+            </LinearLayout>
 
-        <TextView
-            android:layout_width="140dp"
-            android:layout_height="wrap_content"
-            android:ems="5"
-            android:textSize="20dp"
-            android:textColor="#fff"
-            android:textStyle="bold"
-            android:text="Event Title:"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingVertical="15dp"
+                android:gravity="center">
 
-    <EditText
-        android:id="@+id/EventName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="@string/event_name"
-        android:inputType="textPersonName"
-/>
-    </LinearLayout>
+                <TextView
+                    android:layout_width="140dp"
+                    android:layout_height="wrap_content"
+                    android:ems="5"
+                    android:textSize="20dp"
+                    android:textColor="#fff"
+                    android:textStyle="bold"
+                    android:text="Event Title:" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingVertical="15dp"
-        android:gravity="center">
+                <EditText
+                    android:id="@+id/EventName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="@string/event_name"
+                    android:inputType="textPersonName" />
+            </LinearLayout>
 
-        <TextView
-            android:layout_width="140dp"
-            android:layout_height="wrap_content"
-            android:ems="5"
-            android:textSize="20dp"
-            android:textColor="#fff"
-            android:textStyle="bold"
-            android:text="Select Date:"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingVertical="15dp"
+                android:gravity="center">
 
-    <EditText
-        android:id="@+id/EventDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="@string/event_date"/>
-        <!--android:inputType="date"-->
+                <TextView
+                    android:layout_width="140dp"
+                    android:layout_height="wrap_content"
+                    android:ems="5"
+                    android:textSize="20dp"
+                    android:textColor="#fff"
+                    android:textStyle="bold"
+                    android:text="Select Date:" />
 
-    </LinearLayout>
+                <EditText
+                    android:id="@+id/EventDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="@string/event_date" />
+                <!--android:inputType="date"-->
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingVertical="15dp"
-        android:gravity="center">
+            </LinearLayout>
 
-        <TextView
-            android:layout_width="140dp"
-            android:layout_height="wrap_content"
-            android:ems="5"
-            android:textSize="20dp"
-            android:textColor="#fff"
-            android:textStyle="bold"
-            android:text="Description:"/>
-    <EditText
-        android:id="@+id/Description"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="@string/desc"
-        android:inputType="textPersonName"
-/>
-    </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingVertical="15dp"
+                android:gravity="center">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="15dp"
-        android:paddingBottom="40dp"
-        android:gravity="center">
+                <TextView
+                    android:layout_width="140dp"
+                    android:layout_height="wrap_content"
+                    android:ems="5"
+                    android:textSize="20dp"
+                    android:textColor="#fff"
+                    android:textStyle="bold"
+                    android:text="Description:" />
 
-        <TextView
-            android:layout_width="140dp"
-            android:layout_height="wrap_content"
-            android:ems="5"
-            android:text="Organization:"
-            android:textColor="#fff"
-            android:textSize="20dp"
-            android:textStyle="bold" />
-    <EditText
-        android:id="@+id/Organization"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="@string/org"
-        android:inputType="textPersonName"
-/>
-    </LinearLayout>
+                <EditText
+                    android:id="@+id/Description"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="@string/desc"
+                    android:inputType="textPersonName" />
+            </LinearLayout>
 
-        <!-- <Button
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="15dp"
+                android:paddingBottom="40dp"
+                android:gravity="center">
 
-            android:id="@+id/event_submit_button"
-            style="@style/AppTheme.RoundedCornerMaterialButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/event_submit"
-            android:textStyle="bold" /> -->
+                <TextView
+                    android:layout_width="140dp"
+                    android:layout_height="wrap_content"
+                    android:ems="5"
+                    android:text="Organization:"
+                    android:textColor="#fff"
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
 
-        <Button
-            android:id="@+id/event_submit_button"
-            android:layout_width="382dp"
-            android:layout_height="69dp"
-            android:text="@string/event_submit"
-            android:visibility="visible"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.551"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.864"
-            tools:visibility="visible" />
-    </LinearLayout>
-</ScrollView>
+                <EditText
+                    android:id="@+id/Organization"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="@string/org"
+                    android:inputType="textPersonName" />
+            </LinearLayout>
+
+            <!-- <Button
+
+                android:id="@+id/event_submit_button"
+                style="@style/AppTheme.RoundedCornerMaterialButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/event_submit"
+                android:textStyle="bold" /> -->
+
+            <Button
+                android:id="@+id/event_submit_button"
+                android:layout_width="382dp"
+                android:layout_height="69dp"
+                android:text="@string/event_submit"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.551"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.864"
+                tools:visibility="visible" />
+        </LinearLayout>
+    </ScrollView>
 
 
 </RelativeLayout>
