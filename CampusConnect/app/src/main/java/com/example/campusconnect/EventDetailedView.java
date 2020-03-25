@@ -45,10 +45,6 @@ public class EventDetailedView extends AppCompatActivity {
     FloatingActionButton floating_toSavedEvents;
     ImageView whatsappImg;
 
-//DocumentReference serializedDay = db.;
-//
-// ??CHECK: Can we implement a serial variable to make DB searches easy?
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

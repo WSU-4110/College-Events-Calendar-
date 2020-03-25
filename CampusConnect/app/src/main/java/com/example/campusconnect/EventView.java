@@ -19,7 +19,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -29,28 +28,14 @@ import java.util.Objects;
 
 
 public class EventView extends AppCompatActivity {
-    FloatingActionButton floating_backToMain; // Remove later
+
 	ListView listView;
-	
-	// Back Button
-	private void backTo_main() {
-		Intent intent = new Intent(this, MainActivity.class);
-		startActivity(intent);
-	}
 	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.event_view);
 		listView = (ListView) findViewById(R.id.events_listView);
-
-        floating_backToMain = findViewById(R.id.floating_back_button);
-        floating_backToMain.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                backTo_main();
-            }
-        });
 	
 		String str_Day = getIntent().getStringExtra("EXTRA_DaySelected");				// Extract date info from intent
 		String str_Month = getIntent().getStringExtra("EXTRA_MonthSelected");
@@ -60,6 +45,7 @@ public class EventView extends AppCompatActivity {
     }
     
 
+    // TODO: Look into feasibility of adding Left and Right arrows once event list is open
     private void displayEventsForSelectedDay(String day, String month, String year) {
     
         TextView title = findViewById(R.id.EventList_HeaderDynamic);
@@ -73,7 +59,7 @@ public class EventView extends AppCompatActivity {
 		String wholeDate = wholeDateBuilder(day, month, year);
         																		// [A]
         arrayOfEvents = new ArrayList<>();                                      // [1]
-        adapter = new EventListAdapter(this, arrayOfEvents);				// [2]
+        adapter = new EventListAdapter(this, arrayOfEvents);			// [2]
         listView = (ListView) findViewById(R.id.events_listView);               // [3]
         listView.setAdapter(adapter);											// [4]
 
@@ -87,7 +73,6 @@ public class EventView extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-		
         
 		db.collection("Events")
                 .document("Events")

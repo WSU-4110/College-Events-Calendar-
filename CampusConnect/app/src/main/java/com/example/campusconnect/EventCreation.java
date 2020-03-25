@@ -83,7 +83,8 @@ class Event {
 
     public void setDesc(String desc) { this.desc = desc; }
 
-    public String toString() {
+    public String toString()
+	{
         return name + "|" + location + "|" + startTime + "|" + date + "|" + org + "|" + desc;
     }
     
