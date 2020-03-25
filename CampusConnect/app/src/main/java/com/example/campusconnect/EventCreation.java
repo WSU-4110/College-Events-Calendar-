@@ -1,15 +1,19 @@
 package com.example.campusconnect;
 
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,6 +24,8 @@ import com.example.campusconnect.UI.Authentication.signUp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.Calendar;
+
 
 class Event {
 
@@ -29,7 +35,7 @@ class Event {
     private String date;
     private String org;
     private String desc;
-    
+
     
     Event() {
         name = "EventNameNotProvided";
@@ -212,6 +218,11 @@ public class EventCreation extends AppCompatActivity{
 
     String EventName, location, startTime, date, desc, org;
 
+    private static final String TAG = "Event";
+
+    private TextView mDisplayDate;
+    private DatePickerDialog.OnDateSetListener mDateSetListener;
+
     EditText EventNameInput;
     EditText locationInput;
     EditText startTimeInput;
@@ -221,14 +232,43 @@ public class EventCreation extends AppCompatActivity{
 
     Button submitButton;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-    
-    
+
+
     // <Event>.add() auto-generates a unique ID. Side Effect: "Submit Event" can make duplicates
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.event_creation);
-        
+
+        mDisplayDate = (TextView) findViewById(R.id.EventDate);
+
+        mDisplayDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Calendar cal = Calendar.getInstance();
+                int year = cal.get(Calendar.YEAR);
+                int month = cal.get(Calendar.MONTH);
+                int day = cal.get(Calendar.DAY_OF_MONTH);
+
+                DatePickerDialog dialog = new DatePickerDialog(
+                        EventCreation.this,
+                        android.R.style.Theme_DeviceDefault_Light_Dialog_MinWidth,
+                        mDateSetListener,
+                        year,month,day);
+                dialog.show();
+            }
+        });
+
+        mDateSetListener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                //Log.d(TAG, "onDateSet: date: " + month + "/" + dayOfMonth + "/" + year);
+                month = month +1;
+                String date = month + "/" + dayOfMonth + "/" + year;
+                mDisplayDate.setText(date);
+            }
+        };
+
         submitButton = (Button)findViewById(R.id.event_submit_button);
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
