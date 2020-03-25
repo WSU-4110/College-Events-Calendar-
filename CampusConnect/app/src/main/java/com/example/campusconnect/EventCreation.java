@@ -35,6 +35,7 @@ class Event {
     private String date;
     private String org;
     private String desc;
+    private String uid;
 
     
     Event() {
@@ -58,6 +59,15 @@ class Event {
         this.org = org;
         this.desc = desc;
     }
+    public Event(String uid, String name, String location, String startTime, String date, String org, String desc) {
+        this.uid = uid;
+        this.name = name;
+        this.location = location;
+        this.startTime = startTime;
+        this.date = date;
+        this.org = org;
+        this.desc = desc;
+    }
 
     public String getName() { return name; }
     
@@ -71,6 +81,8 @@ class Event {
 
     public String getDesc() { return desc; }
 
+    public String getUid() { return uid; }
+
     public void setName(String name) { this.name = name; }
 
     public void setLocation(String location) { this.location = location; }
@@ -82,6 +94,8 @@ class Event {
     public void setOrg(String org) { this.org = org; }
 
     public void setDesc(String desc) { this.desc = desc; }
+
+    public void setUid(String uid) { this.uid = uid; }
 
     public String toString()
 	{

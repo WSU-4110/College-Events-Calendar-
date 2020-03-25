@@ -76,8 +76,8 @@ public class MainActivity extends AppCompatActivity {
 
 	
 	public void openSavedEvents() {
-		Intent intent = new Intent(this, SavedEvents.class);
-		startActivity(intent);
+			Intent intent = new Intent(this, SavedEvent.class);
+			startActivity(intent);
 	}
 
 

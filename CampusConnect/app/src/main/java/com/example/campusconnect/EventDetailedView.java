@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,6 +24,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -62,7 +65,8 @@ public class EventDetailedView extends AppCompatActivity {
         String org = (String)st2.nextElement();
 
 
-        Event event = new Event(name,location,startTime, date, desc, org);
+
+       Event event = new Event(name,location,startTime, date, desc, org);
 
         EventNameInput = findViewById(R.id.EventName);
         locationInput =  findViewById(R.id.Location);
@@ -89,24 +93,39 @@ public class EventDetailedView extends AppCompatActivity {
             });
 
 
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String displayName = user.getUid();
+        final Event eventSaved = new Event(displayName, name,location,startTime, date, desc, org);
+        //Toast.makeText(EventDetailedView.this, "Logged in: " + displayName, Toast.LENGTH_SHORT).show();
 
         floating_toSavedEvents.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SavedEvent sEvent = new SavedEvent("Ponnila", EventNameInput.getText().toString(),locationInput.getText().toString(),
-                        startTimeInput.getText().toString(), dateInput.getText().toString(),
-                        descInput.getText().toString(), orgInput.getText().toString());
-                Intent intent = new Intent(getApplicationContext(), SavedEvents.class);
-                intent.putExtra("SavedEvent", sEvent.toString());
+
+
+                if (eventSaved.getUid() != null){
+
+                    Toast.makeText(EventDetailedView.this, "Adding to Saved Events", Toast.LENGTH_SHORT).show();
+
+//                SavedEvent sEvent = new SavedEvent(displayName, EventNameInput.getText().toString(),locationInput.getText().toString(),
+//                        startTimeInput.getText().toString(), dateInput.getText().toString(),
+//                        descInput.getText().toString(), orgInput.getText().toString());
+
+                    db.collection("SavedEvent")
+                            .document("SavedEvent")
+                            .collection("Event_SubCollectionTesting")
+                            .add(eventSaved);
+
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                //intent.putExtra("SavedEvent", sEvent.toString());
                 startActivity(intent);
 
-                /*
-                db.collection("SavedEvent")
-                        .document("SavedEvent")
-                        .collection("Event_SubCollectionTesting")
-                        .add(SavedEvent);
 
-                 */
+
+
+
+            }else {Toast.makeText(EventDetailedView.this, "Not Logged-in", Toast.LENGTH_SHORT).show();}
+
             }
             });
             }
