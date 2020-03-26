@@ -22,10 +22,7 @@
 
     <!-- OUR MENU GOES HERE, WHAT DO WE WANT THEM TO DO HERE? -->
     <!-- MAYBE LOG-IN OR LOG-OUT? SWITCH BETWEEN PAGES?-->
-    <item
-        android:id="@+id/Option1"
-        android:title="option1"
-        />
+
     <item
         android:id="@+id/login"
         android:title="Login"

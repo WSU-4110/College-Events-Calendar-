@@ -9,6 +9,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -20,7 +22,9 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
+import com.example.campusconnect.UI.Authentication.signIn;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -130,6 +134,10 @@ public class EventDetailedView extends AppCompatActivity {
 
             }
             });
+
+        Toolbar toolbar = findViewById(R.id.toolbar_main);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Event Details");
             }
 
 
@@ -153,6 +161,39 @@ public class EventDetailedView extends AppCompatActivity {
     private void backTo_main() {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
+    }
+
+    @Override public boolean onOptionsItemSelected(MenuItem item){
+        if(item.getItemId() == R.id.newEvent){
+            Intent intent = new Intent(this, EventCreation.class);
+            startActivity(intent);
+        }
+
+        if(item.getItemId()==R.id.login)
+        {
+
+            Intent intent = new Intent(this, signIn.class);
+            startActivity(intent);
+
+        }
+        else if(item.getItemId()==R.id.logout){
+            final FirebaseAuth mAuth=FirebaseAuth.getInstance();
+            startActivity(new Intent(EventDetailedView.this, signIn.class));
+            //FirebaseAuth.getInstance().signOut();
+            mAuth.signOut();
+        }
+        else
+        {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+
+        return true;
     }
 
 }
