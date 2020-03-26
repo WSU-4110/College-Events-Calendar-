@@ -10,12 +10,14 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 
 import androidx.annotation.NonNull;
 
 import com.example.campusconnect.UI.Authentication.signIn;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import static java.lang.Integer.valueOf;
 
@@ -38,7 +40,15 @@ public class MainActivity extends AppCompatActivity {
 		goto_SavedEvents.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				openSavedEvents();
+				FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+				if (user != null) {
+
+					openSavedEvents();
+				}
+				else {
+					Toast.makeText(MainActivity.this, "Not Logged-in", Toast.LENGTH_SHORT).show();}
+
 			}
 		});
 		

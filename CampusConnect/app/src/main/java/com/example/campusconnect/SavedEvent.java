@@ -13,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -41,9 +42,14 @@ public class SavedEvent extends AppCompatActivity {
 
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        String displayName = user.getUid();
+        if (user != null){
+            String displayName = user.getUid();
+            displayEventsForSelectedUser(displayName);
+        }
 
-        displayEventsForSelectedUser(displayName);
+
+
+
     }
 
 
