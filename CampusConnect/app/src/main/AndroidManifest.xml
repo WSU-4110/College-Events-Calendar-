@@ -23,9 +23,9 @@
         <activity
             android:name=".EventCreation"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity
-            android:name=".View_Calendar"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+<!--        <activity-->
+<!--            android:name=".View_Calendar"-->
+<!--            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />-->
         <activity
             android:name=".EventView"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
@@ -33,7 +33,7 @@
             android:name=".EventDetailedView"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name=".SavedEvents"
+            android:name=".SavedEvent"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
 
         <activity

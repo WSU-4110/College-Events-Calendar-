@@ -41,23 +41,17 @@ public class SavedEvent extends AppCompatActivity {
         listView = (ListView) findViewById(R.id.events_listView);
 
 
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if (user != null){
-            String displayName = user.getUid();
-            displayEventsForSelectedUser(displayName);
-        }
 
-
-
+        displayEventsForSelectedUser();
 
     }
 
 
     // TODO: Look into feasibility of adding Left and Right arrows once event list is open
-    private void displayEventsForSelectedUser(String displayName) {
+    private void displayEventsForSelectedUser() {
 
         TextView title = findViewById(R.id.EventList_HeaderDynamic);
-        title.setText(displayName);
+        title.setText("Your Saved Events");
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         final ArrayList<Event> arrayOfEvents;
@@ -82,24 +76,32 @@ public class SavedEvent extends AppCompatActivity {
             }
         });
 
-        db.collection("SavedEvent")
-                .document("SavedEvents")
-                .collection("Event_SubCollectionTesting")
-                .whereEqualTo("uid", displayName)
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user!=null){
+            db.collection("SavedEvent")
+                    .document("SavedEvent")
+                    .collection("Event_SubCollectionTesting")
+                    .whereEqualTo("uid", user.getUid())
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()) {
 
-                            for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
-                                arrayOfEvents.add((Event) document.toObject(Event.class));
+                                for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
+                                    arrayOfEvents.add(document.toObject(Event.class));
+                                }
+
+                                adapter.addAll(arrayOfEvents);
                             }
-
-                            adapter.addAll(arrayOfEvents);
                         }
-                    }
-                });
+                    });
+        }
+        else{
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            startActivity(intent);
+        }
+
 
     }// END METHOD [ displayEventsForSelectedDay ]
 
