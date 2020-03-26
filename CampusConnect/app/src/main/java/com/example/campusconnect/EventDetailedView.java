@@ -51,6 +51,8 @@ public class EventDetailedView extends AppCompatActivity {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     FloatingActionButton floating_toSavedEvents;
     ImageView whatsappImg;
+    ImageView twitterImg;
+    ImageView facebookImg;
 
 
     @Override
@@ -88,6 +90,8 @@ public class EventDetailedView extends AppCompatActivity {
 
         floating_toSavedEvents = findViewById(R.id.floating_back_button);
         whatsappImg = findViewById(R.id.whatsapplogo);
+        twitterImg = findViewById(R.id.twitterlogo);
+        facebookImg = findViewById(R.id.fblogo);
 
         whatsappImg.setOnClickListener(new View.OnClickListener() {
              @Override
@@ -101,7 +105,17 @@ public class EventDetailedView extends AppCompatActivity {
                }
             });
 
-
+        twitterImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String eventDetail =  "Campus Connect - Wayne State" + "\n" +
+                        "Event Name : " + EventNameInput.getText().toString() + "\n" +
+                        "Location : " + locationInput.getText().toString()+ "\n" +
+                        "Start Time : " + startTimeInput.getText().toString() + "\n" +
+                        "End Time :" + dateInput.getText().toString();
+                shareOnTwitter( eventDetail );
+            }
+        });
 
 
 
@@ -150,13 +164,29 @@ public class EventDetailedView extends AppCompatActivity {
             }
 
 
-    // Back Button
+    // Share on WhatsApp
     private void shareOnWhatsapp(String eventDetail) {
         System.out.println(" Start sharing in WhatsApp");
 
         Intent whatsappIntent = new Intent(Intent.ACTION_SEND);
         whatsappIntent.setType("text/plain");
         whatsappIntent.setPackage("com.whatsapp");
+        whatsappIntent.putExtra(Intent.EXTRA_TEXT, eventDetail);
+        try {
+            startActivity(whatsappIntent);
+        } catch (android.content.ActivityNotFoundException ex) {
+            //ToastHelper.MakeShortText("Whatsapp have not been installed.");
+        }
+    }
+
+
+    // Share on Twitter
+    private void shareOnTwitter(String eventDetail) {
+        System.out.println(" Start sharing in WhatsApp");
+
+        Intent whatsappIntent = new Intent(Intent.ACTION_SEND);
+        whatsappIntent.setType("text/plain");
+        whatsappIntent.setPackage("com.twitter.android");
         whatsappIntent.putExtra(Intent.EXTRA_TEXT, eventDetail);
         try {
             startActivity(whatsappIntent);
