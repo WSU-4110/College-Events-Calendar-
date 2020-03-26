@@ -89,10 +89,11 @@ public class SavedEvent extends AppCompatActivity {
                             if (task.isSuccessful()) {
 
                                 for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
-                                    arrayOfEvents.add(document.toObject(Event.class));
+                                    //arrayOfEvents.add(document.toObject(Event.class));
+                                    adapter.add((Event) document.toObject(Event.class));
                                 }
 
-                                adapter.addAll(arrayOfEvents);
+                                //adapter.addAll(arrayOfEvents);
                             }
                         }
                     });
