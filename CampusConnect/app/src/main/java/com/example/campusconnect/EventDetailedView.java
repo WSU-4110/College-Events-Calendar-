@@ -93,17 +93,19 @@ public class EventDetailedView extends AppCompatActivity {
             });
 
 
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        String displayName = user.getUid();
-        final Event eventSaved = new Event(displayName, name,location,startTime, date, desc, org);
+
+
         //Toast.makeText(EventDetailedView.this, "Logged in: " + displayName, Toast.LENGTH_SHORT).show();
 
         floating_toSavedEvents.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-
-                if (eventSaved.getUid() != null){
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                String displayName = user.getUid();
+               // final Event eventSaved = new Event(displayName, name,location,startTime, date, desc, org);
+                final Event eventSaved = new Event(displayName, EventNameInput.getText().toString(),locationInput.getText().toString(), startTimeInput.getText().toString(), dateInput.getText().toString(), descInput.getText().toString(), orgInput.getText().toString());
+                if (user != null){
 
                     Toast.makeText(EventDetailedView.this, "Adding to Saved Events", Toast.LENGTH_SHORT).show();
 
