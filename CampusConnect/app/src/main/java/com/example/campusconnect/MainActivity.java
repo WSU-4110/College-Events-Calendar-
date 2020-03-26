@@ -86,11 +86,8 @@ public class MainActivity extends AppCompatActivity {
 			Intent intent = new Intent(this, EventCreation.class);
 			startActivity(intent);
 		}
-		else if(item.getItemId() == R.id.Option1)
-		{
-			// need to add what it will do when selected -T
-		}
-		else if(item.getItemId()==R.id.login)
+
+		if(item.getItemId()==R.id.login)
 		{
 
 				Intent intent = new Intent(this, signIn.class);
