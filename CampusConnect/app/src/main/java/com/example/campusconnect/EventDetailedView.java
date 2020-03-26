@@ -92,7 +92,12 @@ public class EventDetailedView extends AppCompatActivity {
         whatsappImg.setOnClickListener(new View.OnClickListener() {
              @Override
                public void onClick(View view) {
-                    shareOnWhatsapp();
+                 String eventDetail =  "Campus Connect - Wayne State" + "\n" +
+                         "Event Name : " + EventNameInput.getText().toString() + "\n" +
+                         "Location : " + locationInput.getText().toString()+ "\n" +
+                         "Start Time : " + startTimeInput.getText().toString() + "\n" +
+                         "End Time :" + dateInput.getText().toString();
+                    shareOnWhatsapp( eventDetail );
                }
             });
 
@@ -146,13 +151,13 @@ public class EventDetailedView extends AppCompatActivity {
 
 
     // Back Button
-    private void shareOnWhatsapp() {
+    private void shareOnWhatsapp(String eventDetail) {
         System.out.println(" Start sharing in WhatsApp");
 
         Intent whatsappIntent = new Intent(Intent.ACTION_SEND);
         whatsappIntent.setType("text/plain");
         whatsappIntent.setPackage("com.whatsapp");
-        whatsappIntent.putExtra(Intent.EXTRA_TEXT, "Test Event Text from Campus Connect");
+        whatsappIntent.putExtra(Intent.EXTRA_TEXT, eventDetail);
         try {
             startActivity(whatsappIntent);
         } catch (android.content.ActivityNotFoundException ex) {
