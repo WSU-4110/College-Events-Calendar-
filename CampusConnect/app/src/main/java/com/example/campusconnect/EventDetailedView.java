@@ -117,6 +117,18 @@ public class EventDetailedView extends AppCompatActivity {
             }
         });
 
+        facebookImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String eventDetail =  "Campus Connect - Wayne State" + "\n" +
+                        "Event Name : " + EventNameInput.getText().toString() + "\n" +
+                        "Location : " + locationInput.getText().toString()+ "\n" +
+                        "Start Time : " + startTimeInput.getText().toString() + "\n" +
+                        "End Time :" + dateInput.getText().toString();
+                shareOnFacebook( eventDetail );
+            }
+        });
+
 
 
 
@@ -175,7 +187,7 @@ public class EventDetailedView extends AppCompatActivity {
         try {
             startActivity(whatsappIntent);
         } catch (android.content.ActivityNotFoundException ex) {
-            //ToastHelper.MakeShortText("Whatsapp have not been installed.");
+            //ToastHelper.MakeShortText("Whatsapp has not been installed.");
         }
     }
 
@@ -184,14 +196,29 @@ public class EventDetailedView extends AppCompatActivity {
     private void shareOnTwitter(String eventDetail) {
         System.out.println(" Start sharing in WhatsApp");
 
-        Intent whatsappIntent = new Intent(Intent.ACTION_SEND);
-        whatsappIntent.setType("text/plain");
-        whatsappIntent.setPackage("com.twitter.android");
-        whatsappIntent.putExtra(Intent.EXTRA_TEXT, eventDetail);
+        Intent twitterIntent = new Intent(Intent.ACTION_SEND);
+        twitterIntent.setType("text/plain");
+        twitterIntent.setPackage("com.twitter.android");
+        twitterIntent.putExtra(Intent.EXTRA_TEXT, eventDetail);
         try {
-            startActivity(whatsappIntent);
+            startActivity(twitterIntent);
         } catch (android.content.ActivityNotFoundException ex) {
-            //ToastHelper.MakeShortText("Whatsapp have not been installed.");
+            //ToastHelper.MakeShortText("Whatsapp has not been installed.");
+        }
+    }
+
+    // Share on Facebook
+    private void shareOnFacebook(String eventDetail) {
+        System.out.println(" Start sharing in WhatsApp");
+
+        Intent facebookIntent = new Intent(Intent.ACTION_SEND);
+        facebookIntent.setType("text/plain");
+        facebookIntent.setPackage("com.facebook.katana");
+        facebookIntent.putExtra(Intent.EXTRA_TEXT, eventDetail);
+        try {
+            startActivity(facebookIntent);
+        } catch (android.content.ActivityNotFoundException ex) {
+            //ToastHelper.MakeShortText("Facebook has not been installed.");
         }
     }
 
