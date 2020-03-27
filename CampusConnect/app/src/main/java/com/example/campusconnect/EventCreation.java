@@ -102,7 +102,7 @@ class Event {
 		return new String(new char[]{date.charAt(0), date.charAt(1)});
 	}
 	
-	private String getDay() {
+	public String getDay() {
 		//StringBuilder dayBuilder = new StringBuilder();
 		String dayBuilder = new String(new char[]{date.charAt(2), date.charAt(3)});
 		
@@ -132,7 +132,7 @@ class Event {
 	}
 	
 	// Int Parser: Java Textbook Chapter 10.10.6
-	private String getMonth_Name() {
+	public String getMonth_Name() {
 		int month;
 		String monthName;
 		

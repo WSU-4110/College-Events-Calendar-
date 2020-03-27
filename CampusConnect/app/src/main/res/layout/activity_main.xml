@@ -42,6 +42,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
+
         <Button
             android:id="@+id/gotoEventCreation"
             style="@style/AppTheme.RoundedCornerMaterialButton"
@@ -49,6 +50,14 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:text="EVENT CREATION"
+            android:textStyle="bold" />
+        <Button
+            android:id="@+id/gotoSavedEvents"
+            style="@style/AppTheme.RoundedCornerMaterialButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="Saved Events"
             android:textStyle="bold" />
         <Button
             android:id="@+id/gotoEventView"
