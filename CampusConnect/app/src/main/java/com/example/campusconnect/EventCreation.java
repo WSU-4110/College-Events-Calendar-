@@ -67,94 +67,124 @@ class Event {
     public void setOrg(String org) { this.org = org; }
 
     public void setDesc(String desc) { this.desc = desc; }
-    
-    // Determine if below methods are best
-    public String getMonth_Integer() {
-        // Return integer?
-        return new String(new char[]{date.charAt(0), date.charAt(1)});
-    }
-    
-    public String getDay() {
-        //StringBuilder dayBuilder = new StringBuilder();
-        String dayBuilder = new String(new char[]{date.charAt(2), date.charAt(3)});
-        
-        return dayBuilder + dayModifier();
-    }
-    
-    private String dayModifier(){
-        // Sample Date: 02052020 (i.e. Feb 3rd, 2020)
-        // Thus: character at index String[3] determines the contraction
-        // e.g. 02052020
-        //      -> String[3] == 5 -> contraction == 'rd' -> Feb 3rd 2020
-        char dayDigit = this.date.charAt(3);
-        
-        if(dayDigit == '1')
-            return "st";
-        else if (dayDigit == '2')
-            return "nd";
-        else if (dayDigit == '3')
-            return "rd";
-        else
-            return "th";
-    }
-    
-    // Java Textbook Chapter 10.10
-    public String getMonth_Name() {
-        int month;
-        String monthName;
-        
-        month = Integer.parseInt(new String(new char[]{date.charAt(0), date.charAt(1)}));
-        month++;
-        
-        switch(month){
-            case 1:
-                monthName = "January";
-                break;
-            case 2:
-                monthName = "February";
-                break;
-            case 3:
-                monthName = "March";
-                break;
-            case 4:
-                monthName = "April";
-                break;
-            case 5:
-                monthName = "May";
-                break;
-            case 6:
-                monthName = "June";
-                break;
-            case 7:
-                monthName = "July";
-                break;
-            case 8:
-                monthName = "August";
-                break;
-            case 9:
-                monthName = "September";
-                break;
-            case 10:
-                monthName = "October";
-                break;
-            case 11:
-                monthName = "November";
-                break;
-            case 12:
-                monthName = "December";
-                break;
-            default:
-                monthName = "Error";
-                break;
-        }
-        
-        return monthName;
-    }
-    
-    
-
-    
-    
+	
+	
+	// !! TODO: Change date/time storage to Calendar
+	
+	// CHECK: Store time 24h?
+	public String getStartTime_Formatted() {
+		switch (this.startTime.length()) {
+			case 3:
+				// _H:MM
+				return String.format(" %c:%c%c",
+						startTime.charAt(0),
+						startTime.charAt(1),
+						startTime.charAt(2));
+			case 4:
+				// HH:MM
+				return String.format("%c%c:%c%c",
+						startTime.charAt(0),
+						startTime.charAt(1),
+						startTime.charAt(2),
+						startTime.charAt(3));
+			default:
+				// STORED-TIME FORMAT ERROR
+				return "00:00";
+		}
+	}
+	
+	// String Formatting: Java Textbook Chapter 10.10.7
+	public String getDate_Formatted() {
+		return String.format("%s/%s/%s", getMonth_Integer(), getDay(), getYear());      // MM/DD/YYYY
+	}
+	
+	private String getMonth_Integer() {
+		return new String(new char[]{date.charAt(0), date.charAt(1)});
+	}
+	
+	private String getDay() {
+		//StringBuilder dayBuilder = new StringBuilder();
+		String dayBuilder = new String(new char[]{date.charAt(2), date.charAt(3)});
+		
+		return dayBuilder + dayModifier();
+	}
+	
+	private String dayModifier()
+	// Character at index String[3] determines the contraction
+	// e.g. 02052020: String Index[3] == 5 -> Contraction: 'rd' -> Feb 3[rd] 2020
+	{
+		char dayDigit = this.date.charAt(3);
+		
+		if (dayDigit == '1')
+			return "st";
+		else if (dayDigit == '2')
+			return "nd";
+		else if (dayDigit == '3')
+			return "rd";
+		else
+			return "th";
+	}
+	
+	
+	private String getYear() {
+		return new String(new char[]{date.charAt(4), date.charAt(5),
+				date.charAt(6), date.charAt(7),});
+	}
+	
+	// Int Parser: Java Textbook Chapter 10.10.6
+	private String getMonth_Name() {
+		int month;
+		String monthName;
+		
+		month = Integer.parseInt(new String(new char[]{date.charAt(0), date.charAt(1)}));
+		month++;
+		
+		switch (month) {
+			case 1:
+				monthName = "January";
+				break;
+			case 2:
+				monthName = "February";
+				break;
+			case 3:
+				monthName = "March";
+				break;
+			case 4:
+				monthName = "April";
+				break;
+			case 5:
+				monthName = "May";
+				break;
+			case 6:
+				monthName = "June";
+				break;
+			case 7:
+				monthName = "July";
+				break;
+			case 8:
+				monthName = "August";
+				break;
+			case 9:
+				monthName = "September";
+				break;
+			case 10:
+				monthName = "October";
+				break;
+			case 11:
+				monthName = "November";
+				break;
+			case 12:
+				monthName = "December";
+				break;
+			default:
+				monthName = "Error";
+				break;
+		}
+		
+		return monthName;
+	}
+	
+	
 }// end [ CLASS: Event ]
 
 

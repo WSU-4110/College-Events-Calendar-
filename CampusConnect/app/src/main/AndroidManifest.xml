@@ -29,9 +29,6 @@
         <activity
             android:name=".EventView"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity
-            android:name=".SavedEvents"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
 
         <activity
             android:name=".UI.Authentication.signIn"

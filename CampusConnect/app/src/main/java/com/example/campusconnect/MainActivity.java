@@ -16,7 +16,6 @@ public class MainActivity extends AppCompatActivity {
 	private Button goto_calendar;
 	private Button goto_signin;
 	private Button goto_eventView;
-	private Button goto_SavedEvents;
 	
 
 	
@@ -53,14 +52,6 @@ public class MainActivity extends AppCompatActivity {
 			}
 		});
 
-		goto_SavedEvents = findViewById(R.id.gotoSavedEvents);						// [BUTTON ACTION]: Event View Page
-		goto_SavedEvents.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				openSavedEvents();
-			}
-		});
-
 
 //		goto_calendar = findViewById(R.id.goto_calendar);					// [BUTTON ACTION]: Calendar View (Month)
 //		goto_calendar.setOnClickListener(new View.OnClickListener() {
@@ -80,10 +71,6 @@ public class MainActivity extends AppCompatActivity {
 		Intent intent = new Intent(this, EventView.class);
 		startActivity(intent);
 	}
-
-	public void openSavedEvents() {
-		Intent intent = new Intent(this, SavedEvents.class);
-		startActivity(intent);}
 
 	public void open_View_Calendar() {
 		Intent intent = new Intent(this, View_Calendar.class);

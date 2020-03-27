@@ -73,6 +73,16 @@
         app:layout_constraintVertical_bias="0.586"/>
 
     <TextView
+        android:id="@+id/StartTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/Location"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.678" />
+
+    <TextView
         android:id="@+id/Location"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -195,5 +205,4 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.964"
         tools:visibility="visible" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>
