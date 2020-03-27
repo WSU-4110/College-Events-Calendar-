@@ -24,13 +24,11 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.kaopiz.kprogresshud.KProgressHUD;
 import android.content.Intent;
-import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,7 +37,6 @@ public class signIn extends AppCompatActivity {
 
     private static final int RC_SIGN_IN = 1;
     private GoogleSignInClient mGoogleSignInClient;
-    private static boolean altWatcher = false;
 
     //TextWatcher for Password
     TextWatcher passWatcher = new TextWatcher() {
@@ -50,15 +47,13 @@ public class signIn extends AppCompatActivity {
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
         }
-        
+
         @Override
         public void afterTextChanged(Editable s) {
             String check = s.toString();
             if (check.length() < 4 || check.length() > 20) {
                 password.setError("Password Must consist of 4 to 20 characters");
             }
-            else if (check.equals("thing"))
-                showAlt();
         }
 
     };
@@ -82,9 +77,6 @@ public class signIn extends AppCompatActivity {
                 email.setError("Only . and _ and @ characters allowed");
             } else if (!check.contains("@") || !check.contains(".")) {
                 email.setError("Enter Valid Email");
-            } else if (check.startsWith("pikachu")){
-                altWatcher = true;
-                email.setError("Enter Valid Email");
             }
         }
     };
@@ -98,7 +90,7 @@ public class signIn extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
 
-        Button btn_view=findViewById(R.id.view_calendar_button);
+        Button btn_view=findViewById(R.id.view_button);
         btn_view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -132,7 +124,7 @@ public class signIn extends AppCompatActivity {
         forgotpassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(signIn.this, forgetPassword.class));
+                startActivity(new Intent(signIn.this, fogetPassword.class));
             }
         });
 
@@ -173,7 +165,7 @@ public class signIn extends AppCompatActivity {
                             });
                 } else {
                     progressDialog.dismiss();
-                    Toast.makeText(signIn.this, "Your Password or Email Cannot be null", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(signIn.this, "Our password or Email never be null", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -225,22 +217,6 @@ public class signIn extends AppCompatActivity {
         Intent i = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(i,RC_SIGN_IN);
     }
-    
-    public void showAlt(){
-        final ImageView altview = (ImageView) findViewById(R.id.alt4263336);
-    
-        email.setError("");
-        password.setError("");
-        altview.setVisibility(View.VISIBLE);
-        
-		new Handler().postDelayed(new Runnable() {
-			@Override
-			public void run() {
-			    altWatcher = false;
-                altview.setVisibility(View.INVISIBLE);
-                System.out.println("end");
-			}
-		}, 4000);
-    }
+
 
 }

@@ -4,128 +4,94 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CalendarView;
+import android.widget.TextView;
+
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
-import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.Toast;
-
-
-import androidx.annotation.NonNull;
 
 import com.example.campusconnect.UI.Authentication.signIn;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-
-import static java.lang.Integer.valueOf;
 
 public class MainActivity extends AppCompatActivity {
-	private MenuItem signinout;
+	private Button button;
+	private Button goto_calendar;
+	private Button goto_signin;
+	private Button goto_eventView;
 	private Button goto_SavedEvents;
-	CalendarView calendar;
 	
+
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		Toolbar toolbar = findViewById(R.id.toolbar_main);
-		setSupportActionBar(toolbar);
-		getSupportActionBar().setTitle("Home");
-
-		goto_SavedEvents = findViewById(R.id.gotoSavedEvents);
-		goto_SavedEvents.setOnClickListener(new View.OnClickListener() {
+		//logout button
+		final FirebaseAuth mAuth=FirebaseAuth.getInstance();
+		Button btn_logout=findViewById(R.id.logout_button);
+		btn_logout.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
-				if (user != null) {
-
-					openSavedEvents();
-				}
-				else {
-					Toast.makeText(MainActivity.this, "Not Logged-in", Toast.LENGTH_SHORT).show();}
-
+				startActivity(new Intent(MainActivity.this, signIn.class));
+				mAuth.signOut();
 			}
 		});
 		
-		calendar = findViewById(R.id.calendarView);
-		calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+		button = findViewById(R.id.gotoEventCreation);						// [BUTTON ACTION]: Event Creation Page
+		button.setOnClickListener(new View.OnClickListener() {
 			@Override
-			public void onSelectedDayChange(@NonNull CalendarView calendarView, int year, int month, int day) {
-				openEventView(day, month, year);
+			public void onClick(View v) {
+				openEventCreator();
 			}
 		});
+
+		goto_eventView = findViewById(R.id.gotoEventView);						// [BUTTON ACTION]: Event View Page
+		goto_eventView.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				openEventView();
+			}
+		});
+
+		goto_SavedEvents = findViewById(R.id.gotoSavedEvents);						// [BUTTON ACTION]: Event View Page
+		goto_SavedEvents.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				openSavedEvents();
+			}
+		});
+
+
+//		goto_calendar = findViewById(R.id.goto_calendar);					// [BUTTON ACTION]: Calendar View (Month)
+//		goto_calendar.setOnClickListener(new View.OnClickListener() {
+//			@Override
+//			public void onClick(View v) {
+//				open_View_Calendar();
+//			}
+//		});
 	}
-	
 	
 	public void openEventCreator() {
 		Intent intent = new Intent(this, EventCreation.class);
 		startActivity(intent);
 	}
-	
-	
-	// *NOTE: putExtra() in its current usage require Strings. Will change to int in the future [-Jay]
-	public void openEventView(int day, int month, int year) {
-		
+
+	public void openEventView() {
 		Intent intent = new Intent(this, EventView.class);
-		
-		String str_Day 		= String.valueOf(day);
-		String str_Month 	= String.valueOf(month);
-		String str_Year 	= String.valueOf(year);
-		
-		intent.putExtra("EXTRA_DaySelected", str_Day);					// Attach date info we will need in EventView
-		intent.putExtra("EXTRA_MonthSelected", str_Month);
-		intent.putExtra("EXTRA_YearSelected", str_Year);
-		
 		startActivity(intent);
 	}
 
-	
 	public void openSavedEvents() {
-			Intent intent = new Intent(this, SavedEvent.class);
-			startActivity(intent);
+		Intent intent = new Intent(this, SavedEvents.class);
+		startActivity(intent);}
+
+	public void open_View_Calendar() {
+		Intent intent = new Intent(this, View_Calendar.class);
+		startActivity(intent);
 	}
 
 
-	@Override public boolean onOptionsItemSelected(MenuItem item){
-		if(item.getItemId() == R.id.newEvent){
-			Intent intent = new Intent(this, EventCreation.class);
-			startActivity(intent);
-		}
 
-		if(item.getItemId()==R.id.login)
-		{
-
-				Intent intent = new Intent(this, signIn.class);
-				startActivity(intent);
-
-		}
-		else if(item.getItemId()==R.id.logout){
-			final FirebaseAuth mAuth=FirebaseAuth.getInstance();
-			startActivity(new Intent(MainActivity.this, signIn.class));
-			//FirebaseAuth.getInstance().signOut();
-			mAuth.signOut();
-		}
-		else
-		{
-			return false;
-		}
-		return true;
-	}
-
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.menu_main, menu);
-
-
-
-		return true;
-	}
-
+	
 }//end [ CLASS: MainActivity ]
 

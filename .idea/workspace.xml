@@ -2,9 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="dc7acf5f-8907-4ddd-981c-18661de8d778" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/CampusConnect/app/src/main/java/com/example/campusconnect/EventCreation.java" beforeDir="false" afterPath="$PROJECT_DIR$/CampusConnect/app/src/main/java/com/example/campusconnect/EventCreation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CampusConnect/app/src/main/java/com/example/campusconnect/EventView.java" beforeDir="false" afterPath="$PROJECT_DIR$/CampusConnect/app/src/main/java/com/example/campusconnect/EventView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CampusConnect/app/src/main/res/layout/event_creation.xml" beforeDir="false" afterPath="$PROJECT_DIR$/CampusConnect/app/src/main/res/layout/event_creation.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CampusConnect/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/CampusConnect/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CampusConnect/app/src/main/java/com/example/campusconnect/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/CampusConnect/app/src/main/java/com/example/campusconnect/MainActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CampusConnect/app/src/main/res/layout/activity_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/CampusConnect/app/src/main/res/layout/activity_main.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CampusConnect/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/CampusConnect/app/src/main/res/values/strings.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,7 +28,6 @@
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
@@ -54,14 +55,13 @@
       <option name="presentableId" value="Default" />
       <updated>1581445538836</updated>
       <workItem from="1581707310829" duration="2000" />
-      <workItem from="1585096688365" duration="1000" />
     </task>
     <servers />
   </component>
   <component name="WindowStateProjectService">
-    <state x="976" y="525" key="com.intellij.ide.util.TipDialog" timestamp="1585096688104">
+    <state x="976" y="525" key="com.intellij.ide.util.TipDialog" timestamp="1581707311277">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state x="976" y="525" key="com.intellij.ide.util.TipDialog/0.0.2560.1400/-1050.0.1050.1640@0.0.2560.1400" timestamp="1585096688104" />
+    <state x="976" y="525" key="com.intellij.ide.util.TipDialog/0.0.2560.1400/-1050.0.1050.1640@0.0.2560.1400" timestamp="1581707311277" />
   </component>
 </project>

@@ -1,12 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Append Alpha values to beginnning of normal hex value  -->
-<!-- e.g. Pantone 1225 C 100%: #FFCC33 -->
-<!-- e.g. Pantone 1225 C 75%: #BFFFCC33 -->
 <resources>
-    <color name="primaryGreen">#BF00594C</color>
-    <color name="primaryGreen_Dark">#00594C</color>
-    <color name="accentGold">#BFFFCC33</color>
-    <color name="accentGold_Dark">#FFCC33</color>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
     <color name="Red">#D81B60</color>
     <color name="White">#FFFFFF</color>
     <color name="Wheat">#F5DEB3</color>

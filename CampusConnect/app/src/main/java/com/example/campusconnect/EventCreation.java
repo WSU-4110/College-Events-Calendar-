@@ -1,33 +1,22 @@
 package com.example.campusconnect;
 
 
-import android.app.DatePickerDialog;
-import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcel;
-import android.os.Parcelable;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.provider.Settings;
 import android.view.View;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
+
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 
-import com.example.campusconnect.UI.Authentication.signIn;
-import com.example.campusconnect.UI.Authentication.signUp;
-import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-
-import java.util.Calendar;
 
 
 class Event {
+
 
     private String name;
     private String location;
@@ -35,8 +24,6 @@ class Event {
     private String date;
     private String org;
     private String desc;
-    private String uid;
-
     
     Event() {
         name = "EventNameNotProvided";
@@ -47,20 +34,8 @@ class Event {
         desc = "N/A";
     }
     
-    Event(String dateSelected){
-        this.date = dateSelected;
-    }
-    
+    // Look into possibility of separating day, month, year
     public Event(String name, String location, String startTime, String date, String org, String desc) {
-        this.name = name;
-        this.location = location;
-        this.startTime = startTime;
-        this.date = date;
-        this.org = org;
-        this.desc = desc;
-    }
-    public Event(String uid, String name, String location, String startTime, String date, String org, String desc) {
-        this.uid = uid;
         this.name = name;
         this.location = location;
         this.startTime = startTime;
@@ -81,8 +56,6 @@ class Event {
 
     public String getDesc() { return desc; }
 
-    public String getUid() { return uid; }
-
     public void setName(String name) { this.name = name; }
 
     public void setLocation(String location) { this.location = location; }
@@ -94,13 +67,93 @@ class Event {
     public void setOrg(String org) { this.org = org; }
 
     public void setDesc(String desc) { this.desc = desc; }
-
-    public void setUid(String uid) { this.uid = uid; }
-
-    public String toString()
-	{
-        return name + "|" + location + "|" + startTime + "|" + date + "|" + org + "|" + desc;
+    
+    // Determine if below methods are best
+    public String getMonth_Integer() {
+        // Return integer?
+        return new String(new char[]{date.charAt(0), date.charAt(1)});
     }
+    
+    public String getDay() {
+        //StringBuilder dayBuilder = new StringBuilder();
+        String dayBuilder = new String(new char[]{date.charAt(2), date.charAt(3)});
+        
+        return dayBuilder + dayModifier();
+    }
+    
+    private String dayModifier(){
+        // Sample Date: 02052020 (i.e. Feb 3rd, 2020)
+        // Thus: character at index String[3] determines the contraction
+        // e.g. 02052020
+        //      -> String[3] == 5 -> contraction == 'rd' -> Feb 3rd 2020
+        char dayDigit = this.date.charAt(3);
+        
+        if(dayDigit == '1')
+            return "st";
+        else if (dayDigit == '2')
+            return "nd";
+        else if (dayDigit == '3')
+            return "rd";
+        else
+            return "th";
+    }
+    
+    // Java Textbook Chapter 10.10
+    public String getMonth_Name() {
+        int month;
+        String monthName;
+        
+        month = Integer.parseInt(new String(new char[]{date.charAt(0), date.charAt(1)}));
+        month++;
+        
+        switch(month){
+            case 1:
+                monthName = "January";
+                break;
+            case 2:
+                monthName = "February";
+                break;
+            case 3:
+                monthName = "March";
+                break;
+            case 4:
+                monthName = "April";
+                break;
+            case 5:
+                monthName = "May";
+                break;
+            case 6:
+                monthName = "June";
+                break;
+            case 7:
+                monthName = "July";
+                break;
+            case 8:
+                monthName = "August";
+                break;
+            case 9:
+                monthName = "September";
+                break;
+            case 10:
+                monthName = "October";
+                break;
+            case 11:
+                monthName = "November";
+                break;
+            case 12:
+                monthName = "December";
+                break;
+            default:
+                monthName = "Error";
+                break;
+        }
+        
+        return monthName;
+    }
+    
+    
+
+    
     
 }// end [ CLASS: Event ]
 
@@ -108,129 +161,55 @@ class Event {
 
 public class EventCreation extends AppCompatActivity{
 
-    String EventName, location, startTime, date, desc, org;
-
-    private static final String TAG = "Event";
-
-    private TextView mDisplayDate;
-    private DatePickerDialog.OnDateSetListener mDateSetListener;
+    String EventName, location, startTime, date;
 
     EditText EventNameInput;
     EditText locationInput;
     EditText startTimeInput;
     EditText dateInput;
-    EditText descInput;
-    EditText orgInput;
 
     Button submitButton;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
+    
 
-
-    // <Event>.add() auto-generates a unique ID. Side Effect: "Submit Event" can make duplicates
+    // TODO: .add() auto-generates a unique ID,
+    //  but this also means you can keep clicking "Submit Event" and it'll make duplicates
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.event_creation);
-
-        mDisplayDate = (TextView) findViewById(R.id.EventDate);
-
-        mDisplayDate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Calendar cal = Calendar.getInstance();
-                int year = cal.get(Calendar.YEAR);
-                int month = cal.get(Calendar.MONTH);
-                int day = cal.get(Calendar.DAY_OF_MONTH);
-
-                DatePickerDialog dialog = new DatePickerDialog(
-                        EventCreation.this,
-                        android.R.style.Theme_DeviceDefault_Light_Dialog_MinWidth,
-                        mDateSetListener,
-                        year,month,day);
-                dialog.show();
-            }
-        });
-
-        mDateSetListener = new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                //Log.d(TAG, "onDateSet: date: " + month + "/" + dayOfMonth + "/" + year);
-                month = month +1;
-                String date = month + "/" + dayOfMonth + "/" + year;
-                mDisplayDate.setText(date);
-            }
-        };
-
-        submitButton = (Button)findViewById(R.id.event_submit_button);
+        
+        submitButton = findViewById(R.id.event_submit_button);
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                System.out.println("START onCreate");
                 EventNameInput = (EditText) findViewById(R.id.EventName);
                 locationInput = (EditText) findViewById(R.id.Location);
                 startTimeInput = (EditText) findViewById(R.id.Time);
                 dateInput = (EditText) findViewById(R.id.EventDate);
-                descInput = (EditText) findViewById(R.id.Description);
-                orgInput = (EditText) findViewById(R.id.Organization);
 
                 EventName = EventNameInput.getText().toString();
                 location = locationInput.getText().toString();
                 startTime = startTimeInput.getText().toString();
                 date = dateInput.getText().toString();
-                desc = descInput.getText().toString();
-                org = orgInput.getText().toString();
                 Event event = new Event(EventName, location, startTime,
-                        date, org, desc);
-
-                db.collection("Events")
-                        .document("Events")
-                        .collection("Event_SubCollectionTesting")
-                        .add(event);
-
-                Toast.makeText(EventCreation.this, "Event Added", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(EventCreation.this, MainActivity.class);
-                startActivity(intent);
+                        date, "Org", "Desc");
+                //db.collection("Events").document("Events").set(event); // Original
+                
+                // Using .add() makes FireStore auto generate a random ID (as opposed to .set())
+                db.collection("JayTesting").add(event);
             }
         });
-
-
-        Toolbar toolbar = findViewById(R.id.toolbar_main);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Event Creation");
-    }
-
-    @Override public boolean onOptionsItemSelected(MenuItem item){
-        if(item.getItemId() == R.id.newEvent){
-
-        }
-
-        if(item.getItemId()==R.id.login)
-        {
-
-                Intent intent = new Intent(this, signIn.class);
-                startActivity(intent);
-
-        }
-        else if(item.getItemId()==R.id.logout){
-            final FirebaseAuth mAuth=FirebaseAuth.getInstance();
-            startActivity(new Intent(EventCreation.this, signIn.class));
-            //FirebaseAuth.getInstance().signOut();
-            mAuth.signOut();
-        }
-        else
-        {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-
-        return true;
     }
     
 }// end [ CLASS: EventCreation ]
+
+
+
+
+
 
 
 
