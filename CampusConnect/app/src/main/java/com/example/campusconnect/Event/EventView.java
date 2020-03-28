@@ -1,4 +1,4 @@
-package com.example.campusconnect;
+package com.example.campusconnect.Event;
 
 // Documentation on ListView and Custom Adapters:
 // https://bit.ly/38ah7WV
@@ -17,6 +17,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.campusconnect.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;

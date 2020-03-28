@@ -2,10 +2,25 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="dc7acf5f-8907-4ddd-981c-18661de8d778" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/CampusConnect/app/src/main/java/com/example/campusconnect/EventCreation.java" beforeDir="false" afterPath="$PROJECT_DIR$/CampusConnect/app/src/main/java/com/example/campusconnect/EventCreation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CampusConnect/app/src/main/java/com/example/campusconnect/EventView.java" beforeDir="false" afterPath="$PROJECT_DIR$/CampusConnect/app/src/main/java/com/example/campusconnect/EventView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CampusConnect/app/src/main/res/layout/event_creation.xml" beforeDir="false" afterPath="$PROJECT_DIR$/CampusConnect/app/src/main/res/layout/event_creation.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CampusConnect/app/src/main/java/com/example/campusconnect/admin/listAdapter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CampusConnect/app/src/main/java/com/example/campusconnect/admin/orgList.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CampusConnect/app/src/main/res/layout/activity_listview.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CampusConnect/app/src/main/res/layout/activity_org_list.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CampusConnect/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/CampusConnect/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CampusConnect/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/CampusConnect/app/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CampusConnect/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/CampusConnect/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CampusConnect/app/src/main/java/com/example/campusconnect/EventCreation.java" beforeDir="false" afterPath="$PROJECT_DIR$/CampusConnect/app/src/main/java/com/example/campusconnect/Event/EventCreation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CampusConnect/app/src/main/java/com/example/campusconnect/EventDetailedView.java" beforeDir="false" afterPath="$PROJECT_DIR$/CampusConnect/app/src/main/java/com/example/campusconnect/Event/EventDetailedView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CampusConnect/app/src/main/java/com/example/campusconnect/EventView.java" beforeDir="false" afterPath="$PROJECT_DIR$/CampusConnect/app/src/main/java/com/example/campusconnect/Event/EventView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CampusConnect/app/src/main/java/com/example/campusconnect/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/CampusConnect/app/src/main/java/com/example/campusconnect/MainActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CampusConnect/app/src/main/java/com/example/campusconnect/SavedEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/CampusConnect/app/src/main/java/com/example/campusconnect/Event/SavedEvent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CampusConnect/app/src/main/java/com/example/campusconnect/UI/Authentication/signIn.java" beforeDir="false" afterPath="$PROJECT_DIR$/CampusConnect/app/src/main/java/com/example/campusconnect/UI/Authentication/signIn.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CampusConnect/app/src/main/java/com/example/campusconnect/UI/Authentication/signUp.java" beforeDir="false" afterPath="$PROJECT_DIR$/CampusConnect/app/src/main/java/com/example/campusconnect/UI/Authentication/signUp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CampusConnect/app/src/main/java/com/example/campusconnect/splashScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/CampusConnect/app/src/main/java/com/example/campusconnect/splashScreen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CampusConnect/app/src/main/res/layout/saved_events.xml" beforeDir="false" afterPath="$PROJECT_DIR$/CampusConnect/app/src/main/res/layout/saved_events.xml" afterDir="false" />
     </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -13,11 +28,6 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-  </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-7" />
-    <option name="width" value="974" />
-    <option name="height" value="1047" />
   </component>
   <component name="ProjectId" id="1XoL40lySXubhLwSIvJGV1lhbbi" />
   <component name="ProjectViewState">
@@ -29,17 +39,17 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/CampusConnect" />
   </component>
-  <component name="ServiceViewManager">
-    <option name="viewStates">
+  <component name="RunDashboard">
+    <option name="ruleStates">
       <list>
-        <serviceView>
-          <treeState>
-            <expand />
-            <select />
-          </treeState>
-        </serviceView>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
       </list>
     </option>
   </component>
@@ -57,6 +67,19 @@
       <workItem from="1585096688365" duration="1000" />
     </task>
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="WindowStateProjectService">
     <state x="976" y="525" key="com.intellij.ide.util.TipDialog" timestamp="1585096688104">

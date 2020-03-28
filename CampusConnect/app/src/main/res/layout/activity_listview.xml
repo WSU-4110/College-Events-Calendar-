@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="15dp"
+    android:paddingTop="7.5dp"
+    android:paddingRight="15dp"
+    android:weightSum="3"
+    android:paddingBottom="7.5dp">
+
+    <TextView
+        android:id="@+id/email"
+        android:layout_weight="1"
+        android:layout_width="wrap_content"
+        android:layout_height="40sp"
+        android:gravity="center_vertical"
+        android:text="TextView"
+        android:textColor="@android:color/black"
+        android:textSize="12dp" />
+
+    <TextView
+        android:id="@+id/status"
+        android:layout_width="wrap_content"
+        android:layout_height="40sp"
+        android:gravity="center_vertical"
+        android:layout_weight="1"
+        android:text="TextView"
+        android:textColor="@android:color/black"
+        android:textSize="12dp" />
+
+    <Button
+        android:id="@+id/toggle"
+        android:gravity="center"
+        android:layout_weight="1"
+        android:textSize="10dp"
+        android:layout_width="10dp"
+        android:layout_height="40sp"
+        android:text="Toggle" />
+
+</LinearLayout>

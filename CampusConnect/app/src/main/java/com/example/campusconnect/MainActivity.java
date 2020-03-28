@@ -15,6 +15,9 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
+import com.example.campusconnect.Event.EventCreation;
+import com.example.campusconnect.Event.EventView;
+import com.example.campusconnect.Event.SavedEvent;
 import com.example.campusconnect.UI.Authentication.signIn;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;

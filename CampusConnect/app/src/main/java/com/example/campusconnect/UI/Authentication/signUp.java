@@ -22,7 +22,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 import android.widget.RadioGroup;
@@ -34,6 +37,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskExecutors;
 import com.google.android.material.snackbar.Snackbar;
@@ -47,6 +52,8 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.SetOptions;
 import com.kaopiz.kprogresshud.KProgressHUD;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
@@ -62,7 +69,6 @@ import es.dmoral.toasty.Toasty;
 import static com.example.campusconnect.services.conversionImage.convertBitmapToString;
 
 public class signUp extends AppCompatActivity {
-
 
     ImageView upload;
     boolean IMAGE_STATUS = false;
@@ -202,7 +208,6 @@ public class signUp extends AppCompatActivity {
                             .setCancellable(false);
                     progressDialog.show();
 
-                    // Check User
                     mAuth = FirebaseAuth.getInstance();
                     String email = edtemail.getText().toString(), password = edtp1.getText().toString();
                     mAuth.createUserWithEmailAndPassword(email, password)
@@ -210,18 +215,50 @@ public class signUp extends AppCompatActivity {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     progressDialog.dismiss();
+
                                     if (task.isSuccessful()) {
-                                        mAuth.getCurrentUser().sendEmailVerification();
-                                        mAuth.signOut();
-                                        finish();
-                                        Toast.makeText(signUp.this, "Check Email For Verification", Toast.LENGTH_SHORT).show();
+                                        String type;
+                                        boolean status = false;
+
+                                        if (isStudent) {
+                                            status = true;
+                                            type = "Students";
+                                        } else type = "Organizers";
+
+                                        Map<String, Object> data = new HashMap<>();
+                                        data.put("Name", edtname.getText().toString());
+                                        data.put("Email", edtemail.getText().toString());
+                                        data.put("Status", status);
+
+                                        FirebaseFirestore.getInstance().collection("Users")
+                                                .document(type)
+                                                .collection("FirebaseID")
+                                                .document(Objects.requireNonNull(mAuth.getUid()))
+                                                .set(data)
+                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                    @Override
+                                                    public void onSuccess(Void aVoid) {
+                                                        Objects.requireNonNull(mAuth.getCurrentUser()).sendEmailVerification();
+                                                        mAuth.signOut();
+                                                        finish();
+                                                        Toast.makeText(signUp.this, "Check Email For Verification", Toast.LENGTH_SHORT).show();
+                                                    }
+                                                })
+                                                .addOnFailureListener(new OnFailureListener() {
+                                                    @Override
+                                                    public void onFailure(@NonNull Exception e) {
+                                                        Objects.requireNonNull(mAuth.getCurrentUser()).sendEmailVerification();
+                                                        mAuth.signOut();
+                                                        finish();
+                                                        Toast.makeText(signUp.this, "Failed Save a DATA", Toast.LENGTH_SHORT).show();
+                                                    }
+                                                });
                                     } else {
                                         Toast.makeText(signUp.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
                                     }
                                 }
                             });
-                }
-                else{
+                } else {
                     progressDialog.dismiss();
                     Toast.makeText(signUp.this, "Fill the data", Toast.LENGTH_SHORT).show();
                 }
@@ -236,6 +273,5 @@ public class signUp extends AppCompatActivity {
             }
         });
     }
-
 
 }

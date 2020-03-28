@@ -1,12 +1,9 @@
-package com.example.campusconnect;
+package com.example.campusconnect.Event;
 
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcel;
-import android.os.Parcelable;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,8 +16,9 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.example.campusconnect.MainActivity;
+import com.example.campusconnect.R;
 import com.example.campusconnect.UI.Authentication.signIn;
-import com.example.campusconnect.UI.Authentication.signUp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 

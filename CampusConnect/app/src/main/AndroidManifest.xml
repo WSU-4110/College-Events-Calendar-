@@ -14,6 +14,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".admin.orgList" />
+
         <activity
             android:name=".UI.Authentication.forgetPassword"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
@@ -22,19 +24,19 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             />
         <activity
-            android:name=".EventCreation"
+            android:name=".Event.EventCreation"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
 <!--        <activity-->
 <!--            android:name=".View_Calendar"-->
 <!--            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />-->
         <activity
-            android:name=".EventView"
+            android:name=".Event.EventView"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name=".EventDetailedView"
+            android:name=".Event.EventDetailedView"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name=".SavedEvent"
+            android:name=".Event.SavedEvent"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
 
         <activity
