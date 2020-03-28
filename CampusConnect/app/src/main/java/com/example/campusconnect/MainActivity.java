@@ -3,21 +3,33 @@ package com.example.campusconnect;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CalendarView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-
+import android.app.SearchManager;
+import android.widget.ListView;
+import android.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-
+import android.content.Context;
 import androidx.annotation.NonNull;
+import androidx.core.view.MenuItemCompat;
 
 import com.example.campusconnect.UI.Authentication.signIn;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.ArrayList;
+import java.util.Objects;
 
 import static java.lang.Integer.valueOf;
 
@@ -25,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
 	private MenuItem signinout;
 	private Button goto_SavedEvents;
 	CalendarView calendar;
-	
+	ListView listView;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +47,9 @@ public class MainActivity extends AppCompatActivity {
 		Toolbar toolbar = findViewById(R.id.toolbar_main);
 		setSupportActionBar(toolbar);
 		getSupportActionBar().setTitle("Home");
+
+
+
 
 		goto_SavedEvents = findViewById(R.id.gotoSavedEvents);
 		goto_SavedEvents.setOnClickListener(new View.OnClickListener() {
@@ -60,13 +75,7 @@ public class MainActivity extends AppCompatActivity {
 			}
 		});
 	}
-	
-	
-	public void openEventCreator() {
-		Intent intent = new Intent(this, EventCreation.class);
-		startActivity(intent);
-	}
-	
+
 	
 	// *NOTE: putExtra() in its current usage require Strings. Will change to int in the future [-Jay]
 	public void openEventView(int day, int month, int year) {
@@ -121,11 +130,72 @@ public class MainActivity extends AppCompatActivity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.menu_main, menu);
+		final MenuItem searchItem = menu.findItem(R.id.search);
+		SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
 
+		searchView.setOnQueryTextListener(
+				new SearchView.OnQueryTextListener() {
+					@Override
+					public boolean onQueryTextSubmit(String query) {
+						//searchResult(query);
+						return false;
+					}
 
+					@Override
+					public boolean onQueryTextChange(String newText) {
 
-		return true;
+						return false;
+					}
+				}
+
+		);
+
+ 		return true;
 	}
+
+/*
+	public void searchResult(String s){
+		FirebaseFirestore db = FirebaseFirestore.getInstance();
+		final ArrayList<Event> arrayOfEvents;
+		final EventListAdapter adapter;
+		listView = findViewById(R.id.events_listView);
+		arrayOfEvents = new ArrayList<>();                                      // [1]
+		adapter = new EventListAdapter(this, arrayOfEvents);			// [2]
+		listView = (ListView) findViewById(R.id.events_listView);               // [3]
+		listView.setAdapter(adapter);
+
+		listView.setOnItemClickListener(new AdapterView.OnItemClickListener()
+		{
+			public void onItemClick(AdapterView<?> arg0,View arg1, int position, long arg3)
+			{
+				Event event = (Event)listView.getAdapter().getItem(position);
+				Intent intent = new Intent(getApplicationContext(), EventDetailedView.class);
+				intent.putExtra("Event", event.toString());
+				startActivity(intent);
+			}
+		});
+
+		db.collection("Events")
+				.document("Events")
+				.collection("Event_SubCollectionTesting")
+				.whereEqualTo("name", s)
+				.get()
+				.addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+					@Override
+					public void onComplete(@NonNull Task<QuerySnapshot> task) {
+						if (task.isSuccessful()) {
+
+							for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
+								adapter.add((Event) document.toObject(Event.class));
+							}
+
+							//adapter.addAll(arrayOfEvents);
+						}
+					}
+				});
+	}
+
+ */
 
 }//end [ CLASS: MainActivity ]
 
