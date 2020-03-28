@@ -29,8 +29,6 @@
         android:id="@+id/login"
         android:title="Login"
         />
-    <item
-        android:id="@+id/logout"
-        android:title="Logout"/>
+   <!-- Deleted additional item that we no longer need. Will modify the above item with new code -->
 
 </menu>

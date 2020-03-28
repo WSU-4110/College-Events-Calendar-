@@ -208,18 +208,18 @@ public class EventDetailedView extends AppCompatActivity {
             startActivity(intent);
         }
 
-        if(item.getItemId()==R.id.login)
-        {
-
-            Intent intent = new Intent(this, signIn.class);
-            startActivity(intent);
-
-        }
-        else if(item.getItemId()==R.id.logout){
-            final FirebaseAuth mAuth=FirebaseAuth.getInstance();
-            startActivity(new Intent(EventDetailedView.this, signIn.class));
-            //FirebaseAuth.getInstance().signOut();
-            mAuth.signOut();
+        if(item.getItemId()==R.id.login){
+            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+            if (user!=null) {																// If someone is signed in
+                item.setTitle("Logout");													// Only give the option to signout and show "signout" not "login"
+                final FirebaseAuth mAuth=FirebaseAuth.getInstance();						// getting the user info
+                startActivity(new Intent(EventDetailedView.this, signIn.class));	// return to calendar
+                mAuth.signOut();															// sign them out
+            }
+            else{																			// but if someone is not logged in
+                Intent intent = new Intent(this, signIn.class);				// keep "login" title and send them to login screen
+                startActivity(intent);
+            }
         }
         else
         {
