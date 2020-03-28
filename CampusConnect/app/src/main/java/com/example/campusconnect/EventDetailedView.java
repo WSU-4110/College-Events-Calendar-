@@ -101,7 +101,7 @@ public class EventDetailedView extends AppCompatActivity {
                          "Location : " + locationInput.getText().toString()+ "\n" +
                          "Start Time : " + startTimeInput.getText().toString() + "\n" +
                          "End Time :" + dateInput.getText().toString();
-                    shareOnWhatsapp( eventDetail );
+                 shareOnSocialMedia( eventDetail, "WHATSAPP" );
                }
             });
 
@@ -113,7 +113,7 @@ public class EventDetailedView extends AppCompatActivity {
                         "Location : " + locationInput.getText().toString()+ "\n" +
                         "Start Time : " + startTimeInput.getText().toString() + "\n" +
                         "End Time :" + dateInput.getText().toString();
-                shareOnTwitter( eventDetail );
+                shareOnSocialMedia( eventDetail,"TWITTER" );
             }
         });
 
@@ -125,7 +125,7 @@ public class EventDetailedView extends AppCompatActivity {
                         "Location : " + locationInput.getText().toString()+ "\n" +
                         "Start Time : " + startTimeInput.getText().toString() + "\n" +
                         "End Time :" + dateInput.getText().toString();
-                shareOnFacebook( eventDetail );
+                shareOnSocialMedia( eventDetail,"FACEBOOK" );
             }
         });
 
@@ -177,12 +177,16 @@ public class EventDetailedView extends AppCompatActivity {
 
 
     // Share on WhatsApp
-    private void shareOnWhatsapp(String eventDetail) {
+    private void shareOnSocialMedia(String eventDetail, String media) {
         System.out.println(" Start sharing in WhatsApp");
 
         Intent whatsappIntent = new Intent(Intent.ACTION_SEND);
         whatsappIntent.setType("text/plain");
-        whatsappIntent.setPackage("com.whatsapp");
+
+        SMFactory smFactory = new SMFactory();
+
+        ShareSocialMedia sm = smFactory.getSM(media);
+        whatsappIntent.setPackage(sm.getPackage());
         whatsappIntent.putExtra(Intent.EXTRA_TEXT, eventDetail);
         try {
             startActivity(whatsappIntent);
@@ -191,36 +195,6 @@ public class EventDetailedView extends AppCompatActivity {
         }
     }
 
-
-    // Share on Twitter
-    private void shareOnTwitter(String eventDetail) {
-        System.out.println(" Start sharing in WhatsApp");
-
-        Intent twitterIntent = new Intent(Intent.ACTION_SEND);
-        twitterIntent.setType("text/plain");
-        twitterIntent.setPackage("com.twitter.android");
-        twitterIntent.putExtra(Intent.EXTRA_TEXT, eventDetail);
-        try {
-            startActivity(twitterIntent);
-        } catch (android.content.ActivityNotFoundException ex) {
-            //ToastHelper.MakeShortText("Whatsapp has not been installed.");
-        }
-    }
-
-    // Share on Facebook
-    private void shareOnFacebook(String eventDetail) {
-        System.out.println(" Start sharing in WhatsApp");
-
-        Intent facebookIntent = new Intent(Intent.ACTION_SEND);
-        facebookIntent.setType("text/plain");
-        facebookIntent.setPackage("com.facebook.katana");
-        facebookIntent.putExtra(Intent.EXTRA_TEXT, eventDetail);
-        try {
-            startActivity(facebookIntent);
-        } catch (android.content.ActivityNotFoundException ex) {
-            //ToastHelper.MakeShortText("Facebook has not been installed.");
-        }
-    }
 
 
     // Back Button
@@ -261,5 +235,55 @@ public class EventDetailedView extends AppCompatActivity {
 
         return true;
     }
+
+    public interface ShareSocialMedia {
+        String getPackage();
+    }
+
+    public class shareTwitter implements ShareSocialMedia {
+        @Override
+        public String getPackage() {
+                return "com.twitter.android";
+        }
+    }
+
+    public class shareFacebook implements ShareSocialMedia {
+        @Override
+        public String getPackage() {
+            return "com.facebook.katanap";
+        }
+    }
+
+    public class shareWhatsapp implements ShareSocialMedia {
+        @Override
+        public String getPackage() {
+            return "com.whatsapp";
+        }
+    }
+
+    public class SMFactory {
+
+        public ShareSocialMedia getSM(String socialMedia){
+            if(socialMedia == null){
+                return null;
+            }
+
+            if(socialMedia.equalsIgnoreCase("TWITTER")){
+                return new shareTwitter();
+
+            } else if(socialMedia.equalsIgnoreCase("FACEBOOK")) {
+                return new shareFacebook();
+
+            } else if (socialMedia.equalsIgnoreCase("WHATSAPP")) {
+                return new shareWhatsapp();
+
+            }
+
+            return null;
+        }
+    }
+
+
+
 
 }
