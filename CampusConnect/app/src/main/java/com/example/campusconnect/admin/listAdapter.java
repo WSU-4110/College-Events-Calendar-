@@ -32,13 +32,13 @@ public class listAdapter extends ArrayAdapter<String> {
     public View getView(final int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        assert inflater != null;
+        assert inflater != null; // 5
         @SuppressLint("ViewHolder") final View rowView = inflater.inflate(R.layout.activity_listview, parent, false);
         TextView status = (TextView) rowView.findViewById(R.id.status);
-        TextView email = (TextView) rowView.findViewById(R.id.email);
+        TextView email = (TextView) rowView.findViewById(R.id.email); // 6
 
-        final Map<String, Object> obj = (Map<String, Object>) list.get(position);
-        email.setText(obj.get("Email").toString());
+        final Map<String, Object> obj = (Map<String, Object>) list.get(position); // 7
+        email.setText(obj.get("Email").toString());  // 8
         if (obj.get("Status").toString() == "true")
             status.setText("Allow");
         else
@@ -71,6 +71,7 @@ public class listAdapter extends ArrayAdapter<String> {
 
             }
         });
-        return rowView;
+        return rowView; // 9
     }
 }
+

@@ -44,17 +44,17 @@ public class orgList extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
-                    List list = new ArrayList<>();
+                    List list = new ArrayList<>(); // 1
                     for (final QueryDocumentSnapshot document : task.getResult()) {
                         Map<String, Object> data = document.getData();
                         data.put("id", document.getId());
                         list.add(data);
                     }
-                    listAdapter adapter = new listAdapter(orgList.this, list);
-                    ListView listView = (ListView) findViewById(R.id.orgList);
-                    listView.setAdapter(adapter);
+                    listAdapter adapter = new listAdapter(orgList.this, list); // 2
+                    ListView listView = (ListView) findViewById(R.id.orgList); // 3
+                    listView.setAdapter(adapter); // 4
                     progressDialog.dismiss();
-                    adapter.notifyDataSetChanged();
+                    adapter.notifyDataSetChanged(); // 10
                 } else {
                     progressDialog.dismiss();
                     Toast.makeText(orgList.this, "Error getting documents: ", Toast.LENGTH_SHORT).show();
@@ -70,3 +70,20 @@ public class orgList extends AppCompatActivity {
         startActivity(new Intent(orgList.this, signIn.class));
     }
 }
+
+// ============ Assignment Task: design pattern
+
+// Apply adapter design.
+
+// 1. data source
+// 2. change the array to views by making adapter
+// 3. Declaration of the ListView object
+// 4. set adapter to the ListView in XML
+// ==> In the listAdapter.java file.
+// 5. existing view checker and inflate the view
+// 6. get the data source from XML
+// 7. Get the dataitem from perticular index
+// 8. Assign the data to the XML view
+// 9. Return the view to a list in orgList.dart
+// 10. Notify dataset after changes
+
