@@ -27,7 +27,7 @@ public class listAdapter extends ArrayAdapter<String> {
         this.context = context;
         this.list = list;
     }
-
+//adopter pattern : to integerate the application to collaborate with each other
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = (LayoutInflater) context
