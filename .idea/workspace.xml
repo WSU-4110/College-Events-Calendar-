@@ -1,25 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="dc7acf5f-8907-4ddd-981c-18661de8d778" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/CampusConnect/app/src/main/java/com/example/campusconnect/admin/listAdapter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/CampusConnect/app/src/main/java/com/example/campusconnect/admin/orgList.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/CampusConnect/app/src/main/res/layout/activity_listview.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/CampusConnect/app/src/main/res/layout/activity_org_list.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CampusConnect/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/CampusConnect/.idea/gradle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CampusConnect/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/CampusConnect/app/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CampusConnect/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/CampusConnect/app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CampusConnect/app/src/main/java/com/example/campusconnect/EventCreation.java" beforeDir="false" afterPath="$PROJECT_DIR$/CampusConnect/app/src/main/java/com/example/campusconnect/Event/EventCreation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CampusConnect/app/src/main/java/com/example/campusconnect/EventDetailedView.java" beforeDir="false" afterPath="$PROJECT_DIR$/CampusConnect/app/src/main/java/com/example/campusconnect/Event/EventDetailedView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CampusConnect/app/src/main/java/com/example/campusconnect/EventView.java" beforeDir="false" afterPath="$PROJECT_DIR$/CampusConnect/app/src/main/java/com/example/campusconnect/Event/EventView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CampusConnect/app/src/main/java/com/example/campusconnect/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/CampusConnect/app/src/main/java/com/example/campusconnect/MainActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CampusConnect/app/src/main/java/com/example/campusconnect/SavedEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/CampusConnect/app/src/main/java/com/example/campusconnect/Event/SavedEvent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CampusConnect/app/src/main/java/com/example/campusconnect/UI/Authentication/signIn.java" beforeDir="false" afterPath="$PROJECT_DIR$/CampusConnect/app/src/main/java/com/example/campusconnect/UI/Authentication/signIn.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CampusConnect/app/src/main/java/com/example/campusconnect/UI/Authentication/signUp.java" beforeDir="false" afterPath="$PROJECT_DIR$/CampusConnect/app/src/main/java/com/example/campusconnect/UI/Authentication/signUp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CampusConnect/app/src/main/java/com/example/campusconnect/splashScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/CampusConnect/app/src/main/java/com/example/campusconnect/splashScreen.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CampusConnect/app/src/main/res/layout/saved_events.xml" beforeDir="false" afterPath="$PROJECT_DIR$/CampusConnect/app/src/main/res/layout/saved_events.xml" afterDir="false" />
-    </list>
+    <list default="true" id="dc7acf5f-8907-4ddd-981c-18661de8d778" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
