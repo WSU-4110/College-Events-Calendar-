@@ -74,7 +74,6 @@ public class orgList extends AppCompatActivity {
 // ============ Assignment Task: design pattern
 
 // Apply adapter design.
-
 // 1. data source
 // 2. change the array to views by making adapter
 // 3. Declaration of the ListView object
