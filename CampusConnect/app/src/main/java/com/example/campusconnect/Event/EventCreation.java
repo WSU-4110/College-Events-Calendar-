@@ -13,14 +13,19 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.example.campusconnect.MainActivity;
 import com.example.campusconnect.R;
 import com.example.campusconnect.UI.Authentication.signIn;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.Calendar;
 
@@ -99,7 +104,31 @@ class Event {
 	{
         return name + "|" + location + "|" + startTime + "|" + date + "|" + org + "|" + desc;
     }
-    
+
+    public static boolean isOrganizer() {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        final boolean[] Organizer = {false}; //adding organizer code
+        db.collection("User")
+                .document("Organizers")
+                .collection("FirebaseID")
+                .whereEqualTo("id", user.getUid())
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            Organizer[0] = true;
+                        }
+                    }
+                });
+        if (Organizer[0]) {
+            return true;
+        }
+        else
+            return false;
+    }
+
 }// end [ CLASS: Event ]
 
 

@@ -82,21 +82,21 @@ public class SavedEvent extends AppCompatActivity {
 
 
         if (user!=null){
-            final boolean[] Organizer = {false}; //adding organizer code
-            db.collection("User")
-                    .document("Organizers")
-                    .collection("FirebaseID")
-                    .whereEqualTo("id", user.getUid())
-                    .get()
-                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                        @Override
-                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                            if (task.isSuccessful()) {
-                                Organizer[0] = true;
-                            }
-                        }
-                    });
-            if (!Organizer[0]){
+//            final boolean[] Organizer = {false}; //adding organizer code
+//            db.collection("User")
+//                    .document("Organizers")
+//                    .collection("FirebaseID")
+//                    .whereEqualTo("id", user.getUid())
+//                    .get()
+//                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//                        @Override
+//                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//                            if (task.isSuccessful()) {
+//                                Organizer[0] = true;
+//                            }
+//                        }
+//                    });
+            if (!Event.isOrganizer()){
 
                 db.collection("SavedEvent")
                         .document("SavedEvent")
@@ -119,7 +119,7 @@ public class SavedEvent extends AppCompatActivity {
                         });
 
             }
-            if (Organizer[0]){
+            else{
 
                 db.collection("SavedEvent")
                         .document("SavedEvent")
