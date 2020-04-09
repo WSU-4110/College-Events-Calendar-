@@ -78,27 +78,74 @@ public class SavedEvent extends AppCompatActivity {
         });
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+
+
         if (user!=null){
-            db.collection("SavedEvent")
-                    .document("SavedEvent")
-                    .collection("Event_SubCollectionTesting")
-                    .whereEqualTo("uid", user.getUid())
+            final boolean[] Organizer = {false}; //adding organizer code
+            db.collection("User")
+                    .document("Organizers")
+                    .collection("FirebaseID")
+                    .whereEqualTo("id", user.getUid())
                     .get()
                     .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<QuerySnapshot> task) {
                             if (task.isSuccessful()) {
-
-                                for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
-                                    //arrayOfEvents.add(document.toObject(Event.class));
-                                    adapter.add((Event) document.toObject(Event.class));
-                                }
-
-                                //adapter.addAll(arrayOfEvents);
+                                Organizer[0] = true;
                             }
                         }
                     });
+            if (!Organizer[0]){
+
+                db.collection("SavedEvent")
+                        .document("SavedEvent")
+                        .collection("Event_SubCollectionTesting")
+                        .whereEqualTo("uid", user.getUid())
+                        .get()
+                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                if (task.isSuccessful()) {
+
+                                    for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
+                                        //arrayOfEvents.add(document.toObject(Event.class));
+                                        adapter.add((Event) document.toObject(Event.class));
+                                    }
+
+                                    //adapter.addAll(arrayOfEvents);
+                                }
+                            }
+                        });
+
+            }
+            if (Organizer[0]){
+
+                db.collection("SavedEvent")
+                        .document("SavedEvent")
+                        .collection("Event_SubCollectionTesting")
+                        .whereEqualTo("Orguid", user.getUid())
+                        .get()
+                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                if (task.isSuccessful()) {
+
+                                    for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
+                                        //arrayOfEvents.add(document.toObject(Event.class));
+                                        adapter.add((Event) document.toObject(Event.class));
+                                    }
+
+                                    //adapter.addAll(arrayOfEvents);
+                                }
+                            }
+                        });
+
+            }
         }
+
+
+
         else{
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(intent);
