@@ -52,7 +52,10 @@ public class SavedEvent extends AppCompatActivity {
     private void displayEventsForSelectedUser() {
 
         TextView title = findViewById(R.id.EventList_HeaderDynamic);
-        title.setText("Your Saved Events");
+        if (EventCreation.isOrganizer())
+            title.setText("Your Created Events");
+        if (!EventCreation.isOrganizer())
+            title.setText("Your Saved Events");
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         final ArrayList<Event> arrayOfEvents;
