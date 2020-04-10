@@ -105,29 +105,7 @@ class Event {
         return name + "|" + location + "|" + startTime + "|" + date + "|" + org + "|" + desc;
     }
 
-    public static boolean isOrganizer() {
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        final boolean[] Organizer = {false}; //adding organizer code
-        db.collection("User")
-                .document("Organizers")
-                .collection("FirebaseID")
-                .whereEqualTo("id", user.getUid())
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            Organizer[0] = true;
-                        }
-                    }
-                });
-        if (Organizer[0]) {
-            return true;
-        }
-        else
-            return false;
-    }
+
 
 }// end [ CLASS: Event ]
 
@@ -151,6 +129,30 @@ public class EventCreation extends AppCompatActivity{
 
     Button submitButton;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+    public static boolean isOrganizer() {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        final boolean[] Organizer = {false}; //adding organizer code
+        db.collection("User")
+                .document("Organizers")
+                .collection("FirebaseID")
+                .whereEqualTo("id", user.getUid())
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            Organizer[0] = true;
+                        }
+                    }
+                });
+        if (Organizer[0]) {
+            return true;
+        }
+        else
+            return false;
+    }
 
 
     // <Event>.add() auto-generates a unique ID. Side Effect: "Submit Event" can make duplicates

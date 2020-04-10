@@ -96,7 +96,7 @@ public class SavedEvent extends AppCompatActivity {
 //                            }
 //                        }
 //                    });
-            if (!Event.isOrganizer()){
+            if (!EventCreation.isOrganizer()){
 
                 db.collection("SavedEvent")
                         .document("SavedEvent")
