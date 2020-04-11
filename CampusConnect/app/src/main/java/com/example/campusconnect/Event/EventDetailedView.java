@@ -133,6 +133,31 @@ public class EventDetailedView extends AppCompatActivity {
                                     }
                                 }
                             });
+                    db.collection("SavedEvent")
+                            .document("SavedEvent")
+                            .collection("Event_SubCollectionTesting")
+                            .whereEqualTo("orgUid", OrgUidInput.getText().toString())
+                            .whereEqualTo("name", EventNameInput.getText().toString())
+                            .whereEqualTo("location",locationInput.getText().toString())
+                            .whereEqualTo("startTime", startTimeInput.getText().toString())
+                            .whereEqualTo("date", dateInput.getText().toString())
+                            .whereEqualTo("desc", descInput.getText().toString())
+                            .whereEqualTo("org",orgInput.getText().toString())
+                            .get()
+                            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                    if (task.isSuccessful()) {
+                                        for (QueryDocumentSnapshot document : task.getResult()) {
+                                            String DocId = document.getId();
+                                            db.collection("SavedEvent")
+                                                    .document("SavedEvent")
+                                                    .collection("Event_SubCollectionTesting")
+                                                    .document(DocId).delete();
+                                        }
+                                    }
+                                }
+                            });
                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                     startActivity(intent);
                 } else
