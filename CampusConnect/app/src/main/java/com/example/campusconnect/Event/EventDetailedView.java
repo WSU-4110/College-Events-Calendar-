@@ -54,6 +54,7 @@ public class EventDetailedView extends AppCompatActivity {
     ImageView facebookImg;
 
     private Button delete;
+    private Button unfollow;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +63,7 @@ public class EventDetailedView extends AppCompatActivity {
 
 
         delete = (Button) findViewById(R.id.delete);
+        unfollow = (Button) findViewById(R.id.unfollow);
 
 
         String eventStr = getIntent().getStringExtra("Event");
@@ -101,6 +103,44 @@ public class EventDetailedView extends AppCompatActivity {
         whatsappImg = findViewById(R.id.whatsapplogo);
         twitterImg = findViewById(R.id.twitterlogo);
         facebookImg = findViewById(R.id.fblogo);
+
+        unfollow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+                if (true) {
+
+                    db.collection("SavedEvent")
+                            .document("SavedEvent")
+                            .collection("Event_SubCollectionTesting")
+                            .whereEqualTo("uid", user.getUid())
+                            .whereEqualTo("name", EventNameInput.getText().toString())
+                            .whereEqualTo("location",locationInput.getText().toString())
+                            .whereEqualTo("startTime", startTimeInput.getText().toString())
+                            .whereEqualTo("date", dateInput.getText().toString())
+                            .whereEqualTo("desc", descInput.getText().toString())
+                            .whereEqualTo("org",orgInput.getText().toString())
+                            .get()
+                            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                    if (task.isSuccessful()) {
+                                        for (QueryDocumentSnapshot document : task.getResult()) {
+                                            String DocId = document.getId();
+                                            db.collection("SavedEvent")
+                                                    .document("SavedEvent")
+                                                    .collection("Event_SubCollectionTesting")
+                                                    .document(DocId).delete();
+                                        }
+                                    }
+                                }
+                            });
+                    Toast.makeText(EventDetailedView.this, "Un-followed Event", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                    startActivity(intent);
+                }
+            }});
 
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
