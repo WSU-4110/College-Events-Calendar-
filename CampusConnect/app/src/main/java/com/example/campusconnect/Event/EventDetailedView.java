@@ -76,7 +76,7 @@ public class EventDetailedView extends AppCompatActivity {
         final String desc = (String)st2.nextElement();
         final String org = (String)st2.nextElement();
         final String OrgUid = (String)st2.nextElement();
-        Toast.makeText(EventDetailedView.this, "Ouid"+OrgUid, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(EventDetailedView.this, "Ouid"+OrgUid, Toast.LENGTH_SHORT).show();
 
 
 
