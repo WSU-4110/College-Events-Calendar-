@@ -81,20 +81,20 @@ public class EventView extends AppCompatActivity {
                 .whereEqualTo("date", wholeDate)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
 
-                            for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
-                                //arrayOfEvents.add((Event) document.toObject(Event.class));
-                                adapter.add((Event) document.toObject(Event.class));
-                            }
-
-                            //adapter.addAll(arrayOfEvents);
-                        }
+                    for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
+                        //arrayOfEvents.add((Event) document.toObject(Event.class));
+                        adapter.add((Event) document.toObject(Event.class));
                     }
-                });
-		
+
+                    //adapter.addAll(arrayOfEvents);
+                }
+            }
+        });
+
     }// END METHOD [ displayEventsForSelectedDay ]
     
 	

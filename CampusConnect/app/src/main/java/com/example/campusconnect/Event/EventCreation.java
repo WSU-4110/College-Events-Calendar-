@@ -57,14 +57,14 @@ class Event {
         this.date = dateSelected;
     }
     
-    public Event(String name, String location, String startTime, String date, String org, String desc) {
-        this.name = name;
-        this.location = location;
-        this.startTime = startTime;
-        this.date = date;
-        this.org = org;
-        this.desc = desc;
-    }
+//    public Event(String name, String location, String startTime, String date, String org, String desc) {
+//        this.name = name;
+//        this.location = location;
+//        this.startTime = startTime;
+//        this.date = date;
+//        this.org = org;
+//        this.desc = desc;
+//    }
     public Event(String uid, String name, String location, String startTime, String date, String org, String desc, String OrgUid) {
         this.uid = uid;
         this.name = name;
@@ -106,7 +106,7 @@ class Event {
 
     public void setUid(String uid) { this.uid = uid; }
 
-    public void setOrgUid(String Orguid) { this.OrgUid = OrgUid; }
+    public void setOrgUid(String OrgUid) { this.OrgUid = OrgUid; }
 
     public String toString()
 	{

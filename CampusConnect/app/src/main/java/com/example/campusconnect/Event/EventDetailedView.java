@@ -10,21 +10,30 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.example.campusconnect.MainActivity;
 import com.example.campusconnect.R;
 import com.example.campusconnect.UI.Authentication.signIn;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.CollectionReference;
 
+import java.util.Objects;
 import java.util.StringTokenizer;
 
 public class EventDetailedView extends AppCompatActivity {
@@ -36,6 +45,7 @@ public class EventDetailedView extends AppCompatActivity {
     TextView dateInput;
     TextView descInput;
     TextView orgInput;
+    TextView OrgUidInput;
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     FloatingActionButton floating_toSavedEvents;
@@ -43,22 +53,28 @@ public class EventDetailedView extends AppCompatActivity {
     ImageView twitterImg;
     ImageView facebookImg;
 
+    private Button delete;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.event_detailed_view);
 
+
+        delete = (Button) findViewById(R.id.delete);
+
+
         String eventStr = getIntent().getStringExtra("Event");
 
         StringTokenizer st2 = new StringTokenizer(eventStr, "|");
-        String name = (String)st2.nextElement();
-        String location = (String)st2.nextElement();
-        String startTime = (String)st2.nextElement();
-        String date = (String)st2.nextElement();
-        String desc = (String)st2.nextElement();
-        String org = (String)st2.nextElement();
+        final String name = (String)st2.nextElement();
+        final String location = (String)st2.nextElement();
+        final String startTime = (String)st2.nextElement();
+        final String date = (String)st2.nextElement();
+        final String desc = (String)st2.nextElement();
+        final String org = (String)st2.nextElement();
         final String OrgUid = (String)st2.nextElement();
+        Toast.makeText(EventDetailedView.this, "Ouid"+OrgUid, Toast.LENGTH_SHORT).show();
 
 
 
@@ -70,6 +86,7 @@ public class EventDetailedView extends AppCompatActivity {
         dateInput =  findViewById(R.id.EventDate);
         descInput = findViewById(R.id.Description);
         orgInput = findViewById(R.id.Organization);
+        OrgUidInput = findViewById(R.id.OrgUid);
 
         EventNameInput.setText(event.getName());
         locationInput.setText(event.getLocation());
@@ -77,11 +94,51 @@ public class EventDetailedView extends AppCompatActivity {
         dateInput.setText(event.getDate());
         descInput.setText(event.getDesc());
         orgInput.setText(event.getOrg());
+        OrgUidInput.setText(event.getOrgUid());
+        //Toast.makeText(EventDetailedView.this, "Ouid"+OrgUidInput.getText().toString(), Toast.LENGTH_SHORT).show();
 
         floating_toSavedEvents = findViewById(R.id.floating_back_button);
         whatsappImg = findViewById(R.id.whatsapplogo);
         twitterImg = findViewById(R.id.twitterlogo);
         facebookImg = findViewById(R.id.fblogo);
+
+        delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+                if (true) {
+                    db.collection("Events")
+                            .document("Events")
+                            .collection("Event_SubCollectionTesting")
+                            .whereEqualTo("orgUid", user.getUid())
+                            .whereEqualTo("name", EventNameInput.getText().toString())
+                            .whereEqualTo("location",locationInput.getText().toString())
+                            .whereEqualTo("startTime", startTimeInput.getText().toString())
+                            .whereEqualTo("date", dateInput.getText().toString())
+                            .whereEqualTo("desc", descInput.getText().toString())
+                            .whereEqualTo("org",orgInput.getText().toString())
+                            .get()
+                            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                    if (task.isSuccessful()) {
+                                        for (QueryDocumentSnapshot document : task.getResult()) {
+                                            String DocId = document.getId();
+                                            db.collection("Events")
+                                                    .document("Events")
+                                                    .collection("Event_SubCollectionTesting")
+                                                    .document(DocId).delete();
+                                        }
+                                    }
+                                }
+                            });
+                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                    startActivity(intent);
+                } else
+                    Toast.makeText(EventDetailedView.this, "Only Creator can delete", Toast.LENGTH_SHORT).show();
+            }});
+
 
         whatsappImg.setOnClickListener(new View.OnClickListener() {
              @Override
@@ -135,7 +192,7 @@ public class EventDetailedView extends AppCompatActivity {
                     String displayName = user.getUid();
                     Event eventSaved = new Event(displayName, EventNameInput.getText().toString(),locationInput.getText().toString(),
                             startTimeInput.getText().toString(), dateInput.getText().toString(),
-                            descInput.getText().toString(), orgInput.getText().toString(), OrgUid);
+                            descInput.getText().toString(), orgInput.getText().toString(), OrgUidInput.getText().toString());
                     Toast.makeText(EventDetailedView.this, "Adding to Saved Events", Toast.LENGTH_SHORT).show();
 
 //                SavedEvent sEvent = new SavedEvent(displayName, EventNameInput.getText().toString(),locationInput.getText().toString(),
