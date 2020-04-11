@@ -136,7 +136,7 @@ public class EventDetailedView extends AppCompatActivity {
                     db.collection("SavedEvent")
                             .document("SavedEvent")
                             .collection("Event_SubCollectionTesting")
-                            .whereEqualTo("orgUid", OrgUidInput.getText().toString())
+                            .whereEqualTo("orgUid", user.getUid())
                             .whereEqualTo("name", EventNameInput.getText().toString())
                             .whereEqualTo("location",locationInput.getText().toString())
                             .whereEqualTo("startTime", startTimeInput.getText().toString())
