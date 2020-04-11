@@ -101,8 +101,10 @@ public class MainActivity extends AppCompatActivity {
 				Intent intent = new Intent(this, EventCreation.class);
 				startActivity(intent);
 			}
-			else
+			else{
 				Toast.makeText(MainActivity.this, "Only Organizers Can Add Events", Toast.LENGTH_SHORT).show();
+			}
+
 
 		}
 

@@ -25,9 +25,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.Calendar;
+import java.util.Objects;
 
 
 class Event {
@@ -39,6 +41,7 @@ class Event {
     private String org;
     private String desc;
     private String uid;
+    private String OrgUid;
 
     
     Event() {
@@ -62,7 +65,7 @@ class Event {
         this.org = org;
         this.desc = desc;
     }
-    public Event(String uid, String name, String location, String startTime, String date, String org, String desc) {
+    public Event(String uid, String name, String location, String startTime, String date, String org, String desc, String OrgUid) {
         this.uid = uid;
         this.name = name;
         this.location = location;
@@ -70,6 +73,7 @@ class Event {
         this.date = date;
         this.org = org;
         this.desc = desc;
+        this.OrgUid = OrgUid;
     }
 
     public String getName() { return name; }
@@ -86,6 +90,8 @@ class Event {
 
     public String getUid() { return uid; }
 
+    public String getOrgUid() { return OrgUid; }
+
     public void setName(String name) { this.name = name; }
 
     public void setLocation(String location) { this.location = location; }
@@ -100,9 +106,11 @@ class Event {
 
     public void setUid(String uid) { this.uid = uid; }
 
+    public void setOrgUid(String Orguid) { this.OrgUid = OrgUid; }
+
     public String toString()
 	{
-        return name + "|" + location + "|" + startTime + "|" + date + "|" + org + "|" + desc;
+        return name + "|" + location + "|" + startTime + "|" + date + "|" + org + "|" + desc + "|" + OrgUid;
     }
 
 
@@ -129,29 +137,50 @@ public class EventCreation extends AppCompatActivity{
 
     Button submitButton;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
+    public static boolean Organizer = false; //adding organizer code
 
     public static boolean isOrganizer() {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        final boolean[] Organizer = {false}; //adding organizer code
-        db.collection("User")
-                .document("Organizers")
-                .collection("FirebaseID")
-                .whereEqualTo("id", user.getUid())
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            Organizer[0] = true;
+        //Organizer = false;
+        if (user!=null)
+        {
+            db.collection("Users")
+                    .document("Organizers")
+                    .collection("FirebaseID")
+                    .whereEqualTo("id", user.getUid())
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//                            if (task.isSuccessful()) {
+//
+//                                //Organizer = !(task.getResult().isEmpty());
+//                                Organizer = true;
+//                                //adapter.addAll(arrayOfEvents);
+//                            }
+                            if (!task.getResult().isEmpty()){
+                                Organizer = true;
+
+                            }
                         }
                     }
-                });
-        if (Organizer[0]) {
-            return true;
+                    );
+            if (Organizer) {
+                Organizer = false;
+                return true;
+            }
+            else{
+                //Organizer = false;
+                return false;
+            }
+
         }
-        else
+        else{
+            //Organizer = false;
             return false;
+        }
+
     }
 
 
@@ -207,8 +236,9 @@ public class EventCreation extends AppCompatActivity{
                 date = dateInput.getText().toString();
                 desc = descInput.getText().toString();
                 org = orgInput.getText().toString();
-                Event event = new Event(EventName, location, startTime,
-                        date, org, desc);
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                Event event = new Event(null, EventName, location, startTime,
+                        date, org, desc, user.getUid());
 
                 db.collection("Events")
                         .document("Events")

@@ -58,10 +58,11 @@ public class EventDetailedView extends AppCompatActivity {
         String date = (String)st2.nextElement();
         String desc = (String)st2.nextElement();
         String org = (String)st2.nextElement();
+        final String OrgUid = (String)st2.nextElement();
 
 
 
-       Event event = new Event(name,location,startTime, date, desc, org);
+       Event event = new Event(null, name,location,startTime, date, desc, org, OrgUid);
 
         EventNameInput = findViewById(R.id.EventName);
         locationInput =  findViewById(R.id.Location);
@@ -134,7 +135,7 @@ public class EventDetailedView extends AppCompatActivity {
                     String displayName = user.getUid();
                     Event eventSaved = new Event(displayName, EventNameInput.getText().toString(),locationInput.getText().toString(),
                             startTimeInput.getText().toString(), dateInput.getText().toString(),
-                            descInput.getText().toString(), orgInput.getText().toString());
+                            descInput.getText().toString(), orgInput.getText().toString(), OrgUid);
                     Toast.makeText(EventDetailedView.this, "Adding to Saved Events", Toast.LENGTH_SHORT).show();
 
 //                SavedEvent sEvent = new SavedEvent(displayName, EventNameInput.getText().toString(),locationInput.getText().toString(),

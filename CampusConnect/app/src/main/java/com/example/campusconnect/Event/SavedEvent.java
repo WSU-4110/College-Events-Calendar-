@@ -43,6 +43,7 @@ public class SavedEvent extends AppCompatActivity {
 
 
 
+
         displayEventsForSelectedUser();
 
     }
@@ -50,11 +51,11 @@ public class SavedEvent extends AppCompatActivity {
 
     // TODO: Look into feasibility of adding Left and Right arrows once event list is open
     private void displayEventsForSelectedUser() {
-
+        boolean organizer = EventCreation.isOrganizer();
         TextView title = findViewById(R.id.EventList_HeaderDynamic);
-        if (EventCreation.isOrganizer())
+        if (organizer)
             title.setText("Your Created Events");
-        if (!EventCreation.isOrganizer())
+        if (!organizer)
             title.setText("Your Saved Events");
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -99,7 +100,7 @@ public class SavedEvent extends AppCompatActivity {
 //                            }
 //                        }
 //                    });
-            if (!EventCreation.isOrganizer()){
+            if (!organizer){
 
                 db.collection("SavedEvent")
                         .document("SavedEvent")
@@ -124,10 +125,10 @@ public class SavedEvent extends AppCompatActivity {
             }
             else{
 
-                db.collection("SavedEvent")
-                        .document("SavedEvent")
+                db.collection("Events")
+                        .document("Events")
                         .collection("Event_SubCollectionTesting")
-                        .whereEqualTo("Orguid", user.getUid())
+                        .whereEqualTo("orgUid", user.getUid())
                         .get()
                         .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                             @Override
