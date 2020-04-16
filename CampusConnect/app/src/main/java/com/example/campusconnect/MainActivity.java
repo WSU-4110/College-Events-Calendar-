@@ -51,7 +51,6 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-
 		goto_SavedEvents = findViewById(R.id.gotoSavedEvents);
 		goto_SavedEvents.setOnClickListener(new View.OnClickListener() {
 			@Override
