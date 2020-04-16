@@ -267,7 +267,7 @@ public class EventDetailedView extends AppCompatActivity {
                     String displayName = user.getUid();
                     Event eventSaved = new Event(displayName, EventNameInput.getText().toString(),locationInput.getText().toString(),
                             startTimeInput.getText().toString(), dateInput.getText().toString(),
-                            descInput.getText().toString(), orgInput.getText().toString(), OrgUidInput.getText().toString(), "");
+                            descInput.getText().toString(), orgInput.getText().toString(), OrgUidInput.getText().toString(), tagInput.getText().toString());
                     Toast.makeText(EventDetailedView.this, "Adding to Saved Events", Toast.LENGTH_SHORT).show();
 
 //                SavedEvent sEvent = new SavedEvent(displayName, EventNameInput.getText().toString(),locationInput.getText().toString(),
