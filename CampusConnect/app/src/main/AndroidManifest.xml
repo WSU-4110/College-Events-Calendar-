@@ -30,6 +30,9 @@
 <!--            android:name=".View_Calendar"-->
 <!--            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />-->
         <activity
+            android:name=".Event.Search"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
             android:name=".Event.EventView"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity

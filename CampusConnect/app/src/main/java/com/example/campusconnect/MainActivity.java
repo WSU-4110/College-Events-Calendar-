@@ -3,25 +3,34 @@ package com.example.campusconnect;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CalendarView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-
+import android.app.SearchManager;
+import android.widget.ListView;
+import android.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-
+import android.content.Context;
 import androidx.annotation.NonNull;
-
-//import com.example.campusconnect.Event.Event;
+import androidx.core.view.MenuItemCompat;
+import com.example.campusconnect.Event.*;
 import com.example.campusconnect.Event.EventCreation;
-import com.example.campusconnect.Event.EventView;
-import com.example.campusconnect.Event.SavedEvent;
 import com.example.campusconnect.UI.Authentication.signIn;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.ArrayList;
+import java.util.Objects;
 
 import static java.lang.Integer.valueOf;
 
@@ -29,16 +38,19 @@ public class MainActivity extends AppCompatActivity {
 	private MenuItem signinout;
 	private Button goto_SavedEvents;
 	CalendarView calendar;
-	
-	
+	ListView listView;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		
+
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		Toolbar toolbar = findViewById(R.id.toolbar_main);
 		setSupportActionBar(toolbar);
 		getSupportActionBar().setTitle("Home");
+
+
+
 
 		goto_SavedEvents = findViewById(R.id.gotoSavedEvents);
 		goto_SavedEvents.setOnClickListener(new View.OnClickListener() {
@@ -55,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
 
 			}
 		});
-		
+
 		calendar = findViewById(R.id.calendarView);
 		calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
 			@Override
@@ -64,31 +76,25 @@ public class MainActivity extends AppCompatActivity {
 			}
 		});
 	}
-	
-	
-	public void openEventCreator() {
-		Intent intent = new Intent(this, EventCreation.class);
-		startActivity(intent);
-	}
-	
-	
+
+
 	// *NOTE: putExtra() in its current usage require Strings. Will change to int in the future [-Jay]
 	public void openEventView(int day, int month, int year) {
-		
+
 		Intent intent = new Intent(this, EventView.class);
-		
+
 		String str_Day 		= String.valueOf(day);
 		String str_Month 	= String.valueOf(month);
 		String str_Year 	= String.valueOf(year);
-		
+
 		intent.putExtra("EXTRA_DaySelected", str_Day);					// Attach date info we will need in EventView
 		intent.putExtra("EXTRA_MonthSelected", str_Month);
 		intent.putExtra("EXTRA_YearSelected", str_Year);
-		
+
 		startActivity(intent);
 	}
 
-	
+
 	public void openSavedEvents() {
 			Intent intent = new Intent(this, SavedEvent.class);
 			startActivity(intent);
@@ -97,22 +103,15 @@ public class MainActivity extends AppCompatActivity {
 
 	@Override public boolean onOptionsItemSelected(MenuItem item){
 		if(item.getItemId() == R.id.newEvent){
-			if (EventCreation.isOrganizer()){
-				Intent intent = new Intent(this, EventCreation.class);
-				startActivity(intent);
-			}
-			else{
-				Toast.makeText(MainActivity.this, "Only Organizers Can Add Events", Toast.LENGTH_SHORT).show();
-			}
-
-
+			Intent intent = new Intent(this, EventCreation.class);
+			startActivity(intent);
 		}
 
 		if(item.getItemId()==R.id.login)
 		{
 
-				Intent intent = new Intent(this, signIn.class);
-				startActivity(intent);
+			Intent intent = new Intent(this, signIn.class);
+			startActivity(intent);
 
 		}
 		else if(item.getItemId()==R.id.logout){
@@ -132,11 +131,74 @@ public class MainActivity extends AppCompatActivity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.menu_main, menu);
+		final MenuItem searchItem = menu.findItem(R.id.search);
+		SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
 
+		searchView.setOnQueryTextListener(
+				new SearchView.OnQueryTextListener() {
+					@Override
+					public boolean onQueryTextSubmit(String query) {
+						Intent intent= new Intent(getApplicationContext(), Search.class);
+						intent.putExtra("result", query);
+						startActivity(intent);
+						return false;
+					}
 
+					@Override
+					public boolean onQueryTextChange(String newText) {
 
-		return true;
+						return false;
+					}
+				}
+
+		);
+
+ 		return true;
 	}
+
+/*
+	public void searchResult(String s){
+		FirebaseFirestore db = FirebaseFirestore.getInstance();
+		final ArrayList<Event> arrayOfEvents;
+		final EventListAdapter adapter;
+		listView = findViewById(R.id.events_listView);
+		arrayOfEvents = new ArrayList<>();                                      // [1]
+		adapter = new EventListAdapter(this, arrayOfEvents);			// [2]
+		listView = (ListView) findViewById(R.id.events_listView);               // [3]
+		listView.setAdapter(adapter);
+
+		listView.setOnItemClickListener(new AdapterView.OnItemClickListener()
+		{
+			public void onItemClick(AdapterView<?> arg0,View arg1, int position, long arg3)
+			{
+				Event event = (Event)listView.getAdapter().getItem(position);
+				Intent intent = new Intent(getApplicationContext(), EventDetailedView.class);
+				intent.putExtra("Event", event.toString());
+				startActivity(intent);
+			}
+		});
+
+		db.collection("Events")
+				.document("Events")
+				.collection("Event_SubCollectionTesting")
+				.whereEqualTo("name", s)
+				.get()
+				.addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+					@Override
+					public void onComplete(@NonNull Task<QuerySnapshot> task) {
+						if (task.isSuccessful()) {
+
+							for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
+								adapter.add((Event) document.toObject(Event.class));
+							}
+
+							//adapter.addAll(arrayOfEvents);
+						}
+					}
+				});
+	}
+
+ */
 
 }//end [ CLASS: MainActivity ]
 
