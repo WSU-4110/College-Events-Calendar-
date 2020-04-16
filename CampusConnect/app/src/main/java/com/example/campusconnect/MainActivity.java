@@ -156,49 +156,6 @@ public class MainActivity extends AppCompatActivity {
  		return true;
 	}
 
-/*
-	public void searchResult(String s){
-		FirebaseFirestore db = FirebaseFirestore.getInstance();
-		final ArrayList<Event> arrayOfEvents;
-		final EventListAdapter adapter;
-		listView = findViewById(R.id.events_listView);
-		arrayOfEvents = new ArrayList<>();                                      // [1]
-		adapter = new EventListAdapter(this, arrayOfEvents);			// [2]
-		listView = (ListView) findViewById(R.id.events_listView);               // [3]
-		listView.setAdapter(adapter);
-
-		listView.setOnItemClickListener(new AdapterView.OnItemClickListener()
-		{
-			public void onItemClick(AdapterView<?> arg0,View arg1, int position, long arg3)
-			{
-				Event event = (Event)listView.getAdapter().getItem(position);
-				Intent intent = new Intent(getApplicationContext(), EventDetailedView.class);
-				intent.putExtra("Event", event.toString());
-				startActivity(intent);
-			}
-		});
-
-		db.collection("Events")
-				.document("Events")
-				.collection("Event_SubCollectionTesting")
-				.whereEqualTo("name", s)
-				.get()
-				.addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-					@Override
-					public void onComplete(@NonNull Task<QuerySnapshot> task) {
-						if (task.isSuccessful()) {
-
-							for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
-								adapter.add((Event) document.toObject(Event.class));
-							}
-
-							//adapter.addAll(arrayOfEvents);
-						}
-					}
-				});
-	}
-
- */
 
 }//end [ CLASS: MainActivity ]
 
