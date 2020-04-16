@@ -353,8 +353,13 @@ public class EventDetailedView extends AppCompatActivity {
 
     @Override public boolean onOptionsItemSelected(MenuItem item){
         if(item.getItemId() == R.id.newEvent){
-            Intent intent = new Intent(this, EventCreation.class);
-            startActivity(intent);
+            if (EventCreation.isOrganizer()){
+                Intent intent = new Intent(this, EventCreation.class);
+                startActivity(intent);
+            }
+            else{
+                Toast.makeText(EventDetailedView.this, "Only Organizers Can Add Events", Toast.LENGTH_SHORT).show();
+            }
         }
 
         if(item.getItemId()==R.id.login)

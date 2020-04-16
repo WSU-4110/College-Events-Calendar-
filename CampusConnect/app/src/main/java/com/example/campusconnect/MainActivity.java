@@ -76,6 +76,10 @@ public class MainActivity extends AppCompatActivity {
 		});
 	}
 
+    public void openEventCreator() {
+        Intent intent = new Intent(this, EventCreation.class);
+        startActivity(intent);
+    }
 
 	// *NOTE: putExtra() in its current usage require Strings. Will change to int in the future [-Jay]
 	public void openEventView(int day, int month, int year) {
@@ -102,8 +106,13 @@ public class MainActivity extends AppCompatActivity {
 
 	@Override public boolean onOptionsItemSelected(MenuItem item){
 		if(item.getItemId() == R.id.newEvent){
-			Intent intent = new Intent(this, EventCreation.class);
-			startActivity(intent);
+            if (EventCreation.isOrganizer()){
+                Intent intent = new Intent(this, EventCreation.class);
+                startActivity(intent);
+            }
+            else{
+                Toast.makeText(MainActivity.this, "Only Organizers Can Add Events", Toast.LENGTH_SHORT).show();
+            }
 		}
 
 		if(item.getItemId()==R.id.login)
