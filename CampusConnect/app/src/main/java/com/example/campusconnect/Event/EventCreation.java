@@ -7,9 +7,11 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,6 +30,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Objects;
 
@@ -42,6 +46,7 @@ class Event {
     private String desc;
     private String uid;
     private String OrgUid;
+    private String tags;
 
     
     Event() {
@@ -65,7 +70,8 @@ class Event {
 //        this.org = org;
 //        this.desc = desc;
 //    }
-    public Event(String uid, String name, String location, String startTime, String date, String org, String desc, String OrgUid) {
+    public Event(String uid, String name, String location,
+                 String startTime, String date, String org, String desc, String OrgUid, String tags) {
         this.uid = uid;
         this.name = name;
         this.location = location;
@@ -74,6 +80,7 @@ class Event {
         this.org = org;
         this.desc = desc;
         this.OrgUid = OrgUid;
+        this.tags =  tags;
     }
 
     public String getName() { return name; }
@@ -108,9 +115,17 @@ class Event {
 
     public void setOrgUid(String OrgUid) { this.OrgUid = OrgUid; }
 
+    public String getTags() {
+        return tags;
+    }
+
+    public void setTags(String tags) {
+        this.tags = tags;
+    }
+
     public String toString()
 	{
-        return name + "|" + location + "|" + startTime + "|" + date + "|" + org + "|" + desc + "|" + OrgUid;
+        return name + "|" + location + "|" + startTime + "|" + date + "|" + org + "|" + desc + "|" + OrgUid + "|" + tags;
     }
 
 
@@ -219,6 +234,20 @@ public class EventCreation extends AppCompatActivity{
             }
         };
 
+        Spinner staticSpinner = (Spinner) findViewById(R.id.tags);
+
+        // Create an ArrayAdapter using the string array and a default spinner
+        ArrayAdapter<CharSequence> staticAdapter = ArrayAdapter
+                .createFromResource(this, R.array.tags_array,
+                        android.R.layout.simple_spinner_item);
+
+        // Specify the layout to use when the list of choices appears
+        staticAdapter
+                .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        // Apply the adapter to the spinner
+        staticSpinner.setAdapter(staticAdapter);
+
         submitButton = (Button)findViewById(R.id.event_submit_button);
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -229,6 +258,8 @@ public class EventCreation extends AppCompatActivity{
                 dateInput = (EditText) findViewById(R.id.EventDate);
                 descInput = (EditText) findViewById(R.id.Description);
                 orgInput = (EditText) findViewById(R.id.Organization);
+                Spinner spinner = (Spinner)findViewById(R.id.tags);
+
 
                 EventName = EventNameInput.getText().toString();
                 location = locationInput.getText().toString();
@@ -236,9 +267,15 @@ public class EventCreation extends AppCompatActivity{
                 date = dateInput.getText().toString();
                 desc = descInput.getText().toString();
                 org = orgInput.getText().toString();
+                String tag = spinner.getSelectedItem().toString();
+                /*ArrayList<String> tagArray = new ArrayList<String>();
+                tagArray.add(tag);
+                String[] tagsArr  = new String[tagArray.size()];
+                tagsArr = tagArray.toArray(tagsArr);*/
+
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 Event event = new Event(null, EventName, location, startTime,
-                        date, org, desc, user.getUid());
+                        date, org, desc, user.getUid(),tag);
 
                 db.collection("Events")
                         .document("Events")

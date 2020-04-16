@@ -16,4 +16,13 @@
     <string name="showing_events_for">Showing Events for</string>
     <string name="desc">Description</string>
     <string name="org">Organization</string>
+    <string name="tags">Tags</string>
+    <string-array name="tags_array">
+        <item>(None)</item>
+        <item>Medicine</item>
+        <item>Career Fair</item>
+        <item>Orientation</item>
+        <item>Fundraiser</item>
+        <item>Business</item>
+    </string-array>
 </resources>

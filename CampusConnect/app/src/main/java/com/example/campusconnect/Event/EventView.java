@@ -70,6 +70,7 @@ public class EventView extends AppCompatActivity {
             {
                 Event event = (Event)listView.getAdapter().getItem(position);
                 Intent intent = new Intent(getApplicationContext(), EventDetailedView.class);
+                System.out.println( " Event : "+ event.toString());
                 intent.putExtra("Event", event.toString());
                 startActivity(intent);
             }

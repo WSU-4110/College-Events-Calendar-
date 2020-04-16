@@ -33,6 +33,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.CollectionReference;
 
+import java.util.ArrayList;
 import java.util.Objects;
 import java.util.StringTokenizer;
 
@@ -46,6 +47,7 @@ public class EventDetailedView extends AppCompatActivity {
     TextView descInput;
     TextView orgInput;
     TextView OrgUidInput;
+    TextView tagInput;
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     FloatingActionButton floating_toSavedEvents;
@@ -76,11 +78,11 @@ public class EventDetailedView extends AppCompatActivity {
         final String desc = (String)st2.nextElement();
         final String org = (String)st2.nextElement();
         final String OrgUid = (String)st2.nextElement();
+        final String tag = (String)st2.nextElement();
+
         //Toast.makeText(EventDetailedView.this, "Ouid"+OrgUid, Toast.LENGTH_SHORT).show();
 
-
-
-       Event event = new Event(null, name,location,startTime, date, desc, org, OrgUid);
+        Event event = new Event(null, name,location,startTime, date, desc, org, OrgUid, tag);
 
         EventNameInput = findViewById(R.id.EventName);
         locationInput =  findViewById(R.id.Location);
@@ -89,6 +91,8 @@ public class EventDetailedView extends AppCompatActivity {
         descInput = findViewById(R.id.Description);
         orgInput = findViewById(R.id.Organization);
         OrgUidInput = findViewById(R.id.OrgUid);
+        tagInput = findViewById(R.id.Tags); //tbd
+
 
         EventNameInput.setText(event.getName());
         locationInput.setText(event.getLocation());
@@ -97,6 +101,8 @@ public class EventDetailedView extends AppCompatActivity {
         descInput.setText(event.getDesc());
         orgInput.setText(event.getOrg());
         OrgUidInput.setText(event.getOrgUid());
+        tagInput.setText(event.getTags());
+
         //Toast.makeText(EventDetailedView.this, "Ouid"+OrgUidInput.getText().toString(), Toast.LENGTH_SHORT).show();
 
         floating_toSavedEvents = findViewById(R.id.floating_back_button);
@@ -121,6 +127,7 @@ public class EventDetailedView extends AppCompatActivity {
                             .whereEqualTo("date", dateInput.getText().toString())
                             .whereEqualTo("desc", descInput.getText().toString())
                             .whereEqualTo("org",orgInput.getText().toString())
+                            .whereEqualTo("tags",tagInput.getText().toString())
                             .get()
                             .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                 @Override
@@ -158,6 +165,7 @@ public class EventDetailedView extends AppCompatActivity {
                             .whereEqualTo("date", dateInput.getText().toString())
                             .whereEqualTo("desc", descInput.getText().toString())
                             .whereEqualTo("org",orgInput.getText().toString())
+                            .whereEqualTo("tags",tagInput.getText().toString())
                             .get()
                             .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                 @Override
@@ -257,7 +265,7 @@ public class EventDetailedView extends AppCompatActivity {
                     String displayName = user.getUid();
                     Event eventSaved = new Event(displayName, EventNameInput.getText().toString(),locationInput.getText().toString(),
                             startTimeInput.getText().toString(), dateInput.getText().toString(),
-                            descInput.getText().toString(), orgInput.getText().toString(), OrgUidInput.getText().toString());
+                            descInput.getText().toString(), orgInput.getText().toString(), OrgUidInput.getText().toString(), "");
                     Toast.makeText(EventDetailedView.this, "Adding to Saved Events", Toast.LENGTH_SHORT).show();
 
 //                SavedEvent sEvent = new SavedEvent(displayName, EventNameInput.getText().toString(),locationInput.getText().toString(),
