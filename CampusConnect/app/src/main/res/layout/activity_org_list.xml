@@ -4,7 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".admin.orgList">
+    tools:context=".admin.orgList"
+    android:background="@color/White"
+    >
 
     <LinearLayout
         android:layout_width="wrap_content"
