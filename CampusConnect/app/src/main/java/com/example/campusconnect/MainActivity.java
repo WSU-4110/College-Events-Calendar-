@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
 		Toolbar toolbar = findViewById(R.id.toolbar_main);
 		setSupportActionBar(toolbar);
 		getSupportActionBar().setTitle("Home");
-
+        EventCreation.isOrganizer();
 
 
 		goto_SavedEvents = findViewById(R.id.gotoSavedEvents);
