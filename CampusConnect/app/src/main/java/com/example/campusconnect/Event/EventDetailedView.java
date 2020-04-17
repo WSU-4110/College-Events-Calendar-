@@ -35,8 +35,13 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.CollectionReference;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Objects;
+import java.util.Scanner;
 import java.util.StringTokenizer;
 
 public class EventDetailedView extends AppCompatActivity {
@@ -51,7 +56,7 @@ public class EventDetailedView extends AppCompatActivity {
     TextView OrgUidInput;
     TextView tagInput;
 
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    FirebaseFirestore db = null;
     FloatingActionButton floating_toSavedEvents;
     ImageView whatsappImg;
     ImageView twitterImg;
@@ -65,7 +70,7 @@ public class EventDetailedView extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.event_detailed_view);
 
-
+        db = FirebaseFirestore.getInstance();
         delete = (Button) findViewById(R.id.delete);
         unfollow = (Button) findViewById(R.id.unfollow);
 
@@ -81,6 +86,11 @@ public class EventDetailedView extends AppCompatActivity {
         final String org = (String)st2.nextElement();
         final String OrgUid = (String)st2.nextElement();
         final String tag = (String)st2.nextElement();
+
+        validateDate(date);
+        validateStartTime(startTime);
+        checkNameEmpty(name);
+        checkLocationValid(location);
 
         //Toast.makeText(EventDetailedView.this, "Ouid"+OrgUid, Toast.LENGTH_SHORT).show();
 
@@ -227,6 +237,7 @@ public class EventDetailedView extends AppCompatActivity {
                }
             });
 
+
         twitterImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -297,9 +308,54 @@ public class EventDetailedView extends AppCompatActivity {
         getSupportActionBar().setTitle("Event Details");
             }
 
+    public boolean checkLocationValid(String location) {
+        if(location == null || location.isEmpty()  )
+        {
+            System.out.println("Name  is empty.");
+            return false;
+        }
+        return true;
+
+
+    }
+
+    public boolean checkNameEmpty(String name) {
+
+        if(name == null || name.isEmpty())
+        {
+            System.out.println("Name  is empty.");
+            return false;
+        }
+        return true;
+    }
+
+    public boolean validateStartTime(String startTime) {
+        boolean flag = false;
+
+        try {
+            int startT = Integer.parseInt(startTime);
+            System.out.println(startT);
+        } catch (NumberFormatException nfe) {
+            return false;
+        }
+        return(true);
+    }
+
+    public boolean validateDate(String date) {
+        DateFormat sdf = new SimpleDateFormat(date);
+        sdf.setLenient(false);
+        try {
+            sdf.parse(date);
+            System.out.println( " ~~~~~~~~ "+ sdf.parse(date));
+        } catch (ParseException e) {
+            return false;
+        }
+        return true;
+    }
+
 
     // Share on WhatsApp
-    private void shareOnWhatsapp(String eventDetail) {
+    public void shareOnWhatsapp(String eventDetail) {
         System.out.println(" Start sharing in WhatsApp");
 
         Intent whatsappIntent = new Intent(Intent.ACTION_SEND);
@@ -315,7 +371,7 @@ public class EventDetailedView extends AppCompatActivity {
 
 
     // Share on Twitter
-    private void shareOnTwitter(String eventDetail) {
+    public void shareOnTwitter(String eventDetail) {
         System.out.println(" Start sharing in WhatsApp");
 
         Intent twitterIntent = new Intent(Intent.ACTION_SEND);
@@ -330,7 +386,7 @@ public class EventDetailedView extends AppCompatActivity {
     }
 
     // Share on Facebook
-    private void shareOnFacebook(String eventDetail) {
+    public void shareOnFacebook(String eventDetail) {
         System.out.println(" Start sharing in WhatsApp");
 
         Intent facebookIntent = new Intent(Intent.ACTION_SEND);
