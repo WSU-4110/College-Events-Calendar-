@@ -91,8 +91,8 @@ public class EventTest {
     public void testSetuid(){
         Event event1 = new Event("5","John","detroit","6:00",
                 "12/12/2012","The Devs", "fun","12345","Sports");
-        event1.setName("Brian");
-        assertEquals("Brian",event1.getName());
+        event1.setUid("3");
+        assertEquals("3",event1.getUid());
     }
 
     @Test
