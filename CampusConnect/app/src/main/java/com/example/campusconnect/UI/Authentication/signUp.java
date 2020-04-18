@@ -87,13 +87,25 @@ public class signUp extends AppCompatActivity {
 
         @Override
         public void afterTextChanged(Editable s) {
-            String check = s.toString();
-            if (check.length() < 4 || check.length() > 20) {
+            if (!validatePassword(s.toString())) {
                 edtp1.setError("Password Must consist of 4 to 20 characters");
             }
         }
 
     };
+    static public boolean validatePassword(String password) {
+        String check = password;
+        if (check.length() < 4 || check.length() > 20) {
+            return false;
+        }
+        return true;
+    }
+    static public boolean password_matcher(String p1, String p2){
+        if(p1==p2) return true;
+        else return false;
+    }
+
+
     //TextWatcher for repeat Password ------------------------------------------
     TextWatcher cnfpassWatcher = new TextWatcher() {
         @Override
