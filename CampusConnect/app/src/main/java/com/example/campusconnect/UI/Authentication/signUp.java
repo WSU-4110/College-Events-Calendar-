@@ -7,6 +7,7 @@ import androidx.core.content.res.ResourcesCompat;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -104,6 +105,23 @@ public class signUp extends AppCompatActivity {
         if(p1==p2) return true;
         else return false;
     }
+
+    static public boolean validate_Email(Context s, String email) {
+        String check = email;
+        if (check.length() < 8 || check.length() > 40) {
+            Toasty.info(s, "Enter the valid email", Toast.LENGTH_LONG).show();
+            return false;
+        } else if (!check.matches("^[A-za-z0-9.@_]+")) {
+            Toasty.info(s, "Enter the valid email", Toast.LENGTH_LONG).show();
+            return false;
+        } else if (!check.contains("@") || !check.contains(".")) {
+            Toasty.info(s, "Enter the valid email", Toast.LENGTH_LONG).show();
+            return false;
+        }
+        return true;
+    }
+
+
 
 
     //TextWatcher for repeat Password ------------------------------------------

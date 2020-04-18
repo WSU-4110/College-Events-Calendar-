@@ -111,6 +111,10 @@ public class signIn extends AppCompatActivity {
         email = findViewById(R.id.email);
         password = findViewById(R.id.password);
 
+
+
+
+
         email.addTextChangedListener(emailWatcher);
         password.addTextChangedListener(passWatcher);
 

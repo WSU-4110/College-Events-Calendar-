@@ -24,7 +24,16 @@ public class forgetPasswordTest {
             }
         });
     }
-
+    @Test
+    public void email_Validator_CorrectEmailSimple_ReturnsTrue() throws Throwable {
+        runOnUiThread(new Runnable()
+        {
+            public void run()
+            {
+                assertTrue(signUp.validate_Email(getApplicationContext(), "test1@gamil.com"));
+            }
+        });
+    }
 
     @Test
     public void passwordValidator_CorrectEmailSimple_ReturnsTrue() throws Throwable {
