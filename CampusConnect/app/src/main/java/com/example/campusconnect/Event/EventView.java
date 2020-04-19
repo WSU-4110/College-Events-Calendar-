@@ -98,7 +98,6 @@ public class EventView extends AppCompatActivity {
 
     }// END METHOD [ displayEventsForSelectedDay ]
     
-	
     private String titleCreator(String day, String month, String year){
 		// !! NOTE: Jan == 0, Dec == 11
 		
@@ -152,6 +151,7 @@ class EventListAdapter extends ArrayAdapter<Event>  {
     
     @Override
     public View getView(int position, View convertView, ViewGroup parent){
+
 																										// [B]
         if (convertView == null) {                                                                      // [1]
             convertView = LayoutInflater
@@ -173,7 +173,7 @@ class EventListAdapter extends ArrayAdapter<Event>  {
 
         eventLocation.setText("Location:    ");
         eventLocation.append(event.getLocation());
-        
+
         return convertView;                                                                             // [5]
         
     }
