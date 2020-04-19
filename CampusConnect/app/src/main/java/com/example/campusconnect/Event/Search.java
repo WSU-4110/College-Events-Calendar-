@@ -4,42 +4,25 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.CalendarView;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import android.app.SearchManager;
 import android.widget.ListView;
-import android.widget.SearchView;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import android.content.Context;
 import androidx.annotation.NonNull;
-import androidx.core.view.MenuItemCompat;
-
 import com.example.campusconnect.R;
-import com.example.campusconnect.UI.Authentication.signIn;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-
 import java.util.ArrayList;
 import java.util.Objects;
 
-import static java.lang.Integer.valueOf;
 
 
 public class Search extends AppCompatActivity {
 
     ListView listView;
-    TextView textView;
+    public static TextView textView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,11 +36,19 @@ public class Search extends AppCompatActivity {
         textView= findViewById(R.id.EventList_HeaderDynamic);
         textView.setText(search);
 
+        search = returnProperString(search);
+        String search2 = returnExtraString(search);
+
 		searchResultName(search);
 		searchResultTag(search);
 
+
     }
 
+	public static String returnExtraString(String search) {
+    	search = search + " ";
+    	return search;
+	}
 
 
 	public void searchResultName(String s){
@@ -94,7 +85,6 @@ public class Search extends AppCompatActivity {
 								adapter.add((Event) document.toObject(Event.class));
 							}
 
-							//adapter.addAll(arrayOfEvents);
 						}
 					}
 				});
@@ -134,10 +124,21 @@ public class Search extends AppCompatActivity {
 								adapter.add((Event) document.toObject(Event.class));
 							}
 
-							//adapter.addAll(arrayOfEvents);
 						}
 					}
 				});
+	}
+
+
+	// to match tags
+	public static String returnProperString(String s){
+
+		if(s == null || s.isEmpty()) {
+			return s;
+		}
+		s.toLowerCase();
+		s= s.substring(0, 1).toUpperCase() + s.substring(1);
+		return s;
 	}
 
 
