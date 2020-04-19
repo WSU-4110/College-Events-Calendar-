@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 
+
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
@@ -45,7 +46,6 @@ dependencies {
 
     // Progress-Bar and Alert dialog
     implementation 'com.kaopiz:kprogresshud:1.2.0'
-    implementation 'com.github.Shashank02051997:FancyAlertDialog-Android:0.1'
 
     // Toasty
     implementation 'com.github.GrenderG:Toasty:1.4.2'
@@ -58,6 +58,8 @@ dependencies {
 
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.3'
     implementation 'androidx.appcompat:appcompat:1.0.0'
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.2'
 
 }
 

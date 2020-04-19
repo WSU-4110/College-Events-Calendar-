@@ -60,7 +60,7 @@ public class EventView extends AppCompatActivity {
 		String wholeDate = wholeDateBuilder(day, month, year);
         																		// [A]
         arrayOfEvents = new ArrayList<>();                                      // [1]
-        adapter = new EventListAdapter(this, arrayOfEvents);			// [2]
+        adapter = new EventListAdapter(this, arrayOfEvents);				// [2]
         listView = (ListView) findViewById(R.id.events_listView);               // [3]
         listView.setAdapter(adapter);											// [4]
 
