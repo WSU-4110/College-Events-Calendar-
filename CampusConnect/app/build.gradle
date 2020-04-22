@@ -59,6 +59,10 @@ dependencies {
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.3'
     implementation 'androidx.appcompat:appcompat:1.0.0'
 
+    // Library for MaterialCalendarView
+    implementation 'com.github.applandeo:Material-Calendar-View:1.3'
+
+
 }
 
 apply plugin: 'com.google.gms.google-services'

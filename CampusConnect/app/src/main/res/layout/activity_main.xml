@@ -1,145 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    android:background="@color/primaryGreen">
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/primaryGreen"
+        tools:context=".MainActivity">
 
-    <!--
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:minHeight="?attr/actionBarSize"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:titleTextColor="@android:color/white"
-            android:background="?attr/colorPrimary">
-        </androidx.appcompat.widget.Toolbar>
-        -->
-       <include
+    <include layout="@layout/toolbar_main" />
 
-            layout="@layout/toolbar_main" />
-
-
-        <ScrollView
+    <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/toolbar_main"
-            android:scrollbarStyle="insideInset"
-            android:scrollbars="vertical">
+            android:layout_alignStart="@+id/toolbar_main"
+            android:layout_alignParentBottom="true"
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:padding="30dp">
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="20dp">
 
-                <TextView
-                    android:id="@+id/appname"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/logo"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="10dp"
-                    android:fontFamily="@font/blacklist"
-                    android:text="@string/app_name"
-                    android:textColor="#fff"
-                    android:textSize="45sp" />
 
-                <CalendarView
-                    android:id="@+id/calendarView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginBottom="20dp"
-                    android:background="#ffff"
-                    android:maxDate="12/31/2022"
-                    android:minDate="01/01/2019"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-<!--
-                <Button
-                    android:id="@+id/gotoEventCreation"
-                    style="@style/AppTheme.RoundedCornerMaterialButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:text="EVENT CREATION"
-                    android:textStyle="bold" />
-                    -->
-                <!--
-                <Button
-                    android:id="@+id/gotoEventView"
-                    style="@style/AppTheme.RoundedCornerMaterialButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:text="Event view"
-                    android:textStyle="bold" />
-    -->
-            <Button
+        <!--            <CalendarView-->
+        <!--                    android:id="@+id/calendarView"-->
+        <!--                    android:layout_width="wrap_content"-->
+        <!--                    android:layout_height="wrap_content"-->
+        <!--                    android:layout_marginTop="20dp"-->
+        <!--                    android:layout_marginBottom="20dp"-->
+        <!--                    android:background="#ffff"-->
+        <!--                    android:maxDate="12/31/2022"-->
+        <!--                    android:minDate="01/01/2019"-->
+        <!--                    app:layout_constraintEnd_toEndOf="parent"-->
+        <!--                    app:layout_constraintStart_toStartOf="parent"-->
+        <!--                    app:layout_constraintTop_toTopOf="parent" />-->
+
+        <TextView
+                android:id="@+id/appname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/blacklist"
+                android:text="@string/app_name"
+                android:textColor="#fff"
+                android:textSize="45sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:layout_conversion_absoluteHeight="52dp"
+                tools:layout_conversion_absoluteWidth="261dp" />
+
+        <com.applandeo.materialcalendarview.CalendarView
+                android:id="@+id/calendarView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:datePicker="true"
+                app:headerColor="@color/accentGold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/appname"
+                app:layout_constraintVertical_bias="0.222"
+                tools:layout_conversion_absoluteHeight="370dp"
+                tools:layout_conversion_absoluteWidth="351dp" />
+
+        <Button
                 android:id="@+id/gotoSavedEvents"
                 style="@style/AppTheme.RoundedCornerMaterialButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="36dp"
                 android:text="Saved Events"
-                android:textStyle="bold" />
-<!--
-            <Button
-                android:id="@+id/logout_button"
-                style="@style/AppTheme.RoundedCornerMaterialButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text="Logout"
-                android:textStyle="bold" />
-
--->
-            <!--        <Button-->
-            <!--        android:id="@+id/gotoEventCreation"-->
-            <!--        android:layout_width="wrap_content"-->
-            <!--        android:layout_height="wrap_content"-->
-            <!--        android:text="@string/goto_event_creation"-->
-            <!--        android:visibility="visible"-->
-            <!--        app:layout_constraintBottom_toBottomOf="parent"-->
-            <!--        app:layout_constraintEnd_toEndOf="parent"-->
-            <!--        app:layout_constraintHorizontal_bias="0.941"-->
-            <!--        app:layout_constraintStart_toStartOf="parent"-->
-            <!--        app:layout_constraintTop_toTopOf="parent"-->
-            <!--        app:layout_constraintVertical_bias="0.218" />-->
-
-            <!--    <Button-->
-            <!--        android:id="@+id/gotoEventView"-->
-            <!--        android:layout_width="wrap_content"-->
-            <!--        android:layout_height="wrap_content"-->
-            <!--        android:text="@string/goto_event_view"-->
-            <!--        android:visibility="visible"-->
-            <!--        app:layout_constraintBottom_toBottomOf="parent"-->
-            <!--        app:layout_constraintEnd_toEndOf="parent"-->
-            <!--        app:layout_constraintHorizontal_bias="0.166"-->
-            <!--        app:layout_constraintStart_toStartOf="parent"-->
-            <!--        app:layout_constraintTop_toTopOf="parent"-->
-            <!--        app:layout_constraintVertical_bias="0.382" />-->
-
-            <!--    <Button-->
-            <!--        android:id="@+id/goto_calendar"-->
-            <!--        android:layout_width="wrap_content"-->
-            <!--        android:layout_height="wrap_content"-->
-            <!--        android:width="120dp"-->
-            <!--        android:text="@string/calendar"-->
-            <!--        app:layout_constraintBottom_toBottomOf="parent"-->
-            <!--        app:layout_constraintEnd_toStartOf="@+id/gotoEventCreation"-->
-            <!--        app:layout_constraintHorizontal_bias="0.33"-->
-            <!--        app:layout_constraintStart_toStartOf="parent"-->
-            <!--        app:layout_constraintTop_toTopOf="parent"-->
-            <!--        app:layout_constraintVertical_bias="0.218" />-->
-
-
-        </LinearLayout>
-    </ScrollView>
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/calendarView"
+                app:layout_constraintVertical_bias="0.01"
+                tools:layout_conversion_absoluteHeight="48dp"
+                tools:layout_conversion_absoluteWidth="141dp" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </RelativeLayout>

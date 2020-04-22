@@ -20,7 +20,9 @@ allprojects {
         google()
         jcenter()
 
-        maven { url "https://jitpack.io" }
+        maven {
+            url "https://jitpack.io"
+        }
     }
 
     // Uncomment below to get detailed info on Deprecated items
