@@ -17,9 +17,12 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+
 }
 
 dependencies {
+
 
     testImplementation 'junit:junit:4.12'
     implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -58,6 +61,10 @@ dependencies {
 
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.3'
     implementation 'androidx.appcompat:appcompat:1.0.0'
+
+    // Library for MaterialCalendarView
+    implementation 'com.github.applandeo:Material-Calendar-View:1.3'
+
 
 }
 
