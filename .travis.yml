@@ -25,8 +25,11 @@ licenses:
     - 'google-gdk-license-.+'
     
 
+before_install:
+ - chmod +x gradlew
+ 
 script:
-    - ./gradlew build check
+  - ./gradlew test build
 
 
     
