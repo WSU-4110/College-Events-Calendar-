@@ -31,7 +31,8 @@ install: skip
 
 
 
-script: skip
+script: 
+- ./gradlew test
 
 
 matrix:
