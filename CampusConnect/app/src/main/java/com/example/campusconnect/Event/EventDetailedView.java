@@ -54,7 +54,7 @@ public class EventDetailedView extends AppCompatActivity {
     TextView OrgUidInput;
     TextView tagInput;
 
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    FirebaseFirestore db = null;
     FloatingActionButton floating_toSavedEvents;
     ImageView whatsappImg;
     ImageView twitterImg;
@@ -67,7 +67,7 @@ public class EventDetailedView extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.event_detailed_view);
-
+        db = FirebaseFirestore.getInstance();
 
         delete = (Button) findViewById(R.id.delete);
         unfollow = (Button) findViewById(R.id.unfollow);

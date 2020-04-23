@@ -99,7 +99,7 @@ public class EventView extends AppCompatActivity {
     }// END METHOD [ displayEventsForSelectedDay ]
     
 	
-    private String titleCreator(String day, String month, String year){
+    public String titleCreator(String day, String month, String year){
 		// !! NOTE: Jan == 0, Dec == 11
 		
 		int monthInteger = Integer.parseInt(month);
@@ -113,7 +113,7 @@ public class EventView extends AppCompatActivity {
 	}
 	
 	
-	private String wholeDateBuilder(String day, String month, String year){
+	public String wholeDateBuilder(String day, String month, String year){
 		// !! NOTE: Jan == 0, Dec == 11
 
 		StringBuilder date = new StringBuilder();
