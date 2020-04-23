@@ -24,7 +24,7 @@ licenses:
     - 'android-sdk-license-.+'
     - 'google-gdk-license-.+'
     
-gradle build connectedCheck
+
 script:
     - ./gradlew build check
 
