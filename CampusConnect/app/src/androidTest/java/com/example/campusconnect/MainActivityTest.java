@@ -36,9 +36,9 @@ public class MainActivityTest {
 		assertNotNull(calendar);
 	}
 	
-	@Test
-	public void test_openEventView_intentBuilt(){
-		Intent actual = new Intent(this, EventView.class);
-		assertNotNull(actual);
-	}
+//	@Test
+//	public void test_openEventView_intentBuilt(){
+//		Intent actual = new Intent(this, EventView.class);
+//		assertNotNull(actual);
+//	}
 }
