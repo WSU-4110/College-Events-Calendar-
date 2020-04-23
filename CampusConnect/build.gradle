@@ -4,6 +4,12 @@ buildscript {
     repositories {
         google()
         jcenter()
+        maven {
+            url 'https://maven.google.com/'
+            name 'Google'
+        }
+
+        google()
         
     }
     dependencies {
@@ -19,10 +25,12 @@ allprojects {
     repositories {
         google()
         jcenter()
-
         maven {
-            url "https://jitpack.io"
+            url 'https://maven.google.com/'
+            name 'Google'
         }
+        maven { url "https://jitpack.io" }
+
     }
 
     // Uncomment below to get detailed info on Deprecated items
