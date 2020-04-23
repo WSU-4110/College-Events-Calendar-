@@ -35,6 +35,9 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.CollectionReference;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.StringTokenizer;
@@ -81,6 +84,12 @@ public class EventDetailedView extends AppCompatActivity {
         final String org = (String)st2.nextElement();
         final String OrgUid = (String)st2.nextElement();
         final String tag = (String)st2.nextElement();
+
+        // call validate methods
+        validateDate(date);
+        validateStartTime(startTime);
+        checkNameEmpty(name);
+        checkLocationValid(location);
 
         //Toast.makeText(EventDetailedView.this, "Ouid"+OrgUid, Toast.LENGTH_SHORT).show();
 
@@ -297,6 +306,51 @@ public class EventDetailedView extends AppCompatActivity {
         getSupportActionBar().setTitle("Event Details");
             }
 
+    // vadation methods
+    public boolean checkLocationValid(String location) {
+        if(location == null || location.isEmpty()  )
+        {
+            System.out.println("Name  is empty.");
+            return false;
+        }
+        return true;
+
+
+    }
+
+    public boolean checkNameEmpty(String name) {
+
+        if(name == null || name.isEmpty())
+        {
+            System.out.println("Name  is empty.");
+            return false;
+        }
+        return true;
+    }
+
+    public boolean validateStartTime(String startTime) {
+        boolean flag = false;
+
+        try {
+            int startT = Integer.parseInt(startTime);
+            System.out.println(startT);
+        } catch (NumberFormatException nfe) {
+            return false;
+        }
+        return(true);
+    }
+
+    public boolean validateDate(String date) {
+        DateFormat sdf = new SimpleDateFormat(date);
+        sdf.setLenient(false);
+        try {
+            sdf.parse(date);
+            System.out.println( " ~~~~~~~~ "+ sdf.parse(date));
+        } catch (ParseException e) {
+            return false;
+        }
+        return true;
+    }
 
     // Share on WhatsApp
     private void shareOnWhatsapp(String eventDetail) {
