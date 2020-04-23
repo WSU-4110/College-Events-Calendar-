@@ -30,9 +30,7 @@ import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity {
-	private MenuItem signinout;
 	private Button goto_SavedEvents;
-	ListView listView;
 	Calendar calendar;
 	
 	// Imported dependency contains its own "CalendarView" class. It is NOT the same as "android.widget.CalendarView"
@@ -82,11 +80,7 @@ public class MainActivity extends AppCompatActivity {
 		});
 		
 	}
-	
-	public void openEventCreator() {
-		Intent intent = new Intent(this, EventCreation.class);
-		startActivity(intent);
-	}
+
 	
 	public void openEventView(int day, int month, int year) {
 		
