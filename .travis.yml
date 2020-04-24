@@ -31,7 +31,7 @@ install: skip
 
 
 
-script: ./gradlew test 
+script: ./gradlew test --stacktrace
 
 
 matrix:
