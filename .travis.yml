@@ -31,10 +31,10 @@ install: skip
 
 
 
-script:  - name: Make gradlew executable
-      run: chmod +x ./gradlew
-    - name: Build with Gradle
-      run: ./gradlew build
+script: 
+     - run: chmod +x ./gradlew
+      - run: ./gradlew build
+     -  run: ./gradlew test
 
 
 matrix:
