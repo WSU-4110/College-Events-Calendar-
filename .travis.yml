@@ -27,7 +27,7 @@ android:
 
 
 
-install: skip
+install: ./gradlew test
 
 
 
