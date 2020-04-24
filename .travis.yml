@@ -31,7 +31,9 @@ install: skip
 
 
 
-script: ./gradlew test 
+script: 
+-./gradlew assembleDebug
+./gradlew test 
 
 
 matrix:
