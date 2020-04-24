@@ -35,4 +35,6 @@ public class EventDetailedViewTest {
 
         assertEquals(true, new EventDetailedView().validateDate("03/03/2020"));
     }
+    
+    
 }

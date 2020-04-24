@@ -8,9 +8,7 @@ import static org.junit.Assert.*;
 
 
 public class SearchTest {
-
-
-
+    
     @Test
     public void returnProperString() {
         String string="testing";
@@ -24,6 +22,4 @@ public class SearchTest {
         String expected= "test ";
         assertEquals(expected, Search.returnExtraString(test));
     }
-
-
 }
