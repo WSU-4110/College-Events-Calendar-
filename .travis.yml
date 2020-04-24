@@ -27,14 +27,13 @@ android:
 
 
 
-install: skip
+before_install:
+  - chmod +x gradlew
 
 
 
-script: 
-     - chmod +x ./gradlew
-      - ./gradlew build
-     - ./gradlew test
+script: - ./gradlew test build
+     
 
 
 matrix:
