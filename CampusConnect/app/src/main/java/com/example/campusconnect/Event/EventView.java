@@ -118,27 +118,20 @@ public class EventView extends AppCompatActivity {
 
 		StringBuilder date = new StringBuilder();
 
-		int dayNumber = Integer.parseInt(day);
 		int monthNumber = Integer.parseInt(month) + 1;
-
-//		if (monthNumber < 10) {
-//			date.append("0");
-//		}
-
-		date.append(monthNumber);
+		
+		if(monthNumber > 0 && monthNumber < 12)
+			date.append(monthNumber);
+		else
+			date.append(" ");
+		
         date.append("/");
-
-//		if(dayNumber < 10){
-//			date.append("0");
-//		}
 
 		date.append(day);
         date.append("/");
 		date.append(year);
 
 		return date.toString();			// StringBuilder to String
-
-
 	}
 	
 }// END CLASS [ EventView ]
