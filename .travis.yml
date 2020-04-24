@@ -32,7 +32,7 @@ install: skip
 
 
 script: 
--./gradlew assembleDebug
+./gradlew assembleDebug
 ./gradlew test 
 
 
