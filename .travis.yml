@@ -31,7 +31,8 @@ install: skip
 
 
 
-script: ./gradlew test --build-cache --stacktrace
+script: ./gradlew testDevelopmentDebug
+./gradle test
 
 
 matrix:
