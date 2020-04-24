@@ -28,11 +28,11 @@ android:
 
 
 before_install:
-  - chmod +x gradlew
+  chmod +x gradlew
 
 
 
-script: - ./gradlew test build
+script: ./gradlew test build
      
 
 
