@@ -7,6 +7,7 @@ import androidx.core.content.res.ResourcesCompat;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -87,13 +88,42 @@ public class signUp extends AppCompatActivity {
 
         @Override
         public void afterTextChanged(Editable s) {
-            String check = s.toString();
-            if (check.length() < 4 || check.length() > 20) {
+            if (!validatePassword(s.toString())) {
                 edtp1.setError("Password Must consist of 4 to 20 characters");
             }
         }
 
     };
+    static public boolean validatePassword(String password) {
+        String check = password;
+        if (check.length() < 4 || check.length() > 20) {
+            return false;
+        }
+        return true;
+    }
+    static public boolean password_matcher(String p1, String p2){
+        if(p1==p2) return true;
+        else return false;
+    }
+
+    static public boolean validate_Email(Context s, String email) {
+        String check = email;
+        if (check.length() < 8 || check.length() > 40) {
+            Toasty.info(s, "Enter the valid email", Toast.LENGTH_LONG).show();
+            return false;
+        } else if (!check.matches("^[A-za-z0-9.@_]+")) {
+            Toasty.info(s, "Enter the valid email", Toast.LENGTH_LONG).show();
+            return false;
+        } else if (!check.contains("@") || !check.contains(".")) {
+            Toasty.info(s, "Enter the valid email", Toast.LENGTH_LONG).show();
+            return false;
+        }
+        return true;
+    }
+
+
+
+
     //TextWatcher for repeat Password ------------------------------------------
     TextWatcher cnfpassWatcher = new TextWatcher() {
         @Override

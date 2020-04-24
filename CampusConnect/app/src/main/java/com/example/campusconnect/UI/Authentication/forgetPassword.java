@@ -1,6 +1,7 @@
 
 package com.example.campusconnect.UI.Authentication;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -44,7 +45,7 @@ public class forgetPassword extends AppCompatActivity {
         sendemail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (validateEmail()) {
+                if (validateEmail(forgetPassword.this,forgotpassemail.getText().toString())) {
 
                     final KProgressHUD progressDialog = KProgressHUD.create(forgetPassword.this)
                             .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
@@ -72,16 +73,16 @@ public class forgetPassword extends AppCompatActivity {
     }
 
 
-    private boolean validateEmail() {
-        String check = forgotpassemail.getText().toString();
+    static public boolean validateEmail(Context s, String email) {
+        String check = email;
         if (check.length() < 8 || check.length() > 40) {
-            Toasty.info(forgetPassword.this, "Enter the valid email", Toast.LENGTH_LONG).show();
+            Toasty.info(s, "Enter the valid email", Toast.LENGTH_LONG).show();
             return false;
         } else if (!check.matches("^[A-za-z0-9.@_]+")) {
-            Toasty.info(forgetPassword.this, "Enter the valid email", Toast.LENGTH_LONG).show();
+            Toasty.info(s, "Enter the valid email", Toast.LENGTH_LONG).show();
             return false;
         } else if (!check.contains("@") || !check.contains(".")) {
-            Toasty.info(forgetPassword.this, "Enter the valid email", Toast.LENGTH_LONG).show();
+            Toasty.info(s, "Enter the valid email", Toast.LENGTH_LONG).show();
             return false;
         }
         return true;
