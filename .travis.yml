@@ -32,9 +32,9 @@ install: skip
 
 
 script: 
-     - run: chmod +x ./gradlew
-      - run: ./gradlew build
-     -  run: ./gradlew test
+     - chmod +x ./gradlew
+      - ./gradlew build
+     - ./gradlew test
 
 
 matrix:
