@@ -11,7 +11,6 @@ import android.os.Bundle;
 import com.example.campusconnect.MainActivity;
 import com.example.campusconnect.R;
 import com.example.campusconnect.admin.orgList;
-import com.example.campusconnect.splashScreen;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
