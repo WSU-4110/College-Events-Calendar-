@@ -4,12 +4,9 @@ import androidx.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -83,7 +80,7 @@ public class EventTest {
         assertEquals("The Devs", event1.getOrg());
         assertEquals("fun", event1.getDesc());
         assertEquals("12345", event1.getOrgUid());
-        assertEquals("Sports", event1.getTags());
+        assertEquals("Sports", event1.getTag());
 
     }
 

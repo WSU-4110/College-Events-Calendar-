@@ -29,17 +29,13 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.google.firebase.firestore.CollectionReference;
 
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Objects;
 import java.util.StringTokenizer;
 
 public class EventDetailedView extends AppCompatActivity {
@@ -112,7 +108,7 @@ public class EventDetailedView extends AppCompatActivity {
         descInput.setText(event.getDesc());
         orgInput.setText(event.getOrg());
         OrgUidInput.setText(event.getOrgUid());
-        tagInput.setText(event.getTags());
+        tagInput.setText(event.getTag());
 
         //Toast.makeText(EventDetailedView.this, "Ouid"+OrgUidInput.getText().toString(), Toast.LENGTH_SHORT).show();
 

@@ -22,4 +22,10 @@
         android:layout_height="wrap_content"
         android:textAlignment="center"/>
 
+    <TextView
+        android:id="@+id/list_EventTag"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"/>
+
 </LinearLayout>

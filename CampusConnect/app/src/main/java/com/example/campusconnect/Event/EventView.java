@@ -46,7 +46,6 @@ public class EventView extends AppCompatActivity {
     }
     
 
-    // TODO: Look into feasibility of adding Left and Right arrows once event list is open
     private void displayEventsForSelectedDay(String day, String month, String year) {
     
         TextView title = findViewById(R.id.EventList_HeaderDynamic);
@@ -56,11 +55,10 @@ public class EventView extends AppCompatActivity {
         final ArrayList<Event> arrayOfEvents;
 		final EventListAdapter adapter;
 	
-		// TODO: Discuss a more intuitive name than "wholeDate"
 		String wholeDate = wholeDateBuilder(day, month, year);
         																		// [A]
         arrayOfEvents = new ArrayList<>();                                      // [1]
-        adapter = new EventListAdapter(this, arrayOfEvents);			// [2]
+        adapter = new EventListAdapter(this, arrayOfEvents);                    // [2]
         listView = (ListView) findViewById(R.id.events_listView);               // [3]
         listView.setAdapter(adapter);											// [4]
 
@@ -96,7 +94,7 @@ public class EventView extends AppCompatActivity {
             }
         });
 
-    }// END METHOD [ displayEventsForSelectedDay ]
+    }// end method [ displayEventsForSelectedDay ]
     
 	
     public String titleCreator(String day, String month, String year){
@@ -157,15 +155,23 @@ class EventListAdapter extends ArrayAdapter<Event>  {
         TextView eventName =        (TextView) convertView.findViewById(R.id.list_EventName);           // [3a]
         TextView eventDate =        (TextView) convertView.findViewById(R.id.list_EventDate);			// [3b]
         TextView eventLocation =    (TextView) convertView.findViewById(R.id.list_EventLocation);		// [3b]
-
-        eventName.setText("Event Name:    ");                                                           // [4]
-        eventName.append(event.getName());
+        TextView eventTag =    		(TextView) convertView.findViewById(R.id.list_EventLocation);		// [3b]
+																										// [4]
+        
+		// Event Name
+		eventName.append(event.getName());
 
         eventDate.setText("Date:    ");
         eventDate.append(event.getDate());
 
         eventLocation.setText("Location:    ");
         eventLocation.append(event.getLocation());
+        
+        eventLocation.setText("Location:    ");
+        eventLocation.append(event.getLocation());
+        
+        eventLocation.setText("Tag:    ");
+        eventLocation.append(event.getTag());
         
         return convertView;                                                                             // [5]
         
