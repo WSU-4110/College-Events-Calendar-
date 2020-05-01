@@ -33,7 +33,6 @@ public class Search extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.event_view);
 		
-		// TODO: Fix "may produce null" for searchTerm
 		// TODO: Add minimum letters for search
 		
 		listView = (ListView) findViewById(R.id.events_listView);
@@ -44,7 +43,10 @@ public class Search extends AppCompatActivity {
 		final String searchTermUpper = searchTerm.toUpperCase();				// For case-sensitive methods
 		final String searchBy = getIntent().getStringExtra("searchBy");			// What attribute of Event to search
 		
-		if (searchBy.equals("EventName")) {
+		if (searchBy == null) {
+			System.err.println("No search string received");
+		}
+		else if (searchBy.equals("EventName")) {
 			String title = "Event Names Matching: " + searchTerm;
 			textView.setText(title);
 			searchResultName();
@@ -66,7 +68,7 @@ public class Search extends AppCompatActivity {
 			@Override
 			public void onClick(View v) {
 				String newSearchBy = searchBy.equals("Tag") ? "EventName" : "Tag";
-				Intent intent= new Intent(getApplicationContext(), Search.class);
+				Intent intent = new Intent(getApplicationContext(), Search.class);
 				
 				intent.putExtra("result", searchTermUpper);
 				intent.putExtra("searchBy", newSearchBy);
@@ -130,7 +132,7 @@ public class Search extends AppCompatActivity {
 		arrayOfEvents = new ArrayList<>();                                      // [1]
 		adapter = new EventListAdapter(this, arrayOfEvents);                    // [2]
 		listView = (ListView) findViewById(R.id.events_listView);               // [3]
-		listView.setAdapter(adapter);											// [4]
+		listView.setAdapter(adapter);                                            // [4]
 		
 		listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
@@ -152,7 +154,7 @@ public class Search extends AppCompatActivity {
 								String eventTag = event.getTag();
 								
 								// Tags are OPTIONAL, end current loop iteration if no tag
-								if(eventTag == null)
+								if (eventTag == null)
 									continue;
 								
 								if (matchFound(eventTag, searchTerm)) {
@@ -164,7 +166,7 @@ public class Search extends AppCompatActivity {
 				});
 	}
 	
-	private boolean matchFound(String eventAttribute, String searchTerm){
+	private boolean matchFound(String eventAttribute, String searchTerm) {
 		String attribute = eventAttribute.toUpperCase();
 		String searchTermUpper = searchTerm.toUpperCase();
 		
