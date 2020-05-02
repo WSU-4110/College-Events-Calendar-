@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
 	private MenuItem signinout;
 	private Button goto_SavedEvents;
 	
-	CompactCalendarView compactCalendar;
+	CompactCalendarView calendar;
 	Toolbar toolbar;
 	TextView calendarTitle;
 	
@@ -49,15 +49,15 @@ public class MainActivity extends AppCompatActivity {
 		setSupportActionBar(toolbar);
 		getSupportActionBar().setTitle("Home");
 		
-		compactCalendar = findViewById(R.id.calendar);
-		compactCalendar.setFirstDayOfWeek(1);
+		calendar = findViewById(R.id.calendar);
+		calendar.setFirstDayOfWeek(1);
 		
 		calendarTitle = findViewById(R.id.month_name);
 		calendarTitle.setText(dateTitleHelper());								// Set title AFTER calendar fully initialized
 		
 		goto_SavedEvents = findViewById(R.id.gotoSavedEvents);
 		
-		compactCalendar.setListener(new CompactCalendarView.CompactCalendarViewListener() {
+		calendar.setListener(new CompactCalendarView.CompactCalendarViewListener() {
 			@Override
 			public void onDayClick(Date dateClicked) {
 				openEventView(dateClicked);
@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
 			
 			@Override
 			public void onMonthScroll(Date firstDayOfNewMonth) {
-				calendarTitle.setText(dateTitleHelper());						// Update to match new month
+				calendarTitle.setText(dateTitleHelper());						// Update title to match new month
 			}
 		});
 		
@@ -88,9 +88,6 @@ public class MainActivity extends AppCompatActivity {
 		
 	}// [ onCreate ]
 
-//	private void checkAllViewsNotNull(){
-//
-//	}
 	
 	// TODO: Resolve "Implicitly using the default locale string format..."
 	@SuppressLint("DefaultLocale")
@@ -102,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
 		int monthInteger;
 		String[] monthName;
 		
-		if (compactCalendar == null) {
+		if (calendar == null) {
 			return "2020";
 		}
 		
@@ -112,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
 				"July", "August", "September",
 				"October", "November", "December"};
 		
-		currentDate = compactCalendar.getFirstDayOfCurrentMonth();
+		currentDate = calendar.getFirstDayOfCurrentMonth();
 		cal = Calendar.getInstance();
 		cal.setTime(currentDate);
 		
@@ -121,11 +118,7 @@ public class MainActivity extends AppCompatActivity {
 		
 		return String.format("%s, %d", monthName[monthInteger], year);
 	}
-	
-	public void openEventCreator() {
-		Intent intent = new Intent(this, EventCreation.class);
-		startActivity(intent);
-	}
+
 	
 	public void openEventView(Date dateClicked) {
 		Intent intent;
@@ -180,6 +173,7 @@ public class MainActivity extends AppCompatActivity {
 		else {
 			return false;
 		}
+		
 		return true;
 	}
 	
