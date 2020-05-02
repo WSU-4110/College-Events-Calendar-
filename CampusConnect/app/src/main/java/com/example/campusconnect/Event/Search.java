@@ -90,9 +90,9 @@ public class Search extends AppCompatActivity {
 		final EventListAdapter adapter;
 		final String searchTerm = getIntent().getStringExtra("result");
 		
-		arrayOfEvents = new ArrayList<>();                                      // [1]
-		adapter = new EventListAdapter(this, arrayOfEvents);                    // [2]
-		listView = (ListView) findViewById(R.id.events_listView);               // [3]
+		arrayOfEvents = new ArrayList<>();										// [1]
+		adapter = new EventListAdapter(this, arrayOfEvents);					// [2]
+		listView = (ListView) findViewById(R.id.events_listView);				// [3]
 		listView.setAdapter(adapter);
 		
 		listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -129,10 +129,10 @@ public class Search extends AppCompatActivity {
 		final EventListAdapter adapter;
 		final String searchTerm = getIntent().getStringExtra("result");
 		
-		arrayOfEvents = new ArrayList<>();                                      // [1]
-		adapter = new EventListAdapter(this, arrayOfEvents);                    // [2]
-		listView = (ListView) findViewById(R.id.events_listView);               // [3]
-		listView.setAdapter(adapter);                                            // [4]
+		arrayOfEvents = new ArrayList<>();										// [1]
+		adapter = new EventListAdapter(this, arrayOfEvents);					// [2]
+		listView = (ListView) findViewById(R.id.events_listView);				// [3]
+		listView.setAdapter(adapter);											// [4]
 		
 		listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {

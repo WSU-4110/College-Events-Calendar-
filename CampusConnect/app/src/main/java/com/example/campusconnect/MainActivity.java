@@ -6,12 +6,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CalendarView;
-import android.widget.ListView;
 import android.widget.SearchView;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.MenuItemCompat;
@@ -21,48 +19,88 @@ import com.example.campusconnect.Event.EventView;
 import com.example.campusconnect.Event.SavedEvent;
 import com.example.campusconnect.Event.Search;
 import com.example.campusconnect.UI.Authentication.signIn;
+import com.github.sundeepk.compactcalendarview.CompactCalendarView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+
 public class MainActivity extends AppCompatActivity {
+	
+	// TODO: Examine view inflater in CompactCalendar sample program
+	
 	private MenuItem signinout;
 	private Button goto_SavedEvents;
-	CalendarView calendar;
-	ListView listView;
+	
+	CompactCalendarView compactCalendar;
+	Toolbar toolbar;
+	TextView calendarTitle;
+	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		Toolbar toolbar = findViewById(R.id.toolbar_main);
+
+		toolbar = findViewById(R.id.toolbar_main);
 		setSupportActionBar(toolbar);
 		getSupportActionBar().setTitle("Home");
-		EventCreation.isOrganizer();
 		
+		calendarTitle = findViewById(R.id.month_name);
+		
+		compactCalendar = findViewById(R.id.calendar);
+		compactCalendar.setFirstDayOfWeek(1);
+		calendarTitle.setText(dateTitleHelper());								// Set title AFTER calendar fully initialized
 		
 		goto_SavedEvents = findViewById(R.id.gotoSavedEvents);
+		
+		compactCalendar.setListener(new CompactCalendarView.CompactCalendarViewListener() {
+			@Override
+			public void onDayClick(Date dateClicked) {
+				openEventView(dateClicked);
+			}
+			
+			@Override
+			public void onMonthScroll(Date firstDayOfNewMonth) {
+				calendarTitle.setText(dateTitleHelper());						// Update to match new month
+			}
+		});
+		
 		goto_SavedEvents.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 				
+				// TODO: Dedicated EventView for organizers (poss. w/ extra features, e.g. editDate())
+				// e.g. if (user != null && user == organizer)
+				
 				if (user != null) {
 					openSavedEvents();
 				}
 				else {
-					Toast.makeText(MainActivity.this, "Not Logged-in", Toast.LENGTH_SHORT).show();}
-				
+					Toast.makeText(MainActivity.this, "Not Logged-in", Toast.LENGTH_SHORT).show();
+				}
 			}
 		});
 		
-		calendar = findViewById(R.id.calendarView);
-		calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
-			@Override
-			public void onSelectedDayChange(@NonNull CalendarView calendarView, int year, int month, int day) {
-				openEventView(day, month, year);
-			}
-		});
+	}// [ onCreate ]
+
+//	private void checkAllViewsNotNull(){
+//
+//	}
+	
+	// If Time: Return better string for title
+	private String dateTitleHelper(){
+		SimpleDateFormat dateFormatter = new SimpleDateFormat("L, YYYY", Locale.US);
+		
+		if(compactCalendar != null)
+			return dateFormatter.format(compactCalendar.getFirstDayOfCurrentMonth());
+		else
+			return "2020";
 	}
 	
 	public void openEventCreator() {
@@ -70,18 +108,21 @@ public class MainActivity extends AppCompatActivity {
 		startActivity(intent);
 	}
 	
-	// *NOTE: putExtra() in its current usage require Strings. Will change to int in the future [-Jay]
-	public void openEventView(int day, int month, int year) {
+	public void openEventView(Date dateClicked) {
+		Intent intent;
+		Calendar calClicked;
 		
-		Intent intent = new Intent(this, EventView.class);
+		intent = new Intent(this, EventView.class);
+		calClicked = Calendar.getInstance();
+		calClicked.setTime(dateClicked);
 		
-		String str_Day 		= String.valueOf(day);
-		String str_Month 	= String.valueOf(month);
-		String str_Year 	= String.valueOf(year);
+		String stringDay = 		String.valueOf(calClicked.get(Calendar.DAY_OF_MONTH));
+		String stringMonth = 	String.valueOf(calClicked.get(Calendar.MONTH));
+		String stringYear = 	String.valueOf(calClicked.get(Calendar.YEAR));
 		
-		intent.putExtra("EXTRA_DaySelected", str_Day);					// Attach date info we will need in EventView
-		intent.putExtra("EXTRA_MonthSelected", str_Month);
-		intent.putExtra("EXTRA_YearSelected", str_Year);
+		intent.putExtra("EXTRA_DaySelected", stringDay);							// Attach date info we will need in EventView
+		intent.putExtra("EXTRA_MonthSelected", stringMonth);
+		intent.putExtra("EXTRA_YearSelected", stringYear);
 		
 		startActivity(intent);
 	}
@@ -93,32 +134,30 @@ public class MainActivity extends AppCompatActivity {
 	}
 	
 	
-	@Override public boolean onOptionsItemSelected(MenuItem item){
-		if(item.getItemId() == R.id.newEvent){
-			if (EventCreation.isOrganizer()){
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		if (item.getItemId() == R.id.newEvent) {
+			if (EventCreation.isOrganizer()) {
 				Intent intent = new Intent(this, EventCreation.class);
 				startActivity(intent);
 			}
-			else{
+			else {
 				Toast.makeText(MainActivity.this, "Only Organizers Can Add Events", Toast.LENGTH_SHORT).show();
 			}
 		}
 		
-		if(item.getItemId()==R.id.login)
-		{
-			
+		if (item.getItemId() == R.id.login) {
 			Intent intent = new Intent(this, signIn.class);
 			startActivity(intent);
 			
 		}
-		else if(item.getItemId()==R.id.logout){
-			final FirebaseAuth mAuth=FirebaseAuth.getInstance();
+		else if (item.getItemId() == R.id.logout) {
+			final FirebaseAuth mAuth = FirebaseAuth.getInstance();
 			startActivity(new Intent(MainActivity.this, signIn.class));
 			//FirebaseAuth.getInstance().signOut();
 			mAuth.signOut();
 		}
-		else
-		{
+		else {
 			return false;
 		}
 		return true;
@@ -135,7 +174,7 @@ public class MainActivity extends AppCompatActivity {
 				new SearchView.OnQueryTextListener() {
 					@Override
 					public boolean onQueryTextSubmit(String query) {
-						Intent intent= new Intent(getApplicationContext(), Search.class);
+						Intent intent = new Intent(getApplicationContext(), Search.class);
 						intent.putExtra("result", query);
 						intent.putExtra("searchBy", "tag");
 						startActivity(intent);
@@ -155,5 +194,5 @@ public class MainActivity extends AppCompatActivity {
 	}
 	
 	
-}//end [ CLASS: MainActivity ]
+}// [ MainActivity ]
 

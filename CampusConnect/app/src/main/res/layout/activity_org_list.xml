@@ -50,7 +50,7 @@
         android:id="@+id/orgList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:divider="@color/primaryGreen_Dark"
+        android:divider="@color/primaryGreen_100"
         android:dividerHeight="2dp" />
 
 </LinearLayout>

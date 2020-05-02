@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Append Alpha values to beginnning of normal hex value  -->
-<!-- e.g. Pantone 1225 C 100%: #FFCC33 -->
-<!-- e.g. Pantone 1225 C 75%: #BFFFCC33 -->
+<!-- Integer Values Denote Alpha Level -->
 <resources>
-    <color name="primaryGreen">#BF00594C</color>
-    <color name="primaryGreen_Dark">#00594C</color>
-    <color name="accentGold">#BFFFCC33</color>
-    <color name="accentGold_Dark">#FFCC33</color>
+    <color name="primaryGreen_50">#8000594C</color>
+    <color name="primaryGreen_75">#BF00594C</color>
+    <color name="primaryGreen_100">#00594C</color>
+    <color name="primaryGold_50">#BFFFCC33</color>
+    <color name="primaryGold_75">#BFFFCC33</color>
+    <color name="primaryGold_100">#FFCC33</color>
     <color name="Red">#D81B60</color>
     <color name="White">#FFFFFF</color>
     <color name="Wheat">#F5DEB3</color>

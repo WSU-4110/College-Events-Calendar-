@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- LIST OF ITEMS (Events) -->
+    <!-- List of Events -->
     <TextView
         android:id="@+id/EventList_HeaderStatic"
         android:layout_width="wrap_content"
@@ -16,7 +16,7 @@
         android:gravity="center"
         android:paddingTop="5dp"
         android:text="@string/showing_events_for"
-        android:textColor="@color/primaryGreen"
+        android:textColor="@color/primaryGreen_75"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -27,7 +27,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif-black"
-        android:textColor="@color/primaryGreen"
+        android:textColor="@color/primaryGreen_75"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

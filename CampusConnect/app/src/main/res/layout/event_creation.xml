@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/event_creation_layout"
     android:layout_width="match_parent"
-    android:background="@color/primaryGreen"
+    android:background="@color/primaryGreen_75"
     android:layout_height="match_parent">
 
     <include

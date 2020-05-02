@@ -64,6 +64,8 @@ dependencies {
 
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.3'
     implementation 'androidx.appcompat:appcompat:1.0.0'
+
+    implementation 'com.github.sundeepk:compact-calendar-view:3.0.0'
 }
 
 apply plugin: 'com.google.gms.google-services'

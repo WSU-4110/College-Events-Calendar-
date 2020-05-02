@@ -32,60 +32,60 @@ import java.util.Objects;
 
 
 public class SavedEvent extends AppCompatActivity {
-
-    ListView listView;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.event_view);
-        listView = (ListView) findViewById(R.id.events_listView);
-
-
-
-
-        displayEventsForSelectedUser();
-
-    }
-
-
-    // TODO: Look into feasibility of adding Left and Right arrows once event list is open
-    private void displayEventsForSelectedUser() {
-        boolean organizer = EventCreation.isOrganizer();
-        TextView title = findViewById(R.id.EventList_HeaderDynamic);
-        if (organizer)
-            title.setText("Your Created Events");
-        if (!organizer)
-            title.setText("Your Saved Events");
-
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        final ArrayList<Event> arrayOfEvents;
-        final SavedEventListAdapter adapter;
-
-        // TODO: Discuss a more intuitive name than "wholeDate"
-
-        // [A]
-        arrayOfEvents = new ArrayList<>();                                      // [1]
-        adapter = new SavedEventListAdapter(this, arrayOfEvents);		// [2]
-        listView = (ListView) findViewById(R.id.events_listView);               // [3]
-        listView.setAdapter(adapter);											// [4]
-
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener()
-        {
-            public void onItemClick(AdapterView<?> arg0,View arg1, int position, long arg3)
-            {
-                Event event = (Event)listView.getAdapter().getItem(position);
-                Intent intent = new Intent(getApplicationContext(), EventDetailedView.class);
-                intent.putExtra("Event", event.toString());
-                startActivity(intent);
-            }
-        });
-
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-
-
-
-        if (user!=null){
+	
+	ListView listView;
+	
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.event_view);
+		listView = (ListView) findViewById(R.id.events_listView);
+		
+		
+		
+		
+		displayEventsForSelectedUser();
+		
+	}
+	
+	
+	// TODO: Look into feasibility of adding Left and Right arrows once event list is open
+	private void displayEventsForSelectedUser() {
+		boolean organizer = EventCreation.isOrganizer();
+		TextView title = findViewById(R.id.EventList_HeaderDynamic);
+		if (organizer)
+			title.setText("Your Created Events");
+		if (!organizer)
+			title.setText("Your Saved Events");
+		
+		FirebaseFirestore db = FirebaseFirestore.getInstance();
+		final ArrayList<Event> arrayOfEvents;
+		final SavedEventListAdapter adapter;
+		
+		// TODO: Discuss a more intuitive name than "wholeDate"
+		
+		// [A]
+		arrayOfEvents = new ArrayList<>();										// [1]
+		adapter = new SavedEventListAdapter(this, arrayOfEvents);				// [2]
+		listView = (ListView) findViewById(R.id.events_listView);				// [3]
+		listView.setAdapter(adapter);											// [4]
+		
+		listView.setOnItemClickListener(new AdapterView.OnItemClickListener()
+		{
+			public void onItemClick(AdapterView<?> arg0,View arg1, int position, long arg3)
+			{
+				Event event = (Event)listView.getAdapter().getItem(position);
+				Intent intent = new Intent(getApplicationContext(), EventDetailedView.class);
+				intent.putExtra("Event", event.toString());
+				startActivity(intent);
+			}
+		});
+		
+		FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+		
+		
+		
+		if (user!=null){
 //            final boolean[] Organizer = {false}; //adding organizer code
 //            db.collection("User")
 //                    .document("Organizers")
@@ -100,104 +100,104 @@ public class SavedEvent extends AppCompatActivity {
 //                            }
 //                        }
 //                    });
-            if (!organizer){
-
-                db.collection("SavedEvent")
-                        .document("SavedEvent")
-                        .collection("Event_SubCollectionTesting")
-                        .whereEqualTo("uid", user.getUid())
-                        .get()
-                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                            @Override
-                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                if (task.isSuccessful()) {
-
-                                    for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
-                                        //arrayOfEvents.add(document.toObject(Event.class));
-                                        adapter.add((Event) document.toObject(Event.class));
-                                    }
-
-                                    //adapter.addAll(arrayOfEvents);
-                                }
-                            }
-                        });
-
-            }
-            else{
-
-                db.collection("Events")
-                        .document("Events")
-                        .collection("Event_SubCollectionTesting")
-                        .whereEqualTo("orgUid", user.getUid())
-                        .get()
-                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                            @Override
-                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                if (task.isSuccessful()) {
-
-                                    for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
-                                        //arrayOfEvents.add(document.toObject(Event.class));
-                                        adapter.add((Event) document.toObject(Event.class));
-                                    }
-
-                                    //adapter.addAll(arrayOfEvents);
-                                }
-                            }
-                        });
-
-            }
-        }
-
-
-
-        else{
-            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-            startActivity(intent);
-        }
-
-
-    }// END METHOD [ displayEventsForSelectedDay ]
-
-
-
-
+			if (!organizer){
+				
+				db.collection("SavedEvent")
+						.document("SavedEvent")
+						.collection("Event_SubCollectionTesting")
+						.whereEqualTo("uid", user.getUid())
+						.get()
+						.addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+							@Override
+							public void onComplete(@NonNull Task<QuerySnapshot> task) {
+								if (task.isSuccessful()) {
+									
+									for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
+										//arrayOfEvents.add(document.toObject(Event.class));
+										adapter.add((Event) document.toObject(Event.class));
+									}
+									
+									//adapter.addAll(arrayOfEvents);
+								}
+							}
+						});
+				
+			}
+			else{
+				
+				db.collection("Events")
+						.document("Events")
+						.collection("Event_SubCollectionTesting")
+						.whereEqualTo("orgUid", user.getUid())
+						.get()
+						.addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+							@Override
+							public void onComplete(@NonNull Task<QuerySnapshot> task) {
+								if (task.isSuccessful()) {
+									
+									for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
+										//arrayOfEvents.add(document.toObject(Event.class));
+										adapter.add((Event) document.toObject(Event.class));
+									}
+									
+									//adapter.addAll(arrayOfEvents);
+								}
+							}
+						});
+				
+			}
+		}
+		
+		
+		
+		else{
+			Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+			startActivity(intent);
+		}
+		
+		
+	}// END METHOD [ displayEventsForSelectedDay ]
+	
+	
+	
+	
 }// END CLASS [ EventView ]
 
 
 class SavedEventListAdapter extends ArrayAdapter<Event>  {
-
-    public SavedEventListAdapter(Context context, ArrayList<Event> events){
-        super(context, 0, events);
-    }
-
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent){
-        // [B]
-        if (convertView == null) {                                                                      // [1]
-            convertView = LayoutInflater
-                    .from(getContext())
-                    .inflate(R.layout.list_events, parent, false);
-        }
-
-        Event event = getItem(position);                                                                // [2]
-
-        TextView eventName =        (TextView) convertView.findViewById(R.id.list_EventName);           // [3a]
-        TextView eventDate =        (TextView) convertView.findViewById(R.id.list_EventDate);			// [3b]
-        TextView eventLocation =    (TextView) convertView.findViewById(R.id.list_EventLocation);		// [3b]
-
-        eventName.setText("Event Name:    ");                                                           // [4]
-        eventName.append(event.getName());
-
-        eventDate.setText("Date:    ");
-        eventDate.append(event.getDate());
-
-        eventLocation.setText("Location:    ");
-        eventLocation.append(event.getLocation());
-
-        return convertView;                                                                             // [5]
-
-    }
-
+	
+	public SavedEventListAdapter(Context context, ArrayList<Event> events){
+		super(context, 0, events);
+	}
+	
+	@Override
+	public View getView(int position, View convertView, ViewGroup parent){
+		// [B]
+		if (convertView == null) {                                                                      // [1]
+			convertView = LayoutInflater
+					.from(getContext())
+					.inflate(R.layout.list_events, parent, false);
+		}
+		
+		Event event = getItem(position);                                                                // [2]
+		
+		TextView eventName =        (TextView) convertView.findViewById(R.id.list_EventName);           // [3a]
+		TextView eventDate =        (TextView) convertView.findViewById(R.id.list_EventDate);			// [3b]
+		TextView eventLocation =    (TextView) convertView.findViewById(R.id.list_EventLocation);		// [3b]
+		
+		eventName.setText("Event Name:    ");                                                           // [4]
+		eventName.append(event.getName());
+		
+		eventDate.setText("Date:    ");
+		eventDate.append(event.getDate());
+		
+		eventLocation.setText("Location:    ");
+		eventLocation.append(event.getLocation());
+		
+		return convertView;                                                                             // [5]
+		
+	}
+	
 }// END CLASS [ EventListAdapter ]
 
 
