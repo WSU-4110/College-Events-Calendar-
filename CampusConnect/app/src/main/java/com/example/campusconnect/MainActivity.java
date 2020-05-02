@@ -1,5 +1,6 @@
 package com.example.campusconnect;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -23,10 +24,8 @@ import com.github.sundeepk.compactcalendarview.CompactCalendarView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 	
@@ -50,10 +49,10 @@ public class MainActivity extends AppCompatActivity {
 		setSupportActionBar(toolbar);
 		getSupportActionBar().setTitle("Home");
 		
-		calendarTitle = findViewById(R.id.month_name);
-		
 		compactCalendar = findViewById(R.id.calendar);
 		compactCalendar.setFirstDayOfWeek(1);
+		
+		calendarTitle = findViewById(R.id.month_name);
 		calendarTitle.setText(dateTitleHelper());								// Set title AFTER calendar fully initialized
 		
 		goto_SavedEvents = findViewById(R.id.gotoSavedEvents);
@@ -93,14 +92,34 @@ public class MainActivity extends AppCompatActivity {
 //
 //	}
 	
-	// If Time: Return better string for title
-	private String dateTitleHelper(){
-		SimpleDateFormat dateFormatter = new SimpleDateFormat("L, YYYY", Locale.US);
+	// TODO: Resolve "Implicitly using the default locale string format..."
+	@SuppressLint("DefaultLocale")
+	private String dateTitleHelper() {
+		// getFirstDay...() seems like the only way to get a Date object w/ CompactCalendarView
+		Date currentDate;
+		Calendar cal;
+		int year;
+		int monthInteger;
+		String[] monthName;
 		
-		if(compactCalendar != null)
-			return dateFormatter.format(compactCalendar.getFirstDayOfCurrentMonth());
-		else
+		if (compactCalendar == null) {
 			return "2020";
+		}
+		
+		monthName = new String[]{
+				"January", "February", "March",
+				"April", "May", "June",
+				"July", "August", "September",
+				"October", "November", "December"};
+		
+		currentDate = compactCalendar.getFirstDayOfCurrentMonth();
+		cal = Calendar.getInstance();
+		cal.setTime(currentDate);
+		
+		year = cal.get(Calendar.YEAR);
+		monthInteger = cal.get(Calendar.MONTH) + 1;		// Jan == 0, Dec == 11
+		
+		return String.format("%s, %d", monthName[monthInteger], year);
 	}
 	
 	public void openEventCreator() {
@@ -120,13 +139,14 @@ public class MainActivity extends AppCompatActivity {
 		String stringMonth = 	String.valueOf(calClicked.get(Calendar.MONTH));
 		String stringYear = 	String.valueOf(calClicked.get(Calendar.YEAR));
 		
-		intent.putExtra("EXTRA_DaySelected", stringDay);							// Attach date info we will need in EventView
+		// TODO: Look into switching to a Date object parameter vs individual Strings
+		intent.putExtra("EXTRA_DaySelected", stringDay);
 		intent.putExtra("EXTRA_MonthSelected", stringMonth);
 		intent.putExtra("EXTRA_YearSelected", stringYear);
 		
 		startActivity(intent);
 	}
-	
+
 	
 	public void openSavedEvents() {
 		Intent intent = new Intent(this, SavedEvent.class);
@@ -195,4 +215,3 @@ public class MainActivity extends AppCompatActivity {
 	
 	
 }// [ MainActivity ]
-
