@@ -24,6 +24,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import com.example.campusconnect.Event.Event;
+
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -41,7 +43,7 @@ public class EventView extends AppCompatActivity {
 		String str_Day = getIntent().getStringExtra("EXTRA_DaySelected");				// Extract date info from intent
 		String str_Month = getIntent().getStringExtra("EXTRA_MonthSelected");
 		String str_Year = getIntent().getStringExtra("EXTRA_YearSelected");
-        
+        System.out.printf("DAY %s, MONTH %s, YEAR %s", str_Day, str_Month, str_Year);
         displayEventsForSelectedDay(str_Day, str_Month, str_Year);
     }
     
@@ -73,8 +75,6 @@ public class EventView extends AppCompatActivity {
 		});
         
 		db.collection("Events")
-                .document("Events")
-                .collection("Event_SubCollectionTesting")
                 .whereEqualTo("date", wholeDate)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -82,7 +82,6 @@ public class EventView extends AppCompatActivity {
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
                     for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
-                        //arrayOfEvents.add((Event) document.toObject(Event.class));
                         adapter.add((Event) document.toObject(Event.class));
                     }
                 }
@@ -151,24 +150,20 @@ class EventListAdapter extends ArrayAdapter<Event>  {
         TextView eventDate =		(TextView) convertView.findViewById(R.id.list_EventDate);		// [3b]
         TextView eventLocation =	(TextView) convertView.findViewById(R.id.list_EventLocation);	// [3c]
         TextView eventTag =			(TextView) convertView.findViewById(R.id.list_EventTag);		// [3d]
-		
-		// Event Name
-		eventName.append(event.getName());															// [4]
+																									
+																									// [4]
+		eventName.setText(event.getName());
 
         eventDate.setText("Date:    ");
         eventDate.append(event.getDate());
 
         eventLocation.setText("Location:    ");
         eventLocation.append(event.getLocation());
-        
-        eventLocation.setText("Location:    ");
-        eventLocation.append(event.getLocation());
-        
-        eventLocation.setText("Tag:    ");
-        eventLocation.append(event.getTag());
+	
+		eventTag.setText("Tag:    ");
+		eventTag.append(event.getTag());
         
         return convertView;																			// [5]
-        
     }
 
 }// END CLASS [ EventListAdapter ]

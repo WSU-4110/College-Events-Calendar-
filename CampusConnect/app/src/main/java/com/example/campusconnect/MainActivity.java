@@ -11,21 +11,29 @@ import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.MenuItemCompat;
 
+import com.example.campusconnect.Event.Event;
 import com.example.campusconnect.Event.EventCreation;
 import com.example.campusconnect.Event.EventView;
 import com.example.campusconnect.Event.SavedEvent;
 import com.example.campusconnect.Event.Search;
 import com.example.campusconnect.UI.Authentication.signIn;
 import com.github.sundeepk.compactcalendarview.CompactCalendarView;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
 	
@@ -56,6 +64,8 @@ public class MainActivity extends AppCompatActivity {
 		calendarTitle.setText(dateTitleHelper());								// Set title AFTER calendar fully initialized
 		
 		goto_SavedEvents = findViewById(R.id.gotoSavedEvents);
+		
+		loadEvents();
 		
 		calendar.setListener(new CompactCalendarView.CompactCalendarViewListener() {
 			@Override
@@ -114,9 +124,26 @@ public class MainActivity extends AppCompatActivity {
 		cal.setTime(currentDate);
 		
 		year = cal.get(Calendar.YEAR);
-		monthInteger = cal.get(Calendar.MONTH) + 1;		// Jan == 0, Dec == 11
+		monthInteger = cal.get(Calendar.MONTH);		// Jan == 0, Dec == 11
 		
 		return String.format("%s, %d", monthName[monthInteger], year);
+	}
+	
+	private void loadEvents(){
+		FirebaseFirestore db = FirebaseFirestore.getInstance();
+		db.collection("Events")
+				.get()
+				.addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+					@Override
+					public void onComplete(@NonNull Task<QuerySnapshot> task) {
+						if (task.isSuccessful()) {
+							for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
+								Event event = (Event) document.toObject(Event.class);
+//								adapter.add((Event) document.toObject(Event.class));
+							}
+						}
+					}
+				});
 	}
 
 	
@@ -197,15 +224,13 @@ public class MainActivity extends AppCompatActivity {
 					
 					@Override
 					public boolean onQueryTextChange(String newText) {
-						
 						return false;
 					}
 				}
-		
 		);
 		
 		return true;
-	}
+	}// [ onCreateOptionsMenu ]
 	
 	
 }// [ MainActivity ]
