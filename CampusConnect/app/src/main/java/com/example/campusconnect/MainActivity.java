@@ -2,6 +2,7 @@ package com.example.campusconnect;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -31,8 +32,12 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
@@ -46,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
 	Toolbar toolbar;
 	TextView calendarTitle;
 	
+	Calendar currentCalender = Calendar.getInstance(Locale.getDefault());		// From sample app
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -128,24 +134,6 @@ public class MainActivity extends AppCompatActivity {
 		
 		return String.format("%s, %d", monthName[monthInteger], year);
 	}
-	
-	private void loadEvents(){
-		FirebaseFirestore db = FirebaseFirestore.getInstance();
-		db.collection("Events")
-				.get()
-				.addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-					@Override
-					public void onComplete(@NonNull Task<QuerySnapshot> task) {
-						if (task.isSuccessful()) {
-							for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
-								Event event = (Event) document.toObject(Event.class);
-//								adapter.add((Event) document.toObject(Event.class));
-							}
-						}
-					}
-				});
-	}
-
 	
 	public void openEventView(Date dateClicked) {
 		Intent intent;
@@ -232,5 +220,75 @@ public class MainActivity extends AppCompatActivity {
 		return true;
 	}// [ onCreateOptionsMenu ]
 	
+	private void loadEvents(){
+		FirebaseFirestore db = FirebaseFirestore.getInstance();
+		db.collection("Events")
+				.get()
+				.addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+					@Override
+					public void onComplete(@NonNull Task<QuerySnapshot> task) {
+						if (task.isSuccessful()) {
+							Event event;
+							int month;
+							int year;
+							
+							for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
+								event = (Event) document.toObject(Event.class);
+//								month = event.
+//								addEvents()
+//								adapter.add((Event) document.toObject(Event.class));
+							}
+						}
+					}
+				});
+	}
+	
+	// Below 3 methods from sample app
+	private void addEvents(int month, int year) {
+		List<com.github.sundeepk.compactcalendarview.domain.Event> events;
+		
+		currentCalender.setTime(new Date());
+		currentCalender.set(Calendar.DAY_OF_MONTH, 1);
+		Date firstDayOfMonth = currentCalender.getTime();
+		for (int i = 0; i < 6; i++) {
+			currentCalender.setTime(firstDayOfMonth);
+			if (month > -1) {
+				currentCalender.set(Calendar.MONTH, month);
+			}
+			if (year > -1) {
+				currentCalender.set(Calendar.ERA, GregorianCalendar.AD);
+				currentCalender.set(Calendar.YEAR, year);
+			}
+			currentCalender.add(Calendar.DATE, i);
+			setToMidnight(currentCalender);
+			long timeInMillis = currentCalender.getTimeInMillis();
+			
+			events = getEvents(timeInMillis, i);
+			
+			calendar.addEvents(events);
+		}
+	}
+	
+	private List<com.github.sundeepk.compactcalendarview.domain.Event> getEvents(long timeInMillis, int day) {
+		if (day < 2) {
+			return Arrays.asList(new com.github.sundeepk.compactcalendarview.domain.Event(Color.argb(255, 169, 68, 65), timeInMillis, "Event at " + new Date(timeInMillis)));
+		} else if ( day > 2 && day <= 4) {
+			return Arrays.asList(
+					new com.github.sundeepk.compactcalendarview.domain.Event(Color.argb(255, 169, 68, 65), timeInMillis, "Event at " + new Date(timeInMillis)),
+					new com.github.sundeepk.compactcalendarview.domain.Event(Color.argb(255, 100, 68, 65), timeInMillis, "Event 2 at " + new Date(timeInMillis)));
+		} else {
+			return Arrays.asList(
+					new com.github.sundeepk.compactcalendarview.domain.Event(Color.argb(255, 169, 68, 65), timeInMillis, "Event at " + new Date(timeInMillis) ),
+					new com.github.sundeepk.compactcalendarview.domain.Event(Color.argb(255, 100, 68, 65), timeInMillis, "Event 2 at " + new Date(timeInMillis)),
+					new com.github.sundeepk.compactcalendarview.domain.Event(Color.argb(255, 70, 68, 65), timeInMillis, "Event 3 at " + new Date(timeInMillis)));
+		}
+	}
+	
+	private void setToMidnight(Calendar calendar) {
+		calendar.set(Calendar.HOUR_OF_DAY, 0);
+		calendar.set(Calendar.MINUTE, 0);
+		calendar.set(Calendar.SECOND, 0);
+		calendar.set(Calendar.MILLISECOND, 0);
+	}
 	
 }// [ MainActivity ]

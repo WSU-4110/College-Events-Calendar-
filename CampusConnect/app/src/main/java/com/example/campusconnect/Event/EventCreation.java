@@ -35,7 +35,12 @@ import java.util.Calendar;
 
 public class EventCreation extends AppCompatActivity{
 
-    String EventName, location, startTime, date, desc, org;
+    String EventName;
+    String location;
+    String startTime;
+    String date;
+    String desc;
+    String org;
 
     private static final String TAG = "Event";
 
@@ -134,23 +139,6 @@ public class EventCreation extends AppCompatActivity{
                 mDisplayDate.setText(date);
             }
         };
-        
-//        mDisplayDate.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Calendar cal = Calendar.getInstance();
-//                int year = cal.get(Calendar.YEAR);
-//                int month = cal.get(Calendar.MONTH);
-//                int day = cal.get(Calendar.DAY_OF_MONTH);
-//
-//                DatePickerDialog dialog = new DatePickerDialog(
-//                        EventCreation.this,
-//                        android.R.style.Theme_DeviceDefault_Light_Dialog_MinWidth,
-//                        mDateSetListener,
-//                        year,month,day);
-//                dialog.show();
-//            }
-//        });
     
         Spinner staticSpinner = (Spinner) findViewById(R.id.tags);
 
@@ -186,6 +174,7 @@ public class EventCreation extends AppCompatActivity{
                 desc = descInput.getText().toString();
                 org = orgInput.getText().toString();
                 String tag = spinner.getSelectedItem().toString();
+                
                 /*ArrayList<String> tagArray = new ArrayList<String>();
                 tagArray.add(tag);
                 String[] tagsArr  = new String[tagArray.size()];

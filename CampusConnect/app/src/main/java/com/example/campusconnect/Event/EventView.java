@@ -96,10 +96,10 @@ public class EventView extends AppCompatActivity {
 		
 		int monthInteger = Integer.parseInt(month);
 
-		String[] monthName = {	"January", "February", "March",
-								"April", "May", "June",
-								"July", "August", "September",
-								"October", "November", "December" };
+		String[] monthName = {	"January", 	"February", "March",
+								"April", 	"May", 		"June",
+								"July", 	"August", 	"September",
+								"October", 	"November", "December" };
 		
 		return String.format("%s %s, %s", monthName[monthInteger], day, year);
 	}
@@ -123,7 +123,7 @@ public class EventView extends AppCompatActivity {
         date.append("/");
 		date.append(year);
 
-		return date.toString();			// StringBuilder to String
+		return date.toString();			// StringBuilder --> String
 	}
 	
 }// END CLASS [ EventView ]
@@ -150,7 +150,6 @@ class EventListAdapter extends ArrayAdapter<Event>  {
         TextView eventDate =		(TextView) convertView.findViewById(R.id.list_EventDate);		// [3b]
         TextView eventLocation =	(TextView) convertView.findViewById(R.id.list_EventLocation);	// [3c]
         TextView eventTag =			(TextView) convertView.findViewById(R.id.list_EventTag);		// [3d]
-																									
 																									// [4]
 		eventName.setText(event.getName());
 

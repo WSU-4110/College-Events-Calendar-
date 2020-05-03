@@ -1,244 +1,244 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/event_creation_layout"
-    android:layout_width="match_parent"
-    android:background="@color/primaryGreen_75"
-    android:layout_height="match_parent">
+		xmlns:app="http://schemas.android.com/apk/res-auto"
+		xmlns:tools="http://schemas.android.com/tools"
+		android:id="@+id/event_creation_layout"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:background="@color/primaryGreen_75">
+	
+	<include
+			
+			layout="@layout/toolbar_main" />
+	<!--
+		<TextView
+			android:id="@+id/Campus_Connect"
+			android:layout_width="316dp"
+			android:layout_height="64dp"
+			android:layout_marginTop="64dp"
+			android:ems="10"
+			android:fontFamily="serif-monospace"
+			android:inputType="textPersonName"
+			android:text="@string/goto_event_creation"
+			android:textColor="#59030303"
+			android:textSize="36sp"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintHorizontal_bias="0.0"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent"
+			app:layout_constraintVertical_bias="0.0" />
+		-->
+	<ScrollView
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_below="@+id/toolbar_main"
+			android:scrollbarStyle="insideInset"
+			android:scrollbars="vertical">
+		
+		<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:gravity="center"
+				android:orientation="vertical"
+				android:padding="30dp">
+			
+			<LinearLayout
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:gravity="center"
+					android:paddingVertical="15dp">
+				
+				<TextView
+						android:layout_width="140dp"
+						android:layout_height="wrap_content"
+						android:ems="5"
+						android:text="Location:"
+						android:textColor="#fff"
+						android:textSize="20dp"
+						android:textStyle="bold" />
+				
+				<EditText
+						android:id="@+id/Location"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:ems="10"
+						android:hint="Location"
+						android:inputType="textPersonName" />
+			
+			</LinearLayout>
+			
+			
+			<LinearLayout
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:gravity="center"
+					android:paddingVertical="15dp">
+				
+				<TextView
+						android:layout_width="140dp"
+						android:layout_height="wrap_content"
+						android:ems="5"
+						android:text="Start Time:"
+						android:textColor="#fff"
+						android:textSize="20dp"
+						android:textStyle="bold" />
+				
+				<EditText
+						android:id="@+id/Time"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:ems="10"
+						android:hint="@string/time"
+						android:inputType="" />
+			</LinearLayout>
+			
+			<LinearLayout
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:gravity="center"
+					android:paddingVertical="15dp">
+				
+				<TextView
+						android:layout_width="140dp"
+						android:layout_height="wrap_content"
+						android:ems="5"
+						android:text="Event Title:"
+						android:textColor="#fff"
+						android:textSize="20dp"
+						android:textStyle="bold" />
+				
+				<EditText
+						android:id="@+id/EventName"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:ems="10"
+						android:hint="@string/event_name"
+						android:inputType="textPersonName" />
+			</LinearLayout>
+			
+			<LinearLayout
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:gravity="center"
+					android:paddingVertical="15dp">
+				
+				<TextView
+						android:layout_width="140dp"
+						android:layout_height="wrap_content"
+						android:ems="5"
+						android:text="Select Date:"
+						android:textColor="#fff"
+						android:textSize="20dp"
+						android:textStyle="bold" />
+				
+				<EditText
+						android:id="@+id/EventDate"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:ems="10"
+						android:hint="@string/event_date"
+						android:inputType="date" />
+			
+			</LinearLayout>
+			
+			<LinearLayout
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:gravity="center"
+					android:paddingVertical="15dp">
+				
+				<TextView
+						android:layout_width="140dp"
+						android:layout_height="wrap_content"
+						android:ems="5"
+						android:text="Description:"
+						android:textColor="#fff"
+						android:textSize="20dp"
+						android:textStyle="bold" />
+				
+				<EditText
+						android:id="@+id/Description"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:ems="10"
+						android:hint="@string/desc"
+						android:inputType="textPersonName" />
+			</LinearLayout>
+			
+			<LinearLayout
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:gravity="center"
+					android:paddingVertical="15dp">
+				
+				<TextView
+						android:layout_width="140dp"
+						android:layout_height="wrap_content"
+						android:ems="5"
+						android:text="Organization:"
+						android:textColor="#fff"
+						android:textSize="20dp"
+						android:textStyle="bold" />
+				
+				<EditText
+						android:id="@+id/Organization"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:ems="10"
+						android:hint="@string/org"
+						android:inputType="textPersonName" />
+			</LinearLayout>
+			
+			<LinearLayout
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:gravity="center"
+					android:paddingTop="15dp"
+					android:paddingBottom="40dp">
+				
+				<TextView
+						android:layout_width="140dp"
+						android:layout_height="wrap_content"
+						android:ems="5"
+						android:text="Tags (Optional):"
+						android:textColor="#fff"
+						android:textSize="20dp"
+						android:textStyle="bold" />
+				
+				<Spinner
+						android:id="@+id/tags"
+						android:layout_width="fill_parent"
+						android:layout_height="wrap_content"
+						android:layout_marginTop="20dp"
+						android:layout_marginBottom="20dp" />
+			
+			</LinearLayout>
+			
+			<!-- <Button
 
-    <include
-
-        layout="@layout/toolbar_main" />
-    <!--
-        <TextView
-            android:id="@+id/Campus_Connect"
-            android:layout_width="316dp"
-            android:layout_height="64dp"
-            android:layout_marginTop="64dp"
-            android:ems="10"
-            android:fontFamily="serif-monospace"
-            android:inputType="textPersonName"
-            android:text="@string/goto_event_creation"
-            android:textColor="#59030303"
-            android:textSize="36sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
-        -->
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/toolbar_main"
-        android:scrollbarStyle="insideInset"
-        android:scrollbars="vertical">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:padding="30dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingVertical="15dp"
-                android:gravity="center">
-
-                <TextView
-                    android:layout_width="140dp"
-                    android:layout_height="wrap_content"
-                    android:ems="5"
-                    android:textSize="20dp"
-                    android:textColor="#fff"
-                    android:textStyle="bold"
-                    android:text="Location:" />
-
-                <EditText
-                    android:id="@+id/Location"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:hint="Location"
-                    android:inputType="textPersonName"/>
-
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingVertical="15dp"
-                android:gravity="center">
-
-                <TextView
-                    android:layout_width="140dp"
-                    android:layout_height="wrap_content"
-                    android:ems="5"
-                    android:textSize="20dp"
-                    android:textColor="#fff"
-                    android:textStyle="bold"
-                    android:text="Start Time:" />
-
-                <EditText
-                    android:id="@+id/Time"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:hint="@string/time"
-                    android:inputType="" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingVertical="15dp"
-                android:gravity="center">
-
-                <TextView
-                    android:layout_width="140dp"
-                    android:layout_height="wrap_content"
-                    android:ems="5"
-                    android:textSize="20dp"
-                    android:textColor="#fff"
-                    android:textStyle="bold"
-                    android:text="Event Title:" />
-
-                <EditText
-                    android:id="@+id/EventName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:hint="@string/event_name"
-                    android:inputType="textPersonName" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingVertical="15dp"
-                android:gravity="center">
-
-                <TextView
-                    android:layout_width="140dp"
-                    android:layout_height="wrap_content"
-                    android:ems="5"
-                    android:textSize="20dp"
-                    android:textColor="#fff"
-                    android:textStyle="bold"
-                    android:text="Select Date:" />
-
-                <EditText
-                    android:id="@+id/EventDate"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:hint="@string/event_date" />
-                <!--android:inputType="date"-->
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingVertical="15dp"
-                android:gravity="center">
-
-                <TextView
-                    android:layout_width="140dp"
-                    android:layout_height="wrap_content"
-                    android:ems="5"
-                    android:textSize="20dp"
-                    android:textColor="#fff"
-                    android:textStyle="bold"
-                    android:text="Description:" />
-
-                <EditText
-                    android:id="@+id/Description"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:hint="@string/desc"
-                    android:inputType="textPersonName" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingVertical="15dp"
-                android:gravity="center">
-
-                <TextView
-                    android:layout_width="140dp"
-                    android:layout_height="wrap_content"
-                    android:ems="5"
-                    android:text="Organization:"
-                    android:textColor="#fff"
-                    android:textSize="20dp"
-                    android:textStyle="bold" />
-
-                <EditText
-                    android:id="@+id/Organization"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:hint="@string/org"
-                    android:inputType="textPersonName" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="15dp"
-                android:paddingBottom="40dp"
-                android:gravity="center">
-
-                <TextView
-                    android:layout_width="140dp"
-                    android:layout_height="wrap_content"
-                    android:ems="5"
-                    android:text="Tags (Optional):"
-                    android:textColor="#fff"
-                    android:textSize="20dp"
-                    android:textStyle="bold" />
-
-                <Spinner
-                    android:id="@+id/tags"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="20dp"
-                    android:layout_marginTop="20dp" />
-
-            </LinearLayout>
-
-            <!-- <Button
-
-                android:id="@+id/event_submit_button"
-                style="@style/AppTheme.RoundedCornerMaterialButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/event_submit"
-                android:textStyle="bold" /> -->
-
-            <Button
-                android:id="@+id/event_submit_button"
-                android:layout_width="382dp"
-                android:layout_height="69dp"
-                android:text="@string/event_submit"
-                android:visibility="visible"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.551"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.864"
-                tools:visibility="visible" />
-        </LinearLayout>
-    </ScrollView>
+				android:id="@+id/event_submit_button"
+				style="@style/AppTheme.RoundedCornerMaterialButton"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="@string/event_submit"
+				android:textStyle="bold" /> -->
+			
+			<Button
+					android:id="@+id/event_submit_button"
+					android:layout_width="382dp"
+					android:layout_height="69dp"
+					android:text="@string/event_submit"
+					android:visibility="visible"
+					app:layout_constraintBottom_toBottomOf="parent"
+					app:layout_constraintEnd_toEndOf="parent"
+					app:layout_constraintHorizontal_bias="0.551"
+					app:layout_constraintStart_toStartOf="parent"
+					app:layout_constraintTop_toTopOf="parent"
+					app:layout_constraintVertical_bias="0.864"
+					tools:visibility="visible" />
+		</LinearLayout>
+	</ScrollView>
 
 
 </RelativeLayout>

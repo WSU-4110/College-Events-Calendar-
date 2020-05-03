@@ -2,6 +2,7 @@ package com.example.campusconnect.Event;
 
 public class Event {
 	
+	// Replace "String date" with "Date date"
 	private String name;
 	private String location;
 	private String startTime;
@@ -73,6 +74,14 @@ public class Event {
 		return name + "|" + location + "|" + startTime + "|" + date + "|" + org + "|" + desc + "|" + OrgUid + "|" + tag;
 	}
 	
-	
+//	// Added for adding indicators to calendar -Jay
+//	public int getMonth(){
+//		StringBuilder month;
+//		String monthInteger;
+//
+//		month.append(date.charAt())
+//
+//		return month;
+//	}
 	
 }// end [ CLASS: Event ]

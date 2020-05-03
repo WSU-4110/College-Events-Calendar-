@@ -38,21 +38,18 @@ import com.kaopiz.kprogresshud.KProgressHUD;
 import java.util.Map;
 import java.util.Objects;
 
+// !! TODO: Fix lowercase 's'
 public class signIn extends AppCompatActivity {
 	
 	private static final int RC_SIGN_IN = 1;
 	private GoogleSignInClient mGoogleSignInClient;
 	
-	
-	//TextWatcher for Password
 	TextWatcher passWatcher = new TextWatcher() {
 		@Override
-		public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-		}
+		public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
 		
 		@Override
-		public void onTextChanged(CharSequence s, int start, int before, int count) {
-		}
+		public void onTextChanged(CharSequence s, int start, int before, int count) { }
 		
 		@Override
 		public void afterTextChanged(Editable s) {
@@ -63,8 +60,8 @@ public class signIn extends AppCompatActivity {
 		}
 		
 	};
+	
 	private EditText email, password;
-	//TextWatcher for Email
 	TextWatcher emailWatcher = new TextWatcher() {
 		@Override
 		public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -88,8 +85,10 @@ public class signIn extends AppCompatActivity {
 			}
 		}
 	};
+	
 	private KProgressHUD progressDialog;
-	private TextView forgotpassword, registernow;
+	private TextView forgotpassword;
+	private TextView registernow;
 	private FirebaseAuth mAuth;
 	private GoogleSignInOptions gso;
 	
@@ -98,7 +97,9 @@ public class signIn extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_sign_in);
 		
-		Button btn_view = findViewById(R.id.view_calendar_button);
+		Button btn_view;
+		
+		btn_view = findViewById(R.id.view_calendar_button);
 		btn_view.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -140,149 +141,197 @@ public class signIn extends AppCompatActivity {
 		button.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
+				
+				final String emailEntered;
+				String passwordEntered;
+				
+				emailEntered = email.getText().toString();
+				passwordEntered = password.getText().toString();
+				
+				//--------------------------------
+				
+				boolean emailEmpty;
+				boolean passwordEmpty;
+				
+				//--------------------------------
 				progressDialog = KProgressHUD.create(signIn.this)
 						.setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
 						.setLabel("Please wait")
 						.setCancellable(false);
 				progressDialog.show();
-				if (!(email.getText().toString().isEmpty() && password.getText().toString().isEmpty())) {
-					FirebaseAuth.getInstance().signInWithEmailAndPassword(
-							email.getText().toString(),
-							password.getText().toString())
-							.addOnCompleteListener(signIn.this, new OnCompleteListener<AuthResult>() {
-								@Override
-								public void onComplete(@NonNull Task<AuthResult> task) {
-									if (!task.isSuccessful()) {
+				
+				//--------------------------------
+				// Email and password not empty
+				emailEmpty = emailEntered.isEmpty();
+				passwordEmpty = passwordEntered.isEmpty();
+				
+				if (emailEmpty && passwordEmpty) {
+					progressDialog.dismiss();
+					Toast.makeText(signIn.this, "Your Email and Password Cannot be Empty", Toast.LENGTH_SHORT).show();
+				}
+				
+				//--------------------------------
+			// [A]
+				FirebaseAuth.getInstance().signInWithEmailAndPassword(emailEntered, passwordEntered)
+						.addOnCompleteListener(signIn.this, new OnCompleteListener<AuthResult>() {
+							// [ Y ]
+							@Override
+							public void onComplete(@NonNull Task<AuthResult> task) {
+								
+								if (!task.isSuccessful()) {
+									progressDialog.dismiss();
+									Toast.makeText(signIn.this, Objects.requireNonNull(task.getException()).getMessage(), Toast.LENGTH_SHORT).show();
+									return;
+								}
+								
+								if (emailEntered.equals("admin@campus.connect")) {
+									progressDialog.dismiss();
+									Toast.makeText(signIn.this, "SignIn as Admin", Toast.LENGTH_SHORT).show();
+									startActivity(new Intent(signIn.this, orgList.class));
+									finish();
+									return;        // CHECK: return ok here?
+								}
+								
+								// FirebaseUser: Not null
+								FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+								
+								if (user == null) {
+									FirebaseAuth.getInstance().signOut(); // Log Out
+									progressDialog.dismiss();
+									Toast.makeText(signIn.this, "User not found/NULL", Toast.LENGTH_SHORT).show();
+									return;
+								}
+								
+								// FirebaseUser: User Verified
+								boolean emailVerified;
+								emailVerified = user.isEmailVerified();
+								
+								if (!emailVerified) {
+									FirebaseAuth.getInstance().signOut(); // Log Out
+									progressDialog.dismiss();
+									Toast.makeText(signIn.this, "Email not Verify yet", Toast.LENGTH_SHORT).show();
+									return;
+								}
+								
+							// [B]
+								FirebaseFirestore.getInstance()
+										.collection("Users")
+										.document("Organizers")
+										.collection("FirebaseID")
+										.document(Objects.requireNonNull(user.getUid()))
+										.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+									// [ X ]
+									@Override
+									public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+										
 										progressDialog.dismiss();
-										Toast.makeText(signIn.this, Objects.requireNonNull(task.getException()).getMessage(), Toast.LENGTH_SHORT).show();
-									}
-									else {
-										if (email.getText().toString().equals("admin@campus.connect")) {
+										
+										// Query Successful, with results
+										if (!task.isSuccessful()) {
 											progressDialog.dismiss();
-											Toast.makeText(signIn.this, "SignIn as Admin", Toast.LENGTH_SHORT).show();
-											startActivity(new Intent(signIn.this, orgList.class));
+											Toast.makeText(signIn.this, " Internet Error ", Toast.LENGTH_SHORT).show();
+											return;
+										}
+										
+										//--------------------------------
+										// Check user data/account type
+										DocumentSnapshot result = task.getResult();
+										Map<String, Object> data = result.getData();
+										boolean orgCheck;
+										
+										if (data == null) {
+											Toast.makeText(signIn.this, "Welcome USER", Toast.LENGTH_SHORT).show();
+											startActivity(new Intent(signIn.this, MainActivity.class));
 											finish();
 										}
 										else {
-											FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-											assert user != null;
-											boolean emailVerified = user.isEmailVerified();
-											if (emailVerified) {
-												FirebaseFirestore.getInstance()
-														.collection("Users")
-														.document("Organizers")
-														.collection("FirebaseID")
-														.document(Objects.requireNonNull(user.getUid()))
-														.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-													@Override
-													public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-														if (task.isSuccessful()) {
-															DocumentSnapshot result = task.getResult();
-															Map<String, Object> data = result.getData();
-															if (data == null) {
-																// for users
-																progressDialog.dismiss();
-																Toast.makeText(signIn.this, "Welcome USER", Toast.LENGTH_SHORT).show();
-																startActivity(new Intent(signIn.this, MainActivity.class));
-																finish();
-															}
-															// !! !! CRITICAL only for testing
-//															else if(result.getString("Name").equals("Jay")){
-//                                                                // for Jay
-//                                                                Toast.makeText(signIn.this, "Welcome Organizer", Toast.LENGTH_SHORT).show();
-//                                                                startActivity(new Intent(signIn.this, MainActivity.class));
-//                                                                finish();
-//                                                            }
-															else {
-																boolean orgcheck = result.getBoolean("Status");
-																progressDialog.dismiss();
-																if (orgcheck) {
-																	// for organizer
-																	Toast.makeText(signIn.this, "Welcome Organizer", Toast.LENGTH_SHORT).show();
-																	startActivity(new Intent(signIn.this, MainActivity.class));
-																	finish();
-																}
-																else {
-																	Toast.makeText(signIn.this, "Org Account is Not Approved Yet", Toast.LENGTH_SHORT).show();
-																	FirebaseAuth.getInstance().signOut();
-																}
-															}
-														}
-														else {
-															progressDialog.dismiss();
-															Toast.makeText(signIn.this, " Internet Error ", Toast.LENGTH_SHORT).show();
-														}
-													}
-												});
+											orgCheck = result.getBoolean("Status");
+											
+											if (orgCheck) {
+												Toast.makeText(signIn.this, "Welcome Organizer", Toast.LENGTH_SHORT).show();
+												startActivity(new Intent(signIn.this, MainActivity.class));
+												finish();
 											}
 											else {
-												FirebaseAuth.getInstance().signOut(); // Log Out
-												progressDialog.dismiss();
-												Toast.makeText(signIn.this, "Email not Verify yet", Toast.LENGTH_SHORT).show();
-											}
-										}
-									}
-								}
-							});
-				}
-				else {
-					progressDialog.dismiss();
-					Toast.makeText(signIn.this, "Your Password or Email Cannot be null", Toast.LENGTH_SHORT).show();
-				}
-			}
+												Toast.makeText(signIn.this, "Org Account is Not Approved Yet", Toast.LENGTH_SHORT).show();
+												FirebaseAuth.getInstance().signOut();
+												
+											}// [ Inner if/else ]
+											
+										}// [ Outer if/else ]
+										
+									}// [ X onComplete ]
+									
+								});// [ B FirebaseFirestore.getInstance() ]
+								
+							}// [ Y onComplete ]
+							
+						});// [ A FirebaseFirestore.getInstance() ]
+				
+			}// [ onClick ]
 			
-		});
-	}
+		});// [ button ]
+		
+	}// [ onCreate ]
 	
 	private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
 		AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
+		
 		mAuth.signInWithCredential(credential)
-				.addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-					@Override
-					public void onComplete(@NonNull Task<AuthResult> task) {
-						if (task.isSuccessful()) {
-							// for users
-							progressDialog.dismiss();
-							FirebaseUser user = mAuth.getCurrentUser();
-							assert user != null;
-							Toast.makeText(signIn.this, "sign in Successfully " + user.getUid(), Toast.LENGTH_SHORT).show();
-							startActivity(new Intent(signIn.this, MainActivity.class));
-							finish();
-						}
-						else {
-							progressDialog.dismiss();
-							Toast.makeText(signIn.this, "Authentication Failed.", Toast.LENGTH_SHORT).show();
-						}
+			.addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+				@Override
+				public void onComplete(@NonNull Task<AuthResult> task) {
+					if (task.isSuccessful()) {
+						// for users
+						progressDialog.dismiss();
+						FirebaseUser user = mAuth.getCurrentUser();
+						assert user != null;
+						Toast.makeText(signIn.this, "sign in Successfully " + user.getUid(), Toast.LENGTH_SHORT).show();
+						startActivity(new Intent(signIn.this, MainActivity.class));
+						finish();
 					}
-				});
-	}
+					else {
+						progressDialog.dismiss();
+						Toast.makeText(signIn.this, "Authentication Failed.", Toast.LENGTH_SHORT).show();
+					}
+				}
+			});
+	}// [ firebaseAuthWithGoogle ]
 	
 	
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		
 		super.onActivityResult(requestCode, resultCode, data);
+		
 		if (requestCode == RC_SIGN_IN) {
 			Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
 			try {
 				GoogleSignInAccount account = task.getResult(ApiException.class);
 				assert account != null;
 				firebaseAuthWithGoogle(account);
-			} catch (ApiException e) {
+			}
+			catch (ApiException e) {
 				progressDialog.dismiss();
 				Toast.makeText(signIn.this, "Google sign in failed", Toast.LENGTH_SHORT).show();
 			}
 		}
-	}
+	}// [ onActivityResult ]
+	
 	
 	public void gmailAccount(View view) {
+		
 		progressDialog = KProgressHUD.create(signIn.this)
 				.setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
 				.setLabel("Please wait")
 				.setCancellable(false);
+		
 		progressDialog.show();
-		Intent i = mGoogleSignInClient.getSignInIntent();
-		startActivityForResult(i, RC_SIGN_IN);
-	}
+		
+		Intent intent = mGoogleSignInClient.getSignInIntent();
+		startActivityForResult(intent, RC_SIGN_IN);
+		
+	}// [ gmailAccount ]
 	
 	
-}
+}// end CLASS [ signIn ]
