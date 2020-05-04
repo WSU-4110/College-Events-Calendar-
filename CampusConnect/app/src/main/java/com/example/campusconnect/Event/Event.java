@@ -1,7 +1,12 @@
 package com.example.campusconnect.Event;
 
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Scanner;
+
 public class Event {
 	
+	// Replace "String date" with "Date date"
 	private String name;
 	private String location;
 	private String startTime;
@@ -73,6 +78,39 @@ public class Event {
 		return name + "|" + location + "|" + startTime + "|" + date + "|" + org + "|" + desc + "|" + OrgUid + "|" + tag;
 	}
 	
-	
+	// Added for adding event indicators to calendar -Jay
+	public Long getMillisecondsForEvent(){
+		// MM/DD/YYYY
+		String stringDay;
+		String stringMonth;
+		String stringYear;
+		String[] dateFragments;
+		Calendar cal;
+		int day;
+		int month;
+		int year;
+		
+		dateFragments = this.date.split("/");
+		System.out.println("DATE: " + this.date);
+		
+		stringMonth = dateFragments[0];
+		month = Integer.parseInt(stringMonth);
+		
+		stringDay = dateFragments[0];
+		day = Integer.parseInt(stringDay);
+		
+		stringYear = dateFragments[0];
+		year = Integer.parseInt(stringYear);
+		
+		System.out.println("\nDATE FRAGMENTS \n");
+		System.out.printf("\nint: %d %d %d \n", month, day, year);
+		System.out.printf("\nString: %s %s, %s \n", stringMonth, stringDay, stringYear);
+		
+		cal = Calendar.getInstance();
+		// year, month, day
+		cal.set(year, month, day);
+		
+		return cal.getTimeInMillis();
+	}
 	
 }// end [ CLASS: Event ]

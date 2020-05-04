@@ -35,7 +35,12 @@ import java.util.Calendar;
 
 public class EventCreation extends AppCompatActivity{
 
-    String EventName, location, startTime, date, desc, org;
+    String EventName;
+    String location;
+    String startTime;
+    String date;
+    String desc;
+    String org;
 
     private static final String TAG = "Event";
 
@@ -134,23 +139,6 @@ public class EventCreation extends AppCompatActivity{
                 mDisplayDate.setText(date);
             }
         };
-        
-//        mDisplayDate.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Calendar cal = Calendar.getInstance();
-//                int year = cal.get(Calendar.YEAR);
-//                int month = cal.get(Calendar.MONTH);
-//                int day = cal.get(Calendar.DAY_OF_MONTH);
-//
-//                DatePickerDialog dialog = new DatePickerDialog(
-//                        EventCreation.this,
-//                        android.R.style.Theme_DeviceDefault_Light_Dialog_MinWidth,
-//                        mDateSetListener,
-//                        year,month,day);
-//                dialog.show();
-//            }
-//        });
     
         Spinner staticSpinner = (Spinner) findViewById(R.id.tags);
 
@@ -184,16 +172,19 @@ public class EventCreation extends AppCompatActivity{
                 startTime = startTimeInput.getText().toString();
                 date = dateInput.getText().toString();
                 desc = descInput.getText().toString();
-                org = orgInput.getText().toString();
+//                org = orgInput.getText().toString();
+                org = "Jay";
                 String tag = spinner.getSelectedItem().toString();
-                /*ArrayList<String> tagArray = new ArrayList<String>();
-                tagArray.add(tag);
-                String[] tagsArr  = new String[tagArray.size()];
-                tagsArr = tagArray.toArray(tagsArr);*/
+                
+//                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+//                Event event = new Event(null, EventName, location, startTime,
+//                        date, org, desc, user.getUid(),tag);
 
-                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                // J uGYNHPfyvwX9ksH2IytA
+                // D RhsB4qyI0pE3jOYOZhJv
+//                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 Event event = new Event(null, EventName, location, startTime,
-                        date, org, desc, user.getUid(),tag);
+                        date, org, desc, "RhsB4qyI0pE3jOYOZhJv",tag);
 
                 db.collection("Events")
                         .add(event);

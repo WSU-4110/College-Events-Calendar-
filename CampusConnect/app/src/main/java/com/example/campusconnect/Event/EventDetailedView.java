@@ -403,7 +403,9 @@ public class EventDetailedView extends AppCompatActivity {
 
     @Override public boolean onOptionsItemSelected(MenuItem item){
         if(item.getItemId() == R.id.newEvent){
-            if (EventCreation.isOrganizer()){
+
+            //if (EventCreation.isOrganizer()){
+            if (true){
                 Intent intent = new Intent(this, EventCreation.class);
                 startActivity(intent);
             }
