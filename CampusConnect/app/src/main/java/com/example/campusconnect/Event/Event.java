@@ -48,7 +48,6 @@ public class Event {
 		this.tag =  tags;
 	}
 	
-	public String getName() { return name; }
 	public String getLocation() { return location; }
 	public String getStartTime() { return startTime; }
 	public String getDate() { return date; }
@@ -56,32 +55,11 @@ public class Event {
 	public String getDesc() { return desc; }
 	public String getUid() { return uid; }
 	public String getOrgUid() { return OrgUid; }
-	public void setName(String name) { this.name = name; }
-	public void setLocation(String location) { this.location = location; }
-	public void setStartTime(String startTime) { this.startTime = startTime; }
-	public void setDate(String date) { this.date = date; }
-	public void setOrg(String org) { this.org = org; }
-	public void setDesc(String desc) { this.desc = desc; }
 	public void setUid(String uid) { this.uid = uid; }
-	public void setOrgUid(String OrgUid) { this.OrgUid = OrgUid; }
 	public String getTag() { return tag;  }
-	public void setTag(String tag) {
-		this.tag = tag;
-	}
 	
-	public String toString()
-	{
-		return name + "|" + location + "|" + startTime + "|" + date + "|" + org + "|" + desc + "|" + OrgUid + "|" + tag;
-	}
-	
-//	// Added for adding indicators to calendar -Jay
-//	public int getMonth(){
-//		StringBuilder month;
-//		String monthInteger;
-//
-//		month.append(date.charAt())
-//
-//		return month;
-//	}
+	public String getName() { return name; }
+	public void setName(String name) { this.name = name; }
+	public void setOrg(String org) { this.org = org; }
 	
 }// end [ CLASS: Event ]
