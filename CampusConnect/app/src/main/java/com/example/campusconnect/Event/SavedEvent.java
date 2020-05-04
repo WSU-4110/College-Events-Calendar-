@@ -90,7 +90,7 @@ public class SavedEvent extends AppCompatActivity {
 //            db.collection("User")
 //                    .document("Organizers")
 //                    .collection("FirebaseID")
-//                    .whereEqualTo("id", user.getUid())
+//                    .whereEqualTo("id", user.UID())
 //                    .get()
 //                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
 //                        @Override
@@ -189,10 +189,10 @@ class SavedEventListAdapter extends ArrayAdapter<Event>  {
 		eventName.append(event.getName());
 		
 		eventDate.setText("Date:    ");
-		eventDate.append(event.getDate());
+		eventDate.append(event.fullDateString());
 		
 		eventLocation.setText("Location:    ");
-		eventLocation.append(event.getLocation());
+		eventLocation.append(event.location());
 		
 		return convertView;                                                                             // [5]
 		
@@ -262,15 +262,15 @@ class SavedEventListAdapter extends ArrayAdapter<Event>  {
 //
 //        public String getName() { return name; }
 //
-//        public String getLocation() { return location; }
+//        public String location() { return location; }
 //
-//        public String getStartTime() { return startTime; }
+//        public String startTime() { return startTime; }
 //
-//        public String getDate() { return date; }
+//        public String fullDateString() { return date; }
 //
-//        public String getOrg() { return org; }
+//        public String org() { return org; }
 //
-//        public String getDesc() { return desc; }
+//        public String desc() { return desc; }
 //
 //        public void setUserId(String userId) { this.userId = userId; }
 //

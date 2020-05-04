@@ -24,8 +24,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import com.example.campusconnect.Event.Event;
-
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -154,13 +152,13 @@ class EventListAdapter extends ArrayAdapter<Event>  {
 		eventName.setText(event.getName());
 
         eventDate.setText("Date:    ");
-        eventDate.append(event.getDate());
+        eventDate.append(event.fullDateString());
 
         eventLocation.setText("Location:    ");
-        eventLocation.append(event.getLocation());
+        eventLocation.append(event.location());
 	
 		eventTag.setText("Tag:    ");
-		eventTag.append(event.getTag());
+		eventTag.append(event.tag());
         
         return convertView;																			// [5]
     }

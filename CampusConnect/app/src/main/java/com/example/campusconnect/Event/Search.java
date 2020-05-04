@@ -151,7 +151,7 @@ public class Search extends AppCompatActivity {
 						if (task.isSuccessful()) {
 							for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
 								Event event = (Event) document.toObject(Event.class);
-								String eventTag = event.getTag();
+								String eventTag = event.tag();
 								
 								// Tags are OPTIONAL, end current loop iteration if no tag
 								if (eventTag == null)

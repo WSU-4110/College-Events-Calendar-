@@ -26,15 +26,7 @@ public class Event {
 	Event(String dateSelected){
 		this.date = dateSelected;
 	}
-	
-	//    public Event(String name, String location, String startTime, String date, String org, String desc) {
-//        this.name = name;
-//        this.location = location;
-//        this.startTime = startTime;
-//        this.date = date;
-//        this.org = org;
-//        this.desc = desc;
-//    }
+
 	public Event(String uid, String name, String location,
 				 String startTime, String date, String org, String desc, String OrgUid, String tags) {
 		this.uid = uid;
@@ -48,18 +40,19 @@ public class Event {
 		this.tag =  tags;
 	}
 	
-	public String getLocation() { return location; }
-	public String getStartTime() { return startTime; }
-	public String getDate() { return date; }
-	public String getOrg() { return org; }
-	public String getDesc() { return desc; }
-	public String getUid() { return uid; }
-	public String getOrgUid() { return OrgUid; }
-	public void setUid(String uid) { this.uid = uid; }
-	public String getTag() { return tag;  }
-	
 	public String getName() { return name; }
 	public void setName(String name) { this.name = name; }
 	public void setOrg(String org) { this.org = org; }
+	
+	// Package-private methods
+	String location() { return location; }
+	String startTime() { return startTime; }
+	String fullDateString() { return date; }
+	String org() { return org; }
+	String desc() { return desc; }
+	String UID() { return uid; }
+	String orgUID() { return OrgUid; }
+	String tag() { return tag;  }
+	void setUid(String uid) { this.uid = uid; }
 	
 }// end [ CLASS: Event ]
