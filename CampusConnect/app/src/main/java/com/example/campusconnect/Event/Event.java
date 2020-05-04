@@ -45,14 +45,14 @@ public class Event {
 	public void setOrg(String org) { this.org = org; }
 	
 	// Package-private methods
-	String location() { return location; }
-	String startTime() { return startTime; }
+	String location() 		{ return location; }
+	String startTime() 		{ return startTime; }
 	String fullDateString() { return date; }
-	String org() { return org; }
-	String desc() { return desc; }
-	String UID() { return uid; }
-	String orgUID() { return OrgUid; }
-	String tag() { return tag;  }
+	String org() 			{ return org; }
+	String desc() 			{ return desc; }
+	String UID() 			{ return uid; }
+	String orgUID() 		{ return OrgUid; }
+	String tag() 			{ return tag; }
 	void setUid(String uid) { this.uid = uid; }
 	
-}// end [ CLASS: Event ]
+}// class [ Event ]

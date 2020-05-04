@@ -334,4 +334,4 @@ public class signIn extends AppCompatActivity {
 	}// [ gmailAccount ]
 	
 	
-}// end CLASS [ signIn ]
+}// class [ signIn ]

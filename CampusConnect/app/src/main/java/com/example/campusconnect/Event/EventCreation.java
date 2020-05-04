@@ -229,7 +229,7 @@ public class EventCreation extends AppCompatActivity{
         return true;
     }
     
-}// end [ CLASS: EventCreation ]
+}// class [ EventCreation ]
 
 
 

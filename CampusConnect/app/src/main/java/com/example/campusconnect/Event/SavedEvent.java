@@ -156,12 +156,12 @@ public class SavedEvent extends AppCompatActivity {
 		}
 		
 		
-	}// END METHOD [ displayEventsForSelectedDay ]
+	}// method [ displayEventsForSelectedDay ]
 	
 	
 	
 	
-}// END CLASS [ EventView ]
+}// class [ EventView ]
 
 
 class SavedEventListAdapter extends ArrayAdapter<Event>  {
@@ -198,7 +198,7 @@ class SavedEventListAdapter extends ArrayAdapter<Event>  {
 		
 	}
 	
-}// END CLASS [ EventListAdapter ]
+}// class [ EventListAdapter ]
 
 
 
