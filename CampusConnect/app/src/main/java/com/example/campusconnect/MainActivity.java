@@ -113,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
 		String[] monthName;
 		
 		if (calendar == null) {
-			return "2020";
+			return " ";
 		}
 		
 		monthName = new String[]{
@@ -127,9 +127,13 @@ public class MainActivity extends AppCompatActivity {
 		cal.setTime(currentDate);
 		
 		year = cal.get(Calendar.YEAR);
-		monthInteger = cal.get(Calendar.MONTH);        // Jan == 0, Dec == 11
+		monthInteger = cal.get(Calendar.MONTH);
 		
-		return String.format("%s, %d", monthName[monthInteger], year);
+		// Looks cleaner without year (but print year if NOT current year)
+		if(year != 2020)
+			return String.format("%s, %d", monthName[monthInteger], year);
+		else
+			return String.format("%s", monthName[monthInteger]);
 	}
 	
 	public void openEventView(Date dateClicked) {
@@ -162,8 +166,7 @@ public class MainActivity extends AppCompatActivity {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		if (item.getItemId() == R.id.newEvent) {
-//			if (EventCreation.isOrganizer()) {
-			if (true) {
+			if (EventCreation.isOrganizer()) {
 				Intent intent = new Intent(this, EventCreation.class);
 				startActivity(intent);
 			}

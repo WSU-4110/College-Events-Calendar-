@@ -63,7 +63,7 @@ public class EventCreation extends AppCompatActivity{
     public static boolean isOrganizer() {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        //Organizer = false;
+        Organizer = false;
         if (user!=null)
         {
             db.collection("Users")
@@ -111,7 +111,6 @@ public class EventCreation extends AppCompatActivity{
         setContentView(R.layout.event_creation);
 
         mDisplayDate = (TextView) findViewById(R.id.EventDate);
-        mDisplayTime = (TextView) findViewById(R.id.Time);
 
         mDisplayDate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -172,21 +171,27 @@ public class EventCreation extends AppCompatActivity{
                 startTime = startTimeInput.getText().toString();
                 date = dateInput.getText().toString();
                 desc = descInput.getText().toString();
-//                org = orgInput.getText().toString();
-                org = "Jay";
+                org = orgInput.getText().toString();
                 String tag = spinner.getSelectedItem().toString();
+                /*ArrayList<String> tagArray = new ArrayList<String>();
+                tagArray.add(tag);
+                String[] tagsArr  = new String[tagArray.size()];
+                tagsArr = tagArray.toArray(tagsArr);*/
                 
-//                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-//                Event event = new Event(null, EventName, location, startTime,
-//                        date, org, desc, user.UID(),tag);
-
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                Event event = new Event(null, EventName, location, startTime,
+                        date, org, desc, user.getUid(),tag);
+                
+                // Manual override for organizer account check
                 // J uGYNHPfyvwX9ksH2IytA
                 // D RhsB4qyI0pE3jOYOZhJv
-//                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                Event event = new Event(null, EventName, location, startTime,
-                        date, org, desc, "RhsB4qyI0pE3jOYOZhJv",tag);
-
+                //Event event = new Event(null, EventName, location, startTime,
+                //        date, org, desc, "RhsB4qyI0pE3jOYOZhJv",tag);
+                //                                                              -Jay
+                
                 db.collection("Events")
+                        .document("Events")
+                        .collection("Event_SubCollectionTesting")
                         .add(event);
                 
                 Toast.makeText(EventCreation.this, "Event Added", Toast.LENGTH_SHORT).show();
@@ -194,7 +199,6 @@ public class EventCreation extends AppCompatActivity{
                 startActivity(intent);
             }
         });
-
 
         Toolbar toolbar = findViewById(R.id.toolbar_main);
         setSupportActionBar(toolbar);
