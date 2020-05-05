@@ -19,11 +19,11 @@ import androidx.core.view.MenuItemCompat;
 
 import com.example.campusconnect.Event.Event;
 import com.example.campusconnect.Event.EventCreation;
+import com.example.campusconnect.Event.EventIndicator;
 import com.example.campusconnect.Event.EventView;
 import com.example.campusconnect.Event.SavedEvent;
 import com.example.campusconnect.Event.Search;
 import com.example.campusconnect.UI.Authentication.signIn;
-import com.github.sundeepk.compactcalendarview.CompactCalendarView;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -32,13 +32,11 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.List;
-import java.util.Locale;
 import java.util.Objects;
+
+import com.github.sundeepk.compactcalendarview.CompactCalendarView;
 
 public class MainActivity extends AppCompatActivity {
 	
@@ -51,14 +49,13 @@ public class MainActivity extends AppCompatActivity {
 	Toolbar toolbar;
 	TextView calendarTitle;
 	
-	Calendar currentCalender = Calendar.getInstance(Locale.getDefault());		// From sample app
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-
+		
 		toolbar = findViewById(R.id.toolbar_main);
 		setSupportActionBar(toolbar);
 		getSupportActionBar().setTitle("Home");
@@ -67,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
 		calendar.setFirstDayOfWeek(1);
 		
 		calendarTitle = findViewById(R.id.month_name);
-		calendarTitle.setText(dateTitleHelper());								// Set title AFTER calendar fully initialized
+		calendarTitle.setText(dateTitleHelper());                                // Set title AFTER calendar fully initialized
 		
 		goto_SavedEvents = findViewById(R.id.gotoSavedEvents);
 		
@@ -81,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
 			
 			@Override
 			public void onMonthScroll(Date firstDayOfNewMonth) {
-				calendarTitle.setText(dateTitleHelper());						// Update title to match new month
+				calendarTitle.setText(dateTitleHelper());                        // Update title to match new month
 			}
 		});
 		
@@ -103,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
 		});
 		
 	}// [ onCreate ]
-
+	
 	
 	// TODO: Resolve "Implicitly using the default locale string format..."
 	@SuppressLint("DefaultLocale")
@@ -130,7 +127,7 @@ public class MainActivity extends AppCompatActivity {
 		cal.setTime(currentDate);
 		
 		year = cal.get(Calendar.YEAR);
-		monthInteger = cal.get(Calendar.MONTH);		// Jan == 0, Dec == 11
+		monthInteger = cal.get(Calendar.MONTH);        // Jan == 0, Dec == 11
 		
 		return String.format("%s, %d", monthName[monthInteger], year);
 	}
@@ -143,9 +140,9 @@ public class MainActivity extends AppCompatActivity {
 		calClicked = Calendar.getInstance();
 		calClicked.setTime(dateClicked);
 		
-		String stringDay = 		String.valueOf(calClicked.get(Calendar.DAY_OF_MONTH));
-		String stringMonth = 	String.valueOf(calClicked.get(Calendar.MONTH));
-		String stringYear = 	String.valueOf(calClicked.get(Calendar.YEAR));
+		String stringDay = String.valueOf(calClicked.get(Calendar.DAY_OF_MONTH));
+		String stringMonth = String.valueOf(calClicked.get(Calendar.MONTH));
+		String stringYear = String.valueOf(calClicked.get(Calendar.YEAR));
 		
 		// TODO: Look into switching to a Date object parameter vs individual Strings
 		intent.putExtra("EXTRA_DaySelected", stringDay);
@@ -154,7 +151,7 @@ public class MainActivity extends AppCompatActivity {
 		
 		startActivity(intent);
 	}
-
+	
 	
 	public void openSavedEvents() {
 		Intent intent = new Intent(this, SavedEvent.class);
@@ -165,7 +162,8 @@ public class MainActivity extends AppCompatActivity {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		if (item.getItemId() == R.id.newEvent) {
-			if (EventCreation.isOrganizer()) {
+//			if (EventCreation.isOrganizer()) {
+			if (true) {
 				Intent intent = new Intent(this, EventCreation.class);
 				startActivity(intent);
 			}
@@ -220,8 +218,15 @@ public class MainActivity extends AppCompatActivity {
 		return true;
 	}// [ onCreateOptionsMenu ]
 	
-	private void loadEvents(){
+	private void loadEvents() {
+		addEventIndicators();
+		
+		// TODO: Look into moving the actual loading of events to an Async task
+	}
+	
+	private void addEventIndicators() {
 		FirebaseFirestore db = FirebaseFirestore.getInstance();
+		
 		db.collection("Events")
 				.get()
 				.addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -229,66 +234,24 @@ public class MainActivity extends AppCompatActivity {
 					public void onComplete(@NonNull Task<QuerySnapshot> task) {
 						if (task.isSuccessful()) {
 							Event event;
-							int month;
-							int year;
+							long dateInMilliseconds;
+							final String gold_dark = "#FFFFAD33";
 							
 							for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
 								event = (Event) document.toObject(Event.class);
-//								month = event.
-//								addEvents()
-//								adapter.add((Event) document.toObject(Event.class));
+								dateInMilliseconds = event.getMillisecondsForEvent();
+								
+								if (event.eventPassed())
+									calendar.addEvent(new EventIndicator(Color.GRAY, dateInMilliseconds));
+								else if (event.eventIsToday())
+									calendar.addEvent(new EventIndicator(Color.RED, dateInMilliseconds));
+								else
+									calendar.addEvent(new EventIndicator(gold_dark, dateInMilliseconds));
 							}
 						}
 					}
 				});
-	}
-	
-	// Below 3 methods from sample app
-	private void addEvents(int month, int year) {
-		List<com.github.sundeepk.compactcalendarview.domain.Event> events;
 		
-		currentCalender.setTime(new Date());
-		currentCalender.set(Calendar.DAY_OF_MONTH, 1);
-		Date firstDayOfMonth = currentCalender.getTime();
-		for (int i = 0; i < 6; i++) {
-			currentCalender.setTime(firstDayOfMonth);
-			if (month > -1) {
-				currentCalender.set(Calendar.MONTH, month);
-			}
-			if (year > -1) {
-				currentCalender.set(Calendar.ERA, GregorianCalendar.AD);
-				currentCalender.set(Calendar.YEAR, year);
-			}
-			currentCalender.add(Calendar.DATE, i);
-			setToMidnight(currentCalender);
-			long timeInMillis = currentCalender.getTimeInMillis();
-			
-			events = getEvents(timeInMillis, i);
-			
-			calendar.addEvents(events);
-		}
-	}
-	
-	private List<com.github.sundeepk.compactcalendarview.domain.Event> getEvents(long timeInMillis, int day) {
-		if (day < 2) {
-			return Arrays.asList(new com.github.sundeepk.compactcalendarview.domain.Event(Color.argb(255, 169, 68, 65), timeInMillis, "Event at " + new Date(timeInMillis)));
-		} else if ( day > 2 && day <= 4) {
-			return Arrays.asList(
-					new com.github.sundeepk.compactcalendarview.domain.Event(Color.argb(255, 169, 68, 65), timeInMillis, "Event at " + new Date(timeInMillis)),
-					new com.github.sundeepk.compactcalendarview.domain.Event(Color.argb(255, 100, 68, 65), timeInMillis, "Event 2 at " + new Date(timeInMillis)));
-		} else {
-			return Arrays.asList(
-					new com.github.sundeepk.compactcalendarview.domain.Event(Color.argb(255, 169, 68, 65), timeInMillis, "Event at " + new Date(timeInMillis) ),
-					new com.github.sundeepk.compactcalendarview.domain.Event(Color.argb(255, 100, 68, 65), timeInMillis, "Event 2 at " + new Date(timeInMillis)),
-					new com.github.sundeepk.compactcalendarview.domain.Event(Color.argb(255, 70, 68, 65), timeInMillis, "Event 3 at " + new Date(timeInMillis)));
-		}
-	}
-	
-	private void setToMidnight(Calendar calendar) {
-		calendar.set(Calendar.HOUR_OF_DAY, 0);
-		calendar.set(Calendar.MINUTE, 0);
-		calendar.set(Calendar.SECOND, 0);
-		calendar.set(Calendar.MILLISECOND, 0);
-	}
+	}// [ addEventIndicators ]
 	
 }// [ MainActivity ]

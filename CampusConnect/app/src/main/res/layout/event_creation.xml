@@ -5,30 +5,10 @@
 		android:id="@+id/event_creation_layout"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
-		android:background="@color/primaryGreen_75">
+		android:background="@color/primaryGreen_100">
 	
-	<include
-			
-			layout="@layout/toolbar_main" />
-	<!--
-		<TextView
-			android:id="@+id/Campus_Connect"
-			android:layout_width="316dp"
-			android:layout_height="64dp"
-			android:layout_marginTop="64dp"
-			android:ems="10"
-			android:fontFamily="serif-monospace"
-			android:inputType="textPersonName"
-			android:text="@string/goto_event_creation"
-			android:textColor="#59030303"
-			android:textSize="36sp"
-			app:layout_constraintBottom_toBottomOf="parent"
-			app:layout_constraintEnd_toEndOf="parent"
-			app:layout_constraintHorizontal_bias="0.0"
-			app:layout_constraintStart_toStartOf="parent"
-			app:layout_constraintTop_toTopOf="parent"
-			app:layout_constraintVertical_bias="0.0" />
-		-->
+	<include layout="@layout/toolbar_main" />
+	
 	<ScrollView
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
@@ -54,7 +34,7 @@
 						android:layout_height="wrap_content"
 						android:ems="5"
 						android:text="Location:"
-						android:textColor="#fff"
+						android:textColor="@color/primaryGold_100"
 						android:textSize="20dp"
 						android:textStyle="bold" />
 				
@@ -64,7 +44,9 @@
 						android:layout_height="wrap_content"
 						android:ems="10"
 						android:hint="Location"
-						android:inputType="textPersonName" />
+						android:inputType="textPersonName"
+						android:textColor="@color/White"
+						android:textCursorDrawable="@null" />
 			
 			</LinearLayout>
 			
@@ -80,8 +62,8 @@
 						android:layout_height="wrap_content"
 						android:ems="5"
 						android:text="Start Time:"
-						android:textColor="#fff"
-						android:textSize="20dp"
+						android:textColor="@color/primaryGold_100"
+						android:textSize="20sp"
 						android:textStyle="bold" />
 				
 				<EditText
@@ -104,8 +86,8 @@
 						android:layout_height="wrap_content"
 						android:ems="5"
 						android:text="Event Title:"
-						android:textColor="#fff"
-						android:textSize="20dp"
+						android:textColor="@color/primaryGold_100"
+						android:textSize="20sp"
 						android:textStyle="bold" />
 				
 				<EditText
@@ -128,8 +110,8 @@
 						android:layout_height="wrap_content"
 						android:ems="5"
 						android:text="Select Date:"
-						android:textColor="#fff"
-						android:textSize="20dp"
+						android:textColor="@color/primaryGold_100"
+						android:textSize="20sp"
 						android:textStyle="bold" />
 				
 				<EditText
@@ -153,8 +135,8 @@
 						android:layout_height="wrap_content"
 						android:ems="5"
 						android:text="Description:"
-						android:textColor="#fff"
-						android:textSize="20dp"
+						android:textColor="@color/primaryGold_100"
+						android:textSize="20sp"
 						android:textStyle="bold" />
 				
 				<EditText
@@ -177,8 +159,8 @@
 						android:layout_height="wrap_content"
 						android:ems="5"
 						android:text="Organization:"
-						android:textColor="#fff"
-						android:textSize="20dp"
+						android:textColor="@color/primaryGold_100"
+						android:textSize="20sp"
 						android:textStyle="bold" />
 				
 				<EditText
@@ -192,7 +174,7 @@
 			
 			<LinearLayout
 					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
+					android:layout_height="77dp"
 					android:gravity="center"
 					android:paddingTop="15dp"
 					android:paddingBottom="40dp">
@@ -201,33 +183,24 @@
 						android:layout_width="140dp"
 						android:layout_height="wrap_content"
 						android:ems="5"
-						android:text="Tags (Optional):"
-						android:textColor="#fff"
-						android:textSize="20dp"
+						android:text="Tag (Optional)"
+						android:textColor="@color/primaryGold_100"
+						android:textSize="15sp"
 						android:textStyle="bold" />
-				
+				<!-- SPINNER -->
 				<Spinner
 						android:id="@+id/tags"
 						android:layout_width="fill_parent"
-						android:layout_height="wrap_content"
+						android:layout_height="30dp"
 						android:layout_marginTop="20dp"
 						android:layout_marginBottom="20dp" />
 			
 			</LinearLayout>
 			
-			<!-- <Button
-
-				android:id="@+id/event_submit_button"
-				style="@style/AppTheme.RoundedCornerMaterialButton"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:text="@string/event_submit"
-				android:textStyle="bold" /> -->
-			
 			<Button
 					android:id="@+id/event_submit_button"
-					android:layout_width="382dp"
-					android:layout_height="69dp"
+					android:layout_width="194dp"
+					android:layout_height="wrap_content"
 					android:text="@string/event_submit"
 					android:visibility="visible"
 					app:layout_constraintBottom_toBottomOf="parent"
@@ -235,10 +208,7 @@
 					app:layout_constraintHorizontal_bias="0.551"
 					app:layout_constraintStart_toStartOf="parent"
 					app:layout_constraintTop_toTopOf="parent"
-					app:layout_constraintVertical_bias="0.864"
 					tools:visibility="visible" />
 		</LinearLayout>
 	</ScrollView>
-
-
 </RelativeLayout>

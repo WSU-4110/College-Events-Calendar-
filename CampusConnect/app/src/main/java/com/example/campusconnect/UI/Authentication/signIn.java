@@ -143,7 +143,7 @@ public class signIn extends AppCompatActivity {
 			public void onClick(View view) {
 				
 				final String emailEntered;
-				String passwordEntered;
+				final String passwordEntered;
 				
 				emailEntered = email.getText().toString();
 				passwordEntered = password.getText().toString();
@@ -184,9 +184,10 @@ public class signIn extends AppCompatActivity {
 									return;
 								}
 								
-								if (emailEntered.equals("admin@campus.connect")) {
+								if (emailEntered.equals("admin@campus.connect")
+										&& passwordEntered.equals("admin")) {
 									progressDialog.dismiss();
-									Toast.makeText(signIn.this, "SignIn as Admin", Toast.LENGTH_SHORT).show();
+									Toast.makeText(signIn.this, "Signing in as Admin", Toast.LENGTH_SHORT).show();
 									startActivity(new Intent(signIn.this, orgList.class));
 									finish();
 									return;        // CHECK: return ok here?
@@ -334,4 +335,4 @@ public class signIn extends AppCompatActivity {
 	}// [ gmailAccount ]
 	
 	
-}// class [ signIn ]
+}// end CLASS [ signIn ]

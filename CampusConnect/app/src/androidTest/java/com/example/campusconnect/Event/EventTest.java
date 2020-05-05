@@ -76,10 +76,10 @@ public class EventTest {
         assertEquals("John", event1.getName());
         assertEquals("detroit", event1.location());
         assertEquals("6:00", event1.startTime());
-        assertEquals("12/12/2012", event1.fullDateString());
-        assertEquals("The Devs", event1.org());
+        assertEquals("12/12/2012", event1.getDate());
+        assertEquals("The Devs", event1.getOrg());
         assertEquals("fun", event1.desc());
-        assertEquals("12345", event1.orgUID());
+        assertEquals("12345", event1.orgUid());
         assertEquals("Sports", event1.tag());
 
     }

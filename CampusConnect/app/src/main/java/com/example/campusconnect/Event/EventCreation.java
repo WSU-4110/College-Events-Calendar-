@@ -172,17 +172,19 @@ public class EventCreation extends AppCompatActivity{
                 startTime = startTimeInput.getText().toString();
                 date = dateInput.getText().toString();
                 desc = descInput.getText().toString();
-                org = orgInput.getText().toString();
+//                org = orgInput.getText().toString();
+                org = "Jay";
                 String tag = spinner.getSelectedItem().toString();
                 
-                /*ArrayList<String> tagArray = new ArrayList<String>();
-                tagArray.add(tag);
-                String[] tagsArr  = new String[tagArray.size()];
-                tagsArr = tagArray.toArray(tagsArr);*/
+//                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+//                Event event = new Event(null, EventName, location, startTime,
+//                        date, org, desc, user.UID(),tag);
 
-                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                // J uGYNHPfyvwX9ksH2IytA
+                // D RhsB4qyI0pE3jOYOZhJv
+//                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 Event event = new Event(null, EventName, location, startTime,
-                        date, org, desc, user.getUid(),tag);
+                        date, org, desc, "RhsB4qyI0pE3jOYOZhJv",tag);
 
                 db.collection("Events")
                         .add(event);
@@ -229,7 +231,7 @@ public class EventCreation extends AppCompatActivity{
         return true;
     }
     
-}// class [ EventCreation ]
+}// end [ CLASS: EventCreation ]
 
 
 
