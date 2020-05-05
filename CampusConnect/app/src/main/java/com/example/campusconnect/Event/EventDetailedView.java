@@ -102,13 +102,13 @@ public class EventDetailedView extends AppCompatActivity {
 
 
         EventNameInput.setText(event.getName());
-        locationInput.setText(event.getLocation());
-        startTimeInput.setText(event.getStartTime());
+        locationInput.setText(event.location());
+        startTimeInput.setText(event.startTime());
         dateInput.setText(event.getDate());
-        descInput.setText(event.getDesc());
+        descInput.setText(event.desc());
         orgInput.setText(event.getOrg());
-        OrgUidInput.setText(event.getOrgUid());
-        tagInput.setText(event.getTag());
+        OrgUidInput.setText(event.orgUid());
+        tagInput.setText(event.tag());
 
         //Toast.makeText(EventDetailedView.this, "Ouid"+OrgUidInput.getText().toString(), Toast.LENGTH_SHORT).show();
 

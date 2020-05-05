@@ -7,6 +7,8 @@
     <color name="primaryGold_50">#BFFFCC33</color>
     <color name="primaryGold_75">#BFFFCC33</color>
     <color name="primaryGold_100">#FFCC33</color>
+    <color name="gold_dark">#FFFFAD33</color>
+    <color name="grey_dark">#FF575757</color>
     <color name="Red">#D81B60</color>
     <color name="White">#FFFFFF</color>
     <color name="Wheat">#F5DEB3</color>

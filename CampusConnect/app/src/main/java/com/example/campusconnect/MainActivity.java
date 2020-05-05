@@ -32,13 +32,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.List;
-import java.util.Locale;
 import java.util.Objects;
 
 import com.github.sundeepk.compactcalendarview.CompactCalendarView;
@@ -54,7 +49,6 @@ public class MainActivity extends AppCompatActivity {
 	Toolbar toolbar;
 	TextView calendarTitle;
 	
-	Calendar currentCalender = Calendar.getInstance(Locale.getDefault());       // From sample app
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -225,11 +219,13 @@ public class MainActivity extends AppCompatActivity {
 	}// [ onCreateOptionsMenu ]
 	
 	private void loadEvents() {
-		FirebaseFirestore db;
-		final ArrayList<EventIndicator> indicators;
+		addEventIndicators();
 		
-		db = FirebaseFirestore.getInstance();
-		indicators = new ArrayList<>();
+		// TODO: Look into moving the actual loading of events to an Async task
+	}
+	
+	private void addEventIndicators() {
+		FirebaseFirestore db = FirebaseFirestore.getInstance();
 		
 		db.collection("Events")
 				.get()
@@ -237,98 +233,25 @@ public class MainActivity extends AppCompatActivity {
 					@Override
 					public void onComplete(@NonNull Task<QuerySnapshot> task) {
 						if (task.isSuccessful()) {
+							Event event;
+							long dateInMilliseconds;
+							final String gold_dark = "#FFFFAD33";
+							
 							for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
-								Event event;
-								long millisecondsOfEvent;
-								
 								event = (Event) document.toObject(Event.class);
-								millisecondsOfEvent = event.getMillisecondsForEvent();
+								dateInMilliseconds = event.getMillisecondsForEvent();
 								
-								indicators.add(new EventIndicator(millisecondsOfEvent));
+								if (event.eventPassed())
+									calendar.addEvent(new EventIndicator(Color.GRAY, dateInMilliseconds));
+								else if (event.eventIsToday())
+									calendar.addEvent(new EventIndicator(Color.RED, dateInMilliseconds));
+								else
+									calendar.addEvent(new EventIndicator(gold_dark, dateInMilliseconds));
 							}
 						}
 					}
 				});
 		
-		addEventIndicators(indicators);
-	}
-	
-	private void addEventIndicators(List<EventIndicator> indicators) {
-		Date firstDayOfMonth;
-		
-		currentCalender.setTime(new Date());
-		currentCalender.set(Calendar.DAY_OF_MONTH, 1);
-		
-		firstDayOfMonth = currentCalender.getTime();
-		
-		for (EventIndicator eventIndicator : indicators) {
-			int day = eventIndicator.getDay();
-			int month = eventIndicator.getMonth();
-			int year = eventIndicator.getYear();
-			
-			currentCalender.setTime(firstDayOfMonth);
-			currentCalender.set(Calendar.MONTH, month);
-			currentCalender.set(Calendar.YEAR, year);
-			currentCalender.add(Calendar.DATE, day);
-//			currentCalender.set(Calendar.ERA, GregorianCalendar.AD);
-			
-			setToMidnight(currentCalender);
-			long timeInMillis = currentCalender.getTimeInMillis();
-			
-			calendar.addEvent(eventIndicator);
-		}
-	}
-	
-	private void addEventIndicators(int month, int year) {
-		List<com.github.sundeepk.compactcalendarview.domain.Event> events;
-		
-		currentCalender.setTime(new Date());
-		currentCalender.set(Calendar.DAY_OF_MONTH, 1);
-		Date firstDayOfMonth = currentCalender.getTime();
-		
-		for (int i = 0; i < 6; i++) {
-			currentCalender.setTime(firstDayOfMonth);
-			if (month > -1) {
-				currentCalender.set(Calendar.MONTH, month);
-			}
-			if (year > -1) {
-				currentCalender.set(Calendar.ERA, GregorianCalendar.AD);
-				currentCalender.set(Calendar.YEAR, year);
-			}
-			currentCalender.add(Calendar.DATE, i);
-			setToMidnight(currentCalender);
-			
-			long timeInMillis = currentCalender.getTimeInMillis();
-			
-			events = getEvents(timeInMillis, i);
-			
-			calendar.addEvents(events);
-		}
-	}
-	
-	private List<com.github.sundeepk.compactcalendarview.domain.Event> getEvents(long timeInMillis, int day) {
-//	private List<Event> getEvents(long timeInMillis, int day) {
-		if (day < 2) {
-			return Arrays.asList(new com.github.sundeepk.compactcalendarview.domain.Event(Color.argb(255, 169, 68, 65), timeInMillis, "Event at " + new Date(timeInMillis)));
-		}
-		else if (day > 2 && day <= 4) {
-			return Arrays.asList(
-					new com.github.sundeepk.compactcalendarview.domain.Event(Color.argb(255, 169, 68, 65), timeInMillis, "Event at " + new Date(timeInMillis)),
-					new com.github.sundeepk.compactcalendarview.domain.Event(Color.argb(255, 100, 68, 65), timeInMillis, "Event 2 at " + new Date(timeInMillis)));
-		}
-		else {
-			return Arrays.asList(
-					new com.github.sundeepk.compactcalendarview.domain.Event(Color.argb(255, 169, 68, 65), timeInMillis, "Event at " + new Date(timeInMillis)),
-					new com.github.sundeepk.compactcalendarview.domain.Event(Color.argb(255, 100, 68, 65), timeInMillis, "Event 2 at " + new Date(timeInMillis)),
-					new com.github.sundeepk.compactcalendarview.domain.Event(Color.argb(255, 70, 68, 65), timeInMillis, "Event 3 at " + new Date(timeInMillis)));
-		}
-	}
-	
-	private void setToMidnight(Calendar calendar) {
-		calendar.set(Calendar.HOUR_OF_DAY, 0);
-		calendar.set(Calendar.MINUTE, 0);
-		calendar.set(Calendar.SECOND, 0);
-		calendar.set(Calendar.MILLISECOND, 0);
-	}
+	}// [ addEventIndicators ]
 	
 }// [ MainActivity ]

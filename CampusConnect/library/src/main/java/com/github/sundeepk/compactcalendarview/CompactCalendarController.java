@@ -759,6 +759,7 @@ class CompactCalendarController {
         dayPaint.setColor(calenderTextColor);
     }
 
+    // INTERESTING
     void drawEvents(Canvas canvas, Calendar currentMonthToDrawCalender, int offset) {
         int currentMonth = currentMonthToDrawCalender.get(Calendar.MONTH);
         List<Events> uniqEvents = eventsContainer.getEventsForMonthAndYear(currentMonth, currentMonthToDrawCalender.get(Calendar.YEAR));

@@ -8,6 +8,7 @@
 		tools:context=".MainActivity">
 	
 	<include layout="@layout/toolbar_main" />
+	<!-- -->
 <!--	Why Scrollview?-->
 	<ScrollView
 			android:layout_width="match_parent"
@@ -37,34 +38,33 @@
 			<!-- Size Units: (dp == sp) -->
 			<TextView
 					android:id="@+id/month_name"
-					android:layout_width="140dp"
+					android:layout_width="350dp"
 					android:layout_height="40dp"
 					android:layout_marginTop="60dp"
 					android:textSize="20sp"
 					android:background="@color/White"
 					android:gravity="center"
-					android:textColor="@color/primaryGreen_75" />
+					android:textColor="@color/primaryGreen_100" />
 			
 			<com.github.sundeepk.compactcalendarview.CompactCalendarView
 					android:id="@+id/calendar"
-					android:layout_width="wrap_content"
+					android:layout_width="350dp"
 					android:layout_height="300dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:compactCalendarBackgroundColor="#fff"
+                    app:compactCalendarBackgroundColor="@color/White"
+					app:compactCalendarTextColor="#000"
+					app:compactCalendarTextSize="14sp"
+					app:compactCalendarCurrentDayTextColor="#ff0000"
+					app:compactCalendarCurrentDayIndicatorStyle="no_fill_large_indicator"
 					app:compactCalendarCurrentDayBackgroundColor="@color/primaryGreen_75"
-					app:compactCalendarCurrentDayIndicatorStyle="fill_large_indicator"
-					app:compactCalendarCurrentDayTextColor="@color/White"
-					app:compactCalendarCurrentSelectedDayIndicatorStyle="no_fill_large_indicator"
 					app:compactCalendarCurrentSelectedDayBackgroundColor="@color/primaryGold_100"
 					app:compactCalendarDisplayOtherMonthDays="true"
                     app:compactCalendarOtherMonthDaysTextColor="@color/primaryGreen_50"
 					app:compactCalendarEventIndicatorStyle="small_indicator"
-					app:compactCalendarShouldSelectFirstDayOfMonthOnScroll="false"
-					app:compactCalendarTargetHeight="300dp"
-					app:compactCalendarTextColor="#000"
-					app:compactCalendarTextSize="14sp" />
+					app:compactCalendarShouldSelectFirstDayOfMonthOnScroll="true"
+					app:compactCalendarTargetHeight="300dp" />
 			
 			<Button
 					android:id="@+id/gotoSavedEvents"

@@ -178,7 +178,7 @@ public class EventCreation extends AppCompatActivity{
                 
 //                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 //                Event event = new Event(null, EventName, location, startTime,
-//                        date, org, desc, user.getUid(),tag);
+//                        date, org, desc, user.UID(),tag);
 
                 // J uGYNHPfyvwX9ksH2IytA
                 // D RhsB4qyI0pE3jOYOZhJv

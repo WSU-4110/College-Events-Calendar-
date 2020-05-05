@@ -16,7 +16,6 @@ import java.util.List;
 
 import com.github.sundeepk.compactcalendarview.domain.Event;
 
-import static com.github.sundeepk.compactcalendarview.domain.Event.*;
 /*
 <color name="primaryGreen_50">#8000594C</color>
 <color name="primaryGreen_75">#BF00594C</color>
@@ -26,8 +25,6 @@ import static com.github.sundeepk.compactcalendarview.domain.Event.*;
 <color name="primaryGold_100">#FFCC33</color>
 <color name="Red">#D81B60</color>
 <color name="White">#FFFFFF</color>
-<color name="Wheat">#F5DEB3</color>
-<color name="Navy">#000080</color>
 */
 
 
@@ -35,7 +32,7 @@ public class EventIndicator extends Event {
 	
 	private long timeInMillis;
 	private Object data;
-	private String colorHex = "FFCC33";
+	private String colorHex = "#FFCC33";
 	private Calendar calendarDAO;
 	
 	public EventIndicator(EventIndicator event) {
@@ -47,11 +44,16 @@ public class EventIndicator extends Event {
 	}
 	
 	public EventIndicator(long timeInMillis) {
-//		super(Color.parseColor("FFCC33"), timeInMillis);
-		super(Color.BLUE, timeInMillis);
+		super(Color.parseColor("#00594C"), timeInMillis);
 		this.timeInMillis = timeInMillis;
 		calendarDAO = Calendar.getInstance();
 		calendarDAO.setTimeInMillis(timeInMillis);
+	}
+	
+	public EventIndicator(String colorHex, long timeInMillis) {
+		super(Color.parseColor(colorHex), timeInMillis);
+		this.colorHex = colorHex;
+		this.timeInMillis = timeInMillis;
 	}
 	
 	public EventIndicator(int color, long timeInMillis) {
@@ -62,12 +64,6 @@ public class EventIndicator extends Event {
 	public EventIndicator(Date date) {
 		super(Color.parseColor("FFCC33"), date.getTime());
 		this.timeInMillis = date.getTime();
-	}
-	
-	public EventIndicator(String colorHex, long timeInMillis) {
-		super(Color.parseColor(colorHex), timeInMillis);
-		this.colorHex = colorHex;
-		this.timeInMillis = timeInMillis;
 	}
 	
 	public int getDay(){
