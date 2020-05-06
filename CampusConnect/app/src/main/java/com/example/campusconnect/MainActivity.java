@@ -12,7 +12,6 @@ import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.MenuItemCompat;
@@ -24,19 +23,14 @@ import com.example.campusconnect.Event.EventView;
 import com.example.campusconnect.Event.SavedEvent;
 import com.example.campusconnect.Event.Search;
 import com.example.campusconnect.UI.Authentication.signIn;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
+import com.example.campusconnect.admin.DBEventLoader;
+import com.github.sundeepk.compactcalendarview.CompactCalendarView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Objects;
-
-import com.github.sundeepk.compactcalendarview.CompactCalendarView;
 
 public class MainActivity extends AppCompatActivity {
 	
@@ -48,13 +42,14 @@ public class MainActivity extends AppCompatActivity {
 	CompactCalendarView calendar;
 	Toolbar toolbar;
 	TextView calendarTitle;
-	
+	DBEventLoader asyncLoader;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		asyncLoader = (DBEventLoader) new DBEventLoader().execute();
 		
 		toolbar = findViewById(R.id.toolbar_main);
 		setSupportActionBar(toolbar);
@@ -105,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
 	// TODO: Resolve "Implicitly using the default locale string format..."
 	@SuppressLint("DefaultLocale")
 	private String dateTitleHelper() {
-		// getFirstDay...() seems like the only way to get a Date object w/ CompactCalendarView
+		// Method getFirstDay...() seems like the only way to get a Date object w/ CompactCalendarView
 		Date currentDate;
 		Calendar cal;
 		int year;
@@ -129,8 +124,8 @@ public class MainActivity extends AppCompatActivity {
 		year = cal.get(Calendar.YEAR);
 		monthInteger = cal.get(Calendar.MONTH);
 		
-		// Looks cleaner without year (but print year if NOT current year)
-		if(year != 2020)
+		// Looks cleaner without year (If NOT 2020: print year)
+		if (year != 2020)
 			return String.format("%s, %d", monthName[monthInteger], year);
 		else
 			return String.format("%s", monthName[monthInteger]);
@@ -148,7 +143,7 @@ public class MainActivity extends AppCompatActivity {
 		String stringMonth = String.valueOf(calClicked.get(Calendar.MONTH));
 		String stringYear = String.valueOf(calClicked.get(Calendar.YEAR));
 		
-		// TODO: Look into switching to a Date object parameter vs individual Strings
+		// TODO: Look into switching to a Date object parameter (instead of individual Strings)
 		intent.putExtra("EXTRA_DaySelected", stringDay);
 		intent.putExtra("EXTRA_MonthSelected", stringMonth);
 		intent.putExtra("EXTRA_YearSelected", stringYear);
@@ -221,40 +216,34 @@ public class MainActivity extends AppCompatActivity {
 		return true;
 	}// [ onCreateOptionsMenu ]
 	
+	
 	private void loadEvents() {
-		addEventIndicators();
-		
-		// TODO: Look into moving the actual loading of events to an Async task
+		if(asyncLoader.eventsLoaded())
+			addIndicatorsToCal();
 	}
 	
-	private void addEventIndicators() {
-		FirebaseFirestore db = FirebaseFirestore.getInstance();
+	
+	private void addIndicatorsToCal() {
+		//com.example.campusconnect.Event.Event
 		
-		db.collection("Events")
-				.get()
-				.addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-					@Override
-					public void onComplete(@NonNull Task<QuerySnapshot> task) {
-						if (task.isSuccessful()) {
-							Event event;
-							long dateInMilliseconds;
-							final String gold_dark = "#FFFFAD33";
-							
-							for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
-								event = (Event) document.toObject(Event.class);
-								dateInMilliseconds = event.getMillisecondsForEvent();
-								
-								if (event.eventPassed())
-									calendar.addEvent(new EventIndicator(Color.GRAY, dateInMilliseconds));
-								else if (event.eventIsToday())
-									calendar.addEvent(new EventIndicator(Color.RED, dateInMilliseconds));
-								else
-									calendar.addEvent(new EventIndicator(gold_dark, dateInMilliseconds));
-							}
-						}
-					}
-				});
+		ArrayList<Event> eventsList;
+		long dateInMilliseconds;
+		final String gold_dark = "#FFFFAD33";				// Color (Gold, dark) for indicator
+
+		eventsList = asyncLoader.indicatorsList();
 		
-	}// [ addEventIndicators ]
+		for(Event event : eventsList) {
+			
+			dateInMilliseconds = event.getMillisecondsForEvent();
+			
+			if (event.eventPassed())
+				calendar.addEvent(new EventIndicator(Color.GRAY, dateInMilliseconds));
+			else if (event.eventIsToday())
+				calendar.addEvent(new EventIndicator(Color.RED, dateInMilliseconds));
+			else
+				calendar.addEvent(new EventIndicator(gold_dark, dateInMilliseconds));
+		}
+		
+	}// [ addIndicatorsToCal ]
 	
 }// [ MainActivity ]
