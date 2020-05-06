@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
 		calendar.setFirstDayOfWeek(1);
 		
 		calendarTitle = findViewById(R.id.month_name);
-		calendarTitle.setText(dateTitleHelper());                                // Set title AFTER calendar fully initialized
+		calendarTitle.setText(dateTitleHelper());                               // Set title AFTER calendar fully initialized
 		
 		goto_SavedEvents = findViewById(R.id.gotoSavedEvents);
 		
