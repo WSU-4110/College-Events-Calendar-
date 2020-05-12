@@ -186,7 +186,7 @@ public class Search extends AppCompatActivity {
 	}
 	
 	
-}// end CLASS [ Search ]
+}// class [ Search ]
 
 
 

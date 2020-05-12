@@ -156,12 +156,12 @@ public class SavedEvent extends AppCompatActivity {
 		}
 		
 		
-	}// END METHOD [ displayEventsForSelectedDay ]
+	}// method [ displayEventsForSelectedDay ]
 	
 	
 	
 	
-}// END CLASS [ EventView ]
+}// class [ EventView ]
 
 
 class SavedEventListAdapter extends ArrayAdapter<Event>  {
@@ -173,19 +173,19 @@ class SavedEventListAdapter extends ArrayAdapter<Event>  {
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent){
 		// [B]
-		if (convertView == null) {                                                                      // [1]
+		if (convertView == null) {																	// [1]
 			convertView = LayoutInflater
 					.from(getContext())
 					.inflate(R.layout.list_events, parent, false);
 		}
 		
-		Event event = getItem(position);                                                                // [2]
+		Event event = getItem(position);															// [2]
 		
-		TextView eventName =        (TextView) convertView.findViewById(R.id.list_EventName);           // [3a]
-		TextView eventDate =        (TextView) convertView.findViewById(R.id.list_EventDate);			// [3b]
-		TextView eventLocation =    (TextView) convertView.findViewById(R.id.list_EventLocation);		// [3b]
+		TextView eventName =        (TextView) convertView.findViewById(R.id.list_EventName);		// [3a]
+		TextView eventDate =        (TextView) convertView.findViewById(R.id.list_EventDate);		// [3b]
+		TextView eventLocation =    (TextView) convertView.findViewById(R.id.list_EventLocation);	// [3b]
 		
-		eventName.setText("Event Name:    ");                                                           // [4]
+		eventName.setText("Event Name:    ");														// [4]
 		eventName.append(event.getName());
 		
 		eventDate.setText("Date:    ");
@@ -194,11 +194,10 @@ class SavedEventListAdapter extends ArrayAdapter<Event>  {
 		eventLocation.setText("Location:    ");
 		eventLocation.append(event.location());
 		
-		return convertView;                                                                             // [5]
-		
+		return convertView;																			// [5]
 	}
 	
-}// END CLASS [ EventListAdapter ]
+}// class [ EventListAdapter ]
 
 
 
@@ -266,9 +265,9 @@ class SavedEventListAdapter extends ArrayAdapter<Event>  {
 //
 //        public String startTime() { return startTime; }
 //
-//        public String getDate() { return date; }
+//        public String fullDateString() { return date; }
 //
-//        public String getOrg() { return org; }
+//        public String org() { return org; }
 //
 //        public String desc() { return desc; }
 //

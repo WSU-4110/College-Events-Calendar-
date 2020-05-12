@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
 	
 	private MenuItem signinout;
 	private Button goto_SavedEvents;
+	private Button goto_Today;
 	
 	CompactCalendarView calendar;
 	Toolbar toolbar;
@@ -56,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		
-		toolbar = findViewById(R.id.toolbar_main);
+		toolbar = findViewById(R.id.toolbar);
 		setSupportActionBar(toolbar);
 		getSupportActionBar().setTitle("Home");
 		
@@ -64,9 +65,10 @@ public class MainActivity extends AppCompatActivity {
 		calendar.setFirstDayOfWeek(1);
 		
 		calendarTitle = findViewById(R.id.month_name);
-		calendarTitle.setText(dateTitleHelper());                                // Set title AFTER calendar fully initialized
+		calendarTitle.setText(dateTitleHelper());                               // Set title AFTER calendar fully initialized
 		
 		goto_SavedEvents = findViewById(R.id.gotoSavedEvents);
+		goto_Today = findViewById(R.id.goToToday);
 		
 		loadEvents();
 		
@@ -78,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
 			
 			@Override
 			public void onMonthScroll(Date firstDayOfNewMonth) {
-				calendarTitle.setText(dateTitleHelper());                        // Update title to match new month
+				calendarTitle.setText(dateTitleHelper());                       // Update title to match new month
 			}
 		});
 		
@@ -99,6 +101,17 @@ public class MainActivity extends AppCompatActivity {
 			}
 		});
 		
+		goto_Today.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				// Go to "today" on calendar
+				calendar.showCalendar();
+				System.out.println("CLICK");
+				
+				// Show week view or other view
+			}
+		});
+		
 	}// [ onCreate ]
 	
 	
@@ -113,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
 		String[] monthName;
 		
 		if (calendar == null) {
-			return "2020";
+			return " ";
 		}
 		
 		monthName = new String[]{
@@ -127,9 +140,13 @@ public class MainActivity extends AppCompatActivity {
 		cal.setTime(currentDate);
 		
 		year = cal.get(Calendar.YEAR);
-		monthInteger = cal.get(Calendar.MONTH);        // Jan == 0, Dec == 11
+		monthInteger = cal.get(Calendar.MONTH);
 		
-		return String.format("%s, %d", monthName[monthInteger], year);
+		// Looks cleaner without year (but print year if NOT current year)
+		if(year != 2020)
+			return String.format("%s, %d", monthName[monthInteger], year);
+		else
+			return String.format("%s", monthName[monthInteger]);
 	}
 	
 	public void openEventView(Date dateClicked) {
@@ -162,8 +179,7 @@ public class MainActivity extends AppCompatActivity {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		if (item.getItemId() == R.id.newEvent) {
-//			if (EventCreation.isOrganizer()) {
-			if (true) {
+			if (EventCreation.isOrganizer()) {
 				Intent intent = new Intent(this, EventCreation.class);
 				startActivity(intent);
 			}
@@ -175,12 +191,10 @@ public class MainActivity extends AppCompatActivity {
 		if (item.getItemId() == R.id.login) {
 			Intent intent = new Intent(this, signIn.class);
 			startActivity(intent);
-			
 		}
 		else if (item.getItemId() == R.id.logout) {
 			final FirebaseAuth mAuth = FirebaseAuth.getInstance();
 			startActivity(new Intent(MainActivity.this, signIn.class));
-			//FirebaseAuth.getInstance().signOut();
 			mAuth.signOut();
 		}
 		else {

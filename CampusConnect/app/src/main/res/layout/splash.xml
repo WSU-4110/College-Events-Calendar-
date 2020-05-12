@@ -35,7 +35,7 @@
                 android:layout_width="200dp"
                 android:layout_height="200dp"
                 android:layout_gravity="center"
-                android:src="@drawable/logo"
+                android:src="@drawable/logo_rounded"
                 android:contentDescription="TODO" />
 
         <!-- Temp solution to move LottieAnimationView further down -->

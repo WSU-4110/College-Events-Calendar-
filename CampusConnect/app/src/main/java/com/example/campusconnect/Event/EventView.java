@@ -86,7 +86,7 @@ public class EventView extends AppCompatActivity {
             }
         });
 
-    }// end method [ displayEventsForSelectedDay ]
+    }// method [ displayEventsForSelectedDay ]
     
 	
     public String titleCreator(String day, String month, String year){
@@ -124,7 +124,7 @@ public class EventView extends AppCompatActivity {
 		return date.toString();			// StringBuilder --> String
 	}
 	
-}// END CLASS [ EventView ]
+}// class [ EventView ]
 
 
 class EventListAdapter extends ArrayAdapter<Event>  {
@@ -163,7 +163,7 @@ class EventListAdapter extends ArrayAdapter<Event>  {
         return convertView;																			// [5]
     }
 
-}// END CLASS [ EventListAdapter ]
+}// class [ EventListAdapter ]
 
 
 

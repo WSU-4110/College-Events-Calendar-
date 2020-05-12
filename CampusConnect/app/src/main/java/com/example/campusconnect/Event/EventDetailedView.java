@@ -297,7 +297,7 @@ public class EventDetailedView extends AppCompatActivity {
             }
             });
 
-        Toolbar toolbar = findViewById(R.id.toolbar_main);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Event Details");
             }

@@ -42,7 +42,7 @@ public class Event {
 		this.tag = tags;
 	}
 	
-//@formatter:OFF
+	//@formatter:OFF
 	public String getName() { return name; }
 	public String getDate() { return date; }
 	public String getOrg() { return org; }
@@ -56,7 +56,7 @@ public class Event {
 	String UID() { return uid; }
 	String orgUid() { return OrgUid; }
 	void setUid(String uid) { this.uid = uid; }
-//@formatter:ON
+	//@formatter:ON
 	
 	String tag() {
 		if (this.tag == null)
@@ -76,7 +76,7 @@ public class Event {
 		
 		eventDate.setTimeInMillis(milliseconds);
 		
-		return eventDate.before(today);					// built-in method of Calendar
+		return eventDate.before(today);                    // built-in method of Calendar
 	}
 	
 	public boolean eventIsToday() {
@@ -94,15 +94,14 @@ public class Event {
 		todayDay = today.get(Calendar.DAY_OF_MONTH);
 		eventDay = event.get(Calendar.DAY_OF_MONTH);
 		
-		return todayDay == eventDay;		// TODO: Look in to changing name "todayDay"
+		return todayDay == eventDay;        // TODO: Look in to changing name of "todayDay"
 	}
 	
 	public Long getMillisecondsForEvent() {
-		// M(M) / D(D) / YYYY
-		// Jan == 0, Dec == 11
 		
-		String stringDay;
+		// Firebase Date Format: M(M) / D(D) / YYYY
 		String stringMonth;
+		String stringDay;
 		String stringYear;
 		String[] dateFragments;
 		Calendar cal;
@@ -111,26 +110,19 @@ public class Event {
 		int year;
 		
 		dateFragments = this.date.split("/");
-		System.out.println("DATE: " + this.date);
 		
 		stringMonth = dateFragments[0];
-		month = Integer.parseInt(stringMonth) - 1;
-		
 		stringDay = dateFragments[1];
-		day = Integer.parseInt(stringDay);
-		
 		stringYear = dateFragments[2];
+		
+		month = Integer.parseInt(stringMonth) - 1;	// (Firebase/Event: Jan == 1)
+		day = Integer.parseInt(stringDay);
 		year = Integer.parseInt(stringYear);
 		
-		System.out.println("\nDATE FRAGMENTS \n");
-		System.out.printf("\nint: %d %d %d \n", month, day, year);
-		System.out.printf("\nString: %s %s, %s \n", stringMonth, stringDay, stringYear);
-		
 		cal = Calendar.getInstance();
-		// year, month, day
-		cal.set(year, month, day);
+		cal.set(year, month, day);					// (Calendar.java: Jan == 0)
 		
 		return cal.getTimeInMillis();
 	}
 	
-}// end [ CLASS: Event ]
+}// class [ Event ]
