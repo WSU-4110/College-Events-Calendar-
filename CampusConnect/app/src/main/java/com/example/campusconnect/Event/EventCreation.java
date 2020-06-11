@@ -187,10 +187,8 @@ public class EventCreation extends AppCompatActivity{
                 //Event event = new Event(null, EventName, location, startTime,
                 //        date, org, desc, "RhsB4qyI0pE3jOYOZhJv",tag);
                 //                                                              -Jay
-                
+    
                 db.collection("Events")
-                        .document("Events")
-                        .collection("Event_SubCollectionTesting")
                         .add(event);
                 
                 Toast.makeText(EventCreation.this, "Event Added", Toast.LENGTH_SHORT).show();
