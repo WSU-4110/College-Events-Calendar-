@@ -41,12 +41,11 @@ public class EventView extends AppCompatActivity {
 		String str_Day = getIntent().getStringExtra("EXTRA_DaySelected");				// Extract date info from intent
 		String str_Month = getIntent().getStringExtra("EXTRA_MonthSelected");
 		String str_Year = getIntent().getStringExtra("EXTRA_YearSelected");
-        
+        System.out.printf("DAY %s, MONTH %s, YEAR %s", str_Day, str_Month, str_Year);
         displayEventsForSelectedDay(str_Day, str_Month, str_Year);
     }
     
 
-    // TODO: Look into feasibility of adding Left and Right arrows once event list is open
     private void displayEventsForSelectedDay(String day, String month, String year) {
     
         TextView title = findViewById(R.id.EventList_HeaderDynamic);
@@ -56,47 +55,38 @@ public class EventView extends AppCompatActivity {
         final ArrayList<Event> arrayOfEvents;
 		final EventListAdapter adapter;
 	
-		// TODO: Discuss a more intuitive name than "wholeDate"
 		String wholeDate = wholeDateBuilder(day, month, year);
         																		// [A]
-        arrayOfEvents = new ArrayList<>();                                      // [1]
-        adapter = new EventListAdapter(this, arrayOfEvents);			// [2]
-        listView = (ListView) findViewById(R.id.events_listView);               // [3]
+        arrayOfEvents = new ArrayList<>();										// [1]
+        adapter = new EventListAdapter(this, arrayOfEvents);					// [2]
+        listView = (ListView) findViewById(R.id.events_listView);				// [3]
         listView.setAdapter(adapter);											// [4]
-
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener()
-        {
-            public void onItemClick(AdapterView<?> arg0,View arg1, int position, long arg3)
-            {
-                Event event = (Event)listView.getAdapter().getItem(position);
-                Intent intent = new Intent(getApplicationContext(), EventDetailedView.class);
-                System.out.println( " Event : "+ event.toString());
-                intent.putExtra("Event", event.toString());
-                startActivity(intent);
-            }
-        });
+	
+		listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+			public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
+				Event event = (Event) listView.getAdapter().getItem(position);
+				Intent intent = new Intent(getApplicationContext(), EventDetailedView.class);
+				
+				intent.putExtra("Event", event.toString());
+				startActivity(intent);
+			}
+		});
         
 		db.collection("Events")
-                .document("Events")
-                .collection("Event_SubCollectionTesting")
                 .whereEqualTo("date", wholeDate)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
-
                     for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
-                        //arrayOfEvents.add((Event) document.toObject(Event.class));
                         adapter.add((Event) document.toObject(Event.class));
                     }
-
-                    //adapter.addAll(arrayOfEvents);
                 }
             }
         });
 
-    }// END METHOD [ displayEventsForSelectedDay ]
+    }// method [ displayEventsForSelectedDay ]
     
 	
     public String titleCreator(String day, String month, String year){
@@ -104,23 +94,23 @@ public class EventView extends AppCompatActivity {
 		
 		int monthInteger = Integer.parseInt(month);
 
-		String[] monthName = {	"January", "February", "March",
-								"April", "May", "June",
-								"July", "August", "September",
-								"October", "November", "December" };
+		String[] monthName = {	"January", 	"February", "March",
+								"April", 	"May", 		"June",
+								"July", 	"August", 	"September",
+								"October", 	"November", "December" };
 		
 		return String.format("%s %s, %s", monthName[monthInteger], day, year);
 	}
 	
 	
 	public String wholeDateBuilder(String day, String month, String year){
-		// !! NOTE: Jan == 0, Dec == 11
+		// !! NOTE: Jan == 0, Dec == 11 (before adding 1)
 
 		StringBuilder date = new StringBuilder();
 
 		int monthNumber = Integer.parseInt(month) + 1;
 		
-		if(monthNumber > 0 && monthNumber < 12)
+		if(monthNumber > 0 && monthNumber <= 12)
 			date.append(monthNumber);
 		else
 			date.append(" ");
@@ -131,10 +121,10 @@ public class EventView extends AppCompatActivity {
         date.append("/");
 		date.append(year);
 
-		return date.toString();			// StringBuilder to String
+		return date.toString();			// StringBuilder --> String
 	}
 	
-}// END CLASS [ EventView ]
+}// class [ EventView ]
 
 
 class EventListAdapter extends ArrayAdapter<Event>  {
@@ -145,33 +135,35 @@ class EventListAdapter extends ArrayAdapter<Event>  {
     
     @Override
     public View getView(int position, View convertView, ViewGroup parent){
-																										// [B]
-        if (convertView == null) {                                                                      // [1]
+    																								// [B]
+        if (convertView == null) {																	// [1]
             convertView = LayoutInflater
                     .from(getContext())
                     .inflate(R.layout.list_events, parent, false);
         }
         
-        Event event = getItem(position);                                                                // [2]
+        Event event = getItem(position);															// [2]
 
-        TextView eventName =        (TextView) convertView.findViewById(R.id.list_EventName);           // [3a]
-        TextView eventDate =        (TextView) convertView.findViewById(R.id.list_EventDate);			// [3b]
-        TextView eventLocation =    (TextView) convertView.findViewById(R.id.list_EventLocation);		// [3b]
-
-        eventName.setText("Event Name:    ");                                                           // [4]
-        eventName.append(event.getName());
+        TextView eventName =		(TextView) convertView.findViewById(R.id.list_EventName);		// [3a]
+        TextView eventDate =		(TextView) convertView.findViewById(R.id.list_EventDate);		// [3b]
+        TextView eventLocation =	(TextView) convertView.findViewById(R.id.list_EventLocation);	// [3c]
+        TextView eventTag =			(TextView) convertView.findViewById(R.id.list_EventTag);		// [3d]
+																									// [4]
+		eventName.setText(event.getName());
 
         eventDate.setText("Date:    ");
         eventDate.append(event.getDate());
 
         eventLocation.setText("Location:    ");
-        eventLocation.append(event.getLocation());
+        eventLocation.append(event.location());
+	
+		eventTag.setText("Tag:    ");
+		eventTag.append(event.tag());
         
-        return convertView;                                                                             // [5]
-        
+        return convertView;																			// [5]
     }
 
-}// END CLASS [ EventListAdapter ]
+}// class [ EventListAdapter ]
 
 
 

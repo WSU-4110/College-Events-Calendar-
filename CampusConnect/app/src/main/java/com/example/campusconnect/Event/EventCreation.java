@@ -1,7 +1,7 @@
 package com.example.campusconnect.Event;
 
-
 import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -14,7 +14,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.graphics.Color;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -27,121 +27,26 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
-import java.util.Objects;
-
-
-class Event {
-
-    private String name;
-    private String location;
-    private String startTime;
-    private String date;
-    private String org;
-    private String desc;
-    private String uid;
-    private String OrgUid;
-    private String tags;
-
-    
-    Event() {
-        name = "EventNameNotProvided";
-        location = "NoEventLocationProvided";
-        startTime = "11:59";
-        date = "01012019";
-        org = "EventOrgNotEntered";
-        desc = "N/A";
-    }
-    
-    Event(String dateSelected){
-        this.date = dateSelected;
-    }
-    
-//    public Event(String name, String location, String startTime, String date, String org, String desc) {
-//        this.name = name;
-//        this.location = location;
-//        this.startTime = startTime;
-//        this.date = date;
-//        this.org = org;
-//        this.desc = desc;
-//    }
-    public Event(String uid, String name, String location,
-                 String startTime, String date, String org, String desc, String OrgUid, String tags) {
-        this.uid = uid;
-        this.name = name;
-        this.location = location;
-        this.startTime = startTime;
-        this.date = date;
-        this.org = org;
-        this.desc = desc;
-        this.OrgUid = OrgUid;
-        this.tags =  tags;
-    }
-
-    public String getName() { return name; }
-    
-    public String getLocation() { return location; }
-    
-    public String getStartTime() { return startTime; }
-
-    public String getDate() { return date; }
-
-    public String getOrg() { return org; }
-
-    public String getDesc() { return desc; }
-
-    public String getUid() { return uid; }
-
-    public String getOrgUid() { return OrgUid; }
-
-    public void setName(String name) { this.name = name; }
-
-    public void setLocation(String location) { this.location = location; }
-
-    public void setStartTime(String startTime) { this.startTime = startTime; }
-
-    public void setDate(String date) { this.date = date; }
-
-    public void setOrg(String org) { this.org = org; }
-
-    public void setDesc(String desc) { this.desc = desc; }
-
-    public void setUid(String uid) { this.uid = uid; }
-
-    public void setOrgUid(String OrgUid) { this.OrgUid = OrgUid; }
-
-    public String getTags() {
-        return tags;
-    }
-
-    public void setTags(String tags) {
-        this.tags = tags;
-    }
-
-    public String toString()
-	{
-        return name + "|" + location + "|" + startTime + "|" + date + "|" + org + "|" + desc + "|" + OrgUid + "|" + tags;
-    }
-
-
-
-}// end [ CLASS: Event ]
-
 
 
 public class EventCreation extends AppCompatActivity{
 
-    String EventName, location, startTime, date, desc, org;
+    String EventName;
+    String location;
+    String startTime;
+    String date;
+    String desc;
+    String org;
 
     private static final String TAG = "Event";
 
     private TextView mDisplayDate;
+    private TextView mDisplayTime;
     private DatePickerDialog.OnDateSetListener mDateSetListener;
+    private TimePickerDialog.OnTimeSetListener mTimeSetListener;
 
     EditText EventNameInput;
     EditText locationInput;
@@ -157,7 +62,7 @@ public class EventCreation extends AppCompatActivity{
     public static boolean isOrganizer() {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        //Organizer = false;
+        Organizer = false;
         if (user!=null)
         {
             db.collection("Users")
@@ -176,7 +81,6 @@ public class EventCreation extends AppCompatActivity{
 //                            }
                             if (!task.getResult().isEmpty()){
                                 Organizer = true;
-
                             }
                         }
                     }
@@ -198,8 +102,8 @@ public class EventCreation extends AppCompatActivity{
 
     }
 
-
-    // <Event>.add() auto-generates a unique ID. Side Effect: "Submit Event" can make duplicates
+    
+    // TODO: Time picker
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -223,7 +127,7 @@ public class EventCreation extends AppCompatActivity{
                 dialog.show();
             }
         });
-
+       
         mDateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
@@ -233,7 +137,7 @@ public class EventCreation extends AppCompatActivity{
                 mDisplayDate.setText(date);
             }
         };
-
+    
         Spinner staticSpinner = (Spinner) findViewById(R.id.tags);
 
         // Create an ArrayAdapter using the string array and a default spinner
@@ -272,32 +176,36 @@ public class EventCreation extends AppCompatActivity{
                 tagArray.add(tag);
                 String[] tagsArr  = new String[tagArray.size()];
                 tagsArr = tagArray.toArray(tagsArr);*/
-
+                
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 Event event = new Event(null, EventName, location, startTime,
                         date, org, desc, user.getUid(),tag);
-
+                
+                // Manual override for organizer account check
+                // J uGYNHPfyvwX9ksH2IytA
+                // D RhsB4qyI0pE3jOYOZhJv
+                //Event event = new Event(null, EventName, location, startTime,
+                //        date, org, desc, "RhsB4qyI0pE3jOYOZhJv",tag);
+                //                                                              -Jay
+                
                 db.collection("Events")
                         .document("Events")
                         .collection("Event_SubCollectionTesting")
                         .add(event);
-
+                
                 Toast.makeText(EventCreation.this, "Event Added", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(EventCreation.this, MainActivity.class);
                 startActivity(intent);
             }
         });
 
-
-        Toolbar toolbar = findViewById(R.id.toolbar_main);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Event Creation");
     }
 
     @Override public boolean onOptionsItemSelected(MenuItem item){
-        if(item.getItemId() == R.id.newEvent){
-
-        }
+//      if(item.getItemId() == R.id.newEvent){}
 
         if(item.getItemId()==R.id.login)
         {

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/primaryGreen"
+    android:background="@color/primaryGreen_75"
     android:gravity="center"
     tools:context=".UI.Authentication.signUp">
 
@@ -23,7 +23,7 @@
             android:theme="@style/AppTheme">
 
             <TextView
-                android:id="@+id/appname"
+                android:id="@+id/campus_connect"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"

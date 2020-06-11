@@ -17,7 +17,10 @@
     <string name="desc">Description</string>
     <string name="org">Organization</string>
     <string name="tags">Tags</string>
-    <string-array name="tags_array">
+    <string name="toggle_search">Toggle Search</string>
+	<string name="saved_events">Saved Events</string>
+	<string name="today">Today</string>
+	<string-array name="tags_array">
         <item>(None)</item>
         <item>Medicine</item>
         <item>Career Fair</item>

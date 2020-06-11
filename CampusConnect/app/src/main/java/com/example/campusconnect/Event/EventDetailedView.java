@@ -29,17 +29,13 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.google.firebase.firestore.CollectionReference;
 
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Objects;
 import java.util.StringTokenizer;
 
 public class EventDetailedView extends AppCompatActivity {
@@ -106,13 +102,13 @@ public class EventDetailedView extends AppCompatActivity {
 
 
         EventNameInput.setText(event.getName());
-        locationInput.setText(event.getLocation());
-        startTimeInput.setText(event.getStartTime());
+        locationInput.setText(event.location());
+        startTimeInput.setText(event.startTime());
         dateInput.setText(event.getDate());
-        descInput.setText(event.getDesc());
+        descInput.setText(event.desc());
         orgInput.setText(event.getOrg());
-        OrgUidInput.setText(event.getOrgUid());
-        tagInput.setText(event.getTags());
+        OrgUidInput.setText(event.orgUid());
+        tagInput.setText(event.tag());
 
         //Toast.makeText(EventDetailedView.this, "Ouid"+OrgUidInput.getText().toString(), Toast.LENGTH_SHORT).show();
 
@@ -301,7 +297,7 @@ public class EventDetailedView extends AppCompatActivity {
             }
             });
 
-        Toolbar toolbar = findViewById(R.id.toolbar_main);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Event Details");
             }
@@ -407,7 +403,9 @@ public class EventDetailedView extends AppCompatActivity {
 
     @Override public boolean onOptionsItemSelected(MenuItem item){
         if(item.getItemId() == R.id.newEvent){
-            if (EventCreation.isOrganizer()){
+
+            //if (EventCreation.isOrganizer()){
+            if (true){
                 Intent intent = new Intent(this, EventCreation.class);
                 startActivity(intent);
             }
