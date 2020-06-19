@@ -1,8 +1,11 @@
 package com.example.campusconnect.Event;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.Calendar;
 
-public class Event {
+public class Event implements Parcelable {
 	
 	// Replace "String date" with "Date date"
 	private String name;
@@ -40,6 +43,49 @@ public class Event {
 		this.desc = desc;
 		this.OrgUid = OrgUid;
 		this.tag = tags;
+	}
+	
+	protected Event(Parcel in) {
+		name = in.readString();
+		location = in.readString();
+		startTime = in.readString();
+		date = in.readString();
+		org = in.readString();
+		desc = in.readString();
+		uid = in.readString();
+		OrgUid = in.readString();
+		tag = in.readString();
+	}
+	
+	public static final Creator<Event> CREATOR = new Creator<Event>() {
+		@Override
+		public Event createFromParcel(Parcel in) {
+			return new Event(in);
+		}
+		
+		@Override
+		public Event[] newArray(int size) {
+			return new Event[size];
+		}
+	};
+	
+	@Override
+	public int describeContents() {
+		return 0;
+	}
+	
+	@Override
+	public void writeToParcel(Parcel dest, int flags) {
+		
+		dest.writeString(name);
+		dest.writeString(location);
+		dest.writeString(startTime);
+		dest.writeString(date);
+		dest.writeString(org);
+		dest.writeString(desc);
+		dest.writeString(uid);
+		dest.writeString(OrgUid);
+		dest.writeString(tag);
 	}
 	
 	//@formatter:OFF

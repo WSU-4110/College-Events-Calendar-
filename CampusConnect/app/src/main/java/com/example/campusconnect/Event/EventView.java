@@ -61,16 +61,6 @@ public class EventView extends AppCompatActivity {
         adapter = new EventListAdapter(this, arrayOfEvents);					// [2]
         listView = (ListView) findViewById(R.id.events_listView);				// [3]
         listView.setAdapter(adapter);											// [4]
-	
-		listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-			public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
-				Event event = (Event) listView.getAdapter().getItem(position);
-				Intent intent = new Intent(getApplicationContext(), EventDetailedView.class);
-				
-				intent.putExtra("Event", event.toString());
-				startActivity(intent);
-			}
-		});
         
 		db.collection("Events")
                 .whereEqualTo("date", wholeDate)
@@ -85,6 +75,17 @@ public class EventView extends AppCompatActivity {
                 }
             }
         });
+	
+		listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+			public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
+				Intent intent = new Intent(getApplicationContext(), EventDetailedView.class);
+				
+				Event eventClickedOn = (Event) listView.getAdapter().getItem(position);	// Event clicked on from list
+			
+				intent.putExtra("Event Clicked", eventClickedOn);
+				startActivity(intent);
+			}
+		});
 
     }// method [ displayEventsForSelectedDay ]
     
