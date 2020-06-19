@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.campusconnect.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -29,7 +30,10 @@ import java.util.Objects;
 
 
 public class EventView extends AppCompatActivity {
-
+	
+	private RecyclerView recyclerView;
+	private RecyclerView.Adapter adapter;
+	private RecyclerView.LayoutManager layoutManager;
 	ListView listView;
 	
     @Override
@@ -56,11 +60,9 @@ public class EventView extends AppCompatActivity {
 		final EventListAdapter adapter;
 	
 		String wholeDate = wholeDateBuilder(day, month, year);
-        																		// [A]
-        arrayOfEvents = new ArrayList<>();										// [1]
-        adapter = new EventListAdapter(this, arrayOfEvents);					// [2]
-        listView = (ListView) findViewById(R.id.events_listView);				// [3]
-        listView.setAdapter(adapter);											// [4]
+        
+        arrayOfEvents = new ArrayList<>();
+        adapter = new EventListAdapter(this, arrayOfEvents);
         
 		db.collection("Events")
                 .whereEqualTo("date", wholeDate)
@@ -76,6 +78,9 @@ public class EventView extends AppCompatActivity {
             }
         });
 	
+		// CURRENT: Changing to RecyclerView
+		// About 10min in on this video: https://www.youtube.com/watch?v=17NbUcEts9c
+		
 		listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
 				Intent intent = new Intent(getApplicationContext(), EventDetailedView.class);
@@ -128,60 +133,80 @@ public class EventView extends AppCompatActivity {
 }// class [ EventView ]
 
 
-class EventListAdapter extends ArrayAdapter<Event>  {
-    
-    public EventListAdapter(Context context, ArrayList<Event> events){
-        super(context, 0, events);
-    }
-    
-    @Override
+class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.EventViewHolder> {
+ 
+	private ArrayList<Event> listOfEvents;
+	
+	public static class EventViewHolder extends RecyclerView.ViewHolder{
+		TextView eventName;
+		TextView eventDate;
+		TextView eventLocation;
+		TextView eventTag;
+		
+		public EventViewHolder(@NonNull View itemView) {
+			super(itemView);
+			
+			eventName = (TextView) itemView.findViewById(R.id.list_EventName);
+			eventDate = (TextView) itemView.findViewById(R.id.list_EventDate);
+			eventLocation = (TextView) itemView.findViewById(R.id.list_EventLocation);
+			eventTag = (TextView) itemView.findViewById(R.id.list_EventTag);
+		}
+	}
+	
+	public EventListAdapter(ArrayList<Event> events) {
+		listOfEvents = events;
+	}
+	
+	@NonNull
+	@Override
+	public EventViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+		View view;
+		EventViewHolder viewHolder;
+		
+		view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_events, parent, false);
+		viewHolder = new EventViewHolder(view);
+		
+		return viewHolder;
+	}
+	
+	@Override
+	public void onBindViewHolder(@NonNull EventViewHolder holder, int position) {
+		Event event = listOfEvents.get(position);
+		
+		holder.eventName.setText(event.getName());
+		holder.eventLocation.setText(String.format	("Location:    %s", event.location()));
+		holder.eventDate.setText(String.format		("    Date:    %s", event.getDate()));
+		holder.eventTag.setText(String.format		("     Tag:    %s", event.tag()));
+	}
+	
+	@Override
+	public int getItemCount() {
+		return listOfEvents.size();
+	}
+	
+	/*
+	@Override
     public View getView(int position, View convertView, ViewGroup parent){
-    																								// [B]
-        if (convertView == null) {																	// [1]
+    				
+        if (convertView == null) {
             convertView = LayoutInflater
                     .from(getContext())
                     .inflate(R.layout.list_events, parent, false);
         }
         
-        Event event = getItem(position);															// [2]
-
-        TextView eventName =		(TextView) convertView.findViewById(R.id.list_EventName);		// [3a]
-        TextView eventDate =		(TextView) convertView.findViewById(R.id.list_EventDate);		// [3b]
-        TextView eventLocation =	(TextView) convertView.findViewById(R.id.list_EventLocation);	// [3c]
-        TextView eventTag =			(TextView) convertView.findViewById(R.id.list_EventTag);		// [3d]
-																									// [4]
-		eventName.setText(event.getName());
-
-        eventDate.setText("Date:    ");
-        eventDate.append(event.getDate());
-
-        eventLocation.setText("Location:    ");
-        eventLocation.append(event.location());
+        Event event = getItem(position);
 	
-		eventTag.setText("Tag:    ");
-		eventTag.append(event.tag());
+		// CHECK: These get flagged as potential NPE. Even in a TRY/CATCH and if/else!!
+        try {
+			eventName.setText(event.getName());
+		} catch (NullPointerException np){
+        	eventName.setText(" ");
+		}
+        eventLocation.setText(String.format("Location:    %s", event.location()));
+        eventLocation.setText(String.format("    Date:    %s", event.getDate()));
+        eventLocation.setText(String.format("     Tag:    %s", event.tag()));
         
-        return convertView;																			// [5]
-    }
+        return convertView;
+    }*/
 
 }// class [ EventListAdapter ]
-
-
-
-
-//--------------------------------------------------- NOTES ---------------------------------------------------//
-
-//				[A]
-// --| ATTACHING THE ADAPTER TO A LIST VIEW |--
-// 1. Construct the data source
-// 2. Create the Adapter to convert the array to views
-// 3. Declare the ListView object
-// 4. Attach the adapter to a ListView (XML)
-
-// 				[B]
-// --| CUSTOM ADAPTER CLASS [B] |--
-// 1. Check if an existing view is being reused, otherwise inflate the view
-// 2. Get the data item for this position
-// 3. Lookup view for data population
-// 4. Populate template view using the temp Event object
-// 5. Return the completed view to render on screen

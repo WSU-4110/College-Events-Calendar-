@@ -66,6 +66,10 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.0.0'
 
     implementation 'com.github.sundeepk:compact-calendar-view:3.0.0'
+
+    // Recycler and Cardview (01:23 Jul 19, 2020)
+    implementation "androidx.recyclerview:recyclerview-selection:1.1.0-rc01"
+    implementation "androidx.cardview:cardview:1.0.0"
 }
 
 apply plugin: 'com.google.gms.google-services'
