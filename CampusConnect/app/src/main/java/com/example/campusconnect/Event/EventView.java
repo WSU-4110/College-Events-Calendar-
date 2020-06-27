@@ -2,20 +2,20 @@ package com.example.campusconnect.Event;
 
 // Documentation on ListView and Custom Adapters:
 // https://bit.ly/38ah7WV
+// https://www.youtube.com/watch?v=17NbUcEts9c
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.campusconnect.R;
@@ -32,37 +32,57 @@ import java.util.Objects;
 public class EventView extends AppCompatActivity {
 	
 	private RecyclerView recyclerView;
-	private RecyclerView.Adapter adapter;
-	private RecyclerView.LayoutManager layoutManager;
+	private RecyclerView.Adapter adapter;										// Manages the number of items displayed
+	private RecyclerView.LayoutManager layoutManager;							// Sets up layout of each item (i.e. event)
+	private ArrayList<Event> arrayOfEvents;
 	ListView listView;
+	FirebaseFirestore db = FirebaseFirestore.getInstance();
 	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.event_view);
+		TextView title = findViewById(R.id.EventList_HeaderDynamic);
 		listView = (ListView) findViewById(R.id.events_listView);
+		arrayOfEvents = new ArrayList<>();
 	
 		String str_Day = getIntent().getStringExtra("EXTRA_DaySelected");				// Extract date info from intent
 		String str_Month = getIntent().getStringExtra("EXTRA_MonthSelected");
 		String str_Year = getIntent().getStringExtra("EXTRA_YearSelected");
         System.out.printf("DAY %s, MONTH %s, YEAR %s", str_Day, str_Month, str_Year);
-        displayEventsForSelectedDay(str_Day, str_Month, str_Year);
-    }
+	
+		title.setText(titleCreator(str_Day, str_Month, str_Year));
+		
+        queryDatabase(str_Day, str_Month, str_Year);
+	
+		if (arrayOfEvents.size() > 0) {
+			recyclerView = findViewById(R.id.events_recyclerview);
+			recyclerView.setHasFixedSize(true);
+			layoutManager = new LinearLayoutManager(this);
+			adapter = new EventListAdapter(arrayOfEvents);
+		
+			recyclerView.setLayoutManager(layoutManager);
+			recyclerView.setAdapter(adapter);
+		
+			listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+				public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
+					Intent intent = new Intent(getApplicationContext(), EventDetailedView.class);
+				
+					Event eventClickedOn = (Event) listView.getAdapter().getItem(position);    // Event clicked on from list
+				
+					intent.putExtra("Event Clicked", eventClickedOn);
+					startActivity(intent);
+				}
+			});
+		}
+		
+    }// method [ onCreate ]
     
 
-    private void displayEventsForSelectedDay(String day, String month, String year) {
-    
-        TextView title = findViewById(R.id.EventList_HeaderDynamic);
-        title.setText(titleCreator(day, month, year));
-        
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        final ArrayList<Event> arrayOfEvents;
-		final EventListAdapter adapter;
-	
-		String wholeDate = wholeDateBuilder(day, month, year);
-        
-        arrayOfEvents = new ArrayList<>();
-        adapter = new EventListAdapter(this, arrayOfEvents);
+    private void queryDatabase(String day, String month, String year) {
+		String wholeDate = wholeDateBuilder(day, month, year);					// Format date string for DB query
+  
+//        adapter = new EventListAdapter(this, arrayOfEvents);
         
 		db.collection("Events")
                 .whereEqualTo("date", wholeDate)
@@ -72,27 +92,13 @@ public class EventView extends AppCompatActivity {
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
                     for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
-                        adapter.add((Event) document.toObject(Event.class));
+						arrayOfEvents.add((Event) document.toObject(Event.class));
                     }
                 }
             }
         });
-	
-		// CURRENT: Changing to RecyclerView
-		// About 10min in on this video: https://www.youtube.com/watch?v=17NbUcEts9c
 		
-		listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-			public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
-				Intent intent = new Intent(getApplicationContext(), EventDetailedView.class);
-				
-				Event eventClickedOn = (Event) listView.getAdapter().getItem(position);	// Event clicked on from list
-			
-				intent.putExtra("Event Clicked", eventClickedOn);
-				startActivity(intent);
-			}
-		});
-
-    }// method [ displayEventsForSelectedDay ]
+	}// method [ queryDatabase ]
     
 	
     public String titleCreator(String day, String month, String year){
@@ -108,26 +114,13 @@ public class EventView extends AppCompatActivity {
 		return String.format("%s %s, %s", monthName[monthInteger], day, year);
 	}
 	
-	
+    // If time: determine if this method is unnecessary
 	public String wholeDateBuilder(String day, String month, String year){
 		// !! NOTE: Jan == 0, Dec == 11 (before adding 1)
 
-		StringBuilder date = new StringBuilder();
-
 		int monthNumber = Integer.parseInt(month) + 1;
 		
-		if(monthNumber > 0 && monthNumber <= 12)
-			date.append(monthNumber);
-		else
-			date.append(" ");
-		
-        date.append("/");
-
-		date.append(day);
-        date.append("/");
-		date.append(year);
-
-		return date.toString();			// StringBuilder --> String
+		return String.format("%s/%s/%s", monthNumber, day, year);
 	}
 	
 }// class [ EventView ]
@@ -137,7 +130,9 @@ class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.EventViewHo
  
 	private ArrayList<Event> listOfEvents;
 	
+	// [+00:02]
 	public static class EventViewHolder extends RecyclerView.ViewHolder{
+		// [+00:03]
 		TextView eventName;
 		TextView eventDate;
 		TextView eventLocation;
@@ -153,13 +148,14 @@ class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.EventViewHo
 		}
 	}
 	
+	// [+00:06.40]
 	public EventListAdapter(ArrayList<Event> events) {
 		listOfEvents = events;
 	}
 	
-	@NonNull
 	@Override
-	public EventViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+	public EventViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+		// [+00:05]
 		View view;
 		EventViewHolder viewHolder;
 		
@@ -170,9 +166,10 @@ class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.EventViewHo
 	}
 	
 	@Override
-	public void onBindViewHolder(@NonNull EventViewHolder holder, int position) {
+	public void onBindViewHolder(EventViewHolder holder, int position) {
 		Event event = listOfEvents.get(position);
 		
+		// Get the relevant information from the selected event
 		holder.eventName.setText(event.getName());
 		holder.eventLocation.setText(String.format	("Location:    %s", event.location()));
 		holder.eventDate.setText(String.format		("    Date:    %s", event.getDate()));
@@ -181,7 +178,7 @@ class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.EventViewHo
 	
 	@Override
 	public int getItemCount() {
-		return listOfEvents.size();
+		return listOfEvents.size();							// The num of items that will be in the list
 	}
 	
 	/*
@@ -196,7 +193,7 @@ class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.EventViewHo
         
         Event event = getItem(position);
 	
-		// CHECK: These get flagged as potential NPE. Even in a TRY/CATCH and if/else!!
+		// CHECK: These get flagged as potential NPE. Even in a TRY/CATCH and if/else
         try {
 			eventName.setText(event.getName());
 		} catch (NullPointerException np){

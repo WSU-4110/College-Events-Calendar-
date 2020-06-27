@@ -46,6 +46,8 @@ public class Search extends AppCompatActivity {
 		if (searchBy == null) {
 			System.err.println("No search string received");
 		}
+		/*
+		// BRANCH: ParcelableObject/wip
 		else if (searchBy.equals("EventName")) {
 			String title = "Event Names Matching: " + searchTerm;
 			textView.setText(title);
@@ -62,7 +64,7 @@ public class Search extends AppCompatActivity {
 			
 			String title = "No Event Matching: " + searchTerm;
 			textView.setText(title);
-		}
+		}*/
 		
 		toggleSearchBy.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -82,7 +84,7 @@ public class Search extends AppCompatActivity {
 		return search;
 	}
 	
-	
+	/*
 	// CHECK: Can probably refactor these two into 1 method
 	private void searchResultName() {
 		FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -165,7 +167,7 @@ public class Search extends AppCompatActivity {
 					}
 				});
 	}
-	
+	*/
 	private boolean matchFound(String eventAttribute, String searchTerm) {
 		String attribute = eventAttribute.toUpperCase();
 		String searchTermUpper = searchTerm.toUpperCase();
