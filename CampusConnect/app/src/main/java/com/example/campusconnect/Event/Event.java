@@ -1,8 +1,11 @@
 package com.example.campusconnect.Event;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.Calendar;
 
-public class Event {
+public class Event implements Parcelable {
 	
 	// Replace "String date" with "Date date"
 	private String name;
@@ -41,6 +44,30 @@ public class Event {
 		this.OrgUid = OrgUid;
 		this.tag = tags;
 	}
+	
+	protected Event(Parcel in) {
+		name = in.readString();
+		location = in.readString();
+		startTime = in.readString();
+		date = in.readString();
+		org = in.readString();
+		desc = in.readString();
+		uid = in.readString();
+		OrgUid = in.readString();
+		tag = in.readString();
+	}
+	
+	public static final Creator<Event> CREATOR = new Creator<Event>() {
+		@Override
+		public Event createFromParcel(Parcel in) {
+			return new Event(in);
+		}
+		
+		@Override
+		public Event[] newArray(int size) {
+			return new Event[size];
+		}
+	};
 	
 	//@formatter:OFF
 	public String getName() { return name; }
@@ -81,7 +108,7 @@ public class Event {
 		
 		eventDate.setTimeInMillis(milliseconds);
 		
-		return eventDate.before(today);                    // built-in method of Calendar
+		return eventDate.before(today);
 	}
 	
 	public boolean eventIsToday() {
@@ -104,7 +131,7 @@ public class Event {
 	
 	public Long getMillisecondsForEvent() {
 		
-		// Firebase Date Format: M(M) / D(D) / YYYY
+		// Firebase Date Format: "(M)M/(D)D/YYYY"
 		String stringMonth;
 		String stringDay;
 		String stringYear;
@@ -120,14 +147,33 @@ public class Event {
 		stringDay = dateFragments[1];
 		stringYear = dateFragments[2];
 		
-		month = Integer.parseInt(stringMonth) - 1;	// (Firebase/Event: Jan == 1)
+		month = Integer.parseInt(stringMonth) - 1;    // (Firebase/Event: Jan == 1)
 		day = Integer.parseInt(stringDay);
 		year = Integer.parseInt(stringYear);
 		
 		cal = Calendar.getInstance();
-		cal.set(year, month, day);					// (Calendar.java: Jan == 0)
+		cal.set(year, month, day);                    // (Calendar.java: Jan == 0)
 		
 		return cal.getTimeInMillis();
+	}
+	
+	@Override
+	public int describeContents() {
+		return 0;
+	}
+	
+	@Override
+	public void writeToParcel(Parcel dest, int flags) {
+		
+		dest.writeString(name);
+		dest.writeString(location);
+		dest.writeString(startTime);
+		dest.writeString(date);
+		dest.writeString(org);
+		dest.writeString(desc);
+		dest.writeString(uid);
+		dest.writeString(OrgUid);
+		dest.writeString(tag);
 	}
 	
 }// class [ Event ]

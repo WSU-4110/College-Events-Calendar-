@@ -112,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
 			}
 		});
 		
-	}// [ onCreate ]
+	}// [ onCreate: MainActivity ]
 	
 	
 	// TODO: Resolve "Implicitly using the default locale string format..."

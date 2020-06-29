@@ -69,33 +69,6 @@ public class EventDetailedView extends AppCompatActivity {
 		
 		delete = (Button) findViewById(R.id.delete);
 		unfollow = (Button) findViewById(R.id.unfollow);
-        /*
-        // !! Breaks app
-        toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Home");*/
-		
-		String eventStr = getIntent().getStringExtra("Event");
-		
-		StringTokenizer st2 = new StringTokenizer(eventStr, "|");
-		final String name = (String) st2.nextElement();
-		final String location = (String) st2.nextElement();
-		final String startTime = (String) st2.nextElement();
-		final String date = (String) st2.nextElement();
-		final String desc = (String) st2.nextElement();
-		final String org = (String) st2.nextElement();
-		final String OrgUid = (String) st2.nextElement();
-		final String tag = (String) st2.nextElement();
-		
-		// call validate methods
-		validateDate(date);
-		validateStartTime(startTime);
-		checkNameEmpty(name);
-		checkLocationValid(location);
-		
-		//Toast.makeText(EventDetailedView.this, "Ouid"+OrgUid, Toast.LENGTH_SHORT).show();
-		
-		Event event = new Event(null, name, location, startTime, date, desc, org, OrgUid, tag);
 		
 		EventNameInput = findViewById(R.id.EventName);
 		locationInput = findViewById(R.id.Location);
@@ -106,8 +79,16 @@ public class EventDetailedView extends AppCompatActivity {
 		OrgUidInput = findViewById(R.id.OrgUid);
 		tagInput = findViewById(R.id.Tags); //tbd
 		
+		Intent intent = getIntent();
+		Event event = intent.getParcelableExtra("Event Parcel");
 		
-		EventNameInput.setText(event.getName());
+		try {
+			// TODO: Reevaluate handling of poss. null pointer for name
+			EventNameInput.setText(event.getName());
+		} catch (NullPointerException noName){
+			String emptyName = "EventNameNotProvided";
+			EventNameInput.setText(emptyName);
+		}
 		locationInput.setText(event.location());
 		startTimeInput.setText(event.startTime());
 		dateInput.setText(event.getDate());
@@ -115,8 +96,6 @@ public class EventDetailedView extends AppCompatActivity {
 		orgInput.setText(event.getOrg());
 		OrgUidInput.setText(event.orgUid());
 		tagInput.setText(event.tag());
-		
-		//Toast.makeText(EventDetailedView.this, "Ouid"+OrgUidInput.getText().toString(), Toast.LENGTH_SHORT).show();
 		
 		floating_toSavedEvents = findViewById(R.id.floating_back_button);
 		whatsappImg = findViewById(R.id.whatsapplogo);
@@ -303,9 +282,7 @@ public class EventDetailedView extends AppCompatActivity {
 				
 			}
 		});
-		
-		
-	}
+	}// method [ onCreate: EventDetailedView ]
 	
 	// vadation methods
 	public boolean checkLocationValid(String location) {

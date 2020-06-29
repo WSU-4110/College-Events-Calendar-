@@ -64,10 +64,10 @@ public class EventView extends AppCompatActivity {
 	
 		listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
-				Event event = (Event) listView.getAdapter().getItem(position);
 				Intent intent = new Intent(getApplicationContext(), EventDetailedView.class);
+				Event clickedEvent = (Event) listView.getAdapter().getItem(position);
 				
-				intent.putExtra("Event", event.toString());
+				intent.putExtra("Event Parcel", clickedEvent);
 				startActivity(intent);
 			}
 		});

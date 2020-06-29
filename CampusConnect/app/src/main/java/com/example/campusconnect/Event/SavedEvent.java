@@ -40,12 +40,7 @@ public class SavedEvent extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.event_view);
 		listView = (ListView) findViewById(R.id.events_listView);
-		
-		
-		
-		
 		displayEventsForSelectedUser();
-		
 	}
 	
 	
@@ -65,18 +60,17 @@ public class SavedEvent extends AppCompatActivity {
 		// TODO: Discuss a more intuitive name than "wholeDate"
 		
 		// [A]
-		arrayOfEvents = new ArrayList<>();										// [1]
-		adapter = new SavedEventListAdapter(this, arrayOfEvents);				// [2]
-		listView = (ListView) findViewById(R.id.events_listView);				// [3]
-		listView.setAdapter(adapter);											// [4]
+		arrayOfEvents = new ArrayList<>();                                        // [1]
+		adapter = new SavedEventListAdapter(this, arrayOfEvents);                // [2]
+		listView = (ListView) findViewById(R.id.events_listView);                // [3]
+		listView.setAdapter(adapter);                                            // [4]
 		
-		listView.setOnItemClickListener(new AdapterView.OnItemClickListener()
-		{
-			public void onItemClick(AdapterView<?> arg0,View arg1, int position, long arg3)
-			{
-				Event event = (Event)listView.getAdapter().getItem(position);
+		listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+			public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
 				Intent intent = new Intent(getApplicationContext(), EventDetailedView.class);
-				intent.putExtra("Event", event.toString());
+				Event clickedEvent = (Event) listView.getAdapter().getItem(position);
+				
+				intent.putExtra("Event Parcel", clickedEvent);
 				startActivity(intent);
 			}
 		});
@@ -84,8 +78,7 @@ public class SavedEvent extends AppCompatActivity {
 		FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 		
 		
-		
-		if (user!=null){
+		if (user != null) {
 //            final boolean[] Organizer = {false}; //adding organizer code
 //            db.collection("User")
 //                    .document("Organizers")
@@ -100,7 +93,7 @@ public class SavedEvent extends AppCompatActivity {
 //                            }
 //                        }
 //                    });
-			if (!organizer){
+			if (!organizer) {
 				
 				db.collection("SavedEvent")
 						.document("SavedEvent")
@@ -123,7 +116,7 @@ public class SavedEvent extends AppCompatActivity {
 						});
 				
 			}
-			else{
+			else {
 				
 				db.collection("Events")
 						.document("Events")
@@ -149,8 +142,7 @@ public class SavedEvent extends AppCompatActivity {
 		}
 		
 		
-		
-		else{
+		else {
 			Intent intent = new Intent(getApplicationContext(), MainActivity.class);
 			startActivity(intent);
 		}
@@ -159,33 +151,31 @@ public class SavedEvent extends AppCompatActivity {
 	}// method [ displayEventsForSelectedDay ]
 	
 	
-	
-	
 }// class [ EventView ]
 
 
-class SavedEventListAdapter extends ArrayAdapter<Event>  {
+class SavedEventListAdapter extends ArrayAdapter<Event> {
 	
-	public SavedEventListAdapter(Context context, ArrayList<Event> events){
+	public SavedEventListAdapter(Context context, ArrayList<Event> events) {
 		super(context, 0, events);
 	}
 	
 	@Override
-	public View getView(int position, View convertView, ViewGroup parent){
+	public View getView(int position, View convertView, ViewGroup parent) {
 		// [B]
-		if (convertView == null) {																	// [1]
+		if (convertView == null) {                                                                    // [1]
 			convertView = LayoutInflater
 					.from(getContext())
 					.inflate(R.layout.list_events, parent, false);
 		}
 		
-		Event event = getItem(position);															// [2]
+		Event event = getItem(position);                                                            // [2]
 		
-		TextView eventName =        (TextView) convertView.findViewById(R.id.list_EventName);		// [3a]
-		TextView eventDate =        (TextView) convertView.findViewById(R.id.list_EventDate);		// [3b]
-		TextView eventLocation =    (TextView) convertView.findViewById(R.id.list_EventLocation);	// [3b]
+		TextView eventName = (TextView) convertView.findViewById(R.id.list_EventName);        // [3a]
+		TextView eventDate = (TextView) convertView.findViewById(R.id.list_EventDate);        // [3b]
+		TextView eventLocation = (TextView) convertView.findViewById(R.id.list_EventLocation);    // [3b]
 		
-		eventName.setText("Event Name:    ");														// [4]
+		eventName.setText("Event Name:    ");                                                        // [4]
 		eventName.append(event.getName());
 		
 		eventDate.setText("Date:    ");
@@ -194,12 +184,10 @@ class SavedEventListAdapter extends ArrayAdapter<Event>  {
 		eventLocation.setText("Location:    ");
 		eventLocation.append(event.location());
 		
-		return convertView;																			// [5]
+		return convertView;                                                                            // [5]
 	}
 	
 }// class [ EventListAdapter ]
-
-
 
 
 //--------------------------------------------------- NOTES ---------------------------------------------------//
@@ -218,7 +206,6 @@ class SavedEventListAdapter extends ArrayAdapter<Event>  {
 // 3. Lookup view for data population
 // 4. Populate template view using the temp Event object
 // 5. Return the completed view to render on screen
-
 
 
 //package com.example.campusconnect;
