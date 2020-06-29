@@ -20,7 +20,7 @@ public class Event {
 		name = "EventNameNotProvided";
 		location = "NoEventLocationProvided";
 		startTime = "11:59";
-		date = "01012019";
+		date = "1/1/2019";
 		org = "EventOrgNotEntered";
 		desc = "N/A";
 	}
@@ -57,6 +57,11 @@ public class Event {
 	String orgUid() { return OrgUid; }
 	void setUid(String uid) { this.uid = uid; }
 	//@formatter:ON
+	
+	public String toString() {
+		// Old Method of getting Event details for EventDetailedView
+		return name + "|" + location + "|" + startTime + "|" + date + "|" + org + "|" + desc + "|" + OrgUid + "|" + tag;
+	}
 	
 	String tag() {
 		if (this.tag == null)
