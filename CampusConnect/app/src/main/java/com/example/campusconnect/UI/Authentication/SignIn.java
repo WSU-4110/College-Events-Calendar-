@@ -35,7 +35,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-public class signIn extends AppCompatActivity {
+public class SignIn extends AppCompatActivity {
 
     private static final int RC_SIGN_IN = 1;
     private GoogleSignInClient mGoogleSignInClient;
@@ -103,7 +103,7 @@ public class signIn extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                startActivity(new Intent(signIn.this, MainActivity.class));
+                startActivity(new Intent(SignIn.this, MainActivity.class));
 
             }
         });
@@ -118,7 +118,7 @@ public class signIn extends AppCompatActivity {
         registernow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(signIn.this, SignUp.class));
+                startActivity(new Intent(SignIn.this, SignUp.class));
             }
         });
 
@@ -132,7 +132,7 @@ public class signIn extends AppCompatActivity {
         forgotpassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(signIn.this, ForgetPassword.class));
+                startActivity(new Intent(SignIn.this, ForgetPassword.class));
             }
         });
 
@@ -140,40 +140,44 @@ public class signIn extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                progressDialog = KProgressHUD.create(signIn.this)
+                progressDialog = KProgressHUD.create(SignIn.this)
                         .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
                         .setLabel("Please wait")
                         .setCancellable(false);
                 progressDialog.show();
-                if (!(email.getText().toString().isEmpty() && password.getText().toString().isEmpty())) {
+                
+                boolean emailWasEmpty = email.getText().toString().isEmpty();
+                boolean passwordWasEmpty = password.getText().toString().isEmpty();
+                
+                if (!emailWasEmpty && !passwordWasEmpty) {
                     FirebaseAuth.getInstance().signInWithEmailAndPassword(
                             email.getText().toString(),
                             password.getText().toString())
-                            .addOnCompleteListener(signIn.this, new OnCompleteListener<AuthResult>() {
+                            .addOnCompleteListener(SignIn.this, new OnCompleteListener<AuthResult>() {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if (!task.isSuccessful()) {
                                         progressDialog.dismiss();
-                                        Toast.makeText(signIn.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(SignIn.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                                     } else {
                                         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                                         boolean emailVerified = user.isEmailVerified();
                                         if (emailVerified) {
                                             progressDialog.dismiss();
-                                            Toast.makeText(signIn.this, "sign in Successfully", Toast.LENGTH_SHORT).show();
-                                            startActivity(new Intent(signIn.this, MainActivity.class));
+                                            Toast.makeText(SignIn.this, "sign in Successfully", Toast.LENGTH_SHORT).show();
+                                            startActivity(new Intent(SignIn.this, MainActivity.class));
                                             finish();
                                         } else {
                                             progressDialog.dismiss();
                                             FirebaseAuth.getInstance().signOut(); // Log Out
-                                            Toast.makeText(signIn.this, "Email not Verify yet", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(SignIn.this, "Email not Verify yet", Toast.LENGTH_SHORT).show();
                                         }
                                     }
                                 }
                             });
                 } else {
                     progressDialog.dismiss();
-                    Toast.makeText(signIn.this, "Your Password or Email Cannot be null", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SignIn.this, "Your Password or Email Cannot be null", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -189,12 +193,12 @@ public class signIn extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             progressDialog.dismiss();
                             FirebaseUser user = mAuth.getCurrentUser();
-                            Toast.makeText(signIn.this, "sign in Successfully "+user.getUid(), Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(signIn.this, MainActivity.class));
+                            Toast.makeText(SignIn.this, "sign in Successfully "+user.getUid(), Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(SignIn.this, MainActivity.class));
                             finish();
                         } else {
                             progressDialog.dismiss();
-                            Toast.makeText(signIn.this, "Authentication Failed.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(SignIn.this, "Authentication Failed.", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -211,13 +215,13 @@ public class signIn extends AppCompatActivity {
                 firebaseAuthWithGoogle(account);
             } catch (ApiException e) {
                 progressDialog.dismiss();
-                Toast.makeText(signIn.this, "Google sign in failed", Toast.LENGTH_SHORT).show();
+                Toast.makeText(SignIn.this, "Google sign in failed", Toast.LENGTH_SHORT).show();
             }
         }
     }
 
     public void gmailAccount(View view) {
-        progressDialog = KProgressHUD.create(signIn.this)
+        progressDialog = KProgressHUD.create(SignIn.this)
                 .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
                 .setLabel("Please wait")
                 .setCancellable(false);
