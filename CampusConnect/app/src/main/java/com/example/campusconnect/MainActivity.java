@@ -43,8 +43,8 @@ public class MainActivity extends AppCompatActivity {
 	// TODO: Examine view inflater in CompactCalendar sample program
 	
 	private MenuItem signinout;
-	private Button goto_SavedEvents;
-	private Button goto_Today;
+	private Button buttonSavedEvents;
+	private Button buttonToday;
 	
 	CompactCalendarView calendar;
 	Toolbar toolbar;
@@ -67,8 +67,8 @@ public class MainActivity extends AppCompatActivity {
 		calendarTitle = findViewById(R.id.month_name);
 		calendarTitle.setText(dateTitleHelper());                               // Set title AFTER calendar fully initialized
 		
-		goto_SavedEvents = findViewById(R.id.gotoSavedEvents);
-		goto_Today = findViewById(R.id.goToToday);
+		buttonSavedEvents = findViewById(R.id.gotoSavedEvents);
+		buttonToday = findViewById(R.id.goToToday);
 		
 		loadEvents();
 		
@@ -84,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
 			}
 		});
 		
-		goto_SavedEvents.setOnClickListener(new View.OnClickListener() {
+		buttonSavedEvents.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -101,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
 			}
 		});
 		
-		goto_Today.setOnClickListener(new View.OnClickListener() {
+		buttonToday.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				// Go to "today" on calendar
