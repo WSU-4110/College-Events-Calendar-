@@ -60,7 +60,7 @@ public class Search extends AppCompatActivity {
 			System.err.println("Invalid and/or error with \"searchBy\" value.");
 			System.out.println("Defaulting: Search by tag");
 			
-			String title = "No Event Matching: " + searchTerm;
+			String title = "No Matchs for: " + searchTerm;
 			textView.setText(title);
 		}
 		
@@ -114,7 +114,7 @@ public class Search extends AppCompatActivity {
 								Event event = (Event) document.toObject(Event.class);
 								String eventName = event.getName();
 								
-								if (matchFound(eventName, searchTerm)) {
+								if (checkForMatch(eventName, searchTerm)) {
 									adapter.add(event);
 								}
 							}
@@ -153,20 +153,20 @@ public class Search extends AppCompatActivity {
 								Event event = (Event) document.toObject(Event.class);
 								String eventTag = event.tag();
 								
-								// Tags are OPTIONAL, end current loop iteration if no tag
+								// Event was not given a tag
 								if (eventTag == null)
 									continue;
 								
-								if (matchFound(eventTag, searchTerm)) {
+								if (checkForMatch(eventTag, searchTerm)) {
 									adapter.add(event);
 								}
 							}
-						}// if(task)
+						}
 					}
 				});
 	}
 	
-	private boolean matchFound(String eventAttribute, String searchTerm) {
+	private boolean checkForMatch(String eventAttribute, String searchTerm) {
 		String attribute = eventAttribute.toUpperCase();
 		String searchTermUpper = searchTerm.toUpperCase();
 		

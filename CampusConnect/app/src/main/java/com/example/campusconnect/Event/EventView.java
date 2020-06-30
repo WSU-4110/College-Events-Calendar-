@@ -38,10 +38,9 @@ public class EventView extends AppCompatActivity {
         setContentView(R.layout.event_view);
 		listView = (ListView) findViewById(R.id.events_listView);
 	
-		String str_Day = getIntent().getStringExtra("EXTRA_DaySelected");				// Extract date info from intent
-		String str_Month = getIntent().getStringExtra("EXTRA_MonthSelected");
-		String str_Year = getIntent().getStringExtra("EXTRA_YearSelected");
-        System.out.printf("DAY %s, MONTH %s, YEAR %s", str_Day, str_Month, str_Year);
+		String str_Day = getIntent().getStringExtra("day");
+		String str_Month = getIntent().getStringExtra("month");
+		String str_Year = getIntent().getStringExtra("year");
 	
 		// REFACTOR (1 of 2)
         displayEventsForSelectedDay(str_Day, str_Month, str_Year);
@@ -88,10 +87,10 @@ public class EventView extends AppCompatActivity {
             }
         });
 
-    }// method [ displayEventsForSelectedDay ]
+    }// [ displayEventsForSelectedDay ]
     
 	
-    public String titleCreator(String day, String month, String year){
+    String titleCreator(String day, String month, String year){
 		// !! NOTE: Jan == 0, Dec == 11
 		
 		int monthInteger = Integer.parseInt(month);
@@ -105,7 +104,7 @@ public class EventView extends AppCompatActivity {
 	}
 	
 	
-	public String wholeDateBuilder(String day, String month, String year){
+	String wholeDateBuilder(String day, String month, String year){
 		// !! NOTE: Jan == 0, Dec == 11 (before adding 1)
 		
 		int monthNumber = Integer.parseInt(month) + 1;
@@ -124,7 +123,6 @@ class EventListAdapter extends ArrayAdapter<Event>  {
     
     @Override
     public View getView(int position, View convertView, ViewGroup parent){
-    																								// [B]
         if (convertView == null) {																	// [1]
             convertView = LayoutInflater
                     .from(getContext())

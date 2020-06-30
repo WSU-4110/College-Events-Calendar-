@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
 		setSupportActionBar(toolbar);
 		getSupportActionBar().setTitle("Home");
 		
-		calendar.setFirstDayOfWeek(1);                                            // Set Saturday First day of week
+		calendar.setFirstDayOfWeek(1);                                          // Set Saturday First day of week
 		monthTitle.setText(dateTitleHelper());
 		
 		populateEventIndicators();
@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
 				monthTitle.setText(dateTitleHelper());
 			}
 		});
-		
+
 		buttonSavedEvents.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -91,8 +91,7 @@ public class MainActivity extends AppCompatActivity {
 		buttonToday.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				// Go to "today" on calendar
-				calendar.showCalendar();
+				calendar.showCalendar();                                        // Go to "today" on calendar
 			}
 		});
 		
@@ -146,9 +145,9 @@ public class MainActivity extends AppCompatActivity {
 		String stringYear = String.valueOf(calClicked.get(Calendar.YEAR));
 		
 		// TODO: Look into switching to a Date object parameter vs individual Strings
-		intent.putExtra("EXTRA_DaySelected", stringDay);
-		intent.putExtra("EXTRA_MonthSelected", stringMonth);
-		intent.putExtra("EXTRA_YearSelected", stringYear);
+		intent.putExtra("day", stringDay);
+		intent.putExtra("month", stringMonth);
+		intent.putExtra("year", stringYear);
 		
 		startActivity(intent);
 	}// [ openEventView ]
