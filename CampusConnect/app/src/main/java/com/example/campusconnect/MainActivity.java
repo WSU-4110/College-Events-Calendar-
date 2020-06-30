@@ -84,13 +84,7 @@ public class MainActivity extends AppCompatActivity {
 		buttonSavedEvents.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-				if (user != null) {
-					openSavedEvents();
-				}
-				else {
-					Toast.makeText(MainActivity.this, "Not Logged-in", Toast.LENGTH_SHORT).show();
-				}
+				openSavedEvents();
 			}
 		});
 		
@@ -161,8 +155,15 @@ public class MainActivity extends AppCompatActivity {
 	
 	
 	public void openSavedEvents() {
-		Intent intent = new Intent(this, SavedEvent.class);
-		startActivity(intent);
+		FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+		
+		if (user != null) {
+			Intent intent = new Intent(this, SavedEvent.class);
+			startActivity(intent);
+		}
+		else {
+			Toast.makeText(MainActivity.this, "Not Logged-in", Toast.LENGTH_SHORT).show();
+		}
 	}
 	
 	@Override
