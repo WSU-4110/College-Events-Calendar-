@@ -64,10 +64,10 @@ public class MainActivity extends AppCompatActivity {
 		setSupportActionBar(toolbar);
 		getSupportActionBar().setTitle("Home");
 		
-		calendar.setFirstDayOfWeek(1);
+		calendar.setFirstDayOfWeek(1);                                            // Saturday Left-Most Column: S M T W Th F S
 		monthTitle.setText(dateTitleHelper());
 		
-		loadEvents();
+		populateEventIndicators();
 		
 		calendar.setListener(new CompactCalendarView.CompactCalendarViewListener() {
 			@Override
@@ -104,9 +104,6 @@ public class MainActivity extends AppCompatActivity {
 			public void onClick(View v) {
 				// Go to "today" on calendar
 				calendar.showCalendar();
-				System.out.println("CLICK");
-				
-				// Show week view or other view
 			}
 		});
 		
@@ -141,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
 		monthInteger = cal.get(Calendar.MONTH);
 		
 		// Only print year if not 2020
-		if(year != 2020)
+		if (year != 2020)
 			return String.format("%s, %d", monthName[monthInteger], year);
 		else
 			return String.format("%s", monthName[monthInteger]);
@@ -230,13 +227,7 @@ public class MainActivity extends AppCompatActivity {
 		return true;
 	}// [ onCreateOptionsMenu ]
 	
-	private void loadEvents() {
-		addEventIndicators();
-		
-		// TODO: Look into moving the actual loading of events to an Async task
-	}
-	
-	private void addEventIndicators() {
+	private void populateEventIndicators() {
 		FirebaseFirestore db = FirebaseFirestore.getInstance();
 		
 		db.collection("Events")
@@ -263,7 +254,6 @@ public class MainActivity extends AppCompatActivity {
 						}
 					}
 				});
-		
-	}// [ addEventIndicators ]
+	}
 	
 }// [ MainActivity ]
