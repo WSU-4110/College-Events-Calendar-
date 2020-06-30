@@ -48,7 +48,6 @@ public class MainActivity extends AppCompatActivity {
 	Toolbar toolbar;
 	TextView monthTitle;
 	
-	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		
@@ -64,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
 		setSupportActionBar(toolbar);
 		getSupportActionBar().setTitle("Home");
 		
-		calendar.setFirstDayOfWeek(1);                                            // Saturday Left-Most Column: S M T W Th F S
+		calendar.setFirstDayOfWeek(1);                                            // Set Saturday First day of week
 		monthTitle.setText(dateTitleHelper());
 		
 		populateEventIndicators();
@@ -86,10 +85,6 @@ public class MainActivity extends AppCompatActivity {
 			@Override
 			public void onClick(View v) {
 				FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-				
-				// TODO: Dedicated EventView for organizers (poss. w/ extra features, e.g. editDate())
-				// e.g. if (user != null && user == organizer)
-				
 				if (user != null) {
 					openSavedEvents();
 				}
@@ -110,15 +105,14 @@ public class MainActivity extends AppCompatActivity {
 	}// [ onCreate: MainActivity ]
 	
 	
-	// TODO: Resolve "Implicitly using the default locale string format..."
+	// TODO: Resolve Locale issue
 	@SuppressLint("DefaultLocale")
 	private String dateTitleHelper() {
-		// getFirstDay...() seems like the only way to get a Date object w/ CompactCalendarView
 		Date currentDate;
 		Calendar cal;
-		int year;
-		int monthInteger;
 		String[] monthName;
+		int monthInteger;
+		int year;
 		
 		if (calendar == null) {
 			return " ";
@@ -144,6 +138,7 @@ public class MainActivity extends AppCompatActivity {
 			return String.format("%s", monthName[monthInteger]);
 	}
 	
+	// REFACTOR
 	public void openEventView(Date dateClicked) {
 		Intent intent;
 		Calendar calClicked;
@@ -162,7 +157,7 @@ public class MainActivity extends AppCompatActivity {
 		intent.putExtra("EXTRA_YearSelected", stringYear);
 		
 		startActivity(intent);
-	}
+	}// [ openEventView ]
 	
 	
 	public void openSavedEvents() {
@@ -170,34 +165,40 @@ public class MainActivity extends AppCompatActivity {
 		startActivity(intent);
 	}
 	
-	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		if (item.getItemId() == R.id.newEvent) {
-			if (EventCreation.isOrganizer()) {
-				Intent intent = new Intent(this, EventCreation.class);
-				startActivity(intent);
-			}
-			else {
-				Toast.makeText(MainActivity.this, "Only Organizers Can Add Events", Toast.LENGTH_SHORT).show();
-			}
-		}
+		Intent intent;
+		int itemID = item.getItemId();
 		
-		if (item.getItemId() == R.id.login) {
-			Intent intent = new Intent(this, signIn.class);
-			startActivity(intent);
-		}
-		else if (item.getItemId() == R.id.logout) {
-			final FirebaseAuth mAuth = FirebaseAuth.getInstance();
-			startActivity(new Intent(MainActivity.this, signIn.class));
-			mAuth.signOut();
-		}
-		else {
-			return false;
-		}
+		switch (itemID) {
+			default:
+				return false;
+			
+			case R.id.newEvent:
+				if (EventCreation.isOrganizer()) {
+					intent = new Intent(this, EventCreation.class);
+					startActivity(intent);
+				}
+				else {
+					Toast.makeText(MainActivity.this, "Only Organizers Can Add Events", Toast.LENGTH_SHORT).show();
+				}
+				break;
+			
+			case R.id.login:
+				intent = new Intent(this, signIn.class);
+				startActivity(intent);
+				break;
+			
+			case R.id.logout:
+				final FirebaseAuth mAuth = FirebaseAuth.getInstance();
+				startActivity(new Intent(MainActivity.this, signIn.class));
+				mAuth.signOut();
+				break;
+		}// switch
 		
 		return true;
-	}
+		
+	}// [ onOptionsItemSelected ]
 	
 	
 	@Override
@@ -225,6 +226,7 @@ public class MainActivity extends AppCompatActivity {
 		);
 		
 		return true;
+		
 	}// [ onCreateOptionsMenu ]
 	
 	private void populateEventIndicators() {
@@ -254,6 +256,6 @@ public class MainActivity extends AppCompatActivity {
 						}
 					}
 				});
-	}
+	}// [ populateEventIndicators ]
 	
-}// [ MainActivity ]
+}// class [ MainActivity ]
