@@ -42,10 +42,12 @@ public class EventView extends AppCompatActivity {
 		String str_Month = getIntent().getStringExtra("EXTRA_MonthSelected");
 		String str_Year = getIntent().getStringExtra("EXTRA_YearSelected");
         System.out.printf("DAY %s, MONTH %s, YEAR %s", str_Day, str_Month, str_Year);
+	
+		// REFACTOR (1 of 2)
         displayEventsForSelectedDay(str_Day, str_Month, str_Year);
     }
     
-
+	// REFACTOR (2 of 2)
     private void displayEventsForSelectedDay(String day, String month, String year) {
     
         TextView title = findViewById(R.id.EventList_HeaderDynamic);
@@ -105,23 +107,10 @@ public class EventView extends AppCompatActivity {
 	
 	public String wholeDateBuilder(String day, String month, String year){
 		// !! NOTE: Jan == 0, Dec == 11 (before adding 1)
-
-		StringBuilder date = new StringBuilder();
-
+		
 		int monthNumber = Integer.parseInt(month) + 1;
 		
-		if(monthNumber > 0 && monthNumber <= 12)
-			date.append(monthNumber);
-		else
-			date.append(" ");
-		
-        date.append("/");
-
-		date.append(day);
-        date.append("/");
-		date.append(year);
-
-		return date.toString();			// StringBuilder --> String
+		return String.format("%s/%s/%s", monthNumber, day, year);
 	}
 	
 }// class [ EventView ]
