@@ -40,15 +40,13 @@ import com.github.sundeepk.compactcalendarview.CompactCalendarView;
 
 public class MainActivity extends AppCompatActivity {
 	
-	// TODO: Examine view inflater in CompactCalendar sample program
-	
 	private MenuItem signinout;
 	private Button buttonSavedEvents;
 	private Button buttonToday;
 	
 	CompactCalendarView calendar;
 	Toolbar toolbar;
-	TextView calendarTitle;
+	TextView monthTitle;
 	
 	
 	@Override
@@ -58,17 +56,16 @@ public class MainActivity extends AppCompatActivity {
 		setContentView(R.layout.activity_main);
 		
 		toolbar = findViewById(R.id.toolbar);
+		calendar = findViewById(R.id.calendar);
+		monthTitle = findViewById(R.id.month_name);
+		buttonSavedEvents = findViewById(R.id.gotoSavedEvents);
+		buttonToday = findViewById(R.id.goToToday);
+		
 		setSupportActionBar(toolbar);
 		getSupportActionBar().setTitle("Home");
 		
-		calendar = findViewById(R.id.calendar);
 		calendar.setFirstDayOfWeek(1);
-		
-		calendarTitle = findViewById(R.id.month_name);
-		calendarTitle.setText(dateTitleHelper());                               // Set title AFTER calendar fully initialized
-		
-		buttonSavedEvents = findViewById(R.id.gotoSavedEvents);
-		buttonToday = findViewById(R.id.goToToday);
+		monthTitle.setText(dateTitleHelper());
 		
 		loadEvents();
 		
@@ -80,7 +77,8 @@ public class MainActivity extends AppCompatActivity {
 			
 			@Override
 			public void onMonthScroll(Date firstDayOfNewMonth) {
-				calendarTitle.setText(dateTitleHelper());                       // Update title to match new month
+				// Update month name when user scrolls
+				monthTitle.setText(dateTitleHelper());
 			}
 		});
 		
@@ -142,7 +140,7 @@ public class MainActivity extends AppCompatActivity {
 		year = cal.get(Calendar.YEAR);
 		monthInteger = cal.get(Calendar.MONTH);
 		
-		// Looks cleaner without year (but print year if NOT current year)
+		// Only print year if not 2020
 		if(year != 2020)
 			return String.format("%s, %d", monthName[monthInteger], year);
 		else
