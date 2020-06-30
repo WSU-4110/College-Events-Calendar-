@@ -23,7 +23,7 @@ import androidx.core.view.MenuItemCompat;
 
 import com.example.campusconnect.MainActivity;
 import com.example.campusconnect.R;
-import com.example.campusconnect.UI.Authentication.signIn;
+import com.example.campusconnect.UI.Authentication.SignIn;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -36,8 +36,6 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Objects;
-import java.util.StringTokenizer;
 
 public class EventDetailedView extends AppCompatActivity {
 	String EventName, location, startTime, date;
@@ -402,13 +400,13 @@ public class EventDetailedView extends AppCompatActivity {
 		
 		if (item.getItemId() == R.id.login) {
 			
-			Intent intent = new Intent(this, signIn.class);
+			Intent intent = new Intent(this, SignIn.class);
 			startActivity(intent);
 			
 		}
 		else if (item.getItemId() == R.id.logout) {
 			final FirebaseAuth mAuth = FirebaseAuth.getInstance();
-			startActivity(new Intent(EventDetailedView.this, signIn.class));
+			startActivity(new Intent(EventDetailedView.this, SignIn.class));
 			//FirebaseAuth.getInstance().signOut();
 			mAuth.signOut();
 		}

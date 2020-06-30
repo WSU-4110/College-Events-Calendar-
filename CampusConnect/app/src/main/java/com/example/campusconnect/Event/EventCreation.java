@@ -21,7 +21,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.example.campusconnect.MainActivity;
 import com.example.campusconnect.R;
-import com.example.campusconnect.UI.Authentication.signIn;
+import com.example.campusconnect.UI.Authentication.SignIn;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -208,13 +208,13 @@ public class EventCreation extends AppCompatActivity{
         if(item.getItemId()==R.id.login)
         {
 
-                Intent intent = new Intent(this, signIn.class);
+                Intent intent = new Intent(this, SignIn.class);
                 startActivity(intent);
 
         }
         else if(item.getItemId()==R.id.logout){
             final FirebaseAuth mAuth=FirebaseAuth.getInstance();
-            startActivity(new Intent(EventCreation.this, signIn.class));
+            startActivity(new Intent(EventCreation.this, SignIn.class));
             //FirebaseAuth.getInstance().signOut();
             mAuth.signOut();
         }

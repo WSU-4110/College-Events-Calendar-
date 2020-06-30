@@ -23,7 +23,7 @@ import com.example.campusconnect.Event.EventIndicator;
 import com.example.campusconnect.Event.EventView;
 import com.example.campusconnect.Event.SavedEvent;
 import com.example.campusconnect.Event.Search;
-import com.example.campusconnect.UI.Authentication.signIn;
+import com.example.campusconnect.UI.Authentication.SignIn;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -185,13 +185,13 @@ public class MainActivity extends AppCompatActivity {
 				break;
 			
 			case R.id.login:
-				intent = new Intent(this, signIn.class);
+				intent = new Intent(this, SignIn.class);
 				startActivity(intent);
 				break;
 			
 			case R.id.logout:
 				final FirebaseAuth mAuth = FirebaseAuth.getInstance();
-				startActivity(new Intent(MainActivity.this, signIn.class));
+				startActivity(new Intent(MainActivity.this, SignIn.class));
 				mAuth.signOut();
 				break;
 		}// switch

@@ -6,12 +6,6 @@
 package com.example.campusconnect.UI.Authentication;
 
 
-import android.widget.Toast;
-
-import com.example.campusconnect.admin.orgList;
-
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 
 import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
@@ -30,7 +24,7 @@ public class forgetPasswordTest {
         {
             public void run()
             {
-                assertTrue(forgetPassword.validateEmail(getApplicationContext(), "test@gamil.com"));
+                assertTrue(ForgetPassword.validateEmail(getApplicationContext(), "test@gamil.com"));
             }
         });
     }
@@ -40,7 +34,7 @@ public class forgetPasswordTest {
         {
             public void run()
             {
-                assertTrue(signUp.validate_Email(getApplicationContext(), "test1@gamil.com"));
+                assertTrue(SignUp.validate_Email(getApplicationContext(), "test1@gamil.com"));
             }
         });
     }
@@ -51,7 +45,7 @@ public class forgetPasswordTest {
         {
             public void run()
             {
-                assertTrue(signUp.validatePassword("3#124"));
+                assertTrue(SignUp.validatePassword("3#124"));
             }
         });
     }
@@ -61,7 +55,7 @@ public class forgetPasswordTest {
         {
             public void run()
             {
-                assertTrue(signUp.password_matcher("3#124","3#124"));
+                assertTrue(SignUp.password_matcher("3#124","3#124"));
             }
         });
     }

@@ -69,7 +69,7 @@ public class Event implements Parcelable {
 		}
 	};
 	
-	//@formatter:OFF
+//@formatter:OFF
 	public String getName() { return name; }
 	public String getDate() { return date; }
 	public String getOrg() { return org; }
@@ -83,7 +83,7 @@ public class Event implements Parcelable {
 	String UID() { return uid; }
 	String orgUid() { return OrgUid; }
 	void setUid(String uid) { this.uid = uid; }
-	//@formatter:ON
+//@formatter:ON
 	
 	public String toString() {
 		// Old Method of getting Event details for EventDetailedView

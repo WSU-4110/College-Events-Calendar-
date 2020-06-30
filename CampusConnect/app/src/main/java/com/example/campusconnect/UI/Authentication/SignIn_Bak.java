@@ -3,47 +3,15 @@
 
 package com.example.campusconnect.UI.Authentication;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.campusconnect.MainActivity;
-import com.example.campusconnect.R;
-import com.example.campusconnect.admin.orgList;
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.common.api.ApiException;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthCredential;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.GoogleAuthProvider;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.kaopiz.kprogresshud.KProgressHUD;
 
-import java.util.Map;
-import java.util.Objects;
-
-// !! TODO: Fix lowercase 's'
-public class signIn extends AppCompatActivity {
+public class SignIn_Bak extends AppCompatActivity {
 	
 	private static final int RC_SIGN_IN = 1;
 	private GoogleSignInClient mGoogleSignInClient;
-	
+	/*
 	TextWatcher passWatcher = new TextWatcher() {
 		@Override
 		public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
@@ -104,7 +72,7 @@ public class signIn extends AppCompatActivity {
 			@Override
 			public void onClick(View v) {
 				// for users
-				startActivity(new Intent(signIn.this, MainActivity.class));
+				startActivity(new Intent(SignIn.this, MainActivity.class));
 			}
 		});
 		
@@ -119,7 +87,7 @@ public class signIn extends AppCompatActivity {
 		registernow.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				startActivity(new Intent(signIn.this, signUp.class));
+				startActivity(new Intent(SignIn.this, SignUp.class));
 			}
 		});
 		
@@ -133,7 +101,7 @@ public class signIn extends AppCompatActivity {
 		forgotpassword.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				startActivity(new Intent(signIn.this, forgetPassword.class));
+				startActivity(new Intent(SignIn.this, ForgetPassword.class));
 			}
 		});
 		
@@ -154,7 +122,7 @@ public class signIn extends AppCompatActivity {
 				boolean passwordEmpty;
 				
 				//--------------------------------
-				progressDialog = KProgressHUD.create(signIn.this)
+				progressDialog = KProgressHUD.create(SignIn.this)
 						.setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
 						.setLabel("Please wait")
 						.setCancellable(false);
@@ -167,28 +135,28 @@ public class signIn extends AppCompatActivity {
 				
 				if (emailEmpty && passwordEmpty) {
 					progressDialog.dismiss();
-					Toast.makeText(signIn.this, "Your Email and Password Cannot be Empty", Toast.LENGTH_SHORT).show();
+					Toast.makeText(SignIn.this, "Your Email and Password Cannot be Empty", Toast.LENGTH_SHORT).show();
 				}
 				
 				//--------------------------------
 			// [A]
 				FirebaseAuth.getInstance().signInWithEmailAndPassword(emailEntered, passwordEntered)
-						.addOnCompleteListener(signIn.this, new OnCompleteListener<AuthResult>() {
+						.addOnCompleteListener(SignIn.this, new OnCompleteListener<AuthResult>() {
 							// [ Y ]
 							@Override
 							public void onComplete(@NonNull Task<AuthResult> task) {
 								
 								if (!task.isSuccessful()) {
 									progressDialog.dismiss();
-									Toast.makeText(signIn.this, Objects.requireNonNull(task.getException()).getMessage(), Toast.LENGTH_SHORT).show();
+									Toast.makeText(SignIn.this, Objects.requireNonNull(task.getException()).getMessage(), Toast.LENGTH_SHORT).show();
 									return;
 								}
 								
 								if (emailEntered.equals("admin@campus.connect")
 										&& passwordEntered.equals("admin")) {
 									progressDialog.dismiss();
-									Toast.makeText(signIn.this, "Signing in as Admin", Toast.LENGTH_SHORT).show();
-									startActivity(new Intent(signIn.this, orgList.class));
+									Toast.makeText(SignIn.this, "Signing in as Admin", Toast.LENGTH_SHORT).show();
+									startActivity(new Intent(SignIn.this, OrganizerList.class));
 									finish();
 									return;        // CHECK: return ok here?
 								}
@@ -199,7 +167,7 @@ public class signIn extends AppCompatActivity {
 								if (user == null) {
 									FirebaseAuth.getInstance().signOut(); // Log Out
 									progressDialog.dismiss();
-									Toast.makeText(signIn.this, "User not found/NULL", Toast.LENGTH_SHORT).show();
+									Toast.makeText(SignIn.this, "User not found/NULL", Toast.LENGTH_SHORT).show();
 									return;
 								}
 								
@@ -210,7 +178,7 @@ public class signIn extends AppCompatActivity {
 								if (!emailVerified) {
 									FirebaseAuth.getInstance().signOut(); // Log Out
 									progressDialog.dismiss();
-									Toast.makeText(signIn.this, "Email not Verify yet", Toast.LENGTH_SHORT).show();
+									Toast.makeText(SignIn.this, "Email not Verify yet", Toast.LENGTH_SHORT).show();
 									return;
 								}
 								
@@ -230,7 +198,7 @@ public class signIn extends AppCompatActivity {
 										// Query Successful, with results
 										if (!task.isSuccessful()) {
 											progressDialog.dismiss();
-											Toast.makeText(signIn.this, " Internet Error ", Toast.LENGTH_SHORT).show();
+											Toast.makeText(SignIn.this, " Internet Error ", Toast.LENGTH_SHORT).show();
 											return;
 										}
 										
@@ -241,20 +209,20 @@ public class signIn extends AppCompatActivity {
 										boolean orgCheck;
 										
 										if (data == null) {
-											Toast.makeText(signIn.this, "Welcome USER", Toast.LENGTH_SHORT).show();
-											startActivity(new Intent(signIn.this, MainActivity.class));
+											Toast.makeText(SignIn.this, "Welcome USER", Toast.LENGTH_SHORT).show();
+											startActivity(new Intent(SignIn.this, MainActivity.class));
 											finish();
 										}
 										else {
 											orgCheck = result.getBoolean("Status");
 											
 											if (orgCheck) {
-												Toast.makeText(signIn.this, "Welcome Organizer", Toast.LENGTH_SHORT).show();
-												startActivity(new Intent(signIn.this, MainActivity.class));
+												Toast.makeText(SignIn.this, "Welcome Organizer", Toast.LENGTH_SHORT).show();
+												startActivity(new Intent(SignIn.this, MainActivity.class));
 												finish();
 											}
 											else {
-												Toast.makeText(signIn.this, "Org Account is Not Approved Yet", Toast.LENGTH_SHORT).show();
+												Toast.makeText(SignIn.this, "Org Account is Not Approved Yet", Toast.LENGTH_SHORT).show();
 												FirebaseAuth.getInstance().signOut();
 												
 											}// [ Inner if/else ]
@@ -287,13 +255,13 @@ public class signIn extends AppCompatActivity {
 						progressDialog.dismiss();
 						FirebaseUser user = mAuth.getCurrentUser();
 						assert user != null;
-						Toast.makeText(signIn.this, "sign in Successfully " + user.getUid(), Toast.LENGTH_SHORT).show();
-						startActivity(new Intent(signIn.this, MainActivity.class));
+						Toast.makeText(SignIn.this, "sign in Successfully " + user.getUid(), Toast.LENGTH_SHORT).show();
+						startActivity(new Intent(SignIn.this, MainActivity.class));
 						finish();
 					}
 					else {
 						progressDialog.dismiss();
-						Toast.makeText(signIn.this, "Authentication Failed.", Toast.LENGTH_SHORT).show();
+						Toast.makeText(SignIn.this, "Authentication Failed.", Toast.LENGTH_SHORT).show();
 					}
 				}
 			});
@@ -314,7 +282,7 @@ public class signIn extends AppCompatActivity {
 			}
 			catch (ApiException e) {
 				progressDialog.dismiss();
-				Toast.makeText(signIn.this, "Google sign in failed", Toast.LENGTH_SHORT).show();
+				Toast.makeText(SignIn.this, "Google sign in failed", Toast.LENGTH_SHORT).show();
 			}
 		}
 	}// [ onActivityResult ]
@@ -322,7 +290,7 @@ public class signIn extends AppCompatActivity {
 	
 	public void gmailAccount(View view) {
 		
-		progressDialog = KProgressHUD.create(signIn.this)
+		progressDialog = KProgressHUD.create(SignIn.this)
 				.setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
 				.setLabel("Please wait")
 				.setCancellable(false);
@@ -333,6 +301,6 @@ public class signIn extends AppCompatActivity {
 		startActivityForResult(intent, RC_SIGN_IN);
 		
 	}// [ gmailAccount ]
+	*/
 	
-	
-}// end CLASS [ signIn ]
+}// class [ SignIn_Bak ]

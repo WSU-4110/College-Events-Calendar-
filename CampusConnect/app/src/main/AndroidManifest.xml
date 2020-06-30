@@ -14,10 +14,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".admin.orgList" />
+        <activity android:name=".admin.OrganizerList" />
 
         <activity
-            android:name=".UI.Authentication.forgetPassword"
+            android:name=".UI.Authentication.ForgetPassword"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".MainActivity"
@@ -43,14 +43,14 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
 
         <activity
-            android:name=".UI.Authentication.signIn"
+            android:name=".UI.Authentication.SignIn"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name=".UI.Authentication.signUp"
+            android:name=".UI.Authentication.SignUp"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
 
         <activity
-            android:name=".UI.splashScreen"
+            android:name=".UI.SplashScreen"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
