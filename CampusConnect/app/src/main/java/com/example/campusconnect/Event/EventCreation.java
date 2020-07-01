@@ -57,12 +57,10 @@ public class EventCreation extends AppCompatActivity {
 	
 	Button submitButton;
 	private static boolean organizer = false;
-	private static boolean databasePreviouslyChecked = false;					// TODO: Reset upon login/logout
-	
-	private static FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+	private static boolean databasePreviouslyChecked = false;                    // TODO: Reset upon login/logout
 	
 	public static boolean isOrganizer() {
-		user = FirebaseAuth.getInstance().getCurrentUser();
+		FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 		
 		if (user == null) {
 			// Not logged in
@@ -83,7 +81,12 @@ public class EventCreation extends AppCompatActivity {
 	
 	private static void updateUserType() {
 		FirebaseFirestore db = FirebaseFirestore.getInstance();
-		user = FirebaseAuth.getInstance().getCurrentUser();
+		FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+		
+		if (user == null) {
+			organizer = false;
+			return;
+		}
 		
 		db.collection("Users")
 				.document("Organizers")
@@ -94,13 +97,18 @@ public class EventCreation extends AppCompatActivity {
 					@Override
 					public void onComplete(@NonNull Task<QuerySnapshot> task) {
 						// TODO: Handle isEmpty() poss. NPE
-						if (!task.getResult().isEmpty()) {
+						if (task.isSuccessful()) {
 							organizer = true;
-							databasePreviouslyChecked = true;
+							System.out.println("\n\n\nOrganizer found\n\n\n");
 						}
+						else {
+							organizer = false;
+						}
+						
+						databasePreviouslyChecked = true;
 					}
 				});
-	
+		
 	}// [ updateUserType ]
 	
 	
@@ -199,9 +207,10 @@ public class EventCreation extends AppCompatActivity {
 			}
 		});
 		
+		/*
 		Toolbar toolbar = findViewById(R.id.toolbar);
 		setSupportActionBar(toolbar);
-		getSupportActionBar().setTitle("Event Creation");
+		getSupportActionBar().setTitle("Event Creation");*/
 	}
 	
 	@Override
@@ -212,7 +221,6 @@ public class EventCreation extends AppCompatActivity {
 			
 			Intent intent = new Intent(this, SignIn.class);
 			startActivity(intent);
-			
 		}
 		else if (item.getItemId() == R.id.logout) {
 			final FirebaseAuth mAuth = FirebaseAuth.getInstance();
