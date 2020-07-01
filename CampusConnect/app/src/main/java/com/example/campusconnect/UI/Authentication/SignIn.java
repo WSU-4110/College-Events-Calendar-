@@ -169,6 +169,7 @@ public class SignIn extends AppCompatActivity {
                                             finish();
                                         } else {
                                             progressDialog.dismiss();
+                                            user.sendEmailVerification();
                                             FirebaseAuth.getInstance().signOut(); // Log Out
                                             Toast.makeText(SignIn.this, "Email not Verify yet", Toast.LENGTH_SHORT).show();
                                         }
