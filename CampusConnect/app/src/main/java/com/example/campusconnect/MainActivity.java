@@ -1,6 +1,5 @@
 package com.example.campusconnect;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -21,7 +20,7 @@ import com.example.campusconnect.Event.Event;
 import com.example.campusconnect.Event.EventCreation;
 import com.example.campusconnect.Event.EventIndicator;
 import com.example.campusconnect.Event.EventView;
-import com.example.campusconnect.Event.SavedEvent;
+import com.example.campusconnect.Event.SavedEventView;
 import com.example.campusconnect.Event.Search;
 import com.example.campusconnect.UI.Authentication.SignIn;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -95,11 +94,10 @@ public class MainActivity extends AppCompatActivity {
 			}
 		});
 		
-	}// [ onCreate: MainActivity ]
+	}
 	
 	
 	// TODO: Resolve Locale issue
-	@SuppressLint("DefaultLocale")
 	private String dateTitleHelper() {
 		Date currentDate;
 		Calendar cal;
@@ -129,9 +127,9 @@ public class MainActivity extends AppCompatActivity {
 			return String.format("%s, %d", monthName[monthInteger], year);
 		else
 			return String.format("%s", monthName[monthInteger]);
-	}
+	}// [ dateTitleHelper ]
 	
-	// REFACTOR
+	
 	public void openEventView(Date dateClicked) {
 		Intent intent;
 		Calendar calClicked;
@@ -150,20 +148,21 @@ public class MainActivity extends AppCompatActivity {
 		intent.putExtra("year", stringYear);
 		
 		startActivity(intent);
-	}// [ openEventView ]
+	}
 	
 	
 	public void openSavedEvents() {
 		FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 		
 		if (user != null) {
-			Intent intent = new Intent(this, SavedEvent.class);
+			Intent intent = new Intent(this, SavedEventView.class);
 			startActivity(intent);
 		}
 		else {
 			Toast.makeText(MainActivity.this, "Not Logged-in", Toast.LENGTH_SHORT).show();
 		}
 	}
+	
 	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
@@ -229,6 +228,7 @@ public class MainActivity extends AppCompatActivity {
 		
 	}// [ onCreateOptionsMenu ]
 	
+	
 	private void populateEventIndicators() {
 		FirebaseFirestore db = FirebaseFirestore.getInstance();
 		
@@ -257,5 +257,6 @@ public class MainActivity extends AppCompatActivity {
 					}
 				});
 	}// [ populateEventIndicators ]
+	
 	
 }// class [ MainActivity ]

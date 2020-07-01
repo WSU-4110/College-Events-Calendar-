@@ -21,8 +21,6 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.Objects;
 
-// CURRENT: Consolidate methods so that any match will print event
-// CURRENT: Title printing multiple times
 public class Search extends AppCompatActivity {
 	
 	ListView listView;
@@ -34,12 +32,11 @@ public class Search extends AppCompatActivity {
 		setContentView(R.layout.event_view);
 		
 		// TODO: Add minimum letters for search
-		
 		listView = (ListView) findViewById(R.id.events_listView);
 		textView = findViewById(R.id.EventList_HeaderDynamic);
 		Button toggleSearchBy = findViewById(R.id.toggleSearchBy);
 		
-		String searchTerm = getIntent().getStringExtra("result");				// Exactly what the user typed in
+		final String searchTerm = getIntent().getStringExtra("result");			// Get exactly what the user typed in
 		final String searchTermUpper = searchTerm.toUpperCase();				// For case-sensitive methods
 		final String searchBy = getIntent().getStringExtra("searchBy");			// What attribute of Event to search
 		
@@ -60,7 +57,7 @@ public class Search extends AppCompatActivity {
 			System.err.println("Invalid and/or error with \"searchBy\" value.");
 			System.out.println("Defaulting: Search by tag");
 			
-			String title = "No Matchs for: " + searchTerm;
+			String title = "No Matches for: " + searchTerm;
 			textView.setText(title);
 		}
 		
@@ -82,8 +79,6 @@ public class Search extends AppCompatActivity {
 		return search;
 	}
 	
-	
-	// CHECK: Can probably refactor these two into 1 method
 	private void searchResultName() {
 		FirebaseFirestore db = FirebaseFirestore.getInstance();
 		final ArrayList<Event> arrayOfEvents;
