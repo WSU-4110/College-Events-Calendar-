@@ -42,11 +42,9 @@ public class EventView extends AppCompatActivity {
 		String str_Month = getIntent().getStringExtra("month");
 		String str_Year = getIntent().getStringExtra("year");
 	
-		// REFACTOR (1 of 2)
         displayEventsForSelectedDay(str_Day, str_Month, str_Year);
     }
     
-	// REFACTOR (2 of 2)
     private void displayEventsForSelectedDay(String day, String month, String year) {
     
         TextView title = findViewById(R.id.EventList_HeaderDynamic);
