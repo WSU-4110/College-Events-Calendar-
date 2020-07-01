@@ -58,7 +58,7 @@ public class EventView extends AppCompatActivity {
         																		// [A]
         arrayOfEvents = new ArrayList<>();										// [1]
         adapter = new EventListAdapter(this, arrayOfEvents);					// [2]
-        listView = (ListView) findViewById(R.id.events_listView);				// [3]
+        listView = findViewById(R.id.events_listView);							// [3]
         listView.setAdapter(adapter);											// [4]
 	
 		listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

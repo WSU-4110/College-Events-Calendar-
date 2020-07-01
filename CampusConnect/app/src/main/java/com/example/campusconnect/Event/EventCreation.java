@@ -56,13 +56,13 @@ public class EventCreation extends AppCompatActivity {
 	EditText orgInput;
 	
 	Button submitButton;
-	FirebaseFirestore db = FirebaseFirestore.getInstance();
-	FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 	private static boolean organizer = false;
-	private static boolean databasePreviouslyChecked = false;                   // Flag for if we already checked if user is Organizer
+	private static boolean databasePreviouslyChecked = false;					// TODO: Reset upon login/logout
 	
-	public boolean isOrganizer() {
-		FirebaseFirestore db = FirebaseFirestore.getInstance();
+	private static FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+	
+	public static boolean isOrganizer() {
+		user = FirebaseAuth.getInstance().getCurrentUser();
 		
 		if (user == null) {
 			// Not logged in
@@ -81,7 +81,9 @@ public class EventCreation extends AppCompatActivity {
 	}// [ isOrganizer ]
 	
 	
-	private void updateUserType() {
+	private static void updateUserType() {
+		FirebaseFirestore db = FirebaseFirestore.getInstance();
+		user = FirebaseAuth.getInstance().getCurrentUser();
 		
 		db.collection("Users")
 				.document("Organizers")
@@ -91,22 +93,23 @@ public class EventCreation extends AppCompatActivity {
 				.addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
 					@Override
 					public void onComplete(@NonNull Task<QuerySnapshot> task) {
+						// TODO: Handle isEmpty() poss. NPE
 						if (!task.getResult().isEmpty()) {
 							organizer = true;
 							databasePreviouslyChecked = true;
 						}
 					}
 				});
-	}
+	
+	}// [ updateUserType ]
 	
 	
-	// TODO: Time picker
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.event_creation);
 		
-		mDisplayDate = (TextView) findViewById(R.id.EventDate);
+		mDisplayDate = findViewById(R.id.EventDate);
 		
 		mDisplayDate.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -135,7 +138,7 @@ public class EventCreation extends AppCompatActivity {
 			}
 		};
 		
-		Spinner staticSpinner = (Spinner) findViewById(R.id.tags);
+		Spinner staticSpinner = findViewById(R.id.tags);
 		
 		// Create an ArrayAdapter using the string array and a default spinner
 		ArrayAdapter<CharSequence> staticAdapter = ArrayAdapter
@@ -153,6 +156,8 @@ public class EventCreation extends AppCompatActivity {
 		submitButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				FirebaseFirestore db = FirebaseFirestore.getInstance();
+				
 				EventNameInput = (EditText) findViewById(R.id.EventName);
 				locationInput = (EditText) findViewById(R.id.Location);
 				startTimeInput = (EditText) findViewById(R.id.Time);
