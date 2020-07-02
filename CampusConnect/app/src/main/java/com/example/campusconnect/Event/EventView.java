@@ -122,19 +122,20 @@ class EventListAdapter extends ArrayAdapter<Event>  {
     
     @Override
     public View getView(int position, View convertView, ViewGroup parent){
-        if (convertView == null) {																	// [1]
+    																				// [B]
+        if (convertView == null) {													// [1]
             convertView = LayoutInflater
                     .from(getContext())
                     .inflate(R.layout.list_events, parent, false);
         }
         
-        Event event = getItem(position);															// [2]
+        Event event = getItem(position);											// [2]
 
-        TextView eventName =		(TextView) convertView.findViewById(R.id.list_EventName);		// [3a]
-        TextView eventDate =		(TextView) convertView.findViewById(R.id.list_EventDate);		// [3b]
-        TextView eventLocation =	(TextView) convertView.findViewById(R.id.list_EventLocation);	// [3c]
-        TextView eventTag =			(TextView) convertView.findViewById(R.id.list_EventTag);		// [3d]
-																									// [4]
+        TextView eventName =	 convertView.findViewById(R.id.list_EventName);		// [3a]
+        TextView eventDate =	 convertView.findViewById(R.id.list_EventDate);		// [3b]
+        TextView eventLocation = convertView.findViewById(R.id.list_EventLocation);	// [3c]
+        TextView eventTag =		 convertView.findViewById(R.id.list_EventTag);		// [3d]
+																					// [4]
 		eventName.setText(event.getName());
 
         eventDate.setText("Date:    ");
@@ -146,7 +147,7 @@ class EventListAdapter extends ArrayAdapter<Event>  {
 		eventTag.setText("Tag:    ");
 		eventTag.append(event.tag());
         
-        return convertView;																			// [5]
+        return convertView;															// [5]
     }
 
 }// class [ EventListAdapter ]
