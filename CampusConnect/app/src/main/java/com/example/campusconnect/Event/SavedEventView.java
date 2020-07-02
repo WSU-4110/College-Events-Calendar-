@@ -59,7 +59,7 @@ public class SavedEventView extends AppCompatActivity {
 	
 	
 	private void displayEventsForUser() {
-		TextView title = findViewById(R.id.EventList_HeaderDynamic);
+		TextView title = findViewById(R.id.event_list_dynamic_header);
 		title.setText("Your Saved Events");
 		
 		final ArrayList<Event> arrayOfEvents;
@@ -100,7 +100,7 @@ public class SavedEventView extends AppCompatActivity {
 	
 	
 	private void displayEventsForOrganizer() {
-		TextView title = findViewById(R.id.EventList_HeaderDynamic);
+		TextView title = findViewById(R.id.event_list_dynamic_header);
 		title.setText("Your Created Events");
 		
 		final ArrayList<Event> arrayOfEvents;

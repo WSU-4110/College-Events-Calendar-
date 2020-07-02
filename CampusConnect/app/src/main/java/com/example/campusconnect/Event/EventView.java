@@ -47,7 +47,7 @@ public class EventView extends AppCompatActivity {
     
     private void displayEventsForSelectedDay(String day, String month, String year) {
     
-        TextView title = findViewById(R.id.EventList_HeaderDynamic);
+        TextView title = findViewById(R.id.event_list_dynamic_header);
         title.setText(titleCreator(day, month, year));
         
         FirebaseFirestore db = FirebaseFirestore.getInstance();

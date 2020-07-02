@@ -33,7 +33,7 @@ public class Search extends AppCompatActivity {
 		
 		// TODO: Add minimum letters for search
 		listView = (ListView) findViewById(R.id.events_listView);
-		textView = findViewById(R.id.EventList_HeaderDynamic);
+		textView = findViewById(R.id.event_list_dynamic_header);
 		Button toggleSearchBy = findViewById(R.id.toggleSearchBy);
 		
 		final String searchTerm = getIntent().getStringExtra("result");			// Get exactly what the user typed in
