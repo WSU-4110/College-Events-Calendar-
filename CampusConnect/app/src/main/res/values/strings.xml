@@ -20,7 +20,9 @@
     <string name="toggle_search">Toggle Search</string>
 	<string name="saved_events">Saved Events</string>
 	<string name="today">Today</string>
-	<string-array name="tags_array">
+	<string name="search_tags">Search Tags</string>
+    <string name="search_event_name">Search Event Name</string>
+    <string-array name="tags_array">
         <item>(None)</item>
         <item>Medicine</item>
         <item>Career Fair</item>

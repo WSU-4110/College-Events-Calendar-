@@ -7,10 +7,12 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.campusconnect.MainActivity;
 import com.example.campusconnect.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -33,25 +35,47 @@ public class Search extends AppCompatActivity {
 		
 		// TODO: Add minimum letters for search
 		listView = (ListView) findViewById(R.id.events_listView);
-		Button toggleSearchBy = findViewById(R.id.toggleSearchBy);
+		Button searchEventName = findViewById(R.id.searchEventName);
+		Button searchTag = findViewById(R.id.searchTag);
 		
-		final String searchTerm = getIntent().getStringExtra("result");			// Get exactly what the user typed in
-		final String searchTermUpper = searchTerm.toUpperCase();				// For case-sensitive methods
-		final String searchBy = getIntent().getStringExtra("searchBy");			// What attribute of Event to search
+		final String searchTerm = getIntent().getStringExtra("result");
 		
-		router(searchBy, searchTerm);
-		
-		toggleSearchBy.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				String newSearchBy = searchBy.equals("Tag") ? "EventName" : "Tag";
-				Intent intent = new Intent(getApplicationContext(), Search.class);
-				
-				intent.putExtra("result", searchTermUpper);
-				intent.putExtra("searchBy", newSearchBy);
-				startActivity(intent);
-			}
-		});
+		if (searchTerm == null) {
+			Toast.makeText(Search.this, "No Search Term Entered", Toast.LENGTH_SHORT).show();
+			Intent intent = new Intent(Search.this, MainActivity.class);
+			startActivity(intent);
+		}
+		else {
+			// TODO: Handle null searchTerm better
+			final String searchTermUpper = searchTerm.toUpperCase();
+			final String whatToSearch = getIntent().getStringExtra("whatToSearch");
+			
+			router(whatToSearch, searchTerm);
+			
+			searchEventName.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					String newSearchBy = "EventName";
+					Intent intent = new Intent(getApplicationContext(), Search.class);
+					
+					intent.putExtra("result", searchTermUpper);
+					intent.putExtra("searchBy", newSearchBy);
+					startActivity(intent);
+				}
+			});
+			
+			searchTag.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					String newSearchBy = "Tag";
+					Intent intent = new Intent(getApplicationContext(), Search.class);
+					
+					intent.putExtra("result", searchTermUpper);
+					intent.putExtra("searchBy", newSearchBy);
+					startActivity(intent);
+				}
+			});
+		}
 	}
 	
 	
@@ -62,23 +86,20 @@ public class Search extends AppCompatActivity {
 	}
 	
 	
-	private void router(String method, String search){
-		
-		if (method == null) {
-			System.err.println("No search string received");
-		}
-		else if (method.equals("EventName")) {
-			String title = "Event Names Matching: " + method;
+	private void router(String whatToSearch, String search) {
+		if (whatToSearch.equals("EventName")) {
+			String title = "Event Names Matching: " + whatToSearch;
 			setTitle(title);
 			searchResultName();
 		}
-		else if (method.equals("Tag")) {
-			String title = "Event Tags Matching: " + method;
+		else if (whatToSearch.equals("Tag")) {
+			String title = "Event Tags Matching: " + whatToSearch;
 			setTitle(title);
 			searchResultTag();
 		}
 		else {
-			String title = "No Matches for: " + method;
+			// This block should not be reached (as of 17:25 Jul 7 2020)
+			String title = "No Matches for: " + whatToSearch;
 			setTitle(title);
 		}
 		
@@ -91,6 +112,7 @@ public class Search extends AppCompatActivity {
 	}
 	
 	
+	// TODO(Refactoring/wip): One method for searching. Parameterized which Event attribute to search.
 	private void searchResultName() {
 		FirebaseFirestore db = FirebaseFirestore.getInstance();
 		final ArrayList<Event> arrayOfEvents;
@@ -125,7 +147,7 @@ public class Search extends AppCompatActivity {
 									adapter.add(event);
 								}
 							}
-						}// if(task)
+						}
 					}
 				});
 		
