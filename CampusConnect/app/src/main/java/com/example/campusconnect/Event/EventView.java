@@ -45,6 +45,7 @@ public class EventView extends AppCompatActivity {
         displayEventsForSelectedDay(str_Day, str_Month, str_Year);
     }
     
+    
     private void displayEventsForSelectedDay(String day, String month, String year) {
     
         TextView title = findViewById(R.id.event_list_dynamic_header);
@@ -53,8 +54,7 @@ public class EventView extends AppCompatActivity {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         final ArrayList<Event> arrayOfEvents;
 		final EventListAdapter adapter;
-	
-		String wholeDate = wholeDateBuilder(day, month, year);
+			
         																		// [A]
         arrayOfEvents = new ArrayList<>();										// [1]
         adapter = new EventListAdapter(this, arrayOfEvents);					// [2]
@@ -70,9 +70,10 @@ public class EventView extends AppCompatActivity {
 				startActivity(intent);
 			}
 		});
-        
+	
+		String formattedDate = formattedDateBuilder(day, month, year);
 		db.collection("Events")
-                .whereEqualTo("date", wholeDate)
+                .whereEqualTo("date", formattedDate)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
@@ -102,7 +103,7 @@ public class EventView extends AppCompatActivity {
 	}
 	
 	
-	String wholeDateBuilder(String day, String month, String year){
+	String formattedDateBuilder(String day, String month, String year){
 		// !! NOTE: Jan == 0, Dec == 11 (before adding 1)
 		
 		int monthNumber = Integer.parseInt(month) + 1;
