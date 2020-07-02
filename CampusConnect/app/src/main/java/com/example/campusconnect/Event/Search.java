@@ -62,23 +62,23 @@ public class Search extends AppCompatActivity {
 	}
 	
 	
-	private void router(String method, String search){
+	private void router(String whatToSearch, String search) {
 		
-		if (method == null) {
+		if (whatToSearch == null) {
 			System.err.println("No search string received");
 		}
-		else if (method.equals("EventName")) {
-			String title = "Event Names Matching: " + method;
+		else if (whatToSearch.equals("EventName")) {
+			String title = "Event Names Matching: " + whatToSearch;
 			setTitle(title);
 			searchResultName();
 		}
-		else if (method.equals("Tag")) {
-			String title = "Event Tags Matching: " + method;
+		else if (whatToSearch.equals("Tag")) {
+			String title = "Event Tags Matching: " + whatToSearch;
 			setTitle(title);
 			searchResultTag();
 		}
 		else {
-			String title = "No Matches for: " + method;
+			String title = "No Matches for: " + whatToSearch;
 			setTitle(title);
 		}
 		
