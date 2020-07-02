@@ -87,12 +87,12 @@ public class EventDetailedView extends AppCompatActivity {
 			String emptyName = "EventNameNotProvided";
 			EventNameInput.setText(emptyName);
 		}
-		locationInput.setText(event.location());
-		startTimeInput.setText(event.startTime());
+		locationInput.setText(event.getLocation());
+		startTimeInput.setText(event.getStartTime());
 		dateInput.setText(event.getDate());
-		descInput.setText(event.desc());
+		descInput.setText(event.getDesc());
 		orgInput.setText(event.getOrg());
-		OrgUidInput.setText(event.orgUid());
+		OrgUidInput.setText(event.getOrgUid());
 		tagInput.setText(event.tag());
 		
 		floating_toSavedEvents = findViewById(R.id.floating_back_button);

@@ -140,7 +140,7 @@ class EventListAdapter extends ArrayAdapter<Event>  {
         eventDate.append(event.getDate());
 
         eventLocation.setText("Location:    ");
-        eventLocation.append(event.location());
+        eventLocation.append(event.getLocation());
 	
 		eventTag.setText("Tag:    ");
 		eventTag.append(event.tag());

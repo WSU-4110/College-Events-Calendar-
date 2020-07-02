@@ -167,7 +167,7 @@ class SavedEventListAdapter extends ArrayAdapter<Event> {
 		eventDate.append(event.getDate());
 		
 		eventLocation.setText("Location:    ");
-		eventLocation.append(event.location());
+		eventLocation.append(event.getLocation());
 		
 		return convertView;
 	}

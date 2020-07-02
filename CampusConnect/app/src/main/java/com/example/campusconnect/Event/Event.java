@@ -75,14 +75,14 @@ public class Event implements Parcelable {
 	public String getOrg() { return org; }
 	public void setName(String name) { this.name = name; }
 	public void setOrg(String org) { this.org = org; }
+	void setUid(String uid) { this.uid = uid; }
 	
 	// Package-private methods
-	String location() { return location; }
-	String startTime() { return startTime; }
-	String desc() { return desc; }
-	String UID() { return uid; }
-	String orgUid() { return OrgUid; }
-	void setUid(String uid) { this.uid = uid; }
+	public String getLocation() { return location; }
+	public String getStartTime() { return startTime; }
+	public String getDesc() { return desc; }
+	public String getUID() { return uid; }
+	public String getOrgUid() { return OrgUid; }
 //@formatter:ON
 	
 	public String toString() {

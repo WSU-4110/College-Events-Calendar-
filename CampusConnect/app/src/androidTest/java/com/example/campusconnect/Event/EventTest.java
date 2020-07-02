@@ -72,14 +72,14 @@ public class EventTest {
     public void testConstructor(){
         Event event1 = new Event("5","John","detroit","6:00",
                 "12/12/2012","The Devs", "fun","12345","Sports");
-        assertEquals("5", event1.UID());
+        assertEquals("5", event1.getUID());
         assertEquals("John", event1.getName());
-        assertEquals("detroit", event1.location());
-        assertEquals("6:00", event1.startTime());
+        assertEquals("detroit", event1.getLocation());
+        assertEquals("6:00", event1.getStartTime());
         assertEquals("12/12/2012", event1.getDate());
         assertEquals("The Devs", event1.getOrg());
-        assertEquals("fun", event1.desc());
-        assertEquals("12345", event1.orgUid());
+        assertEquals("fun", event1.getDesc());
+        assertEquals("12345", event1.getOrgUid());
         assertEquals("Sports", event1.tag());
 
     }
@@ -89,14 +89,14 @@ public class EventTest {
         Event event1 = new Event("5","John","detroit","6:00",
                 "12/12/2012","The Devs", "fun","12345","Sports");
         event1.setUid("3");
-        assertEquals("3",event1.UID());
+        assertEquals("3",event1.getUID());
     }
 
     @Test
     public void testGetUid(){
         Event event1 = new Event("5","John","detroit","6:00",
                 "12/12/2012","The Devs", "fun","12345","Sports");
-        String testUid = event1.UID();
+        String testUid = event1.getUID();
         assertEquals("5",testUid);
     }
 
