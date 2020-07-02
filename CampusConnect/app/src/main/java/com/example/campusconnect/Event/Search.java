@@ -28,6 +28,7 @@ public class Search extends AppCompatActivity {
 	ListView listView;
 	private TextView textView;
 	
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -90,12 +91,12 @@ public class Search extends AppCompatActivity {
 		if (whatToSearch.equals("EventName")) {
 			String title = "Event Names Matching: " + searchTerm;
 			setTitle(title);
-			searchEventName();
+			searchEventName(searchTerm);
 		}
 		else if (whatToSearch.equals("Tag")) {
 			String title = "Event Tags Matching: " + searchTerm;
 			setTitle(title);
-			searchEventTag();
+			searchEventTag(searchTerm);
 		}
 		else {
 			// This block should not be reached (as of 17:25 Jul 7 2020)
@@ -113,11 +114,11 @@ public class Search extends AppCompatActivity {
 	
 	
 	// TODO(Refactoring/wip): One method for searching. Parameterized which Event attribute to search.
-	private void searchEventName() {
+	private void searchEventName(String searchTermReceived) {
 		FirebaseFirestore db = FirebaseFirestore.getInstance();
 		final ArrayList<Event> arrayOfEvents;
 		final EventListAdapter adapter;
-		final String searchTerm = getIntent().getStringExtra("result");
+		final String searchTerm = searchTermReceived;
 		
 		arrayOfEvents = new ArrayList<>();										// [1]
 		adapter = new EventListAdapter(this, arrayOfEvents);					// [2]
@@ -151,14 +152,14 @@ public class Search extends AppCompatActivity {
 					}
 				});
 		
-	}// [ searchResultName ]
+	}// [ searchEventName ]
 	
 	
-	private void searchEventTag() {
+	private void searchEventTag(String searchTermReceived) {
 		FirebaseFirestore db = FirebaseFirestore.getInstance();
 		final ArrayList<Event> arrayOfEvents;
 		final EventListAdapter adapter;
-		final String searchTerm = getIntent().getStringExtra("result");
+		final String searchTerm = searchTermReceived;
 		
 		arrayOfEvents = new ArrayList<>();										// [1]
 		adapter = new EventListAdapter(this, arrayOfEvents);					// [2]
@@ -195,7 +196,8 @@ public class Search extends AppCompatActivity {
 						}
 					}
 				});
-	}
+		
+	}// [ searchEventTag ]
 	
 	
 	private boolean checkForMatch(String eventAttribute, String searchTerm) {
