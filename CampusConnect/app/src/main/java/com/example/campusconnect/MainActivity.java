@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
 		setSupportActionBar(toolbar);
 		getSupportActionBar().setTitle("Home");
 		
-		calendar.setFirstDayOfWeek(1);                                          // Set Saturday First day of week
+		calendar.setFirstDayOfWeek(1);                                          // Set Saturday as first day of week
 		monthTitle.setText(dateTitleHelper());
 		
 		populateEventIndicators();
@@ -101,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
 	private String dateTitleHelper() {
 		Date currentDate;
 		Calendar cal;
-		String[] monthName;
+		String monthName;
 		int monthInteger;
 		int year;
 		
@@ -109,25 +109,32 @@ public class MainActivity extends AppCompatActivity {
 			return " ";
 		}
 		
-		monthName = new String[]{
-				"January", "February", "March",
-				"April", "May", "June",
-				"July", "August", "September",
-				"October", "November", "December"};
-		
 		currentDate = calendar.getFirstDayOfCurrentMonth();
 		cal = Calendar.getInstance();
 		cal.setTime(currentDate);
 		
 		year = cal.get(Calendar.YEAR);
 		monthInteger = cal.get(Calendar.MONTH);
+		monthName = monthName(monthInteger);
 		
 		// Only print year if not 2020
 		if (year != 2020)
-			return String.format("%s, %d", monthName[monthInteger], year);
+			return String.format("%s, %d", monthName, year);
 		else
-			return String.format("%s", monthName[monthInteger]);
+			return String.format("%s", monthName);
+		
 	}// [ dateTitleHelper ]
+	
+	
+	private String monthName(int monthNumber){
+		String[] monthName = {
+				"January", "February", "March",
+				"April", "May", "June",
+				"July", "August", "September",
+				"October", "November", "December"};
+		
+		return monthName[monthNumber];
+	}
 	
 	
 	public void openEventView(Date dateClicked) {
@@ -142,7 +149,6 @@ public class MainActivity extends AppCompatActivity {
 		String stringMonth = String.valueOf(calClicked.get(Calendar.MONTH));
 		String stringYear = String.valueOf(calClicked.get(Calendar.YEAR));
 		
-		// TODO: Look into switching to a Date object parameter vs individual Strings
 		intent.putExtra("day", stringDay);
 		intent.putExtra("month", stringMonth);
 		intent.putExtra("year", stringYear);

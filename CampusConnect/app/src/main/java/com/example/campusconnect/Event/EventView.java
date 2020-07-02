@@ -45,16 +45,16 @@ public class EventView extends AppCompatActivity {
         displayEventsForSelectedDay(str_Day, str_Month, str_Year);
     }
     
+    
     private void displayEventsForSelectedDay(String day, String month, String year) {
     
-        TextView title = findViewById(R.id.EventList_HeaderDynamic);
+        TextView title = findViewById(R.id.event_list_dynamic_header);
         title.setText(titleCreator(day, month, year));
         
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         final ArrayList<Event> arrayOfEvents;
 		final EventListAdapter adapter;
-	
-		String wholeDate = wholeDateBuilder(day, month, year);
+			
         																		// [A]
         arrayOfEvents = new ArrayList<>();										// [1]
         adapter = new EventListAdapter(this, arrayOfEvents);					// [2]
@@ -70,9 +70,10 @@ public class EventView extends AppCompatActivity {
 				startActivity(intent);
 			}
 		});
-        
+	
+		String formattedDate = formattedDateBuilder(day, month, year);
 		db.collection("Events")
-                .whereEqualTo("date", wholeDate)
+                .whereEqualTo("date", formattedDate)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
@@ -102,7 +103,7 @@ public class EventView extends AppCompatActivity {
 	}
 	
 	
-	String wholeDateBuilder(String day, String month, String year){
+	String formattedDateBuilder(String day, String month, String year){
 		// !! NOTE: Jan == 0, Dec == 11 (before adding 1)
 		
 		int monthNumber = Integer.parseInt(month) + 1;
@@ -121,19 +122,20 @@ class EventListAdapter extends ArrayAdapter<Event>  {
     
     @Override
     public View getView(int position, View convertView, ViewGroup parent){
-        if (convertView == null) {																	// [1]
+    																				// [B]
+        if (convertView == null) {													// [1]
             convertView = LayoutInflater
                     .from(getContext())
                     .inflate(R.layout.list_events, parent, false);
         }
         
-        Event event = getItem(position);															// [2]
+        Event event = getItem(position);											// [2]
 
-        TextView eventName =		(TextView) convertView.findViewById(R.id.list_EventName);		// [3a]
-        TextView eventDate =		(TextView) convertView.findViewById(R.id.list_EventDate);		// [3b]
-        TextView eventLocation =	(TextView) convertView.findViewById(R.id.list_EventLocation);	// [3c]
-        TextView eventTag =			(TextView) convertView.findViewById(R.id.list_EventTag);		// [3d]
-																									// [4]
+        TextView eventName =	 convertView.findViewById(R.id.list_EventName);		// [3a]
+        TextView eventDate =	 convertView.findViewById(R.id.list_EventDate);		// [3b]
+        TextView eventLocation = convertView.findViewById(R.id.list_EventLocation);	// [3c]
+        TextView eventTag =		 convertView.findViewById(R.id.list_EventTag);		// [3d]
+																					// [4]
 		eventName.setText(event.getName());
 
         eventDate.setText("Date:    ");
@@ -145,7 +147,7 @@ class EventListAdapter extends ArrayAdapter<Event>  {
 		eventTag.setText("Tag:    ");
 		eventTag.append(event.tag());
         
-        return convertView;																			// [5]
+        return convertView;															// [5]
     }
 
 }// class [ EventListAdapter ]

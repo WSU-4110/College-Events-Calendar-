@@ -5,7 +5,6 @@ import android.widget.TextView;
 
 import com.example.campusconnect.R;
 
-import org.junit.Assert;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -25,7 +24,7 @@ public class EventViewTest {
     @Test
     public void wholeDateBuilder_Full() {
         EventView valDateBuilder = new EventView();
-        assertEquals("4/15/2020", new EventView().wholeDateBuilder("15","03","2020"));
+        assertEquals("4/15/2020", new EventView().formattedDateBuilder("15","03","2020"));
     }
     
     @Test
@@ -43,7 +42,7 @@ public class EventViewTest {
     
     @Test
     public void test_titleCreator_blankInfoDoesNotCrashApp() {
-        assertNotNull(new EventView().wholeDateBuilder(" "," "," "));
+        assertNotNull(new EventView().formattedDateBuilder(" "," "," "));
     }
     
     @Test
