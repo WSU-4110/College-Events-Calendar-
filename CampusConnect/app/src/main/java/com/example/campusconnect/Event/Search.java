@@ -33,33 +33,13 @@ public class Search extends AppCompatActivity {
 		
 		// TODO: Add minimum letters for search
 		listView = (ListView) findViewById(R.id.events_listView);
-		textView = findViewById(R.id.event_list_dynamic_header);
 		Button toggleSearchBy = findViewById(R.id.toggleSearchBy);
 		
 		final String searchTerm = getIntent().getStringExtra("result");			// Get exactly what the user typed in
 		final String searchTermUpper = searchTerm.toUpperCase();				// For case-sensitive methods
 		final String searchBy = getIntent().getStringExtra("searchBy");			// What attribute of Event to search
 		
-		if (searchBy == null) {
-			System.err.println("No search string received");
-		}
-		else if (searchBy.equals("EventName")) {
-			String title = "Event Names Matching: " + searchTerm;
-			textView.setText(title);
-			searchResultName();
-		}
-		else if (searchBy.equals("Tag")) {
-			String title = "Event Tags Matching: " + searchTerm;
-			textView.setText(title);
-			searchResultTag();
-		}
-		else {
-			System.err.println("Invalid and/or error with \"searchBy\" value.");
-			System.out.println("Defaulting: Search by tag");
-			
-			String title = "No Matches for: " + searchTerm;
-			textView.setText(title);
-		}
+		router(searchBy, searchTerm);
 		
 		toggleSearchBy.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -74,10 +54,42 @@ public class Search extends AppCompatActivity {
 		});
 	}
 	
+	
+	private void setTitle(String title){
+		textView = findViewById(R.id.event_list_dynamic_header);
+		
+		textView.setText(title);
+	}
+	
+	
+	private void router(String method, String search){
+		
+		if (method == null) {
+			System.err.println("No search string received");
+		}
+		else if (method.equals("EventName")) {
+			String title = "Event Names Matching: " + method;
+			setTitle(title);
+			searchResultName();
+		}
+		else if (method.equals("Tag")) {
+			String title = "Event Tags Matching: " + method;
+			setTitle(title);
+			searchResultTag();
+		}
+		else {
+			String title = "No Matches for: " + method;
+			setTitle(title);
+		}
+		
+	}// [ router ]
+	
+	
 	public static String returnExtraString(String search) {
 		search = search + " ";
 		return search;
 	}
+	
 	
 	private void searchResultName() {
 		FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -116,7 +128,9 @@ public class Search extends AppCompatActivity {
 						}// if(task)
 					}
 				});
-	}
+		
+	}// [ searchResultName ]
+	
 	
 	private void searchResultTag() {
 		FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -160,6 +174,7 @@ public class Search extends AppCompatActivity {
 					}
 				});
 	}
+	
 	
 	private boolean checkForMatch(String eventAttribute, String searchTerm) {
 		String attribute = eventAttribute.toUpperCase();
