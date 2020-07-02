@@ -38,7 +38,7 @@ public class Search extends AppCompatActivity {
 		Button searchEventName = findViewById(R.id.searchEventName);
 		Button searchTag = findViewById(R.id.searchTag);
 		
-		final String searchTerm = getIntent().getStringExtra("result");
+		final String searchTerm = getIntent().getStringExtra("searchTerm");
 		
 		if (searchTerm == null) {
 			Toast.makeText(Search.this, "No Search Term Entered", Toast.LENGTH_SHORT).show();
@@ -55,11 +55,11 @@ public class Search extends AppCompatActivity {
 			searchEventName.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View v) {
-					String newSearchBy = "EventName";
+					String newWhatToSearch = "EventName";
 					Intent intent = new Intent(getApplicationContext(), Search.class);
 					
-					intent.putExtra("result", searchTermUpper);
-					intent.putExtra("searchBy", newSearchBy);
+					intent.putExtra("searchTerm", searchTermUpper);
+					intent.putExtra("whatToSearch", newWhatToSearch);
 					startActivity(intent);
 				}
 			});
@@ -67,11 +67,11 @@ public class Search extends AppCompatActivity {
 			searchTag.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View v) {
-					String newSearchBy = "Tag";
+					String newWhatToSearch = "Tag";
 					Intent intent = new Intent(getApplicationContext(), Search.class);
 					
-					intent.putExtra("result", searchTermUpper);
-					intent.putExtra("searchBy", newSearchBy);
+					intent.putExtra("searchTerm", searchTermUpper);
+					intent.putExtra("whatToSearch", newWhatToSearch);
 					startActivity(intent);
 				}
 			});
@@ -86,20 +86,20 @@ public class Search extends AppCompatActivity {
 	}
 	
 	
-	private void router(String whatToSearch, String search) {
+	private void router(String whatToSearch, String searchTerm) {
 		if (whatToSearch.equals("EventName")) {
-			String title = "Event Names Matching: " + whatToSearch;
+			String title = "Event Names Matching: " + searchTerm;
 			setTitle(title);
-			searchResultName();
+			searchEventName();
 		}
 		else if (whatToSearch.equals("Tag")) {
-			String title = "Event Tags Matching: " + whatToSearch;
+			String title = "Event Tags Matching: " + searchTerm;
 			setTitle(title);
-			searchResultTag();
+			searchEventTag();
 		}
 		else {
 			// This block should not be reached (as of 17:25 Jul 7 2020)
-			String title = "No Matches for: " + whatToSearch;
+			String title = "No Matches for: " + searchTerm;
 			setTitle(title);
 		}
 		
@@ -113,7 +113,7 @@ public class Search extends AppCompatActivity {
 	
 	
 	// TODO(Refactoring/wip): One method for searching. Parameterized which Event attribute to search.
-	private void searchResultName() {
+	private void searchEventName() {
 		FirebaseFirestore db = FirebaseFirestore.getInstance();
 		final ArrayList<Event> arrayOfEvents;
 		final EventListAdapter adapter;
@@ -154,7 +154,7 @@ public class Search extends AppCompatActivity {
 	}// [ searchResultName ]
 	
 	
-	private void searchResultTag() {
+	private void searchEventTag() {
 		FirebaseFirestore db = FirebaseFirestore.getInstance();
 		final ArrayList<Event> arrayOfEvents;
 		final EventListAdapter adapter;
