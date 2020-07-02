@@ -172,7 +172,7 @@ public class MainActivity extends AppCompatActivity {
 		switch (itemID) {
 			default:
 				return false;
-			
+				
 			case R.id.newEvent:
 				if (EventCreation.isOrganizer()) {
 					intent = new Intent(this, EventCreation.class);

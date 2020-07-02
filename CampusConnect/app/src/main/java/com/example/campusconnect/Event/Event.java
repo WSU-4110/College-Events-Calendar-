@@ -7,7 +7,8 @@ import java.util.Calendar;
 
 public class Event implements Parcelable {
 	
-	// Replace "String date" with "Date date"
+	// TODO: Replace (date: String) with Date
+	// TODO: Do similar for start time
 	private String name;
 	private String location;
 	private String startTime;
