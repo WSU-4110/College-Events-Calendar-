@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
 				monthTitle.setText(dateTitleHelper());
 			}
 		});
-
+		
 		buttonSavedEvents.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -126,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
 	}// [ dateTitleHelper ]
 	
 	
-	private String monthName(int monthNumber){
+	private String monthName(int monthNumber) {
 		String[] monthName = {
 				"January", "February", "March",
 				"April", "May", "June",
@@ -178,7 +178,7 @@ public class MainActivity extends AppCompatActivity {
 		switch (itemID) {
 			default:
 				return false;
-				
+			
 			case R.id.newEvent:
 				if (EventCreation.isOrganizer()) {
 					intent = new Intent(this, EventCreation.class);
@@ -216,10 +216,15 @@ public class MainActivity extends AppCompatActivity {
 				new SearchView.OnQueryTextListener() {
 					@Override
 					public boolean onQueryTextSubmit(String query) {
-						Intent intent = new Intent(getApplicationContext(), Search.class);
-						intent.putExtra("searchTerm", query);
-						intent.putExtra("whatToSearch", "EventName");
-						startActivity(intent);
+						if (query.length() > 2) {
+							Intent intent = new Intent(getApplicationContext(), Search.class);
+							intent.putExtra("searchTerm", query);
+							intent.putExtra("whatToSearch", "EventName");
+							startActivity(intent);
+						}
+						else{
+							Toast.makeText(MainActivity.this, "Search too Short", Toast.LENGTH_SHORT).show();
+						}
 						return false;
 					}
 					
