@@ -16,6 +16,7 @@ import com.example.campusconnect.MainActivity;
 import com.example.campusconnect.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -38,6 +39,7 @@ public class Search extends AppCompatActivity {
 		listView = (ListView) findViewById(R.id.events_listView);
 		Button searchEventName = findViewById(R.id.searchEventName);
 		Button searchTag = findViewById(R.id.searchTag);
+		FloatingActionButton returnToHome = findViewById(R.id.returnToHome);
 		
 		final String searchTerm = getIntent().getStringExtra("searchTerm");
 		
@@ -72,6 +74,14 @@ public class Search extends AppCompatActivity {
 					
 					intent.putExtra("searchTerm", searchTerm);
 					intent.putExtra("whatToSearch", newWhatToSearch);
+					startActivity(intent);
+				}
+			});
+			
+			returnToHome.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					Intent intent = new Intent(getApplicationContext(), MainActivity.class);
 					startActivity(intent);
 				}
 			});
