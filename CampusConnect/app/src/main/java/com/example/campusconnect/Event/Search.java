@@ -48,7 +48,6 @@ public class Search extends AppCompatActivity {
 		}
 		else {
 			// TODO: Handle null searchTerm better
-			final String searchTermUpper = searchTerm.toUpperCase();
 			final String whatToSearch = getIntent().getStringExtra("whatToSearch");
 			
 			router(whatToSearch, searchTerm);
@@ -59,7 +58,7 @@ public class Search extends AppCompatActivity {
 					String newWhatToSearch = "EventName";
 					Intent intent = new Intent(getApplicationContext(), Search.class);
 					
-					intent.putExtra("searchTerm", searchTermUpper);
+					intent.putExtra("searchTerm", searchTerm);
 					intent.putExtra("whatToSearch", newWhatToSearch);
 					startActivity(intent);
 				}
@@ -71,7 +70,7 @@ public class Search extends AppCompatActivity {
 					String newWhatToSearch = "Tag";
 					Intent intent = new Intent(getApplicationContext(), Search.class);
 					
-					intent.putExtra("searchTerm", searchTermUpper);
+					intent.putExtra("searchTerm", searchTerm);
 					intent.putExtra("whatToSearch", newWhatToSearch);
 					startActivity(intent);
 				}
@@ -114,6 +113,7 @@ public class Search extends AppCompatActivity {
 	
 	
 	// TODO(Refactoring/wip): One method for searching. Parameterized which Event attribute to search.
+	// TODO(SearchFunctionalityUpdating/wip): Drop-down menu for available Event attributes that can be searched.
 	private void searchEventName(String searchTermReceived) {
 		FirebaseFirestore db = FirebaseFirestore.getInstance();
 		final ArrayList<Event> arrayOfEvents;

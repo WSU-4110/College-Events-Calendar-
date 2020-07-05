@@ -177,4 +177,7 @@ public class Event implements Parcelable {
 		dest.writeString(tag);
 	}
 	
+	// public String[] attributesThatCanBeSearched
+	//		Return a list of attributes for Search (xml Spinner)
+	
 }// class [ Event ]
