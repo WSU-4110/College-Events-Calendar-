@@ -219,12 +219,13 @@ public class MainActivity extends AppCompatActivity {
 						if (query.length() > 2) {
 							Intent intent = new Intent(getApplicationContext(), Search.class);
 							intent.putExtra("searchTerm", query);
-							intent.putExtra("whatToSearch", "EventName");
+							intent.putExtra("whatToSearch", "All");
 							startActivity(intent);
 						}
-						else{
+						else {
 							Toast.makeText(MainActivity.this, "Search too Short", Toast.LENGTH_SHORT).show();
 						}
+						
 						return false;
 					}
 					
