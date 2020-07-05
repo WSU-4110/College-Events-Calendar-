@@ -159,11 +159,11 @@ public class Event implements Parcelable {
 	}
 	
 	
-	
 	@Override
 	public int describeContents() {
 		return 0;
 	}
+	
 	
 	@Override
 	public void writeToParcel(Parcel dest, int flags) {
@@ -177,6 +177,27 @@ public class Event implements Parcelable {
 		dest.writeString(uid);
 		dest.writeString(OrgUid);
 		dest.writeString(tag);
+	}
+	
+	// TODO (SearchFunctionality/wip): Add method for searching numerical values (e.g. date or start time)
+	public boolean contains(String searchTerm){
+		searchTerm = searchTerm.toUpperCase();
+		String upperName = this.name.toUpperCase();
+		String upperLocation = this.location.toUpperCase();
+		String upperDescription = this.desc.toUpperCase();
+//		String upperTag = this.tag.toUpperCase();
+		
+		boolean nameMatch = upperName.contains(searchTerm);
+		boolean locationMatch = upperLocation.contains(searchTerm);
+		boolean descMatch = upperDescription.contains(searchTerm);
+//		boolean tagsMatch = upperTag.contains(searchTerm);
+		
+		
+		return
+			nameMatch ||
+			locationMatch ||
+			descMatch;
+//			tagsMatch;
 	}
 	
 	// public String[] attributesThatCanBeSearched

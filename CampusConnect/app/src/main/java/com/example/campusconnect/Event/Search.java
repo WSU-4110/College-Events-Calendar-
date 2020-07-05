@@ -97,20 +97,31 @@ public class Search extends AppCompatActivity {
 	
 	
 	private void router(String whatToSearch, String searchTerm) {
-		if (whatToSearch.equals("EventName")) {
-			String title = "Event Names Matching: " + searchTerm;
-			setTitle(title);
-			searchEventName(searchTerm);
-		}
-		else if (whatToSearch.equals("Tag")) {
-			String title = "Event Tags Matching: " + searchTerm;
-			setTitle(title);
-			searchEventTag(searchTerm);
-		}
-		else {
-			// This block should not be reached (as of 17:25 Jul 7 2020)
-			String title = "No Matches for: " + searchTerm;
-			setTitle(title);
+		switch (whatToSearch) {
+			case "All": {
+				String title = "Events Matchin: " + searchTerm;
+				setTitle(title);
+				searchAll(searchTerm);
+				break;
+			}
+			case "EventName": {
+				String title = "Event Names Matching: " + searchTerm;
+				setTitle(title);
+				searchEventName(searchTerm);
+				break;
+			}
+			case "Tag": {
+				String title = "Event Tags Matching: " + searchTerm;
+				setTitle(title);
+				searchEventTag(searchTerm);
+				break;
+			}
+			default: {
+				// This block should not be reached (as of 17:25 Jul 7 2020)
+				String title = "No Matches for: " + searchTerm;
+				setTitle(title);
+				break;
+			}
 		}
 		
 	}// [ router ]
@@ -124,6 +135,47 @@ public class Search extends AppCompatActivity {
 	
 	// TODO(Refactoring/wip): One method for searching. Parameterized which Event attribute to search.
 	// TODO(SearchFunctionalityUpdating/wip): Drop-down menu for available Event attributes that can be searched.
+	
+	private void searchAll(final String searchTermReceived){
+		FirebaseFirestore db = FirebaseFirestore.getInstance();
+		final ArrayList<Event> arrayOfEvents;
+		final EventListAdapter adapter;
+		final String searchTerm = searchTermReceived;
+		
+		arrayOfEvents = new ArrayList<>();
+		adapter = new EventListAdapter(this, arrayOfEvents);
+		listView = (ListView) findViewById(R.id.events_listView);
+		listView.setAdapter(adapter);
+		
+		listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+			public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
+				Event event = (Event) listView.getAdapter().getItem(position);
+				Intent intent = new Intent(getApplicationContext(), EventDetailedView.class);
+				intent.putExtra("Event", event.toString());
+				startActivity(intent);
+			}
+		});
+		
+		db.collection("Events")
+				.get()
+				.addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+					@Override
+					public void onComplete(@NonNull Task<QuerySnapshot> task) {
+						if (task.isSuccessful()) {
+							for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
+								Event event = (Event) document.toObject(Event.class);
+								String eventName = event.getName();
+								
+								if (event.contains(searchTerm)) {
+									adapter.add(event);
+								}
+							}
+						}
+					}
+				});
+		
+	}
+	
 	private void searchEventName(String searchTermReceived) {
 		FirebaseFirestore db = FirebaseFirestore.getInstance();
 		final ArrayList<Event> arrayOfEvents;
