@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,11 +36,11 @@ public class Search extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.event_view);
 		
-		// TODO: Add minimum letters for search
+		// TODO: Hide buttons dependent on application context (e.g. Search vs EventView)
 		listView = (ListView) findViewById(R.id.events_listView);
 		Button searchEventName = findViewById(R.id.searchEventName);
 		Button searchTag = findViewById(R.id.searchTag);
-		Button returnToHome = findViewById(R.id.returnToHome);
+		ImageButton returnToHome = findViewById(R.id.returnToHome);
 		
 		final String searchTerm = getIntent().getStringExtra("searchTerm");
 		
@@ -81,12 +82,13 @@ public class Search extends AppCompatActivity {
 			returnToHome.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View v) {
-					Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+					Intent intent = new Intent(Search.this, MainActivity.class);
 					startActivity(intent);
 				}
 			});
 		}
-	}
+	
+	}// [ onCreate ]
 	
 	
 	private void setTitle(String title){
