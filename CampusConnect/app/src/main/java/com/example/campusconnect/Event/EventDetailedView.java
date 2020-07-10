@@ -77,6 +77,7 @@ public class EventDetailedView extends AppCompatActivity {
 		OrgUidInput = findViewById(R.id.OrgUid);
 		tagInput = findViewById(R.id.Tags); //tbd
 		
+		// CRITICAL: event is null at this point
 		Intent intent = getIntent();
 		Event event = intent.getParcelableExtra("Event Parcel");
 		
@@ -88,7 +89,6 @@ public class EventDetailedView extends AppCompatActivity {
 			EventNameInput.setText(emptyName);
 		}
 		
-		// [CURRENT]: NPE when clicking on list of events from search
 		locationInput.setText(event.getLocation());
 		startTimeInput.setText(event.getStartTime());
 		dateInput.setText(event.getDate());
