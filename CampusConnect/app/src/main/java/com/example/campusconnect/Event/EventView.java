@@ -35,7 +35,7 @@ public class EventView extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.event_view);
+        setContentView(R.layout.events_list);
 		listView = (ListView) findViewById(R.id.events_listView);
 	
 		String str_Day = getIntent().getStringExtra("day");
@@ -126,7 +126,7 @@ class EventListAdapter extends ArrayAdapter<Event>  {
         if (convertView == null) {													// [1]
             convertView = LayoutInflater
                     .from(getContext())
-                    .inflate(R.layout.list_events, parent, false);
+                    .inflate(R.layout.events_list_item, parent, false);
         }
         
         Event event = getItem(position);											// [2]

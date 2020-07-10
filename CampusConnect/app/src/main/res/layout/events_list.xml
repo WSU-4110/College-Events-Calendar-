@@ -88,6 +88,6 @@
 
 
 
-    <!-- Forming of actual individual list-items => [ LAYOUT: list_events.xml ] -->
+    <!-- Forming of actual individual list-items => [ LAYOUT: events_list_item.xml ] -->
     <!-- TODO: Review ListView/Scrolling optimization at link below -->
     <!-- https://bit.ly/2TlNLRq -->

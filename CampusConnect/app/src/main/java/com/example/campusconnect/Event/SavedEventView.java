@@ -40,7 +40,7 @@ public class SavedEventView extends AppCompatActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.event_view);
+		setContentView(R.layout.events_list);
 		listView = (ListView) findViewById(R.id.events_listView);
 		
 		user = FirebaseAuth.getInstance().getCurrentUser();
@@ -151,7 +151,7 @@ class SavedEventListAdapter extends ArrayAdapter<Event> {
 		if (convertView == null) {
 			convertView = LayoutInflater
 					.from(getContext())
-					.inflate(R.layout.list_events, parent, false);
+					.inflate(R.layout.events_list_item, parent, false);
 		}
 		
 		Event event = getItem(position);
