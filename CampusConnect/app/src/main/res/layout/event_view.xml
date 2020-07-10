@@ -45,26 +45,26 @@
     </ListView>
     
     <Button
-            android:id="@+id/searchEventName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="116dp"
-            android:text="@string/search_event_name"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/searchTag"
-            app:layout_constraintHorizontal_bias="0.414"
-            app:layout_constraintStart_toStartOf="parent" />
-    
-    <Button
             android:id="@+id/searchTag"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="261dp"
-            android:layout_marginBottom="116dp"
+            android:layout_marginBottom="64dp"
             android:text="@string/search_tags"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_bias="0.529"
+            app:layout_constraintStart_toStartOf="parent" />
+    
+    <Button
+            android:id="@+id/searchEventName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="64dp"
+            android:text="@string/search_event_name"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/searchTag"
+            app:layout_constraintHorizontal_bias="0.83"
             app:layout_constraintStart_toStartOf="parent" />
     
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -75,11 +75,11 @@
             android:layout_marginBottom="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.961"
+            app:layout_constraintHorizontal_bias="0.047"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.963"
-            app:srcCompat="@android:drawable/stat_notify_more" />
+            app:layout_constraintVertical_bias="0.939"
+            app:srcCompat="@android:drawable/ic_menu_back" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
