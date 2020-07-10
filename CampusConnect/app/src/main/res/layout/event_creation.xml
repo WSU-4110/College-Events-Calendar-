@@ -39,7 +39,7 @@
 						android:textStyle="bold" />
 				
 				<EditText
-						android:id="@+id/Location"
+						android:id="@+id/LocationField"
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
 						android:ems="10"
@@ -67,7 +67,7 @@
 						android:textStyle="bold" />
 				
 				<EditText
-						android:id="@+id/Time"
+						android:id="@+id/StartTimeField"
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
 						android:ems="10"
@@ -91,7 +91,7 @@
 						android:textStyle="bold" />
 				
 				<EditText
-						android:id="@+id/EventName"
+						android:id="@+id/EventNameField"
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
 						android:ems="10"
@@ -140,7 +140,7 @@
 						android:textStyle="bold" />
 				
 				<EditText
-						android:id="@+id/Description"
+						android:id="@+id/DescriptionField"
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
 						android:ems="10"

@@ -17,7 +17,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 
 import com.example.campusconnect.MainActivity;
 import com.example.campusconnect.R;
@@ -166,11 +165,11 @@ public class EventCreation extends AppCompatActivity {
 			public void onClick(View v) {
 				FirebaseFirestore db = FirebaseFirestore.getInstance();
 				
-				EventNameInput = (EditText) findViewById(R.id.EventName);
-				locationInput = (EditText) findViewById(R.id.Location);
-				startTimeInput = (EditText) findViewById(R.id.Time);
+				EventNameInput = (EditText) findViewById(R.id.EventNameField);
+				locationInput = (EditText) findViewById(R.id.LocationField);
+				startTimeInput = (EditText) findViewById(R.id.StartTimeField);
 				dateInput = (EditText) findViewById(R.id.EventDate);
-				descInput = (EditText) findViewById(R.id.Description);
+				descInput = (EditText) findViewById(R.id.DescriptionField);
 				orgInput = (EditText) findViewById(R.id.Organization);
 				Spinner spinner = (Spinner) findViewById(R.id.tags);
 				

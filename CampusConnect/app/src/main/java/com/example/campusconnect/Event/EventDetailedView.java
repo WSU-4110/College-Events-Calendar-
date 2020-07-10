@@ -68,14 +68,14 @@ public class EventDetailedView extends AppCompatActivity {
 		delete = (Button) findViewById(R.id.delete);
 		unfollow = (Button) findViewById(R.id.unfollow);
 		
-		EventNameInput = findViewById(R.id.EventName);
-		locationInput = findViewById(R.id.Location);
-		startTimeInput = findViewById(R.id.Time);
+		EventNameInput = findViewById(R.id.EventNameField);
+		locationInput = findViewById(R.id.LocationField);
+		startTimeInput = findViewById(R.id.StartTimeField);
 		dateInput = findViewById(R.id.EventDate);
-		descInput = findViewById(R.id.Description);
+		descInput = findViewById(R.id.DescriptionField);
 		orgInput = findViewById(R.id.Organization);
 		OrgUidInput = findViewById(R.id.OrgUid);
-		tagInput = findViewById(R.id.Tags); //tbd
+		tagInput = findViewById(R.id.TagsField); //tbd
 		
 		Intent intent = getIntent();
 		Event event = intent.getParcelableExtra("Event Parcel");
@@ -97,9 +97,9 @@ public class EventDetailedView extends AppCompatActivity {
 		tagInput.setText(event.tag());
 		
 		floating_toSavedEvents = findViewById(R.id.floating_back_button);
-		whatsappImg = findViewById(R.id.whatsapplogo);
-		twitterImg = findViewById(R.id.twitterlogo);
-		facebookImg = findViewById(R.id.fblogo);
+		whatsappImg = findViewById(R.id.whatsapp_logo);
+		twitterImg = findViewById(R.id.twitter_logo);
+		facebookImg = findViewById(R.id.facebook_logo);
 		
 		unfollow.setOnClickListener(new View.OnClickListener() {
 			@Override

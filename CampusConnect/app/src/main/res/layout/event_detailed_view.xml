@@ -1,346 +1,347 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/event_view_layout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#8BC34A">
-    
-    <include
-            
-            layout="@layout/toolbar_main" />
-    
-    <TextView
-            android:id="@+id/textLocation"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="@string/location"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:textColor="#fff"
-            android:textSize="18dp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.065"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.376" />
-    
-    <TextView
-            android:id="@+id/Location"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="@string/location"
-            android:text="@string/location"
-            android:textColor="#fff"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/EventName"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.376" />
-    
-    <TextView
-            android:id="@+id/OrgUid"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="140dp"
-            android:ems="10"
-            android:hint="@string/location"
-            android:textColor="#fff"
-            android:visibility="invisible"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/EventName"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.221" />
-    
-    <TextView
-            android:id="@+id/textstartTime"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="@string/time"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:textColor="#fff"
-            android:textSize="17dp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.065"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.542" />
-    
-    <TextView
-            android:id="@+id/Time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="@string/time"
-            android:text="@string/time"
-            android:textColor="#fff"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/Location"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.542" />
-    
-    <TextView
-            android:id="@+id/textEventName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="@string/event_name"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:textColor="#fff"
-            android:textSize="18dp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.065"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.293" />
-    
-    <TextView
-            android:id="@+id/EventName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="@string/event_name"
-            android:text="@string/event_name"
-            android:textColor="#fff"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.65"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.293" />
-    
-    <TextView
-            android:id="@+id/textDate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="Date  "
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:textColor="#fff"
-            android:textSize="18dp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.065"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.459" />
-    
-    <TextView
-            android:id="@+id/EventDate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="@string/event_date"
-            android:text="date"
-            android:textColor="#fff"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/Time"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.459" />
-    
-    <TextView
-            android:id="@+id/textDesc"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="@string/desc"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:textColor="#fff"
-            android:textSize="18dp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.065"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.625" />
-    
-    <TextView
-            android:id="@+id/Description"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="@string/desc"
-            android:text="@string/desc"
-            android:textColor="#fff"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.65"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.625" />
-    
-    <TextView
-            android:id="@+id/textOrg"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="@string/org"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:textColor="#fff"
-            android:textSize="18dp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.065"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.708" />
-    
-    <TextView
-            android:id="@+id/Organization"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="@string/org"
-            android:text="@string/org"
-            android:textColor="#fff"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.65"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.708" />
-    
-    <TextView
-            android:id="@+id/Tags"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="@string/tags"
-            android:text="@string/tags"
-            android:textColor="#fff"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.65"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.791" />
-    
-    <TextView
-            android:id="@+id/textTags"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="@string/tags"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:textColor="#fff"
-            android:textSize="18dp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.065"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.791" />
-    
-    
-    <TextView
-            android:id="@+id/Campus_Connect"
-            android:layout_width="340dp"
-            android:layout_height="64dp"
-            android:layout_marginTop="64dp"
-            android:ems="10"
-            android:fontFamily="serif-monospace"
-            android:text="@string/goto_event_detailed_view"
-            android:textColor="#fff"
-            android:textSize="32sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
-    
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/floating_back_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.961"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.963"
-            app:srcCompat="@android:drawable/stat_notify_more" />
-    
-    <ImageView
-            android:id="@+id/social_media_panel"
-            android:layout_width="188dp"
-            android:layout_height="59dp"
-            android:layout_marginStart="40dp"
-            android:layout_marginBottom="40dp"
-            android:src="@drawable/social_media_panel"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-    
-    <ImageView
-            android:id="@+id/twitterlogo"
-            android:layout_width="36dp"
-            android:layout_height="36dp"
-            android:layout_marginStart="64dp"
-            android:layout_marginBottom="52dp"
-            android:src="@drawable/twitter"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-    
-    <ImageView
-            android:id="@+id/whatsapplogo"
-            android:layout_width="36dp"
-            android:layout_height="36dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginBottom="52dp"
-            android:src="@drawable/whatsapp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/fblogo" />
-    
-    <ImageView
-            android:id="@+id/fblogo"
-            android:layout_width="36dp"
-            android:layout_height="36dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginBottom="52dp"
-            android:src="@drawable/facebook"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/twitterlogo" />
-    
-    <Button
-            android:id="@+id/delete"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Delete"
-            android:visibility="visible"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.594"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.215" />
-    
-    
-    <Button
-            android:id="@+id/unfollow"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Unfollow"
-            android:visibility="visible"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.91"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.215" />
+		xmlns:app="http://schemas.android.com/apk/res-auto"
+		xmlns:tools="http://schemas.android.com/tools"
+		android:id="@+id/event_view_layout"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:background="#8BC34A">
+	
+	<include layout="@layout/toolbar_main" />
+	
+	<TextView
+			android:id="@+id/OrgUid"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginEnd="140dp"
+			android:ems="10"
+			android:hint="@string/location"
+			android:textColor="#fff"
+			android:visibility="invisible"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toEndOf="@+id/EventNameField"
+			app:layout_constraintTop_toTopOf="parent"
+			app:layout_constraintVertical_bias="0.144" />
+	
+	<TextView
+			android:id="@+id/EventName"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_gravity="center_horizontal"
+			android:text="@string/event_name"
+			android:textAppearance="?android:attr/textAppearanceSmall"
+			android:textColor="#fff"
+			android:textSize="18sp"
+			android:textStyle="bold"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintHorizontal_bias="0.126"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent"
+			app:layout_constraintVertical_bias="0.216" />
+	
+	<TextView
+			android:id="@+id/EventNameField"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:ems="10"
+			android:hint="@string/event_name"
+			android:text="@string/event_name"
+			android:textColor="#fff"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintHorizontal_bias="0.728"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent"
+			app:layout_constraintVertical_bias="0.216" />
+	
+	<TextView
+			android:id="@+id/Location"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_gravity="center_horizontal"
+			android:text="@string/location"
+			android:textAppearance="?android:attr/textAppearanceSmall"
+			android:textColor="#fff"
+			android:textSize="18sp"
+			android:textStyle="bold"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintHorizontal_bias="0.12"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent"
+			app:layout_constraintVertical_bias="0.299" />
+	
+	<TextView
+			android:id="@+id/LocationField"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginEnd="8dp"
+			android:ems="10"
+			android:hint="@string/location"
+			android:text="@string/location"
+			android:textColor="#fff"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toEndOf="@+id/EventNameField"
+			app:layout_constraintTop_toTopOf="parent"
+			app:layout_constraintVertical_bias="0.3" />
+	
+	<TextView
+			android:id="@+id/DateField"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_gravity="center_horizontal"
+			android:text="@string/date"
+			android:textAppearance="?android:attr/textAppearanceSmall"
+			android:textColor="#fff"
+			android:textSize="18sp"
+			android:textStyle="bold"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintHorizontal_bias="0.117"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent"
+			app:layout_constraintVertical_bias="0.383" />
+	
+	<TextView
+			android:id="@+id/EventDate"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginEnd="8dp"
+			android:ems="10"
+			android:hint="@string/event_date"
+			android:text="@string/date"
+			android:textColor="#fff"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toEndOf="@+id/StartTimeField"
+			app:layout_constraintTop_toTopOf="parent"
+			app:layout_constraintVertical_bias="0.383" />
+	
+	<TextView
+			android:id="@+id/StartTime"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_gravity="center_horizontal"
+			android:text="@string/time"
+			android:textAppearance="?android:attr/textAppearanceSmall"
+			android:textColor="#fff"
+			android:textSize="17sp"
+			android:textStyle="bold"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintHorizontal_bias="0.06"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent"
+			app:layout_constraintVertical_bias="0.466" />
+	
+	<TextView
+			android:id="@+id/StartTimeField"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginEnd="8dp"
+			android:ems="10"
+			android:hint="@string/time"
+			android:text="@string/time"
+			android:textColor="#fff"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toEndOf="@+id/LocationField"
+			app:layout_constraintTop_toTopOf="parent"
+			app:layout_constraintVertical_bias="0.466" />
+	
+	<TextView
+			android:id="@+id/Description"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_gravity="center_horizontal"
+			android:text="@string/desc"
+			android:textAppearance="?android:attr/textAppearanceSmall"
+			android:textColor="#fff"
+			android:textSize="18sp"
+			android:textStyle="bold"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintHorizontal_bias="0.125"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent"
+			app:layout_constraintVertical_bias="0.548" />
+	
+	<TextView
+			android:id="@+id/DescriptionField"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:ems="10"
+			android:hint="@string/desc"
+			android:text="@string/desc"
+			android:textColor="#fff"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintHorizontal_bias="0.728"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent"
+			app:layout_constraintVertical_bias="0.549" />
+	
+	<TextView
+			android:id="@+id/textOrg"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_gravity="center_horizontal"
+			android:text="@string/org"
+			android:textAppearance="?android:attr/textAppearanceSmall"
+			android:textColor="#fff"
+			android:textSize="18sp"
+			android:textStyle="bold"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintHorizontal_bias="0.126"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent"
+			app:layout_constraintVertical_bias="0.632" />
+	
+	<TextView
+			android:id="@+id/Organization"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:ems="10"
+			android:hint="@string/org"
+			android:text="@string/org"
+			android:textColor="#fff"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintHorizontal_bias="0.728"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent"
+			app:layout_constraintVertical_bias="0.63" />
+	
+	<TextView
+			android:id="@+id/Tags"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_gravity="center_horizontal"
+			android:text="@string/tags"
+			android:textAppearance="?android:attr/textAppearanceSmall"
+			android:textColor="#fff"
+			android:textSize="18sp"
+			android:textStyle="bold"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintHorizontal_bias="0.115"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent"
+			app:layout_constraintVertical_bias="0.715" />
+	
+	<TextView
+			android:id="@+id/TagsField"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:ems="10"
+			android:hint="@string/tags"
+			android:text="@string/tags"
+			android:textColor="#fff"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintHorizontal_bias="0.728"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent"
+			app:layout_constraintVertical_bias="0.713" />
+	
+	<TextView
+			android:id="@+id/EventDetailsHeader"
+			android:layout_width="match_parent"
+			android:layout_height="32dp"
+			android:layout_marginTop="64dp"
+			android:ems="10"
+			android:fontFamily="serif-monospace"
+			android:gravity="center"
+			android:text="@string/event_list_header"
+			android:textColor="#fff"
+			android:textSize="32sp"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintHorizontal_bias="0.225"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent"
+			app:layout_constraintVertical_bias="0.011" />
+	
+	<!-- TODO: Change ID and image -->
+	<com.google.android.material.floatingactionbutton.FloatingActionButton
+			android:id="@+id/floating_back_button"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginEnd="16dp"
+			android:layout_marginBottom="16dp"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintHorizontal_bias="0.932"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent"
+			app:layout_constraintVertical_bias="0.855"
+			app:srcCompat="@android:drawable/stat_notify_more" />
+	
+	<ImageView
+			android:id="@+id/social_media_panel"
+			android:layout_width="188dp"
+			android:layout_height="59dp"
+			android:layout_marginStart="108dp"
+			android:layout_marginBottom="32dp"
+			android:src="@drawable/social_media_panel"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintStart_toStartOf="parent" />
+	
+	<ImageView
+			android:id="@+id/twitter_logo"
+			android:layout_width="36dp"
+			android:layout_height="36dp"
+			android:layout_marginStart="132dp"
+			android:layout_marginBottom="44dp"
+			android:src="@drawable/twitter"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintStart_toStartOf="parent" />
+	
+	<ImageView
+			android:id="@+id/facebook_logo"
+			android:layout_width="36dp"
+			android:layout_height="36dp"
+			android:layout_marginStart="16dp"
+			android:layout_marginBottom="44dp"
+			android:src="@drawable/facebook"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintStart_toEndOf="@+id/twitter_logo" />
+	
+	<ImageView
+			android:id="@+id/whatsapp_logo"
+			android:layout_width="36dp"
+			android:layout_height="36dp"
+			android:layout_marginStart="12dp"
+			android:layout_marginBottom="44dp"
+			android:src="@drawable/whatsapp"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintStart_toEndOf="@+id/facebook_logo" />
+	
+	<Button
+			android:id="@+id/delete"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="@string/delete"
+			android:visibility="visible"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintHorizontal_bias="0.544"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent"
+			app:layout_constraintVertical_bias="0.837" />
+	
+	<Button
+			android:id="@+id/unfollow"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="@string/unfollow"
+			android:visibility="visible"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintHorizontal_bias="0.159"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent"
+			app:layout_constraintVertical_bias="0.837" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

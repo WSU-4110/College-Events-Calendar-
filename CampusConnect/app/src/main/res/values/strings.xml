@@ -23,7 +23,11 @@
 	<string name="search_tags">Search Tags</string>
     <string name="search_event_name">Search Event Name</string>
 	<string name="str_return_to_home">Return to Home</string>
-	<string-array name="tags_array">
+	<string name="event_list_header">Event Details</string>
+    <string name="unfollow">Unfollow</string>
+    <string name="delete">Delete</string>
+    <string name="date">Date</string>
+    <string-array name="tags_array">
         <item>(None)</item>
         <item>Medicine</item>
         <item>Career Fair</item>
