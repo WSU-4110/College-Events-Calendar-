@@ -92,7 +92,6 @@ public class Search extends AppCompatActivity {
 	
 	private void setTitle(String title){
 		textView = findViewById(R.id.event_list_dynamic_header);
-		
 		textView.setText(title);
 	}
 	
@@ -150,9 +149,10 @@ public class Search extends AppCompatActivity {
 		
 		listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
-				Event event = (Event) listView.getAdapter().getItem(position);
 				Intent intent = new Intent(getApplicationContext(), EventDetailedView.class);
-				intent.putExtra("Event", event.toString());
+				Event clickEvent = (Event) listView.getAdapter().getItem(position);
+				
+				intent.putExtra("Event Parcel", clickEvent);
 				startActivity(intent);
 			}
 		});

@@ -77,7 +77,7 @@ public class EventDetailedView extends AppCompatActivity {
 		OrgUidInput = findViewById(R.id.OrgUid);
 		tagInput = findViewById(R.id.Tags); //tbd
 		
-		// CRITICAL: event is null at this point
+		// CRITICAL: event is null at this point only when coming from Search
 		Intent intent = getIntent();
 		Event event = intent.getParcelableExtra("Event Parcel");
 		
