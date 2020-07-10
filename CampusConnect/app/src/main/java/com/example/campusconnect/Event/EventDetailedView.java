@@ -87,6 +87,8 @@ public class EventDetailedView extends AppCompatActivity {
 			String emptyName = "EventNameNotProvided";
 			EventNameInput.setText(emptyName);
 		}
+		
+		// [CURRENT]: NPE when clicking on list of events from search
 		locationInput.setText(event.getLocation());
 		startTimeInput.setText(event.getStartTime());
 		dateInput.setText(event.getDate());
