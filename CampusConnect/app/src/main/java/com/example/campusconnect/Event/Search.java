@@ -39,7 +39,7 @@ public class Search extends AppCompatActivity {
 		listView = (ListView) findViewById(R.id.events_listView);
 		Button searchEventName = findViewById(R.id.searchEventName);
 		Button searchTag = findViewById(R.id.searchTag);
-		FloatingActionButton returnToHome = findViewById(R.id.returnToHome);
+		Button returnToHome = findViewById(R.id.returnToHome);
 		
 		final String searchTerm = getIntent().getStringExtra("searchTerm");
 		
