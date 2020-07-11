@@ -40,24 +40,24 @@
 			app:layout_constraintStart_toStartOf="parent"
 			app:layout_constraintTop_toTopOf="parent"
 			app:layout_constraintVertical_bias="0.217" />
-    
-    <TextView
-            android:id="@+id/EventNameField"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="200dp"
-            android:ems="10"
-            android:hint="@string/event_name"
-            android:text="@string/event_name"
-            android:textColor="#fff"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.216" />
-    
-    <TextView
+	
+	<TextView
+			android:id="@+id/EventNameField"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginStart="200dp"
+			android:ems="10"
+			android:hint="@string/event_name"
+			android:text="@string/event_name"
+			android:textColor="#fff"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintHorizontal_bias="0.0"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent"
+			app:layout_constraintVertical_bias="0.216" />
+	
+	<TextView
 			android:id="@+id/Location"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
@@ -267,6 +267,45 @@
 			app:layout_constraintTop_toTopOf="parent"
 			app:layout_constraintVertical_bias="0.011" />
 	
+	<Button
+			android:id="@+id/unfollow"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="@string/unfollow"
+			android:visibility="visible"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintHorizontal_bias="0.054"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent"
+			app:layout_constraintVertical_bias="0.837" />
+	
+	<Button
+			android:id="@+id/delete"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="@string/delete"
+			android:visibility="visible"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintHorizontal_bias="0.398"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent"
+			app:layout_constraintVertical_bias="0.837" />
+	
+	<Button
+			android:id="@+id/RSVP"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="@string/rsvp"
+			android:visibility="visible"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintHorizontal_bias="0.715"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent"
+			app:layout_constraintVertical_bias="0.837" />
+	
 	<!-- TODO: Change ID and image -->
 	<com.google.android.material.floatingactionbutton.FloatingActionButton
 			android:id="@+id/floating_back_button"
@@ -276,7 +315,7 @@
 			android:layout_marginBottom="16dp"
 			app:layout_constraintBottom_toBottomOf="parent"
 			app:layout_constraintEnd_toEndOf="parent"
-			app:layout_constraintHorizontal_bias="0.908"
+			app:layout_constraintHorizontal_bias="1.0"
 			app:layout_constraintStart_toStartOf="parent"
 			app:layout_constraintTop_toTopOf="parent"
 			app:layout_constraintVertical_bias="0.855"
@@ -321,33 +360,6 @@
 			android:src="@drawable/whatsapp"
 			app:layout_constraintBottom_toBottomOf="parent"
 			app:layout_constraintStart_toEndOf="@+id/facebook_logo" />
-	
-	<Button
-			android:id="@+id/delete"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_marginStart="175dp"
-			android:text="@string/delete"
-			android:visibility="visible"
-			app:layout_constraintBottom_toBottomOf="parent"
-			app:layout_constraintEnd_toEndOf="parent"
-			app:layout_constraintHorizontal_bias="0.0"
-			app:layout_constraintStart_toStartOf="parent"
-			app:layout_constraintTop_toTopOf="parent"
-			app:layout_constraintVertical_bias="0.837" />
-	
-	<Button
-			android:id="@+id/unfollow"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:text="@string/unfollow"
-			android:visibility="visible"
-			app:layout_constraintBottom_toBottomOf="parent"
-			app:layout_constraintEnd_toEndOf="parent"
-			app:layout_constraintHorizontal_bias="0.159"
-			app:layout_constraintStart_toStartOf="parent"
-			app:layout_constraintTop_toTopOf="parent"
-			app:layout_constraintVertical_bias="0.837" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
