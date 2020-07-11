@@ -58,7 +58,7 @@ public class SignIn extends AppCompatActivity {
                 password.setError("Password Must consist of 4 to 20 characters");
             }
             else if (check.equals("thing"))
-                showAlt();
+                showAlt(); // Jay
         }
 
     };

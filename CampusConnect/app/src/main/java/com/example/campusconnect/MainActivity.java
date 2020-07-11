@@ -22,7 +22,7 @@ import com.example.campusconnect.Event.EventIndicator;
 import com.example.campusconnect.Event.EventView;
 import com.example.campusconnect.Event.SavedEventView;
 import com.example.campusconnect.Event.Search;
-import com.example.campusconnect.UI.Authentication.SignIn;
+import com.example.campusconnect.UI.Authentication.*;	// Spontaneous Error: Cannot resolve SignIn (Started without any edits to project)
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
