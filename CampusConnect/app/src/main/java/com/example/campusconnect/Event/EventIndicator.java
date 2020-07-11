@@ -1,20 +1,11 @@
 package com.example.campusconnect.Event;
 
 import android.graphics.Color;
-import android.os.Build;
-
-import androidx.annotation.RequiresApi;
-
-import java.lang.reflect.Array;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
 
 import com.github.sundeepk.compactcalendarview.domain.Event;
+
+import java.util.Calendar;
+import java.util.Date;
 
 /*
 <color name="primaryGreen_50">#8000594C</color>

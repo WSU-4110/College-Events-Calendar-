@@ -22,7 +22,8 @@ import com.example.campusconnect.Event.EventIndicator;
 import com.example.campusconnect.Event.EventView;
 import com.example.campusconnect.Event.SavedEventView;
 import com.example.campusconnect.Event.Search;
-import com.example.campusconnect.UI.Authentication.*;	// Spontaneous Error: Cannot resolve SignIn (Started without any edits to project)
+import com.example.campusconnect.UI.Authentication.*;
+import com.github.sundeepk.compactcalendarview.CompactCalendarView;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -34,8 +35,6 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Objects;
-
-import com.github.sundeepk.compactcalendarview.CompactCalendarView;
 
 public class MainActivity extends AppCompatActivity {
 	
