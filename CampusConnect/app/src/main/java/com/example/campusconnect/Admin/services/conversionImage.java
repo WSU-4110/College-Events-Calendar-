@@ -1,4 +1,4 @@
-package com.example.campusconnect.services;
+package com.example.campusconnect.Admin.services;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
