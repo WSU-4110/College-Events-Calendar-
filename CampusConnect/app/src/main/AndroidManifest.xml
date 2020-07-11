@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".admin.OrganizerList" />
+        <activity android:name=".Admin.OrganizerList" />
 
         <activity
             android:name=".UI.Authentication.ForgetPassword"

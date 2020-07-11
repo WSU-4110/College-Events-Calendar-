@@ -1,4 +1,4 @@
-package com.example.campusconnect.admin;
+package com.example.campusconnect.Admin;
 
 import android.content.Intent;
 import android.os.Bundle;

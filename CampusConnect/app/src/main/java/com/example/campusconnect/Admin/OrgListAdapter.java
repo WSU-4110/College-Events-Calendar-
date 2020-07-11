@@ -1,4 +1,4 @@
-package com.example.campusconnect.admin;
+package com.example.campusconnect.Admin;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
