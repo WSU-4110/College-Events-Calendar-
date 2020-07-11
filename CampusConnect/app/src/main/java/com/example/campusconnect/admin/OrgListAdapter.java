@@ -17,12 +17,12 @@ import com.kaopiz.kprogresshud.KProgressHUD;
 import java.util.List;
 import java.util.Map;
 
-public class ListAdapter extends ArrayAdapter<String> {
+public class OrgListAdapter extends ArrayAdapter<String> {
 
     private final Context context;
     private final List list;
 
-    public ListAdapter(Context context, List list) {
+    public OrgListAdapter(Context context, List list) {
         super(context, R.layout.activity_listview, list);
         this.context = context;
         this.list = list;

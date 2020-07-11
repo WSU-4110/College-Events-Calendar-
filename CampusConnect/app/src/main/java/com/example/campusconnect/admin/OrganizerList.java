@@ -50,7 +50,7 @@ public class OrganizerList extends AppCompatActivity {
 						data.put("id", document.getId());
 						list.add(data);
 					}
-					ListAdapter adapter = new ListAdapter(OrganizerList.this, list);
+					OrgListAdapter adapter = new OrgListAdapter(OrganizerList.this, list);
 					ListView listView = (ListView) findViewById(R.id.orgList);
 					listView.setAdapter(adapter);
 					progressDialog.dismiss();
