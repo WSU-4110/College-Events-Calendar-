@@ -3,7 +3,7 @@
     <string name="event_submit">Submit Event</string>
     <string name="event_name">Event Name</string>
     <string name="location">Location</string>
-    <string name="time">Event Start Time</string>
+    <string name="time">Start Time</string>
     <string name="goto_event_creation">Event Creation</string>
     <string name="TopBanner_EventView">Event View</string>
     <string name="goto_event_detailed_view">Event Detailed View</string>

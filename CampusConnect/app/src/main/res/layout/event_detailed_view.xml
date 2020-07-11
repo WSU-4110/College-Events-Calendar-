@@ -28,6 +28,7 @@
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_gravity="center_horizontal"
+			android:layout_marginStart="32dp"
 			android:text="@string/event_name"
 			android:textAppearance="?android:attr/textAppearanceSmall"
 			android:textColor="#fff"
@@ -35,22 +36,23 @@
 			android:textStyle="bold"
 			app:layout_constraintBottom_toBottomOf="parent"
 			app:layout_constraintEnd_toEndOf="parent"
-			app:layout_constraintHorizontal_bias="0.126"
+			app:layout_constraintHorizontal_bias="0.0"
 			app:layout_constraintStart_toStartOf="parent"
 			app:layout_constraintTop_toTopOf="parent"
-			app:layout_constraintVertical_bias="0.216" />
+			app:layout_constraintVertical_bias="0.217" />
 	
 	<TextView
 			android:id="@+id/EventNameField"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
+			android:layout_marginStart="180dp"
 			android:ems="10"
 			android:hint="@string/event_name"
 			android:text="@string/event_name"
 			android:textColor="#fff"
 			app:layout_constraintBottom_toBottomOf="parent"
 			app:layout_constraintEnd_toEndOf="parent"
-			app:layout_constraintHorizontal_bias="0.728"
+			app:layout_constraintHorizontal_bias="0.0"
 			app:layout_constraintStart_toStartOf="parent"
 			app:layout_constraintTop_toTopOf="parent"
 			app:layout_constraintVertical_bias="0.216" />
@@ -60,6 +62,7 @@
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_gravity="center_horizontal"
+			android:layout_marginStart="32dp"
 			android:text="@string/location"
 			android:textAppearance="?android:attr/textAppearanceSmall"
 			android:textColor="#fff"
@@ -67,7 +70,7 @@
 			android:textStyle="bold"
 			app:layout_constraintBottom_toBottomOf="parent"
 			app:layout_constraintEnd_toEndOf="parent"
-			app:layout_constraintHorizontal_bias="0.12"
+			app:layout_constraintHorizontal_bias="0.0"
 			app:layout_constraintStart_toStartOf="parent"
 			app:layout_constraintTop_toTopOf="parent"
 			app:layout_constraintVertical_bias="0.299" />
@@ -76,21 +79,22 @@
 			android:id="@+id/LocationField"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:layout_marginEnd="8dp"
+			android:layout_marginStart="180dp"
 			android:ems="10"
 			android:hint="@string/location"
 			android:text="@string/location"
 			android:textColor="#fff"
 			app:layout_constraintBottom_toBottomOf="parent"
-			app:layout_constraintEnd_toEndOf="@+id/EventNameField"
+			app:layout_constraintStart_toStartOf="parent"
 			app:layout_constraintTop_toTopOf="parent"
-			app:layout_constraintVertical_bias="0.3" />
+			app:layout_constraintVertical_bias="0.296" />
 	
 	<TextView
 			android:id="@+id/DateField"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_gravity="center_horizontal"
+			android:layout_marginStart="32dp"
 			android:text="@string/date"
 			android:textAppearance="?android:attr/textAppearanceSmall"
 			android:textColor="#fff"
@@ -98,7 +102,7 @@
 			android:textStyle="bold"
 			app:layout_constraintBottom_toBottomOf="parent"
 			app:layout_constraintEnd_toEndOf="parent"
-			app:layout_constraintHorizontal_bias="0.117"
+			app:layout_constraintHorizontal_bias="0.0"
 			app:layout_constraintStart_toStartOf="parent"
 			app:layout_constraintTop_toTopOf="parent"
 			app:layout_constraintVertical_bias="0.383" />
@@ -107,21 +111,22 @@
 			android:id="@+id/EventDate"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:layout_marginEnd="8dp"
+			android:layout_marginStart="180dp"
 			android:ems="10"
 			android:hint="@string/event_date"
 			android:text="@string/date"
 			android:textColor="#fff"
 			app:layout_constraintBottom_toBottomOf="parent"
-			app:layout_constraintEnd_toEndOf="@+id/StartTimeField"
+			app:layout_constraintStart_toStartOf="parent"
 			app:layout_constraintTop_toTopOf="parent"
-			app:layout_constraintVertical_bias="0.383" />
+			app:layout_constraintVertical_bias="0.38" />
 	
 	<TextView
 			android:id="@+id/StartTime"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_gravity="center_horizontal"
+			android:layout_marginStart="32dp"
 			android:text="@string/time"
 			android:textAppearance="?android:attr/textAppearanceSmall"
 			android:textColor="#fff"
@@ -129,7 +134,7 @@
 			android:textStyle="bold"
 			app:layout_constraintBottom_toBottomOf="parent"
 			app:layout_constraintEnd_toEndOf="parent"
-			app:layout_constraintHorizontal_bias="0.06"
+			app:layout_constraintHorizontal_bias="0.0"
 			app:layout_constraintStart_toStartOf="parent"
 			app:layout_constraintTop_toTopOf="parent"
 			app:layout_constraintVertical_bias="0.466" />
@@ -138,21 +143,22 @@
 			android:id="@+id/StartTimeField"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:layout_marginEnd="8dp"
+			android:layout_marginStart="180dp"
 			android:ems="10"
 			android:hint="@string/time"
 			android:text="@string/time"
 			android:textColor="#fff"
 			app:layout_constraintBottom_toBottomOf="parent"
-			app:layout_constraintEnd_toEndOf="@+id/LocationField"
+			app:layout_constraintStart_toStartOf="parent"
 			app:layout_constraintTop_toTopOf="parent"
-			app:layout_constraintVertical_bias="0.466" />
+			app:layout_constraintVertical_bias="0.469" />
 	
 	<TextView
 			android:id="@+id/Description"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_gravity="center_horizontal"
+			android:layout_marginStart="32dp"
 			android:text="@string/desc"
 			android:textAppearance="?android:attr/textAppearanceSmall"
 			android:textColor="#fff"
@@ -160,7 +166,7 @@
 			android:textStyle="bold"
 			app:layout_constraintBottom_toBottomOf="parent"
 			app:layout_constraintEnd_toEndOf="parent"
-			app:layout_constraintHorizontal_bias="0.125"
+			app:layout_constraintHorizontal_bias="0.0"
 			app:layout_constraintStart_toStartOf="parent"
 			app:layout_constraintTop_toTopOf="parent"
 			app:layout_constraintVertical_bias="0.548" />
@@ -169,13 +175,12 @@
 			android:id="@+id/DescriptionField"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
+			android:layout_marginStart="180dp"
 			android:ems="10"
 			android:hint="@string/desc"
 			android:text="@string/desc"
 			android:textColor="#fff"
 			app:layout_constraintBottom_toBottomOf="parent"
-			app:layout_constraintEnd_toEndOf="parent"
-			app:layout_constraintHorizontal_bias="0.728"
 			app:layout_constraintStart_toStartOf="parent"
 			app:layout_constraintTop_toTopOf="parent"
 			app:layout_constraintVertical_bias="0.549" />
@@ -185,6 +190,7 @@
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_gravity="center_horizontal"
+			android:layout_marginStart="32dp"
 			android:text="@string/org"
 			android:textAppearance="?android:attr/textAppearanceSmall"
 			android:textColor="#fff"
@@ -192,7 +198,7 @@
 			android:textStyle="bold"
 			app:layout_constraintBottom_toBottomOf="parent"
 			app:layout_constraintEnd_toEndOf="parent"
-			app:layout_constraintHorizontal_bias="0.126"
+			app:layout_constraintHorizontal_bias="0.0"
 			app:layout_constraintStart_toStartOf="parent"
 			app:layout_constraintTop_toTopOf="parent"
 			app:layout_constraintVertical_bias="0.632" />
@@ -201,13 +207,12 @@
 			android:id="@+id/Organization"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
+			android:layout_marginStart="180dp"
 			android:ems="10"
 			android:hint="@string/org"
 			android:text="@string/org"
 			android:textColor="#fff"
 			app:layout_constraintBottom_toBottomOf="parent"
-			app:layout_constraintEnd_toEndOf="parent"
-			app:layout_constraintHorizontal_bias="0.728"
 			app:layout_constraintStart_toStartOf="parent"
 			app:layout_constraintTop_toTopOf="parent"
 			app:layout_constraintVertical_bias="0.63" />
@@ -217,6 +222,7 @@
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_gravity="center_horizontal"
+			android:layout_marginStart="32dp"
 			android:text="@string/tags"
 			android:textAppearance="?android:attr/textAppearanceSmall"
 			android:textColor="#fff"
@@ -224,7 +230,7 @@
 			android:textStyle="bold"
 			app:layout_constraintBottom_toBottomOf="parent"
 			app:layout_constraintEnd_toEndOf="parent"
-			app:layout_constraintHorizontal_bias="0.115"
+			app:layout_constraintHorizontal_bias="0.0"
 			app:layout_constraintStart_toStartOf="parent"
 			app:layout_constraintTop_toTopOf="parent"
 			app:layout_constraintVertical_bias="0.715" />
@@ -233,13 +239,12 @@
 			android:id="@+id/TagsField"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
+			android:layout_marginStart="180dp"
 			android:ems="10"
 			android:hint="@string/tags"
 			android:text="@string/tags"
 			android:textColor="#fff"
 			app:layout_constraintBottom_toBottomOf="parent"
-			app:layout_constraintEnd_toEndOf="parent"
-			app:layout_constraintHorizontal_bias="0.728"
 			app:layout_constraintStart_toStartOf="parent"
 			app:layout_constraintTop_toTopOf="parent"
 			app:layout_constraintVertical_bias="0.713" />
@@ -271,7 +276,7 @@
 			android:layout_marginBottom="16dp"
 			app:layout_constraintBottom_toBottomOf="parent"
 			app:layout_constraintEnd_toEndOf="parent"
-			app:layout_constraintHorizontal_bias="0.932"
+			app:layout_constraintHorizontal_bias="0.908"
 			app:layout_constraintStart_toStartOf="parent"
 			app:layout_constraintTop_toTopOf="parent"
 			app:layout_constraintVertical_bias="0.855"
@@ -306,26 +311,27 @@
 			android:src="@drawable/facebook"
 			app:layout_constraintBottom_toBottomOf="parent"
 			app:layout_constraintStart_toEndOf="@+id/twitter_logo" />
-	
-	<ImageView
-			android:id="@+id/whatsapp_logo"
-			android:layout_width="36dp"
-			android:layout_height="36dp"
-			android:layout_marginStart="12dp"
-			android:layout_marginBottom="44dp"
-			android:src="@drawable/whatsapp"
-			app:layout_constraintBottom_toBottomOf="parent"
-			app:layout_constraintStart_toEndOf="@+id/facebook_logo" />
-	
-	<Button
+    
+    <ImageView
+            android:id="@+id/whatsapp_logo"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="44dp"
+            android:src="@drawable/whatsapp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/facebook_logo" />
+    
+    <Button
 			android:id="@+id/delete"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
+			android:layout_marginStart="175dp"
 			android:text="@string/delete"
 			android:visibility="visible"
 			app:layout_constraintBottom_toBottomOf="parent"
 			app:layout_constraintEnd_toEndOf="parent"
-			app:layout_constraintHorizontal_bias="0.544"
+			app:layout_constraintHorizontal_bias="0.0"
 			app:layout_constraintStart_toStartOf="parent"
 			app:layout_constraintTop_toTopOf="parent"
 			app:layout_constraintVertical_bias="0.837" />
