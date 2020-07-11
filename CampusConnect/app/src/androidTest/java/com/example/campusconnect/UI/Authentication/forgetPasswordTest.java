@@ -6,6 +6,9 @@
 package com.example.campusconnect.UI.Authentication;
 
 
+import com.example.campusconnect.Admin.Authentication.ForgetPassword;
+import com.example.campusconnect.Admin.Authentication.SignUp;
+
 import org.junit.Test;
 
 import static androidx.test.core.app.ApplicationProvider.getApplicationContext;

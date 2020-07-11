@@ -1,7 +1,7 @@
 
 
 
-package com.example.campusconnect.UI.Authentication;
+package com.example.campusconnect.Admin.Authentication;
 
 import android.content.Intent;
 import android.os.Bundle;

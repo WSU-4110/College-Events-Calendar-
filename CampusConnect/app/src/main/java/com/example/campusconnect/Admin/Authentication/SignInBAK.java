@@ -1,7 +1,7 @@
 
 
 
-package com.example.campusconnect.UI.Authentication;
+package com.example.campusconnect.Admin.Authentication;
 
 import androidx.appcompat.app.AppCompatActivity;
 
