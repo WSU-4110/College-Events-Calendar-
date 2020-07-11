@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.campusconnect.MainActivity;
 import com.example.campusconnect.R;
-import com.example.campusconnect.UI.Authentication.SignIn;
+import com.example.campusconnect.UI.Authentication.*;
 import com.example.campusconnect.admin.OrganizerList;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;

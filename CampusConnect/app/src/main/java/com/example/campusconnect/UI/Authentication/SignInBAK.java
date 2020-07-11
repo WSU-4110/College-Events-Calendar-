@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 
-public class SignIn_Bak extends AppCompatActivity {
+public class SignInBAK extends AppCompatActivity {
 	
 	private static final int RC_SIGN_IN = 1;
 	private GoogleSignInClient mGoogleSignInClient;
@@ -303,4 +303,4 @@ public class SignIn_Bak extends AppCompatActivity {
 	}// [ gmailAccount ]
 	*/
 	
-}// class [ SignIn_Bak ]
+}// class [ SignInBAK ]
