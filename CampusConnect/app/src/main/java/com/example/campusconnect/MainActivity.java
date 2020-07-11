@@ -23,7 +23,6 @@ import com.example.campusconnect.Event.EventIndicator;
 import com.example.campusconnect.Event.EventView;
 import com.example.campusconnect.Event.SavedEventView;
 import com.example.campusconnect.Event.Search;
-import com.example.campusconnect.UI.Authentication.*;
 import com.github.sundeepk.compactcalendarview.CompactCalendarView;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
