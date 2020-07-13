@@ -28,9 +28,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 
 public class EventDetailedView extends AppCompatActivity {
 	String EventName, location, startTime, date;
@@ -155,7 +152,7 @@ public class EventDetailedView extends AppCompatActivity {
 					Toast.makeText(EventDetailedView.this, "Not Logged In", Toast.LENGTH_SHORT).show();
 				}
 				
-				// CHECK: Feasible to use a SavedEvent derived class to link user to saved event? (2 of 2)
+				// CHECK: Feasible to extract a SavedEvent derived class to link user to saved event? (2 of 2)
 				db.collection("SavedEvent")
 						.document("SavedEvent")
 						.collection("Event_SubCollectionTesting")
@@ -171,7 +168,7 @@ public class EventDetailedView extends AppCompatActivity {
 			@Override
 			public void onClick(View view) {
 				String eventDetail = generateDetailsString();
-				shareOnFacebook(eventDetail);
+				shareOnWhatsapp(eventDetail);
 			}
 		});
 		
@@ -179,7 +176,7 @@ public class EventDetailedView extends AppCompatActivity {
 			@Override
 			public void onClick(View view) {
 				String eventDetail = generateDetailsString();
-				shareOnFacebook(eventDetail);
+				shareOnTwitter(eventDetail);
 			}
 		});
 		
@@ -243,7 +240,6 @@ public class EventDetailedView extends AppCompatActivity {
 					
 					@Override
 					public boolean onQueryTextChange(String newText) {
-						
 						return false;
 					}
 				}
@@ -284,6 +280,7 @@ public class EventDetailedView extends AppCompatActivity {
 							}
 						}
 					});
+			
 			db.collection("SavedEvent")
 					.document("SavedEvent")
 					.collection("Event_SubCollectionTesting")
@@ -314,7 +311,8 @@ public class EventDetailedView extends AppCompatActivity {
 		}
 		else
 			Toast.makeText(EventDetailedView.this, "Only Creator can delete", Toast.LENGTH_SHORT).show();
-	}
+	
+	}// [ deleteEvent ]
 	
 	private String generateDetailsString() {
 		return "Campus Connect - Wayne State" + "\n" +
@@ -324,7 +322,6 @@ public class EventDetailedView extends AppCompatActivity {
 				"End Time :" + dateInput.getText().toString();
 	}
 	
-	// Share on WhatsApp
 	private void shareOnWhatsapp(String eventDetail) {
 		System.out.println(" Start sharing in WhatsApp");
 		
@@ -340,8 +337,6 @@ public class EventDetailedView extends AppCompatActivity {
 		}
 	}
 	
-	
-	// Share on Twitter
 	private void shareOnTwitter(String eventDetail) {
 		System.out.println(" Start sharing in WhatsApp");
 		
@@ -357,7 +352,6 @@ public class EventDetailedView extends AppCompatActivity {
 		}
 	}
 	
-	// Share on Facebook
 	private void shareOnFacebook(String eventDetail) {
 		System.out.println(" Start sharing in WhatsApp");
 		
@@ -373,50 +367,6 @@ public class EventDetailedView extends AppCompatActivity {
 		}
 	}
 	
-	// vadation methods
-	public boolean checkLocationValid(String location) {
-		if (location == null || location.isEmpty()) {
-			System.out.println("Name  is empty.");
-			return false;
-		}
-		
-		return true;
-	}
-	
-	public boolean checkNameEmpty(String name) {
-		
-		if (name == null || name.isEmpty()) {
-			System.out.println("Name  is empty.");
-			return false;
-		}
-		
-		return true;
-	}
-	
-	public boolean validateStartTime(String startTime) {
-		try {
-			int startT = Integer.parseInt(startTime);
-			System.out.println(startT);
-		}
-		catch (NumberFormatException nfe) {
-			return false;
-		}
-		
-		return true;
-	}
-	
-	public boolean validateDate(String date) {
-		DateFormat sdf = new SimpleDateFormat(date);
-		sdf.setLenient(false);
-		try {
-			sdf.parse(date);
-			System.out.println(" ~~~~~~~~ " + sdf.parse(date));
-		}
-		catch (ParseException e) {
-			return false;
-		}
-		
-		return true;
-	}
+
 	
 }// class [ EventDetailedView ]
