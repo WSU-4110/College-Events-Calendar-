@@ -140,65 +140,7 @@ public class EventDetailedView extends AppCompatActivity {
 		delete.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-				
-				if (true) {
-					db.collection("Events")
-							.document("Events")
-							.collection("Event_SubCollectionTesting")
-							.whereEqualTo("orgUid", user.getUid())
-							.whereEqualTo("name", EventNameInput.getText().toString())
-							.whereEqualTo("location", locationInput.getText().toString())
-							.whereEqualTo("startTime", startTimeInput.getText().toString())
-							.whereEqualTo("date", dateInput.getText().toString())
-							.whereEqualTo("desc", descInput.getText().toString())
-							.whereEqualTo("org", orgInput.getText().toString())
-							.whereEqualTo("tags", tagInput.getText().toString())
-							.get()
-							.addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-								@Override
-								public void onComplete(@NonNull Task<QuerySnapshot> task) {
-									if (task.isSuccessful()) {
-										for (QueryDocumentSnapshot document : task.getResult()) {
-											String DocId = document.getId();
-											db.collection("Events")
-													.document("Events")
-													.collection("Event_SubCollectionTesting")
-													.document(DocId).delete();
-										}
-									}
-								}
-							});
-					db.collection("SavedEvent")
-							.document("SavedEvent")
-							.collection("Event_SubCollectionTesting")
-							.whereEqualTo("orgUid", user.getUid())
-							.whereEqualTo("name", EventNameInput.getText().toString())
-							.whereEqualTo("location", locationInput.getText().toString())
-							.whereEqualTo("startTime", startTimeInput.getText().toString())
-							.whereEqualTo("date", dateInput.getText().toString())
-							.whereEqualTo("desc", descInput.getText().toString())
-							.whereEqualTo("org", orgInput.getText().toString())
-							.get()
-							.addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-								@Override
-								public void onComplete(@NonNull Task<QuerySnapshot> task) {
-									if (task.isSuccessful()) {
-										for (QueryDocumentSnapshot document : task.getResult()) {
-											String DocId = document.getId();
-											db.collection("SavedEvent")
-													.document("SavedEvent")
-													.collection("Event_SubCollectionTesting")
-													.document(DocId).delete();
-										}
-									}
-								}
-							});
-					Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-					startActivity(intent);
-				}
-				else
-					Toast.makeText(EventDetailedView.this, "Only Creator can delete", Toast.LENGTH_SHORT).show();
+				deleteEvent();
 			}
 		});
 		
@@ -336,6 +278,70 @@ public class EventDetailedView extends AppCompatActivity {
 		
 		);
 		return true;
+	}
+	
+	
+	private void deleteEvent(){
+		FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+		
+		// !! TODO: This needs to check if user is an organizer
+		if (true) {
+			db.collection("Events")
+					.document("Events")
+					.collection("Event_SubCollectionTesting")
+					.whereEqualTo("orgUid", user.getUid())
+					.whereEqualTo("name", EventNameInput.getText().toString())
+					.whereEqualTo("location", locationInput.getText().toString())
+					.whereEqualTo("startTime", startTimeInput.getText().toString())
+					.whereEqualTo("date", dateInput.getText().toString())
+					.whereEqualTo("desc", descInput.getText().toString())
+					.whereEqualTo("org", orgInput.getText().toString())
+					.whereEqualTo("tags", tagInput.getText().toString())
+					.get()
+					.addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+						@Override
+						public void onComplete(@NonNull Task<QuerySnapshot> task) {
+							if (task.isSuccessful()) {
+								for (QueryDocumentSnapshot document : task.getResult()) {
+									String DocId = document.getId();
+									db.collection("Events")
+											.document("Events")
+											.collection("Event_SubCollectionTesting")
+											.document(DocId).delete();
+								}
+							}
+						}
+					});
+			db.collection("SavedEvent")
+					.document("SavedEvent")
+					.collection("Event_SubCollectionTesting")
+					.whereEqualTo("orgUid", user.getUid())
+					.whereEqualTo("name", EventNameInput.getText().toString())
+					.whereEqualTo("location", locationInput.getText().toString())
+					.whereEqualTo("startTime", startTimeInput.getText().toString())
+					.whereEqualTo("date", dateInput.getText().toString())
+					.whereEqualTo("desc", descInput.getText().toString())
+					.whereEqualTo("org", orgInput.getText().toString())
+					.get()
+					.addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+						@Override
+						public void onComplete(@NonNull Task<QuerySnapshot> task) {
+							if (task.isSuccessful()) {
+								for (QueryDocumentSnapshot document : task.getResult()) {
+									String DocId = document.getId();
+									db.collection("SavedEvent")
+											.document("SavedEvent")
+											.collection("Event_SubCollectionTesting")
+											.document(DocId).delete();
+								}
+							}
+						}
+					});
+			Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+			startActivity(intent);
+		}
+		else
+			Toast.makeText(EventDetailedView.this, "Only Creator can delete", Toast.LENGTH_SHORT).show();
 	}
 	
 	// Share on WhatsApp
