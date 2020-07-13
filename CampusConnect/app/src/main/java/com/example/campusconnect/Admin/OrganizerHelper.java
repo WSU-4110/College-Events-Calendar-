@@ -30,7 +30,10 @@ public class OrganizerHelper {
 		// Boolean array to circumvent the req'd declaration of value as final for inner class
 		FirebaseFirestore db = FirebaseFirestore.getInstance();
 		FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-		final Boolean[] organizerFound = new Boolean[1];
+		final Boolean[] organizerWasFound = new Boolean[1];
+		
+		if (user == null)
+			return false;
 		
 		db.collection("Users")
 				.document("Organizers")
@@ -40,18 +43,17 @@ public class OrganizerHelper {
 				.addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
 					@Override
 					public void onComplete(@NonNull Task<QuerySnapshot> task) {
-						// TODO: Handle isEmpty() poss. NPE
 						if (task.isSuccessful()) {
 							System.out.println("\n\n\nOrganizer found\n\n\n");
-							organizerFound[0] = true;
+							organizerWasFound[0] = true;
 						}
 						else {
-							organizerFound[0] = false;
+							organizerWasFound[0] = false;
 						}
 					}
 				});
 		
-		return organizerFound[0];
+		return organizerWasFound[0];    // True/false if the current user's ID was found to be an organizer
 		
 	}// [ updateUserType ]
 }
