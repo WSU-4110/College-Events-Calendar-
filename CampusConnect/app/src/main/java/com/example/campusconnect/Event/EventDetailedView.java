@@ -1,8 +1,3 @@
-// Documentation on ListView and Custom Adapters:
-// https://bit.ly/38ah7WV
-// Windows: [Ctrl + Click]
-// Mac:     [⌘ + Click]
-
 package com.example.campusconnect.Event;
 
 import android.content.Intent;
@@ -83,7 +78,8 @@ public class EventDetailedView extends AppCompatActivity {
 		try {
 			// TODO: Reevaluate handling of poss. null pointer for name
 			EventNameInput.setText(event.getName());
-		} catch (NullPointerException noName){
+		}
+		catch (NullPointerException noName) {
 			String emptyName = "EventNameNotProvided";
 			EventNameInput.setText(emptyName);
 		}
@@ -259,7 +255,7 @@ public class EventDetailedView extends AppCompatActivity {
 							startTimeInput.getText().toString(), dateInput.getText().toString(),
 							descInput.getText().toString(), orgInput.getText().toString(), OrgUidInput.getText().toString(), tagInput.getText().toString());
 					Toast.makeText(EventDetailedView.this, "Adding to Saved Events", Toast.LENGTH_SHORT).show();
-
+					
 //                SavedEvent sEvent = new SavedEvent(displayName, EventNameInput.getText().toString(),locationInput.getText().toString(),
 //                        startTimeInput.getText().toString(), dateInput.getText().toString(),
 //                        descInput.getText().toString(), orgInput.getText().toString());
@@ -282,102 +278,6 @@ public class EventDetailedView extends AppCompatActivity {
 			}
 		});
 	}// method [ onCreate: EventDetailedView ]
-	
-	// vadation methods
-	public boolean checkLocationValid(String location) {
-		if (location == null || location.isEmpty()) {
-			System.out.println("Name  is empty.");
-			return false;
-		}
-		return true;
-		
-		
-	}
-	
-	public boolean checkNameEmpty(String name) {
-		
-		if (name == null || name.isEmpty()) {
-			System.out.println("Name  is empty.");
-			return false;
-		}
-		return true;
-	}
-	
-	public boolean validateStartTime(String startTime) {
-		boolean flag = false;
-		
-		try {
-			int startT = Integer.parseInt(startTime);
-			System.out.println(startT);
-		}
-		catch (NumberFormatException nfe) {
-			return false;
-		}
-		return (true);
-	}
-	
-	public boolean validateDate(String date) {
-		DateFormat sdf = new SimpleDateFormat(date);
-		sdf.setLenient(false);
-		try {
-			sdf.parse(date);
-			System.out.println(" ~~~~~~~~ " + sdf.parse(date));
-		}
-		catch (ParseException e) {
-			return false;
-		}
-		return true;
-	}
-	
-	// Share on WhatsApp
-	private void shareOnWhatsapp(String eventDetail) {
-		System.out.println(" Start sharing in WhatsApp");
-		
-		Intent whatsappIntent = new Intent(Intent.ACTION_SEND);
-		whatsappIntent.setType("text/plain");
-		whatsappIntent.setPackage("com.whatsapp");
-		whatsappIntent.putExtra(Intent.EXTRA_TEXT, eventDetail);
-		try {
-			startActivity(whatsappIntent);
-		}
-		catch (android.content.ActivityNotFoundException ex) {
-			//ToastHelper.MakeShortText("Whatsapp has not been installed.");
-		}
-	}
-	
-	
-	// Share on Twitter
-	private void shareOnTwitter(String eventDetail) {
-		System.out.println(" Start sharing in WhatsApp");
-		
-		Intent twitterIntent = new Intent(Intent.ACTION_SEND);
-		twitterIntent.setType("text/plain");
-		twitterIntent.setPackage("com.twitter.android");
-		twitterIntent.putExtra(Intent.EXTRA_TEXT, eventDetail);
-		try {
-			startActivity(twitterIntent);
-		}
-		catch (android.content.ActivityNotFoundException ex) {
-			//ToastHelper.MakeShortText("Whatsapp has not been installed.");
-		}
-	}
-	
-	// Share on Facebook
-	private void shareOnFacebook(String eventDetail) {
-		System.out.println(" Start sharing in WhatsApp");
-		
-		Intent facebookIntent = new Intent(Intent.ACTION_SEND);
-		facebookIntent.setType("text/plain");
-		facebookIntent.setPackage("com.facebook.katana");
-		facebookIntent.putExtra(Intent.EXTRA_TEXT, eventDetail);
-		try {
-			startActivity(facebookIntent);
-		}
-		catch (android.content.ActivityNotFoundException ex) {
-			//ToastHelper.MakeShortText("Facebook has not been installed.");
-		}
-	}
-	
 	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
@@ -438,4 +338,99 @@ public class EventDetailedView extends AppCompatActivity {
 		return true;
 	}
 	
-}
+	// Share on WhatsApp
+	private void shareOnWhatsapp(String eventDetail) {
+		System.out.println(" Start sharing in WhatsApp");
+		
+		Intent whatsappIntent = new Intent(Intent.ACTION_SEND);
+		whatsappIntent.setType("text/plain");
+		whatsappIntent.setPackage("com.whatsapp");
+		whatsappIntent.putExtra(Intent.EXTRA_TEXT, eventDetail);
+		try {
+			startActivity(whatsappIntent);
+		}
+		catch (android.content.ActivityNotFoundException ex) {
+			//ToastHelper.MakeShortText("Whatsapp has not been installed.");
+		}
+	}
+	
+	
+	// Share on Twitter
+	private void shareOnTwitter(String eventDetail) {
+		System.out.println(" Start sharing in WhatsApp");
+		
+		Intent twitterIntent = new Intent(Intent.ACTION_SEND);
+		twitterIntent.setType("text/plain");
+		twitterIntent.setPackage("com.twitter.android");
+		twitterIntent.putExtra(Intent.EXTRA_TEXT, eventDetail);
+		try {
+			startActivity(twitterIntent);
+		}
+		catch (android.content.ActivityNotFoundException ex) {
+			//ToastHelper.MakeShortText("Whatsapp has not been installed.");
+		}
+	}
+	
+	// Share on Facebook
+	private void shareOnFacebook(String eventDetail) {
+		System.out.println(" Start sharing in WhatsApp");
+		
+		Intent facebookIntent = new Intent(Intent.ACTION_SEND);
+		facebookIntent.setType("text/plain");
+		facebookIntent.setPackage("com.facebook.katana");
+		facebookIntent.putExtra(Intent.EXTRA_TEXT, eventDetail);
+		try {
+			startActivity(facebookIntent);
+		}
+		catch (android.content.ActivityNotFoundException ex) {
+			//ToastHelper.MakeShortText("Facebook has not been installed.");
+		}
+	}
+	
+	// vadation methods
+	public boolean checkLocationValid(String location) {
+		if (location == null || location.isEmpty()) {
+			System.out.println("Name  is empty.");
+			return false;
+		}
+		
+		return true;
+	}
+	
+	public boolean checkNameEmpty(String name) {
+		
+		if (name == null || name.isEmpty()) {
+			System.out.println("Name  is empty.");
+			return false;
+		}
+		
+		return true;
+	}
+	
+	public boolean validateStartTime(String startTime) {
+		try {
+			int startT = Integer.parseInt(startTime);
+			System.out.println(startT);
+		}
+		catch (NumberFormatException nfe) {
+			return false;
+		}
+		
+		return true;
+	}
+	
+	public boolean validateDate(String date) {
+		DateFormat sdf = new SimpleDateFormat(date);
+		sdf.setLenient(false);
+		try {
+			sdf.parse(date);
+			System.out.println(" ~~~~~~~~ " + sdf.parse(date));
+		}
+		catch (ParseException e) {
+			return false;
+		}
+		
+		return true;
+	}
+	
+}// class [ EventDetailedView ]
