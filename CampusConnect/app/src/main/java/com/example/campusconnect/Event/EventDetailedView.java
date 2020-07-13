@@ -379,16 +379,10 @@ public class EventDetailedView extends AppCompatActivity {
 	}
 	
 	
-	// Back Button
-	private void backTo_main() {
-		Intent intent = new Intent(this, MainActivity.class);
-		startActivity(intent);
-	}
-	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		if (item.getItemId() == R.id.newEvent) {
-			
+			// !! CRITICAL: For testing!
 			//if (EventCreation.isOrganizer()){
 			if (true) {
 				Intent intent = new Intent(this, EventCreation.class);
