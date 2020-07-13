@@ -6,7 +6,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.SearchView;
 import android.widget.TextView;
@@ -19,11 +18,9 @@ import androidx.core.view.MenuItemCompat;
 
 import com.example.campusconnect.Admin.Authentication.SignIn;
 import com.example.campusconnect.Admin.OrganizerHelper;
-import com.example.campusconnect.MainActivity;
 import com.example.campusconnect.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -43,13 +40,13 @@ public class EventDetailedView extends AppCompatActivity {
 	
 	Toolbar toolbar;
 	FirebaseFirestore db = null;
-	ImageView whatsappImg;
-	ImageView twitterImg;
-	ImageView facebookImg;
+	ImageView whatsapp_button;
+	ImageView twitter_button;
+	ImageView facebook_button;
 	
-	Button floating_toSavedEvents;
-	Button delete;
-	Button unfollow;
+	Button saveEvent_button;
+	Button deleteEvent_button;
+	Button unfollow_button;
 	Event event;
 	
 	// TODO: Error handling for loading Event from DB
@@ -59,8 +56,8 @@ public class EventDetailedView extends AppCompatActivity {
 		setContentView(R.layout.event_detailed_view);
 		db = FirebaseFirestore.getInstance();
 		
-		delete = (Button) findViewById(R.id.delete);
-		unfollow = (Button) findViewById(R.id.unfollow);
+		deleteEvent_button = (Button) findViewById(R.id.delete);
+		unfollow_button = (Button) findViewById(R.id.unfollow);
 		
 		EventNameInput = findViewById(R.id.EventNameField);
 		locationInput = findViewById(R.id.LocationField);
@@ -91,26 +88,28 @@ public class EventDetailedView extends AppCompatActivity {
 		OrgUidInput.setText(event.getOrgUid());
 		tagInput.setText(event.tag());
 		
-		floating_toSavedEvents = findViewById(R.id.save_event);
-		whatsappImg = findViewById(R.id.whatsapp_logo);
-		twitterImg = findViewById(R.id.twitter_logo);
-		facebookImg = findViewById(R.id.facebook_logo);
+		saveEvent_button = findViewById(R.id.save_event);
+		whatsapp_button = findViewById(R.id.whatsapp_logo);
+		twitter_button = findViewById(R.id.twitter_logo);
+		facebook_button = findViewById(R.id.facebook_logo);
 		
-		unfollow.setOnClickListener(new View.OnClickListener() {
+		unfollow_button.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
 				unfollowEvent();
 			}
 		});
 		
-		delete.setOnClickListener(new View.OnClickListener() {
+		
+		deleteEvent_button.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
 				deleteEvent();
 			}
 		});
 		
-		floating_toSavedEvents.setOnClickListener(new View.OnClickListener() {
+		
+		saveEvent_button.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
 				FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -130,7 +129,7 @@ public class EventDetailedView extends AppCompatActivity {
 			}// [ onClick ]
 		});
 		
-		whatsappImg.setOnClickListener(new View.OnClickListener() {
+		whatsapp_button.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
 				String eventDetail = generateDetailsString();
@@ -138,7 +137,7 @@ public class EventDetailedView extends AppCompatActivity {
 			}
 		});
 		
-		twitterImg.setOnClickListener(new View.OnClickListener() {
+		twitter_button.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
 				String eventDetail = generateDetailsString();
@@ -146,7 +145,7 @@ public class EventDetailedView extends AppCompatActivity {
 			}
 		});
 		
-		facebookImg.setOnClickListener(new View.OnClickListener() {
+		facebook_button.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
 				String eventDetail = generateDetailsString();
