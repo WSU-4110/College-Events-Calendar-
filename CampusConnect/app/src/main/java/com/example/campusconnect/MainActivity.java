@@ -17,6 +17,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.MenuItemCompat;
 
 import com.example.campusconnect.Admin.Authentication.SignIn;
+import com.example.campusconnect.Admin.OrganizerHelper;
 import com.example.campusconnect.Event.Event;
 import com.example.campusconnect.Event.EventCreation;
 import com.example.campusconnect.Event.EventIndicator;
@@ -179,7 +180,7 @@ public class MainActivity extends AppCompatActivity {
 				return false;
 			
 			case R.id.newEvent:
-				if (EventCreation.isOrganizer()) {
+				if (OrganizerHelper.isOrganizer()) {
 					intent = new Intent(this, EventCreation.class);
 					startActivity(intent);
 				}

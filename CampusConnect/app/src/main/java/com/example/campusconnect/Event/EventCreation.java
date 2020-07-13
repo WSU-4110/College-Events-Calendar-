@@ -57,10 +57,6 @@ public class EventCreation extends AppCompatActivity {
 	
 	Button submitButton;
 	
-	private static boolean organizer = false;
-	private static boolean databasePreviouslyChecked = false;                    // TODO: Reset upon login/logout
-	
-	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -189,24 +185,5 @@ public class EventCreation extends AppCompatActivity {
 		
 		return true;
 	}
-	
-	public boolean checkIfOrganizer() {
-		FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-		
-		if (user == null) {
-			// Not logged in
-			return false;
-		}
-		else if (databasePreviouslyChecked) {
-			// Database query was already done previously
-			organizer = OrganizerHelper.isOrganizer();
-			databasePreviouslyChecked = true;
-		}
-		else {
-			// Query the database
-			return organizer;
-		}
-		
-	}// [ isOrganizer ]
 	
 }// end [ CLASS: EventCreation ]

@@ -41,18 +41,18 @@ public class SavedEvent extends AppCompatActivity {
 		setContentView(R.layout.events_list);
 		listView = (ListView) findViewById(R.id.events_listView);
 		
-		organizerHelper = new OrganizerHelper();
 		user = FirebaseAuth.getInstance().getCurrentUser();
 		
 		if (user == null) {
 			Intent intent = new Intent(getApplicationContext(), MainActivity.class);
 			startActivity(intent);
 		}
-		
-		if (organizerHelper.isOrganizer())
+		else if (OrganizerHelper.isOrganizer()) {
 			displayEventsForOrganizer();
-		else
+		}
+		else {
 			displayEventsForUser();
+		}
 	}
 	
 	
