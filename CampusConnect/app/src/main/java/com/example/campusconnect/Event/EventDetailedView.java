@@ -53,7 +53,9 @@ public class EventDetailedView extends AppCompatActivity {
 	
 	private Button delete;
 	private Button unfollow;
+	Event event;
 	
+	// TODO: Error handling for loading Event from DB
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -73,7 +75,7 @@ public class EventDetailedView extends AppCompatActivity {
 		tagInput = findViewById(R.id.TagsField); //tbd
 		
 		Intent intent = getIntent();
-		Event event = intent.getParcelableExtra("Event Parcel");
+		event = intent.getParcelableExtra("Event Parcel");
 		
 		try {
 			// TODO: Reevaluate handling of poss. null pointer for name
@@ -103,7 +105,7 @@ public class EventDetailedView extends AppCompatActivity {
 				FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 				
 				if (true) {
-					
+					// CHECK: Feasible to use a SavedEvent derived class to link user to saved event? (1 of 2)
 					db.collection("SavedEvent")
 							.document("SavedEvent")
 							.collection("Event_SubCollectionTesting")
@@ -144,81 +146,51 @@ public class EventDetailedView extends AppCompatActivity {
 			}
 		});
 		
+		floating_toSavedEvents.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+				
+				if (user == null) {
+					Toast.makeText(EventDetailedView.this, "Not Logged In", Toast.LENGTH_SHORT).show();
+				}
+				
+				// CHECK: Feasible to use a SavedEvent derived class to link user to saved event? (2 of 2)
+				db.collection("SavedEvent")
+						.document("SavedEvent")
+						.collection("Event_SubCollectionTesting")
+						.add(event);
+				
+				Toast.makeText(EventDetailedView.this, "Added to Saved Events", Toast.LENGTH_SHORT).show();
+				
+			}// [ onClick ]
+		});
 		
+		// [CURRENT]: Extract eventDetail string
 		whatsappImg.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				String eventDetail = "Campus Connect - Wayne State" + "\n" +
-						"Event Name : " + EventNameInput.getText().toString() + "\n" +
-						"Location : " + locationInput.getText().toString() + "\n" +
-						"Start Time : " + startTimeInput.getText().toString() + "\n" +
-						"End Time :" + dateInput.getText().toString();
-				shareOnWhatsapp(eventDetail);
+				String eventDetail = generateDetailsString();
+				shareOnFacebook(eventDetail);
 			}
 		});
 		
 		twitterImg.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				String eventDetail = "Campus Connect - Wayne State" + "\n" +
-						"Event Name : " + EventNameInput.getText().toString() + "\n" +
-						"Location : " + locationInput.getText().toString() + "\n" +
-						"Start Time : " + startTimeInput.getText().toString() + "\n" +
-						"End Time :" + dateInput.getText().toString();
-				shareOnTwitter(eventDetail);
+				String eventDetail = generateDetailsString();
+				shareOnFacebook(eventDetail);
 			}
 		});
 		
 		facebookImg.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				String eventDetail = "Campus Connect - Wayne State" + "\n" +
-						"Event Name : " + EventNameInput.getText().toString() + "\n" +
-						"Location : " + locationInput.getText().toString() + "\n" +
-						"Start Time : " + startTimeInput.getText().toString() + "\n" +
-						"End Time :" + dateInput.getText().toString();
+				String eventDetail = generateDetailsString();
 				shareOnFacebook(eventDetail);
 			}
 		});
 		
-		
-		floating_toSavedEvents.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View view) {
-				
-				FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-				
-				// Toast.makeText(EventDetailedView.this, "Logged in: " + user, Toast.LENGTH_SHORT).show();
-				//Event eventSaved = new Event(displayName, name,location,startTime, date, desc, org);
-				
-				if (user != null) {
-					String displayName = user.getUid();
-					Event eventSaved = new Event(displayName, EventNameInput.getText().toString(), locationInput.getText().toString(),
-							startTimeInput.getText().toString(), dateInput.getText().toString(),
-							descInput.getText().toString(), orgInput.getText().toString(), OrgUidInput.getText().toString(), tagInput.getText().toString());
-					Toast.makeText(EventDetailedView.this, "Adding to Saved Events", Toast.LENGTH_SHORT).show();
-					
-//                SavedEvent sEvent = new SavedEvent(displayName, EventNameInput.getText().toString(),locationInput.getText().toString(),
-//                        startTimeInput.getText().toString(), dateInput.getText().toString(),
-//                        descInput.getText().toString(), orgInput.getText().toString());
-					
-					db.collection("SavedEvent")
-							.document("SavedEvent")
-							.collection("Event_SubCollectionTesting")
-							.add(eventSaved);
-					
-					Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-					//intent.putExtra("SavedEvent", sEvent.toString());
-					startActivity(intent);
-					
-					
-				}
-				else {
-					Toast.makeText(EventDetailedView.this, "Not Logged-in", Toast.LENGTH_SHORT).show();
-				}
-				
-			}
-		});
 	}// method [ onCreate: EventDetailedView ]
 	
 	@Override
@@ -281,7 +253,7 @@ public class EventDetailedView extends AppCompatActivity {
 	}
 	
 	
-	private void deleteEvent(){
+	private void deleteEvent() {
 		FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 		
 		// !! TODO: This needs to check if user is an organizer
@@ -342,6 +314,14 @@ public class EventDetailedView extends AppCompatActivity {
 		}
 		else
 			Toast.makeText(EventDetailedView.this, "Only Creator can delete", Toast.LENGTH_SHORT).show();
+	}
+	
+	private String generateDetailsString() {
+		return "Campus Connect - Wayne State" + "\n" +
+				"Event Name : " + EventNameInput.getText().toString() + "\n" +
+				"Location : " + locationInput.getText().toString() + "\n" +
+				"Start Time : " + startTimeInput.getText().toString() + "\n" +
+				"End Time :" + dateInput.getText().toString();
 	}
 	
 	// Share on WhatsApp

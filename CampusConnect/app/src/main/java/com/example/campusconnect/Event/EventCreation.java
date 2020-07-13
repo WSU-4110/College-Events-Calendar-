@@ -160,8 +160,6 @@ public class EventCreation extends AppCompatActivity {
 	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-//      if(item.getItemId() == R.id.newEvent){}
-		
 		if (item.getItemId() == R.id.login) {
 			
 			Intent intent = new Intent(this, SignIn.class);
@@ -176,13 +174,13 @@ public class EventCreation extends AppCompatActivity {
 		else {
 			return false;
 		}
+		
 		return true;
 	}
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.menu_main, menu);
-		
 		return true;
 	}
 	
