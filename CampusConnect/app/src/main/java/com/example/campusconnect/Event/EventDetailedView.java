@@ -6,6 +6,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.SearchView;
 import android.widget.TextView;
@@ -30,8 +31,6 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 
 public class EventDetailedView extends AppCompatActivity {
-	String EventName, location, startTime, date;
-	
 	TextView EventNameInput;
 	TextView locationInput;
 	TextView startTimeInput;
@@ -43,7 +42,7 @@ public class EventDetailedView extends AppCompatActivity {
 	
 	Toolbar toolbar;
 	FirebaseFirestore db = null;
-	FloatingActionButton floating_toSavedEvents;
+	ImageButton floating_toSavedEvents;
 	ImageView whatsappImg;
 	ImageView twitterImg;
 	ImageView facebookImg;
@@ -91,7 +90,7 @@ public class EventDetailedView extends AppCompatActivity {
 		OrgUidInput.setText(event.getOrgUid());
 		tagInput.setText(event.tag());
 		
-		floating_toSavedEvents = findViewById(R.id.floating_back_button);
+		floating_toSavedEvents = findViewById(R.id.save_event);
 		whatsappImg = findViewById(R.id.whatsapp_logo);
 		twitterImg = findViewById(R.id.twitter_logo);
 		facebookImg = findViewById(R.id.facebook_logo);

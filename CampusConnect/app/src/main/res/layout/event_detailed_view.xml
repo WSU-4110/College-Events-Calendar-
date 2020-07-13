@@ -278,7 +278,7 @@
 			app:layout_constraintHorizontal_bias="0.054"
 			app:layout_constraintStart_toStartOf="parent"
 			app:layout_constraintTop_toTopOf="parent"
-			app:layout_constraintVertical_bias="0.837" />
+			app:layout_constraintVertical_bias="0.83" />
 	
 	<Button
 			android:id="@+id/delete"
@@ -291,35 +291,33 @@
 			app:layout_constraintHorizontal_bias="0.398"
 			app:layout_constraintStart_toStartOf="parent"
 			app:layout_constraintTop_toTopOf="parent"
-			app:layout_constraintVertical_bias="0.837" />
+			app:layout_constraintVertical_bias="0.83" />
 	
 	<Button
 			android:id="@+id/RSVP"
-			android:layout_width="wrap_content"
+			android:layout_width="60dp"
 			android:layout_height="wrap_content"
 			android:text="@string/rsvp"
 			android:visibility="visible"
 			app:layout_constraintBottom_toBottomOf="parent"
 			app:layout_constraintEnd_toEndOf="parent"
-			app:layout_constraintHorizontal_bias="0.715"
+			app:layout_constraintHorizontal_bias="0.64"
 			app:layout_constraintStart_toStartOf="parent"
 			app:layout_constraintTop_toTopOf="parent"
-			app:layout_constraintVertical_bias="0.837" />
+			app:layout_constraintVertical_bias="0.83" />
 	
-	<!-- TODO: Change ID and image -->
-	<com.google.android.material.floatingactionbutton.FloatingActionButton
-			android:id="@+id/floating_back_button"
+	<Button
+			android:id="@+id/save_event"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_marginEnd="16dp"
-			android:layout_marginBottom="16dp"
+			android:text="Save Event"
 			app:layout_constraintBottom_toBottomOf="parent"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintHorizontal_bias="1.0"
 			app:layout_constraintStart_toStartOf="parent"
 			app:layout_constraintTop_toTopOf="parent"
-			app:layout_constraintVertical_bias="0.855"
-			app:srcCompat="@android:drawable/stat_notify_more" />
+			app:layout_constraintVertical_bias="0.83" />
 	
 	<ImageView
 			android:id="@+id/social_media_panel"
