@@ -63,10 +63,10 @@ public class SavedEventView extends AppCompatActivity {
 		title.setText("Your Saved Events");
 		
 		final ArrayList<Event> arrayOfEvents;
-		final SavedEventListAdapter adapter;
+		final EventListAdapter adapter;
 		
 		arrayOfEvents = new ArrayList<>();
-		adapter = new SavedEventListAdapter(this, arrayOfEvents);
+		adapter = new EventListAdapter(this, arrayOfEvents);
 		listView = (ListView) findViewById(R.id.events_listView);
 		listView.setAdapter(adapter);
 		
@@ -104,10 +104,10 @@ public class SavedEventView extends AppCompatActivity {
 		title.setText("Your Created Events");
 		
 		final ArrayList<Event> arrayOfEvents;
-		final SavedEventListAdapter adapter;
+		final EventListAdapter adapter;
 		
 		arrayOfEvents = new ArrayList<>();
-		adapter = new SavedEventListAdapter(this, arrayOfEvents);
+		adapter = new EventListAdapter(this, arrayOfEvents);
 		listView = findViewById(R.id.events_listView);
 		listView.setAdapter(adapter);
 		
@@ -138,38 +138,3 @@ public class SavedEventView extends AppCompatActivity {
 	}// [ displayEventsForOrganizer ]
 	
 }// class [ EventView ]
-
-
-class SavedEventListAdapter extends ArrayAdapter<Event> {
-	
-	public SavedEventListAdapter(Context context, ArrayList<Event> events) {
-		super(context, 0, events);
-	}
-	
-	@Override
-	public View getView(int position, View convertView, ViewGroup parent) {
-		if (convertView == null) {
-			convertView = LayoutInflater
-					.from(getContext())
-					.inflate(R.layout.events_list_item, parent, false);
-		}
-		
-		Event event = getItem(position);
-		
-		TextView eventName = (TextView) convertView.findViewById(R.id.list_EventName);
-		TextView eventDate = (TextView) convertView.findViewById(R.id.list_EventDate);
-		TextView eventLocation = (TextView) convertView.findViewById(R.id.list_EventLocation);
-		
-		eventName.setText("Event Name:    ");
-		eventName.append(event.getName());
-		
-		eventDate.setText("Date:    ");
-		eventDate.append(event.getDate());
-		
-		eventLocation.setText("Location:    ");
-		eventLocation.append(event.getLocation());
-		
-		return convertView;
-	}
-	
-}// class [ EventListAdapter ]
