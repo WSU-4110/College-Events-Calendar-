@@ -98,40 +98,7 @@ public class EventDetailedView extends AppCompatActivity {
 		unfollow.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-				
-				if (true) {
-					// CHECK: Feasible to use a SavedEvent derived class to link user to saved event? (1 of 2)
-					db.collection("SavedEvent")
-							.document("SavedEvent")
-							.collection("Event_SubCollectionTesting")
-							.whereEqualTo("uid", user.getUid())
-							.whereEqualTo("name", EventNameInput.getText().toString())
-							.whereEqualTo("location", locationInput.getText().toString())
-							.whereEqualTo("startTime", startTimeInput.getText().toString())
-							.whereEqualTo("date", dateInput.getText().toString())
-							.whereEqualTo("desc", descInput.getText().toString())
-							.whereEqualTo("org", orgInput.getText().toString())
-							.whereEqualTo("tags", tagInput.getText().toString())
-							.get()
-							.addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-								@Override
-								public void onComplete(@NonNull Task<QuerySnapshot> task) {
-									if (task.isSuccessful()) {
-										for (QueryDocumentSnapshot document : task.getResult()) {
-											String DocId = document.getId();
-											db.collection("SavedEvent")
-													.document("SavedEvent")
-													.collection("Event_SubCollectionTesting")
-													.document(DocId).delete();
-										}
-									}
-								}
-							});
-					Toast.makeText(EventDetailedView.this, "Un-followed Event", Toast.LENGTH_SHORT).show();
-					Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-					startActivity(intent);
-				}
+				unfollowEvent();
 			}
 		});
 		
@@ -162,7 +129,6 @@ public class EventDetailedView extends AppCompatActivity {
 			}// [ onClick ]
 		});
 		
-		// [CURRENT]: Extract eventDetail string
 		whatsappImg.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
@@ -187,7 +153,7 @@ public class EventDetailedView extends AppCompatActivity {
 			}
 		});
 		
-	}// method [ onCreate: EventDetailedView ]
+	}// [ onCreate ]
 	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
@@ -204,10 +170,8 @@ public class EventDetailedView extends AppCompatActivity {
 		}
 		
 		if (item.getItemId() == R.id.login) {
-			
 			Intent intent = new Intent(this, SignIn.class);
 			startActivity(intent);
-			
 		}
 		else if (item.getItemId() == R.id.logout) {
 			final FirebaseAuth mAuth = FirebaseAuth.getInstance();
@@ -218,8 +182,10 @@ public class EventDetailedView extends AppCompatActivity {
 		else {
 			return false;
 		}
+		
 		return true;
-	}
+		
+	}// [ onOptionsItemSelected ]
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -247,6 +213,45 @@ public class EventDetailedView extends AppCompatActivity {
 		return true;
 	}
 	
+	private void unfollowEvent() {
+		FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+		
+		if (user == null){
+			Toast.makeText(EventDetailedView.this, "Not Logged In", Toast.LENGTH_SHORT).show();
+			return;
+		}
+		
+		// CHECK: Feasible to use a SavedEvent derived class to link user to saved event? (1 of 2)
+		db.collection("SavedEvent")
+				.document("SavedEvent")
+				.collection("Event_SubCollectionTesting")
+				.whereEqualTo("uid", user.getUid())
+				.whereEqualTo("name", EventNameInput.getText().toString())
+				.whereEqualTo("location", locationInput.getText().toString())
+				.whereEqualTo("startTime", startTimeInput.getText().toString())
+				.whereEqualTo("date", dateInput.getText().toString())
+				.whereEqualTo("desc", descInput.getText().toString())
+				.whereEqualTo("org", orgInput.getText().toString())
+				.whereEqualTo("tags", tagInput.getText().toString())
+				.get()
+				.addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+					@Override
+					public void onComplete(@NonNull Task<QuerySnapshot> task) {
+						if (task.isSuccessful()) {
+							for (QueryDocumentSnapshot document : task.getResult()) {
+								String DocId = document.getId();
+								db.collection("SavedEvent")
+										.document("SavedEvent")
+										.collection("Event_SubCollectionTesting")
+										.document(DocId).delete();
+							}
+						}
+					}
+				});
+		Toast.makeText(EventDetailedView.this, "Un-followed Event", Toast.LENGTH_SHORT).show();
+		Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+		startActivity(intent);
+	}
 	
 	private void deleteEvent() {
 		FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -310,7 +315,7 @@ public class EventDetailedView extends AppCompatActivity {
 		}
 		else
 			Toast.makeText(EventDetailedView.this, "Only Creator can delete", Toast.LENGTH_SHORT).show();
-	
+		
 	}// [ deleteEvent ]
 	
 	private String generateDetailsString() {
@@ -366,6 +371,5 @@ public class EventDetailedView extends AppCompatActivity {
 		}
 	}
 	
-
 	
 }// class [ EventDetailedView ]
