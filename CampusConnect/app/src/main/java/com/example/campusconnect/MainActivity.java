@@ -21,7 +21,7 @@ import com.example.campusconnect.Event.Event;
 import com.example.campusconnect.Event.EventCreation;
 import com.example.campusconnect.Event.EventIndicator;
 import com.example.campusconnect.Event.EventView;
-import com.example.campusconnect.Event.SavedEventView;
+import com.example.campusconnect.Event.SavedEvent;
 import com.example.campusconnect.Event.Search;
 import com.github.sundeepk.compactcalendarview.CompactCalendarView;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -160,7 +160,7 @@ public class MainActivity extends AppCompatActivity {
 		FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 		
 		if (user != null) {
-			Intent intent = new Intent(this, SavedEventView.class);
+			Intent intent = new Intent(this, SavedEvent.class);
 			startActivity(intent);
 		}
 		else {

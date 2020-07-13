@@ -39,7 +39,7 @@
             android:name=".Event.EventDetailedView"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name=".Event.SavedEventView"
+            android:name=".Event.SavedEvent"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
 
         <activity

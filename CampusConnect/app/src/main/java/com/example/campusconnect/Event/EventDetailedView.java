@@ -108,8 +108,8 @@ public class EventDetailedView extends AppCompatActivity {
 				
 				if (true) {
 					
-					db.collection("SavedEventView")
-							.document("SavedEventView")
+					db.collection("SavedEvent")
+							.document("SavedEvent")
 							.collection("Event_SubCollectionTesting")
 							.whereEqualTo("uid", user.getUid())
 							.whereEqualTo("name", EventNameInput.getText().toString())
@@ -126,8 +126,8 @@ public class EventDetailedView extends AppCompatActivity {
 									if (task.isSuccessful()) {
 										for (QueryDocumentSnapshot document : task.getResult()) {
 											String DocId = document.getId();
-											db.collection("SavedEventView")
-													.document("SavedEventView")
+											db.collection("SavedEvent")
+													.document("SavedEvent")
 													.collection("Event_SubCollectionTesting")
 													.document(DocId).delete();
 										}
@@ -173,8 +173,8 @@ public class EventDetailedView extends AppCompatActivity {
 									}
 								}
 							});
-					db.collection("SavedEventView")
-							.document("SavedEventView")
+					db.collection("SavedEvent")
+							.document("SavedEvent")
 							.collection("Event_SubCollectionTesting")
 							.whereEqualTo("orgUid", user.getUid())
 							.whereEqualTo("name", EventNameInput.getText().toString())
@@ -190,8 +190,8 @@ public class EventDetailedView extends AppCompatActivity {
 									if (task.isSuccessful()) {
 										for (QueryDocumentSnapshot document : task.getResult()) {
 											String DocId = document.getId();
-											db.collection("SavedEventView")
-													.document("SavedEventView")
+											db.collection("SavedEvent")
+													.document("SavedEvent")
 													.collection("Event_SubCollectionTesting")
 													.document(DocId).delete();
 										}
@@ -260,17 +260,17 @@ public class EventDetailedView extends AppCompatActivity {
 							descInput.getText().toString(), orgInput.getText().toString(), OrgUidInput.getText().toString(), tagInput.getText().toString());
 					Toast.makeText(EventDetailedView.this, "Adding to Saved Events", Toast.LENGTH_SHORT).show();
 
-//                SavedEventView sEvent = new SavedEventView(displayName, EventNameInput.getText().toString(),locationInput.getText().toString(),
+//                SavedEvent sEvent = new SavedEvent(displayName, EventNameInput.getText().toString(),locationInput.getText().toString(),
 //                        startTimeInput.getText().toString(), dateInput.getText().toString(),
 //                        descInput.getText().toString(), orgInput.getText().toString());
 					
-					db.collection("SavedEventView")
-							.document("SavedEventView")
+					db.collection("SavedEvent")
+							.document("SavedEvent")
 							.collection("Event_SubCollectionTesting")
 							.add(eventSaved);
 					
 					Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-					//intent.putExtra("SavedEventView", sEvent.toString());
+					//intent.putExtra("SavedEvent", sEvent.toString());
 					startActivity(intent);
 					
 					

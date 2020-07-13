@@ -27,7 +27,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 
-public class SavedEventView extends AppCompatActivity {
+public class SavedEvent extends AppCompatActivity {
 	
 	ListView listView;
 	FirebaseUser user;
