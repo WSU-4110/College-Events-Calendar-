@@ -28,7 +28,8 @@
     <string name="delete">Delete</string>
     <string name="date">Date</string>
     <string name="rsvp">RSVP</string>
-    <string-array name="tags_array">
+	<string name="save_event">Save Event</string>
+	<string-array name="tags_array">
         <item>(None)</item>
         <item>Medicine</item>
         <item>Career Fair</item>

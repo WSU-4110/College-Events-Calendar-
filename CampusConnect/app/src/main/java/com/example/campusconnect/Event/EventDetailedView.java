@@ -42,13 +42,13 @@ public class EventDetailedView extends AppCompatActivity {
 	
 	Toolbar toolbar;
 	FirebaseFirestore db = null;
-	ImageButton floating_toSavedEvents;
 	ImageView whatsappImg;
 	ImageView twitterImg;
 	ImageView facebookImg;
 	
-	private Button delete;
-	private Button unfollow;
+	Button floating_toSavedEvents;
+	Button delete;
+	Button unfollow;
 	Event event;
 	
 	// TODO: Error handling for loading Event from DB
@@ -192,7 +192,7 @@ public class EventDetailedView extends AppCompatActivity {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		if (item.getItemId() == R.id.newEvent) {
-			// !! CRITICAL: Disabled Organizer check for testing!
+			// !! CRITICAL: Enable Organizer check after testing!
 			//if (EventCreation.isOrganizer()){
 			if (true) {
 				Intent intent = new Intent(this, EventCreation.class);
