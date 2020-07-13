@@ -1,4 +1,4 @@
-package com.example.campusconnect.Event;
+ package com.example.campusconnect.Event;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
@@ -19,6 +19,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.campusconnect.Admin.Authentication.SignIn;
+import com.example.campusconnect.Admin.OrganizerHelper;
 import com.example.campusconnect.MainActivity;
 import com.example.campusconnect.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -55,60 +56,9 @@ public class EventCreation extends AppCompatActivity {
 	EditText orgInput;
 	
 	Button submitButton;
+	
 	private static boolean organizer = false;
 	private static boolean databasePreviouslyChecked = false;                    // TODO: Reset upon login/logout
-	
-	public static boolean isOrganizer() {
-		FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-		
-		if (user == null) {
-			// Not logged in
-			return false;
-		}
-		else if (databasePreviouslyChecked) {
-			// Database query was already done previously
-			return organizer;
-		}
-		else {
-			// Query the database
-			updateUserType();
-			return organizer;
-		}
-		
-	}// [ isOrganizer ]
-	
-	
-	private static void updateUserType() {
-		FirebaseFirestore db = FirebaseFirestore.getInstance();
-		FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-		
-		if (user == null) {
-			organizer = false;
-			return;
-		}
-		
-		db.collection("Users")
-				.document("Organizers")
-				.collection("FirebaseID")
-				.whereEqualTo("id", user.getUid())
-				.get()
-				.addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-					@Override
-					public void onComplete(@NonNull Task<QuerySnapshot> task) {
-						// TODO: Handle isEmpty() poss. NPE
-						if (task.isSuccessful()) {
-							organizer = true;
-							System.out.println("\n\n\nOrganizer found\n\n\n");
-						}
-						else {
-							organizer = false;
-						}
-						
-						databasePreviouslyChecked = true;
-					}
-				});
-		
-	}// [ updateUserType ]
 	
 	
 	@Override
@@ -240,10 +190,23 @@ public class EventCreation extends AppCompatActivity {
 		return true;
 	}
 	
+	public boolean checkIfOrganizer() {
+		FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+		
+		if (user == null) {
+			// Not logged in
+			return false;
+		}
+		else if (databasePreviouslyChecked) {
+			// Database query was already done previously
+			organizer = OrganizerHelper.isOrganizer();
+			databasePreviouslyChecked = true;
+		}
+		else {
+			// Query the database
+			return organizer;
+		}
+		
+	}// [ isOrganizer ]
+	
 }// end [ CLASS: EventCreation ]
-
-
-
-
-
-

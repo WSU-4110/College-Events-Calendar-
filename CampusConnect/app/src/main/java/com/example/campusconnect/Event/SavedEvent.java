@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.campusconnect.MainActivity;
+import com.example.campusconnect.Admin.OrganizerHelper;
 import com.example.campusconnect.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -32,6 +33,7 @@ public class SavedEvent extends AppCompatActivity {
 	ListView listView;
 	FirebaseUser user;
 	FirebaseFirestore db;
+	OrganizerHelper organizerHelper;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -39,15 +41,15 @@ public class SavedEvent extends AppCompatActivity {
 		setContentView(R.layout.events_list);
 		listView = (ListView) findViewById(R.id.events_listView);
 		
+		organizerHelper = new OrganizerHelper();
 		user = FirebaseAuth.getInstance().getCurrentUser();
-		db = FirebaseFirestore.getInstance();
 		
 		if (user == null) {
 			Intent intent = new Intent(getApplicationContext(), MainActivity.class);
 			startActivity(intent);
 		}
 		
-		if (EventCreation.isOrganizer())
+		if (organizerHelper.isOrganizer())
 			displayEventsForOrganizer();
 		else
 			displayEventsForUser();
