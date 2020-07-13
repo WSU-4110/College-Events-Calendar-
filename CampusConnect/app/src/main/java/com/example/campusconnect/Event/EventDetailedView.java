@@ -18,6 +18,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.MenuItemCompat;
 
 import com.example.campusconnect.Admin.Authentication.SignIn;
+import com.example.campusconnect.Admin.OrganizerHelper;
 import com.example.campusconnect.MainActivity;
 import com.example.campusconnect.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -157,32 +158,34 @@ public class EventDetailedView extends AppCompatActivity {
 	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		if (item.getItemId() == R.id.newEvent) {
-			// !! CRITICAL: Enable Organizer check after testing!
-			//if (EventCreation.isOrganizer()){
-			if (true) {
-				Intent intent = new Intent(this, EventCreation.class);
+		int itemID = item.getItemId();
+		
+		switch (itemID) {
+			case (R.id.newEvent):
+				if (OrganizerHelper.isOrganizer()) {
+					Intent intent = new Intent(this, EventCreation.class);
+					startActivity(intent);
+				}
+				else {
+					Toast.makeText(EventDetailedView.this, "Only Organizers Can Add Events", Toast.LENGTH_SHORT).show();
+				}
+				break;
+				
+			case (R.id.login):
+				Intent intent = new Intent(this, SignIn.class);
 				startActivity(intent);
-			}
-			else {
-				Toast.makeText(EventDetailedView.this, "Only Organizers Can Add Events", Toast.LENGTH_SHORT).show();
-			}
-		}
-		
-		if (item.getItemId() == R.id.login) {
-			Intent intent = new Intent(this, SignIn.class);
-			startActivity(intent);
-		}
-		else if (item.getItemId() == R.id.logout) {
-			final FirebaseAuth mAuth = FirebaseAuth.getInstance();
-			startActivity(new Intent(EventDetailedView.this, SignIn.class));
-			//FirebaseAuth.getInstance().signOut();
-			mAuth.signOut();
-		}
-		else {
-			return false;
-		}
-		
+				break;
+				
+			case (R.id.logout):
+				final FirebaseAuth mAuth = FirebaseAuth.getInstance();
+				startActivity(new Intent(EventDetailedView.this, SignIn.class));
+				//FirebaseAuth.getInstance().signOut();
+				mAuth.signOut();
+				break;
+			
+			default:
+				return false;
+		}// switch
 		return true;
 		
 	}// [ onOptionsItemSelected ]
@@ -216,7 +219,7 @@ public class EventDetailedView extends AppCompatActivity {
 	private void unfollowEvent() {
 		FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 		
-		if (user == null){
+		if (user == null) {
 			Toast.makeText(EventDetailedView.this, "Not Logged In", Toast.LENGTH_SHORT).show();
 			return;
 		}
@@ -226,13 +229,13 @@ public class EventDetailedView extends AppCompatActivity {
 				.document("SavedEvent")
 				.collection("Event_SubCollectionTesting")
 				.whereEqualTo("uid", user.getUid())
-				.whereEqualTo("name", EventNameInput.getText().toString())
-				.whereEqualTo("location", locationInput.getText().toString())
-				.whereEqualTo("startTime", startTimeInput.getText().toString())
-				.whereEqualTo("date", dateInput.getText().toString())
-				.whereEqualTo("desc", descInput.getText().toString())
-				.whereEqualTo("org", orgInput.getText().toString())
-				.whereEqualTo("tags", tagInput.getText().toString())
+				.whereEqualTo("name", event.getName())
+				.whereEqualTo("location", event.getLocation())
+				.whereEqualTo("startTime", event.getStartTime())
+				.whereEqualTo("date", event.getDate())
+				.whereEqualTo("desc", event.getDesc())
+				.whereEqualTo("org", event.getOrg())
+				.whereEqualTo("tags", event.tag())
 				.get()
 				.addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
 					@Override
@@ -248,73 +251,77 @@ public class EventDetailedView extends AppCompatActivity {
 						}
 					}
 				});
-		Toast.makeText(EventDetailedView.this, "Un-followed Event", Toast.LENGTH_SHORT).show();
-		Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-		startActivity(intent);
-	}
+		
+		Toast.makeText(EventDetailedView.this, "Unfollowed Event", Toast.LENGTH_SHORT).show();
+		
+	}// [ unfollowEvent ]
 	
 	private void deleteEvent() {
 		FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 		
 		// !! TODO: This needs to check if user is an organizer
-		if (true) {
-			db.collection("Events")
-					.document("Events")
-					.collection("Event_SubCollectionTesting")
-					.whereEqualTo("orgUid", user.getUid())
-					.whereEqualTo("name", EventNameInput.getText().toString())
-					.whereEqualTo("location", locationInput.getText().toString())
-					.whereEqualTo("startTime", startTimeInput.getText().toString())
-					.whereEqualTo("date", dateInput.getText().toString())
-					.whereEqualTo("desc", descInput.getText().toString())
-					.whereEqualTo("org", orgInput.getText().toString())
-					.whereEqualTo("tags", tagInput.getText().toString())
-					.get()
-					.addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-						@Override
-						public void onComplete(@NonNull Task<QuerySnapshot> task) {
-							if (task.isSuccessful()) {
-								for (QueryDocumentSnapshot document : task.getResult()) {
-									String DocId = document.getId();
-									db.collection("Events")
-											.document("Events")
-											.collection("Event_SubCollectionTesting")
-											.document(DocId).delete();
-								}
-							}
-						}
-					});
-			
-			db.collection("SavedEvent")
-					.document("SavedEvent")
-					.collection("Event_SubCollectionTesting")
-					.whereEqualTo("orgUid", user.getUid())
-					.whereEqualTo("name", EventNameInput.getText().toString())
-					.whereEqualTo("location", locationInput.getText().toString())
-					.whereEqualTo("startTime", startTimeInput.getText().toString())
-					.whereEqualTo("date", dateInput.getText().toString())
-					.whereEqualTo("desc", descInput.getText().toString())
-					.whereEqualTo("org", orgInput.getText().toString())
-					.get()
-					.addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-						@Override
-						public void onComplete(@NonNull Task<QuerySnapshot> task) {
-							if (task.isSuccessful()) {
-								for (QueryDocumentSnapshot document : task.getResult()) {
-									String DocId = document.getId();
-									db.collection("SavedEvent")
-											.document("SavedEvent")
-											.collection("Event_SubCollectionTesting")
-											.document(DocId).delete();
-								}
-							}
-						}
-					});
-			Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-			startActivity(intent);
-		}
-		else
+		if (!OrganizerHelper.isOrganizer()) {
 			Toast.makeText(EventDetailedView.this, "Only Creator can delete", Toast.LENGTH_SHORT).show();
+			return;
+		}
+		else if (user == null) {
+			Toast.makeText(EventDetailedView.this, "Not Logged In", Toast.LENGTH_SHORT).show();
+			return;
+		}
+		
+		db.collection("Events")
+				.document("Events")
+				.collection("Event_SubCollectionTesting")
+				.whereEqualTo("orgUid", user.getUid())
+				.whereEqualTo("name", event.getName())
+				.whereEqualTo("location", event.getLocation())
+				.whereEqualTo("startTime", event.getStartTime())
+				.whereEqualTo("date", event.getDate())
+				.whereEqualTo("desc", event.getDesc())
+				.whereEqualTo("org", event.getOrg())
+				.whereEqualTo("tags", event.tag())
+				.get()
+				.addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+					@Override
+					public void onComplete(@NonNull Task<QuerySnapshot> task) {
+						if (task.isSuccessful()) {
+							for (QueryDocumentSnapshot document : task.getResult()) {
+								String DocId = document.getId();
+								db.collection("Events")
+										.document("Events")
+										.collection("Event_SubCollectionTesting")
+										.document(DocId).delete();
+							}
+						}
+					}
+				});
+		
+		
+		db.collection("SavedEvent")
+				.document("SavedEvent")
+				.collection("Event_SubCollectionTesting")
+				.whereEqualTo("orgUid", user.getUid())
+				.whereEqualTo("name", event.getName())
+				.whereEqualTo("location", event.getLocation())
+				.whereEqualTo("startTime", event.getStartTime())
+				.whereEqualTo("date", event.getDate())
+				.whereEqualTo("desc", event.getDesc())
+				.whereEqualTo("org", event.getOrg())
+				.get()
+				.addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+					@Override
+					public void onComplete(@NonNull Task<QuerySnapshot> task) {
+						if (task.isSuccessful()) {
+							for (QueryDocumentSnapshot document : task.getResult()) {
+								String DocId = document.getId();
+								db.collection("SavedEvent")
+										.document("SavedEvent")
+										.collection("Event_SubCollectionTesting")
+										.document(DocId).delete();
+							}
+						}
+					}
+				});
 		
 	}// [ deleteEvent ]
 	
