@@ -31,17 +31,14 @@ import java.util.Objects;
 public class SavedEvent extends AppCompatActivity {
 	
 	ListView listView;
-	FirebaseUser user;
-	FirebaseFirestore db;
-	OrganizerHelper organizerHelper;
+	static FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+	static FirebaseFirestore db = FirebaseFirestore.getInstance();
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.events_list);
 		listView = (ListView) findViewById(R.id.events_listView);
-		
-		user = FirebaseAuth.getInstance().getCurrentUser();
 		
 		if (user == null) {
 			Intent intent = new Intent(getApplicationContext(), MainActivity.class);
@@ -78,10 +75,10 @@ public class SavedEvent extends AppCompatActivity {
 			}
 		});
 		
-		db.collection("Events")
-				.document("Events")
+		db.collection("SavedEvent")
+				.document("SavedEvent")
 				.collection("Event_SubCollectionTesting")
-				.whereEqualTo("orgUid", user.getUid())
+				.whereEqualTo("uid", user.getUid())
 				.get()
 				.addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
 					@Override

@@ -188,7 +188,6 @@ public class EventDetailedView extends AppCompatActivity {
 		orgInput.setText(event.getOrg());
 		OrgUidInput.setText(event.getOrgUid());
 		tagInput.setText(event.tag());
-		
 	}// [ setupTextFields ]
 	
 	private void setupButtons(){
@@ -198,7 +197,7 @@ public class EventDetailedView extends AppCompatActivity {
 		whatsapp_button = findViewById(R.id.whatsapp_logo);
 		twitter_button = findViewById(R.id.twitter_logo);
 		facebook_button = findViewById(R.id.facebook_logo);
-	}
+	}// [ setupButtons ]
 	
 	private void unfollowEvent() {
 		FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();

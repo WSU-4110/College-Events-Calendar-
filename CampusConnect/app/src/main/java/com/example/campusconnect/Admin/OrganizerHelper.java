@@ -35,6 +35,8 @@ public class OrganizerHelper {
 		if (user == null)
 			return false;
 		
+		organizerWasFound[0] = false;
+		
 		db.collection("Users")
 				.document("Organizers")
 				.collection("FirebaseID")
@@ -46,9 +48,6 @@ public class OrganizerHelper {
 						if (task.isSuccessful()) {
 							System.out.println("\n\n\nOrganizer found\n\n\n");
 							organizerWasFound[0] = true;
-						}
-						else {
-							organizerWasFound[0] = false;
 						}
 					}
 				});

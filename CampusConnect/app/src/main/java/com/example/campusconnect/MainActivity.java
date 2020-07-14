@@ -37,6 +37,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Objects;
 
+// TODO: App is returning a non-null regular user instance (not org.) without logging in. CHECK!
 public class MainActivity extends AppCompatActivity {
 	
 	private MenuItem signinout;
