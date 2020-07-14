@@ -45,6 +45,7 @@ public class EventDetailedView extends AppCompatActivity {
 	
 	Button saveEvent_button;
 	Button deleteEvent_button;
+	Button RSVP_button;
 	Button unfollow_button;
 	static Event event;
 	
@@ -73,6 +74,13 @@ public class EventDetailedView extends AppCompatActivity {
 			@Override
 			public void onClick(View view) {
 				deleteEvent();
+			}
+		});
+		
+		RSVP_button.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				RSVPToEvent();
 			}
 		});
 		
@@ -194,6 +202,7 @@ public class EventDetailedView extends AppCompatActivity {
 		deleteEvent_button = findViewById(R.id.delete);
 		unfollow_button = findViewById(R.id.unfollow);
 		saveEvent_button = findViewById(R.id.save_event);
+		RSVP_button = findViewById(R.id.RSVP);
 		whatsapp_button = findViewById(R.id.whatsapp_logo);
 		twitter_button = findViewById(R.id.twitter_logo);
 		facebook_button = findViewById(R.id.facebook_logo);
@@ -307,6 +316,22 @@ public class EventDetailedView extends AppCompatActivity {
 				});
 		
 	}// [ deleteEvent ]
+	
+	private void RSVPToEvent(){
+		FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+		
+		if (user == null) {
+			Toast.makeText(EventDetailedView.this, "Not Logged In", Toast.LENGTH_SHORT).show();
+			return;
+		}
+		else if (OrganizerHelper.isOrganizer()){
+			Toast.makeText(EventDetailedView.this, "Logged in as Organizer", Toast.LENGTH_SHORT).show();
+		}
+		else {
+			Toast.makeText(EventDetailedView.this, "[TESTING] RSVP Clicked", Toast.LENGTH_SHORT).show();
+		}
+	
+	}// [ RSVPToEvent ]
 	
 	private void saveEvent() {
 		FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
