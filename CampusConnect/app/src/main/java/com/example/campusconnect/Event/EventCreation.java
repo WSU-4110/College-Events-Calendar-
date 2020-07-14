@@ -49,8 +49,8 @@ public class EventCreation extends AppCompatActivity {
 	EditText dateInput;
 	EditText descInput;
 	EditText orgInput;
-	Spinner spinner;
-	Spinner staticSpinner;
+	Spinner tagSpinner;
+	Spinner staticTagSpinner;
 	Button submitButton;
 	
 	@Override
@@ -82,17 +82,15 @@ public class EventCreation extends AppCompatActivity {
 		submitButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				setupFields();
-				setupStaticSpinner();
 				processEventCreation();
-
+				
 				Intent intent = new Intent(EventCreation.this, MainActivity.class);
 				startActivity(intent);
 			}
 		});
 		
 		/*
-		// TODO: Is crashing app
+		// TODO: Toolbar is crashing app
 		Toolbar toolbar = findViewById(R.id.toolbar);
 		setSupportActionBar(toolbar);
 		getSupportActionBar().setTitle("Event Creation");*/
@@ -145,11 +143,12 @@ public class EventCreation extends AppCompatActivity {
 		dateInput = (EditText) findViewById(R.id.EventDate);
 		descInput = (EditText) findViewById(R.id.DescriptionField);
 		orgInput = (EditText) findViewById(R.id.Organization);
-		spinner = (Spinner) findViewById(R.id.tags);
+		tagSpinner = (Spinner) findViewById(R.id.tags);
 	}
 	
 	private void setupStaticSpinner(){
-		staticSpinner = findViewById(R.id.tags);
+		// TODO: Is this or tagSpinner not needed?
+		staticTagSpinner = findViewById(R.id.tags);
 		
 		// Create an ArrayAdapter using the string array and a default spinner
 		ArrayAdapter<CharSequence> staticAdapter = ArrayAdapter
@@ -161,7 +160,7 @@ public class EventCreation extends AppCompatActivity {
 				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		
 		// Apply the adapter to the spinner
-		staticSpinner.setAdapter(staticAdapter);
+		staticTagSpinner.setAdapter(staticAdapter);
 	}
 	
 	private void processEventCreation(){
@@ -173,7 +172,7 @@ public class EventCreation extends AppCompatActivity {
 		date = dateInput.getText().toString();
 		desc = descInput.getText().toString();
 		org = orgInput.getText().toString();
-		String tag = spinner.getSelectedItem().toString();
+		String tag = tagSpinner.getSelectedItem().toString();
 		
 		FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 		Event event = new Event(null, EventName, location, startTime,
