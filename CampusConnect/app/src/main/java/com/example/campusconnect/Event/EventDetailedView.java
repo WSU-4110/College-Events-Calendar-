@@ -39,7 +39,6 @@ public class EventDetailedView extends AppCompatActivity {
 	TextView tagInput;
 	
 	Toolbar toolbar;
-	FirebaseFirestore db = null;
 	ImageView whatsapp_button;
 	ImageView twitter_button;
 	ImageView facebook_button;
@@ -47,52 +46,22 @@ public class EventDetailedView extends AppCompatActivity {
 	Button saveEvent_button;
 	Button deleteEvent_button;
 	Button unfollow_button;
-	Event event;
+	static Event event;
+	
+	FirebaseFirestore db = FirebaseFirestore.getInstance();
 	
 	// TODO: Error handling for loading Event from DB
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.event_detailed_view);
-		db = FirebaseFirestore.getInstance();
-		
-		deleteEvent_button = (Button) findViewById(R.id.delete);
-		unfollow_button = (Button) findViewById(R.id.unfollow);
-		
-		EventNameInput = findViewById(R.id.EventNameField);
-		locationInput = findViewById(R.id.LocationField);
-		startTimeInput = findViewById(R.id.StartTimeField);
-		dateInput = findViewById(R.id.EventDate);
-		descInput = findViewById(R.id.DescriptionField);
-		orgInput = findViewById(R.id.Organization);
-		OrgUidInput = findViewById(R.id.OrgUid);
-		tagInput = findViewById(R.id.TagsField);
 		
 		Intent intent = getIntent();
 		event = intent.getParcelableExtra("Event Parcel");
 		
-		try {
-			// TODO: Reevaluate handling of poss. null pointer for name
-			EventNameInput.setText(event.getName());
-		}
-		catch (NullPointerException noName) {
-			String emptyName = "EventNameNotProvided";
-			EventNameInput.setText(emptyName);
-		}
-		
-		locationInput.setText(event.getLocation());
-		startTimeInput.setText(event.getStartTime());
-		dateInput.setText(event.getDate());
-		descInput.setText(event.getDesc());
-		orgInput.setText(event.getOrg());
-		OrgUidInput.setText(event.getOrgUid());
-		tagInput.setText(event.tag());
-		
-		saveEvent_button = findViewById(R.id.save_event);
-		whatsapp_button = findViewById(R.id.whatsapp_logo);
-		twitter_button = findViewById(R.id.twitter_logo);
-		facebook_button = findViewById(R.id.facebook_logo);
-		
+		setupTextFields();
+		setupButtons();
+
 		unfollow_button.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
@@ -195,9 +164,40 @@ public class EventDetailedView extends AppCompatActivity {
 						return false;
 					}
 				}
-		
 		);
+		
 		return true;
+		
+	}// [ onCreateOptionsMenu ]
+	
+	private void setupTextFields(){
+		EventNameInput = findViewById(R.id.EventNameField);
+		locationInput = findViewById(R.id.LocationField);
+		startTimeInput = findViewById(R.id.StartTimeField);
+		dateInput = findViewById(R.id.EventDate);
+		descInput = findViewById(R.id.DescriptionField);
+		orgInput = findViewById(R.id.Organization);
+		OrgUidInput = findViewById(R.id.OrgUid);
+		tagInput = findViewById(R.id.TagsField);
+		
+		EventNameInput.setText(event.getName());
+		locationInput.setText(event.getLocation());
+		startTimeInput.setText(event.getStartTime());
+		dateInput.setText(event.getDate());
+		descInput.setText(event.getDesc());
+		orgInput.setText(event.getOrg());
+		OrgUidInput.setText(event.getOrgUid());
+		tagInput.setText(event.tag());
+		
+	}// [ setupTextFields ]
+	
+	private void setupButtons(){
+		deleteEvent_button = (Button) findViewById(R.id.delete);
+		unfollow_button = (Button) findViewById(R.id.unfollow);
+		saveEvent_button = findViewById(R.id.save_event);
+		whatsapp_button = findViewById(R.id.whatsapp_logo);
+		twitter_button = findViewById(R.id.twitter_logo);
+		facebook_button = findViewById(R.id.facebook_logo);
 	}
 	
 	private void unfollowEvent() {
