@@ -191,8 +191,8 @@ public class EventDetailedView extends AppCompatActivity {
 	}// [ setupTextFields ]
 	
 	private void setupButtons(){
-		deleteEvent_button = (Button) findViewById(R.id.delete);
-		unfollow_button = (Button) findViewById(R.id.unfollow);
+		deleteEvent_button = findViewById(R.id.delete);
+		unfollow_button = findViewById(R.id.unfollow);
 		saveEvent_button = findViewById(R.id.save_event);
 		whatsapp_button = findViewById(R.id.whatsapp_logo);
 		twitter_button = findViewById(R.id.twitter_logo);
