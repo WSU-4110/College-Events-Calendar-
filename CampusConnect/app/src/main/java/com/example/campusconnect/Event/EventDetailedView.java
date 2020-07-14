@@ -66,7 +66,7 @@ public class EventDetailedView extends AppCompatActivity {
 		descInput = findViewById(R.id.DescriptionField);
 		orgInput = findViewById(R.id.Organization);
 		OrgUidInput = findViewById(R.id.OrgUid);
-		tagInput = findViewById(R.id.TagsField); //tbd
+		tagInput = findViewById(R.id.TagsField);
 		
 		Intent intent = getIntent();
 		event = intent.getParcelableExtra("Event Parcel");
@@ -100,7 +100,6 @@ public class EventDetailedView extends AppCompatActivity {
 			}
 		});
 		
-		
 		deleteEvent_button.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
@@ -108,25 +107,11 @@ public class EventDetailedView extends AppCompatActivity {
 			}
 		});
 		
-		
 		saveEvent_button.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-				
-				if (user == null) {
-					Toast.makeText(EventDetailedView.this, "Not Logged In", Toast.LENGTH_SHORT).show();
-				}
-				
-				// CHECK: Feasible to extract a SavedEvent derived class to link user to saved event? (2 of 2)
-				db.collection("SavedEvent")
-						.document("SavedEvent")
-						.collection("Event_SubCollectionTesting")
-						.add(event);
-				
-				Toast.makeText(EventDetailedView.this, "Added to Saved Events", Toast.LENGTH_SHORT).show();
-				
-			}// [ onClick ]
+				saveEvent();
+			}
 		});
 		
 		whatsapp_button.setOnClickListener(new View.OnClickListener() {
@@ -169,12 +154,12 @@ public class EventDetailedView extends AppCompatActivity {
 					Toast.makeText(EventDetailedView.this, "Only Organizers Can Add Events", Toast.LENGTH_SHORT).show();
 				}
 				break;
-				
+			
 			case (R.id.login):
 				Intent intent = new Intent(this, SignIn.class);
 				startActivity(intent);
 				break;
-				
+			
 			case (R.id.logout):
 				final FirebaseAuth mAuth = FirebaseAuth.getInstance();
 				startActivity(new Intent(EventDetailedView.this, SignIn.class));
@@ -258,8 +243,8 @@ public class EventDetailedView extends AppCompatActivity {
 	private void deleteEvent() {
 		FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 		
-		// !! TODO: This needs to check if user is an organizer
 		if (!OrganizerHelper.isOrganizer()) {
+			// !! TODO: Is this THE organizer that created the event? (make new method in OrganizerHelper)
 			Toast.makeText(EventDetailedView.this, "Only Creator can delete", Toast.LENGTH_SHORT).show();
 			return;
 		}
@@ -323,6 +308,23 @@ public class EventDetailedView extends AppCompatActivity {
 				});
 		
 	}// [ deleteEvent ]
+	
+	private void saveEvent() {
+		FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+		
+		if (user == null) {
+			Toast.makeText(EventDetailedView.this, "Not Logged In", Toast.LENGTH_SHORT).show();
+			return;
+		}
+		
+		// CHECK: Feasible to extract a SavedEvent derived class to link user to saved event? (2 of 2)
+		db.collection("SavedEvent")
+				.document("SavedEvent")
+				.collection("Event_SubCollectionTesting")
+				.add(event);
+		
+		Toast.makeText(EventDetailedView.this, "Added to Saved Events", Toast.LENGTH_SHORT).show();
+	}
 	
 	private String generateDetailsString() {
 		return "Campus Connect - Wayne State" + "\n" +
