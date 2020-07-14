@@ -181,13 +181,15 @@ public class MainActivity extends AppCompatActivity {
 				return false;
 			
 			case R.id.newEvent:
-				if (OrganizerHelper.isOrganizer()) {
-					intent = new Intent(this, EventCreation.class);
-					startActivity(intent);
-				}
-				else {
-					Toast.makeText(MainActivity.this, "Only Organizers Can Add Events", Toast.LENGTH_SHORT).show();
-				}
+				intent = new Intent(this, EventCreation.class);
+				startActivity(intent);
+//				if (OrganizerHelper.isOrganizer()) {
+//					intent = new Intent(this, EventCreation.class);
+//					startActivity(intent);
+//				}
+//				else {
+//					Toast.makeText(MainActivity.this, "Only Organizers Can Add Events", Toast.LENGTH_SHORT).show();
+//				}
 				break;
 			
 			case R.id.login:
