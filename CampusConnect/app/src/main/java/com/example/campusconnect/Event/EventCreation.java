@@ -165,16 +165,26 @@ public class EventCreation extends AppCompatActivity {
 	private void processEventCreation() {
 		FirebaseFirestore db = FirebaseFirestore.getInstance();
 		FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+		// Event event;
+		// RSVP rsvp;
 		
-		EventName = EventNameInput.getText().toString();
-		location = locationInput.getText().toString();
-		startTime = startTimeInput.getText().toString();
-		date = dateInput.getText().toString();
-		desc = descInput.getText().toString();
-		org = orgInput.getText().toString();
-		tag = tagSpinner.getSelectedItem().toString();
+//		EventName = EventNameInput.getText().toString();
+//		location = locationInput.getText().toString();
+//		startTime = startTimeInput.getText().toString();
+//		date = dateInput.getText().toString();
+//		desc = descInput.getText().toString();
+//		org = orgInput.getText().toString();
+//		tag = tagSpinner.getSelectedItem().toString();
 		
+		EventName = "TEST";
+		location = "TEST";
+		startTime = "TEST";
+		date = "7/14/2020";
+		desc = "TEST";
+		org = "TEST";
+		String tag = "(None)";
 		String userID;
+		
 		try {
 			userID = user.getUid();
 		}
@@ -183,9 +193,9 @@ public class EventCreation extends AppCompatActivity {
 			userID = "NoUserID";
 		}
 		
-		final Event event = new Event(EventName, location, startTime,
+		Event event = new Event(EventName, location, startTime,
 				date, org, desc, userID, tag);
-		
+		final String[] ID = new String[1];
 		// TODO: final RSVP rsvp;
 		
 		db.collection("Events")
@@ -195,10 +205,20 @@ public class EventCreation extends AppCompatActivity {
 					public void onSuccess(DocumentReference docRef) {
 						String id = docRef.getId();                             // Get the auto-generated ID
 						docRef.update("ID", id);                                // Go back and add the ID to the Event
+						addRSVPIntoDB(id);									// Add an RSVP document to the DB
 					}
 				});
 		
 		Toast.makeText(EventCreation.this, "Event Added", Toast.LENGTH_SHORT).show();
+		
+	}// [ processEventCreation ]
+	
+	private void addRSVPIntoDB(String ID){
+		FirebaseFirestore db = FirebaseFirestore.getInstance();
+		RSVP rsvp = new RSVP(ID);
+		
+		db.collection("RSVP")
+				.add(rsvp);
 	}
 	
 }// class [ EventCreation ]
