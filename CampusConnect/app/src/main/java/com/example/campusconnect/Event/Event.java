@@ -35,9 +35,8 @@ public class Event implements Parcelable {
 		this.date = dateSelected;
 	}
 	
-	public Event(String uid, String name, String location,
+	public Event(String name, String location,
 				 String startTime, String date, String org, String desc, String OrgUid, String tags) {
-		this.uid = uid;
 		this.name = name;
 		this.location = location;
 		this.startTime = startTime;
@@ -49,6 +48,7 @@ public class Event implements Parcelable {
 	}
 	
 	protected Event(Parcel in) {
+		ID = in.readString();
 		name = in.readString();
 		location = in.readString();
 		startTime = in.readString();
@@ -79,7 +79,7 @@ public class Event implements Parcelable {
 	public void setName(String name) { this.name = name; }
 	public void setOrg(String org) { this.org = org; }
 	void setUid(String uid) { this.uid = uid; }
-	void updateID(String id) { this.ID = id; }
+	void setID(String id) { this.ID = id; }
 	
 	// Package-private methods
 	public String getLocation() { return location; }
@@ -171,7 +171,7 @@ public class Event implements Parcelable {
 	
 	@Override
 	public void writeToParcel(Parcel dest, int flags) {
-		
+		dest.writeString(ID);
 		dest.writeString(name);
 		dest.writeString(location);
 		dest.writeString(startTime);
