@@ -1,4 +1,4 @@
- package com.example.campusconnect.Event;
+package com.example.campusconnect.Event;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
@@ -121,7 +121,7 @@ public class EventCreation extends AppCompatActivity {
 		return true;
 	}
 	
-	private void setupDisplayDate(){
+	private void setupDisplayDate() {
 		Calendar cal = Calendar.getInstance();
 		int year = cal.get(Calendar.YEAR);
 		int month = cal.get(Calendar.MONTH);
@@ -135,7 +135,7 @@ public class EventCreation extends AppCompatActivity {
 		dialog.show();
 	}
 	
-	private void setupFields(){
+	private void setupFields() {
 		EventNameInput = (EditText) findViewById(R.id.EventNameField);
 		locationInput = (EditText) findViewById(R.id.LocationField);
 		startTimeInput = (EditText) findViewById(R.id.StartTimeField);
@@ -145,7 +145,7 @@ public class EventCreation extends AppCompatActivity {
 		tagSpinner = (Spinner) findViewById(R.id.tags);
 	}
 	
-	private void setupStaticSpinner(){
+	private void setupStaticSpinner() {
 		// TODO: Is this or tagSpinner not needed?
 		staticTagSpinner = findViewById(R.id.tags);
 		
@@ -165,7 +165,7 @@ public class EventCreation extends AppCompatActivity {
 	private void processEventCreation() {
 		FirebaseFirestore db = FirebaseFirestore.getInstance();
 		FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-
+		
 		EventName = EventNameInput.getText().toString();
 		location = locationInput.getText().toString();
 		startTime = startTimeInput.getText().toString();
@@ -174,8 +174,17 @@ public class EventCreation extends AppCompatActivity {
 		org = orgInput.getText().toString();
 		tag = tagSpinner.getSelectedItem().toString();
 		
+		String userID;
+		try {
+			userID = user.getUid();
+		}
+		catch (NullPointerException npe) {
+			System.err.println("User Empty");
+			userID = "NoUserID";
+		}
+		
 		final Event event = new Event(EventName, location, startTime,
-				date, org, desc, user.getUid(), tag);
+				date, org, desc, userID, tag);
 		
 		// TODO: final RSVP rsvp;
 		
@@ -184,8 +193,8 @@ public class EventCreation extends AppCompatActivity {
 				.addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
 					@Override
 					public void onSuccess(DocumentReference docRef) {
-						String id = docRef.getId();								// Get the auto-generated ID
-						docRef.update("ID", id);								// Go back and add the ID to the Event
+						String id = docRef.getId();                             // Get the auto-generated ID
+						docRef.update("ID", id);                                // Go back and add the ID to the Event
 					}
 				});
 		
