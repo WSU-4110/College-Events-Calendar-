@@ -17,7 +17,6 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.MenuItemCompat;
 
 import com.example.campusconnect.Admin.Authentication.SignIn;
-import com.example.campusconnect.Admin.OrganizerHelper;
 import com.example.campusconnect.Event.Event;
 import com.example.campusconnect.Event.EventCreation;
 import com.example.campusconnect.Event.EventIndicator;
@@ -259,7 +258,7 @@ public class MainActivity extends AppCompatActivity {
 							
 							for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
 								event = (Event) document.toObject(Event.class);
-								dateInMilliseconds = event.getMillisecondsForEvent();
+								dateInMilliseconds = event.calculateMilliseconds();
 								
 								if (event.eventPassed())
 									calendar.addEvent(new EventIndicator(Color.GRAY, dateInMilliseconds));

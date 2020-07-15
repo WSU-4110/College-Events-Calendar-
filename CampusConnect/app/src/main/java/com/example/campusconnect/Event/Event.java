@@ -109,7 +109,7 @@ public class Event implements Parcelable {
 		
 		today = Calendar.getInstance();
 		eventDate = Calendar.getInstance();
-		milliseconds = this.getMillisecondsForEvent();
+		milliseconds = this.calculateMilliseconds();
 		
 		eventDate.setTimeInMillis(milliseconds);
 		
@@ -125,7 +125,7 @@ public class Event implements Parcelable {
 		
 		today = Calendar.getInstance();
 		event = Calendar.getInstance();
-		milliseconds = this.getMillisecondsForEvent();
+		milliseconds = this.calculateMilliseconds();
 		
 		event.setTimeInMillis(milliseconds);
 		todayDay = today.get(Calendar.DAY_OF_MONTH);
@@ -134,7 +134,7 @@ public class Event implements Parcelable {
 		return todayDay == eventDay;        // TODO: Look in to changing name of "todayDay"
 	}
 	
-	public Long getMillisecondsForEvent() {
+	public Long calculateMilliseconds() {
 		
 		// Firebase Date Format: "(M)M/(D)D/YYYY"
 		String stringMonth;
