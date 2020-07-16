@@ -23,6 +23,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -62,7 +63,7 @@ public class EventDetailedView extends AppCompatActivity {
 		
 		setupTextFields();
 		setupButtons();
-
+		
 		unfollow_button.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
@@ -80,7 +81,7 @@ public class EventDetailedView extends AppCompatActivity {
 		RSVP_button.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				RSVPToEvent();
+				checkRSVPEligible();
 			}
 		});
 		
@@ -178,7 +179,7 @@ public class EventDetailedView extends AppCompatActivity {
 		
 	}// [ onCreateOptionsMenu ]
 	
-	private void setupTextFields(){
+	private void setupTextFields() {
 		EventNameInput = findViewById(R.id.EventNameField);
 		locationInput = findViewById(R.id.LocationField);
 		startTimeInput = findViewById(R.id.StartTimeField);
@@ -198,7 +199,7 @@ public class EventDetailedView extends AppCompatActivity {
 		tagInput.setText(event.tag());
 	}// [ setupTextFields ]
 	
-	private void setupButtons(){
+	private void setupButtons() {
 		deleteEvent_button = findViewById(R.id.delete);
 		unfollow_button = findViewById(R.id.unfollow);
 		saveEvent_button = findViewById(R.id.save_event);
@@ -317,20 +318,32 @@ public class EventDetailedView extends AppCompatActivity {
 		
 	}// [ deleteEvent ]
 	
-	private void RSVPToEvent(){
+	private void checkRSVPEligible() {
 		FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 		
 		if (user == null) {
-			Toast.makeText(EventDetailedView.this, "Not Logged In", Toast.LENGTH_SHORT).show();
-			return;
+			Toast.makeText(EventDetailedView.this, "Login to RSVP", Toast.LENGTH_SHORT).show();
 		}
-		else if (OrganizerHelper.isOrganizer()){
-			Toast.makeText(EventDetailedView.this, "Logged in as Organizer", Toast.LENGTH_SHORT).show();
+		else if (OrganizerHelper.isOrganizer()) {
+			Toast.makeText(EventDetailedView.this, "Logged-in as Organizer", Toast.LENGTH_SHORT).show();
 		}
 		else {
-			Toast.makeText(EventDetailedView.this, "[TESTING] RSVP Clicked", Toast.LENGTH_SHORT).show();
+			RSVPToEvent();
 		}
+		
+	}// [ checkRSVPEligible ]
 	
+	private void RSVPToEvent(){
+		FirebaseFirestore db = FirebaseFirestore.getInstance();
+		FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+		String eventID = event.getID();
+		String userID = user.getUid();
+		
+		db.collection("RSVP")
+				.document(eventID)
+				.update("eventID", FieldValue.arrayUnion(userID));
+		
+		Toast.makeText(EventDetailedView.this, "[TESTING] RSVP Clicked", Toast.LENGTH_SHORT).show();
 	}// [ RSVPToEvent ]
 	
 	private void saveEvent() {
