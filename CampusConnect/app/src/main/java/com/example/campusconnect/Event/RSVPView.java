@@ -33,6 +33,8 @@ public class RSVPView extends AppCompatActivity {
 		findRSVPEntryDB(eventID);
 		
 		adapter = new ArrayAdapter<String>(this, R.layout.rsvp_list, listOfNames);
+		
+		listView.setAdapter(adapter);
 	}
 	
 	private void findRSVPEntryDB(String eventID) {
@@ -45,6 +47,7 @@ public class RSVPView extends AppCompatActivity {
 					@Override
 					public void onComplete(@NonNull Task<DocumentSnapshot> task) {
 						if (task.isSuccessful()) {
+							// [CURRENT]: Attempt to invoke interface method 'int java.util.List.size()' on a null object reference
 							DocumentSnapshot document = task.getResult();
 							RSVP foundRSVP = (RSVP) document.toObject(RSVP.class);
 							listOfNames = foundRSVP.getUsersWhoAreRSVP();

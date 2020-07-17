@@ -9,6 +9,8 @@ class RSVP {
 	private ArrayList<String> usersWhoAreRSVP;
 	FirebaseFirestore db;
 	
+	RSVP(){}
+	
 	RSVP(String ID){
 		this.eventID = ID;
 		usersWhoAreRSVP = new ArrayList<>();
