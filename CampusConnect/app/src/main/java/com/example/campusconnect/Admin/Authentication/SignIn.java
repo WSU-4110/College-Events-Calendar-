@@ -34,7 +34,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.kaopiz.kprogresshud.KProgressHUD;
 
-
+// TODO: Change name to LandingPage?
 public class SignIn extends AppCompatActivity {
 	
 	private static final int RC_SIGN_IN = 1;
@@ -43,10 +43,14 @@ public class SignIn extends AppCompatActivity {
 	TextWatcher passWatcher;
 	TextWatcher emailWatcher;
 	
-	private EditText email, password;
-
+	private EditText email;
+	private EditText password;
+	Button openCalendar_button;
+	Button login_button;
+	
 	private KProgressHUD progressDialog;
-	private TextView forgotpassword, registernow;
+	private TextView forgotpassword;
+	private TextView registernow;
 	private FirebaseAuth mAuth;
 	private GoogleSignInOptions gso;
 	
@@ -56,28 +60,23 @@ public class SignIn extends AppCompatActivity {
 		setContentView(R.layout.activity_sign_in);
 		
 		setupWatchers();
-		
-		Button btn_view = findViewById(R.id.view_calendar_button);
-		btn_view.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				
-				startActivity(new Intent(SignIn.this, MainActivity.class));
-				
-			}
-		});
-		
-		email = findViewById(R.id.email);
-		password = findViewById(R.id.password);
-		
+		setupViews();
 		email.addTextChangedListener(emailWatcher);
 		password.addTextChangedListener(passWatcher);
 		
-		registernow = findViewById(R.id.register_now);
+		openCalendar_button.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(SignIn.this, MainActivity.class);
+				startActivity(intent);
+			}
+		});
+		
 		registernow.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				startActivity(new Intent(SignIn.this, SignUp.class));
+				Intent intent = new Intent(SignIn.this, SignUp.class);
+				startActivity(intent);
 			}
 		});
 		
@@ -87,7 +86,7 @@ public class SignIn extends AppCompatActivity {
 				.build();
 		mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 		
-		forgotpassword = findViewById(R.id.forgot_pass);
+		
 		forgotpassword.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
@@ -95,8 +94,8 @@ public class SignIn extends AppCompatActivity {
 			}
 		});
 		
-		Button button = findViewById(R.id.login_button);
-		button.setOnClickListener(new View.OnClickListener() {
+		
+		login_button.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
 				progressDialog = KProgressHUD.create(SignIn.this)
@@ -212,8 +211,16 @@ public class SignIn extends AppCompatActivity {
 		}, 4000);
 	}
 	
-	private void setupWatchers(){
-		//TextWatcher for Password
+	private void setupViews(){
+		email = findViewById(R.id.email);
+		password = findViewById(R.id.password);
+		registernow = findViewById(R.id.register_now);
+		openCalendar_button = findViewById(R.id.view_calendar_button);
+		forgotpassword = findViewById(R.id.forgot_pass);
+		login_button = findViewById(R.id.login_button);
+	}
+	
+	private void setupWatchers() {
 		passWatcher = new TextWatcher() {
 			@Override
 			public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -235,7 +242,6 @@ public class SignIn extends AppCompatActivity {
 			
 		};
 		
-		//TextWatcher for Email
 		emailWatcher = new TextWatcher() {
 			@Override
 			public void beforeTextChanged(CharSequence s, int start, int count, int after) {
