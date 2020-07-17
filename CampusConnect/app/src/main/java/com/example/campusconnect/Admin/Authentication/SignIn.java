@@ -43,8 +43,8 @@ public class SignIn extends AppCompatActivity {
 	FirebaseAuth mAuth;
 	GoogleSignInOptions gso;
 	
-	EditText email;
-	EditText password;
+	EditText emailField;
+	EditText passwordField;
 	Button openCalendar;
 	Button login;
 	TextView forgotPassword;
@@ -61,16 +61,38 @@ public class SignIn extends AppCompatActivity {
 		setupViews();
 		setupGoogleOptions();
 		
-		email.addTextChangedListener(emailWatcher);
-		password.addTextChangedListener(passWatcher);
+		emailField.addTextChangedListener(emailWatcher);
+		passwordField.addTextChangedListener(passWatcher);
 		
-		openCalendar.setOnClickListener(new View.OnClickListener() {
+		login.setOnClickListener(new View.OnClickListener() {
 			@Override
-			public void onClick(View v) {
-				Intent intent = new Intent(SignIn.this, MainActivity.class);
-				startActivity(intent);
+			public void onClick(View view) {
+				boolean emailWasEmpty = emailField.getText().toString().isEmpty();
+				boolean passwordWasEmpty = passwordField.getText().toString().isEmpty();
+				
+				if (!emailWasEmpty && !passwordWasEmpty) {
+					attemptLogin();
+				}
+				else {
+					Toast.makeText(SignIn.this, "Your Password or Email Cannot be Empty", Toast.LENGTH_SHORT).show();
+				}
 			}
-		});// openCalendar
+		});// login
+		
+		login.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				boolean emailWasEmpty = emailField.getText().toString().isEmpty();
+				boolean passwordWasEmpty = passwordField.getText().toString().isEmpty();
+				
+				if (!emailWasEmpty && !passwordWasEmpty) {
+					attemptLogin();
+				}
+				else {
+					Toast.makeText(SignIn.this, "Your Password or Email Cannot be Empty", Toast.LENGTH_SHORT).show();
+				}
+			}
+		});// login
 		
 		registerNow.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -88,27 +110,13 @@ public class SignIn extends AppCompatActivity {
 			}
 		});// forgotPassword
 		
-		login.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View view) {
-				boolean emailWasEmpty = email.getText().toString().isEmpty();
-				boolean passwordWasEmpty = password.getText().toString().isEmpty();
-				
-				if (!emailWasEmpty && !passwordWasEmpty) {
-					attemptLogin();
-				}
-				else {
-					Toast.makeText(SignIn.this, "Your Password or Email Cannot be Empty", Toast.LENGTH_SHORT).show();
-				}
-			}
-			
-		});// login_button
-		
 	}// [ onCreate ]
+	
 	
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
+		
 		if (requestCode == RC_SIGN_IN) {
 			Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
 			try {
@@ -116,10 +124,21 @@ public class SignIn extends AppCompatActivity {
 				firebaseAuthWithGoogle(account);
 			}
 			catch (ApiException e) {
-				Toast.makeText(SignIn.this, "Google sign in failed", Toast.LENGTH_SHORT).show();
+				Toast.makeText(SignIn.this, "Google Sign in Failed", Toast.LENGTH_SHORT).show();
 			}
 		}
 	}// [ onActivityResult ]
+	
+	
+	private void setupViews() {
+		emailField = findViewById(R.id.email);
+		passwordField = findViewById(R.id.password);
+		registerNow = findViewById(R.id.register_now);
+		openCalendar = findViewById(R.id.view_calendar_button);
+		forgotPassword = findViewById(R.id.forgot_pass);
+		login = findViewById(R.id.login_button);
+	}
+	
 	
 	private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
 		AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
@@ -129,7 +148,7 @@ public class SignIn extends AppCompatActivity {
 					public void onComplete(@NonNull Task<AuthResult> task) {
 						if (task.isSuccessful()) {
 							FirebaseUser user = mAuth.getCurrentUser();
-							Toast.makeText(SignIn.this, "sign in Successfully " + user.getUid(), Toast.LENGTH_SHORT).show();
+							Toast.makeText(SignIn.this, "Sign in Successfully " + user.getUid(), Toast.LENGTH_SHORT).show();
 							startActivity(new Intent(SignIn.this, MainActivity.class));
 							finish();
 						}
@@ -142,64 +161,50 @@ public class SignIn extends AppCompatActivity {
 	}// [ firebaseAuthWithGoogle ]
 	
 	
-	private void setupViews() {
-		email = findViewById(R.id.email);
-		password = findViewById(R.id.password);
-		registerNow = findViewById(R.id.register_now);
-		openCalendar = findViewById(R.id.view_calendar_button);
-		forgotPassword = findViewById(R.id.forgot_pass);
-		login = findViewById(R.id.login_button);
-	}
-	
 	private void setupWatchers() {
-		passWatcher = new TextWatcher() {
-			@Override
-			public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-			}
-			
-			@Override
-			public void onTextChanged(CharSequence s, int start, int before, int count) {
-			}
-			
-			@Override
-			public void afterTextChanged(Editable s) {
-				String check = s.toString();
-				if (check.length() < 4 || check.length() > 20) {
-					password.setError("Password Must consist of 4 to 20 characters");
-				}
-				else if (check.equals("thing"))
-					showAlt(); // Jay
-			}
-			
-		};
-		
+		// CHECK: Text watchers needed?
 		emailWatcher = new TextWatcher() {
 			@Override
-			public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-			}
+			public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 			
 			@Override
-			public void onTextChanged(CharSequence s, int start, int before, int count) {
-			}
+			public void onTextChanged(CharSequence s, int start, int before, int count) {}
 			
 			@Override
 			public void afterTextChanged(Editable s) {
 				String check = s.toString();
 				if (check.length() < 8 || check.length() > 40) {
-					email.setError("Email Must consist of 8 to 40 characters");
+					emailField.setError("Email Must consist of 8 to 40 characters");
 				}
 				else if (!check.matches("^[A-za-z0-9.@_]+")) {
-					email.setError("Only . and _ and @ characters allowed");
+					emailField.setError("Only . and _ and @ characters allowed");
 				}
 				else if (!check.contains("@") || !check.contains(".")) {
-					email.setError("Enter Valid Email");
+					emailField.setError("Enter Valid Email");
 				}
 				else if (check.startsWith("pikachu")) {
 					altWatcher = true;
-					email.setError("Enter Valid Email");
+					emailField.setError("Enter Valid Email");
 				}
 			}
-		};
+		};// emailWatcher
+		
+		passWatcher = new TextWatcher() {
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before, int count) {}
+			
+			@Override
+			public void afterTextChanged(Editable s) {
+				String password = s.toString();
+				if (password.length() < 4 || password.length() > 20) {
+					SignIn.this.passwordField.setError("Password Must consist of 4 to 20 characters");
+				}
+				else if (password.equals("thing"))
+					showAlt(); // Jay
+			}
+		};// passWatcher
 		
 	}// [ setupWatchers ]
 	
@@ -223,8 +228,8 @@ public class SignIn extends AppCompatActivity {
 	public void showAlt() {
 		final ImageView altview = (ImageView) findViewById(R.id.alt4263336);
 		
-		email.setError("");
-		password.setError("");
+		emailField.setError("");
+		passwordField.setError("");
 		altview.setVisibility(View.VISIBLE);
 		
 		new Handler().postDelayed(new Runnable() {
@@ -240,8 +245,8 @@ public class SignIn extends AppCompatActivity {
 	
 	private void attemptLogin() {
 		FirebaseAuth.getInstance().signInWithEmailAndPassword(
-				email.getText().toString(),
-				password.getText().toString())
+				emailField.getText().toString(),
+				passwordField.getText().toString())
 				.addOnCompleteListener(SignIn.this, new OnCompleteListener<AuthResult>() {
 					@Override
 					public void onComplete(@NonNull Task<AuthResult> task) {
@@ -270,5 +275,6 @@ public class SignIn extends AppCompatActivity {
 				});// addOnCompleteListener
 		
 	}// [ attemptLogin ]
+	
 	
 }// class [ SignIn ]
