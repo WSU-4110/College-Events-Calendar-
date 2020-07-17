@@ -32,7 +32,6 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
-import com.kaopiz.kprogresshud.KProgressHUD;
 
 // TODO: Change name to LandingPage?
 public class SignIn extends AppCompatActivity {
@@ -46,8 +45,8 @@ public class SignIn extends AppCompatActivity {
 	
 	EditText email;
 	EditText password;
-	Button openCalendar_button;
-	Button login_button;
+	Button openCalendar;
+	Button login;
 	TextView forgotPassword;
 	TextView registerNow;
 	boolean altWatcher = false;
@@ -65,13 +64,13 @@ public class SignIn extends AppCompatActivity {
 		email.addTextChangedListener(emailWatcher);
 		password.addTextChangedListener(passWatcher);
 		
-		openCalendar_button.setOnClickListener(new View.OnClickListener() {
+		openCalendar.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(SignIn.this, MainActivity.class);
 				startActivity(intent);
 			}
-		});
+		});// openCalendar
 		
 		registerNow.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -79,7 +78,7 @@ public class SignIn extends AppCompatActivity {
 				Intent intent = new Intent(SignIn.this, SignUp.class);
 				startActivity(intent);
 			}
-		});
+		});// registerNow
 		
 		forgotPassword.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -87,9 +86,9 @@ public class SignIn extends AppCompatActivity {
 				Intent intent = new Intent(SignIn.this, ForgotPassword.class);
 				startActivity(intent);
 			}
-		});
+		});// forgotPassword
 		
-		login_button.setOnClickListener(new View.OnClickListener() {
+		login.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
 				boolean emailWasEmpty = email.getText().toString().isEmpty();
@@ -99,11 +98,11 @@ public class SignIn extends AppCompatActivity {
 					attemptLogin();
 				}
 				else {
-					Toast.makeText(SignIn.this, "Your Password or Email Cannot be null", Toast.LENGTH_SHORT).show();
+					Toast.makeText(SignIn.this, "Your Password or Email Cannot be Empty", Toast.LENGTH_SHORT).show();
 				}
 			}
 			
-		});
+		});// login_button
 		
 	}// [ onCreate ]
 	
@@ -147,9 +146,9 @@ public class SignIn extends AppCompatActivity {
 		email = findViewById(R.id.email);
 		password = findViewById(R.id.password);
 		registerNow = findViewById(R.id.register_now);
-		openCalendar_button = findViewById(R.id.view_calendar_button);
+		openCalendar = findViewById(R.id.view_calendar_button);
 		forgotPassword = findViewById(R.id.forgot_pass);
-		login_button = findViewById(R.id.login_button);
+		login = findViewById(R.id.login_button);
 	}
 	
 	private void setupWatchers() {
@@ -204,6 +203,7 @@ public class SignIn extends AppCompatActivity {
 		
 	}// [ setupWatchers ]
 	
+	
 	private void setupGoogleOptions() {
 		gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
 				.requestIdToken(getString(R.string.default_web_client_id))
@@ -213,10 +213,12 @@ public class SignIn extends AppCompatActivity {
 		mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 	}// [ setupGoogleOptions ]
 	
+	
 	public void googleAccount(View view) {
 		Intent intent = mGoogleSignInClient.getSignInIntent();
 		startActivityForResult(intent, RC_SIGN_IN);
 	}// [ googleAccount ]
+	
 	
 	public void showAlt() {
 		final ImageView altview = (ImageView) findViewById(R.id.alt4263336);
@@ -234,6 +236,7 @@ public class SignIn extends AppCompatActivity {
 			}
 		}, 4000);
 	}
+	
 	
 	private void attemptLogin() {
 		FirebaseAuth.getInstance().signInWithEmailAndPassword(
