@@ -1,12 +1,8 @@
 package com.example.campusconnect.Event;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,18 +10,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.campusconnect.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
-public class RSVPList extends AppCompatActivity {
+public class RSVPView extends AppCompatActivity {
 	
-	ArrayAdapter adapter;
+	ArrayAdapter<String> adapter;
 	ListView listView;
 	ArrayList<String> listOfNames;
 	
@@ -40,7 +32,7 @@ public class RSVPList extends AppCompatActivity {
 		
 		findRSVPEntryDB(eventID);
 		
-		adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, listOfNames);
+		adapter = new ArrayAdapter<String>(this, R.layout.rsvp_list, listOfNames);
 	}
 	
 	private void findRSVPEntryDB(String eventID) {
@@ -61,4 +53,4 @@ public class RSVPList extends AppCompatActivity {
 				});
 	}
 	
-}// class RSVPList
+}// class RSVPView
