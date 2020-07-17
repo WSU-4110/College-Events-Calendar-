@@ -103,34 +103,7 @@ public class SignIn extends AppCompatActivity {
 				boolean passwordWasEmpty = password.getText().toString().isEmpty();
 				
 				if (!emailWasEmpty && !passwordWasEmpty) {
-					FirebaseAuth.getInstance().signInWithEmailAndPassword(
-							email.getText().toString(),
-							password.getText().toString())
-							.addOnCompleteListener(SignIn.this, new OnCompleteListener<AuthResult>() {
-								@Override
-								public void onComplete(@NonNull Task<AuthResult> task) {
-									if (!task.isSuccessful()) {
-//										progressDialog.dismiss();
-										Toast.makeText(SignIn.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-									}
-									else {
-										FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-										boolean emailVerified = user.isEmailVerified();
-										if (emailVerified) {
-//											progressDialog.dismiss();
-											Toast.makeText(SignIn.this, "sign in Successfully", Toast.LENGTH_SHORT).show();
-											startActivity(new Intent(SignIn.this, MainActivity.class));
-											finish();
-										}
-										else {
-//											progressDialog.dismiss();
-											user.sendEmailVerification();
-											FirebaseAuth.getInstance().signOut(); // Log Out
-											Toast.makeText(SignIn.this, "Email not Verify yet", Toast.LENGTH_SHORT).show();
-										}
-									}
-								}
-							});
+					attemptLogin();
 				}
 				else {
 //					progressDialog.dismiss();
@@ -278,5 +251,36 @@ public class SignIn extends AppCompatActivity {
 		
 		mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 	}// [ setupGoogleOptions ]
+	
+	private void attemptLogin(){
+		FirebaseAuth.getInstance().signInWithEmailAndPassword(
+				email.getText().toString(),
+				password.getText().toString())
+				.addOnCompleteListener(SignIn.this, new OnCompleteListener<AuthResult>() {
+					@Override
+					public void onComplete(@NonNull Task<AuthResult> task) {
+						if (!task.isSuccessful()) {
+//										progressDialog.dismiss();
+							Toast.makeText(SignIn.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+						}
+						else {
+							FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+							boolean emailVerified = user.isEmailVerified();
+							if (emailVerified) {
+//											progressDialog.dismiss();
+								Toast.makeText(SignIn.this, "sign in Successfully", Toast.LENGTH_SHORT).show();
+								startActivity(new Intent(SignIn.this, MainActivity.class));
+								finish();
+							}
+							else {
+//											progressDialog.dismiss();
+								user.sendEmailVerification();
+								FirebaseAuth.getInstance().signOut(); // Log Out
+								Toast.makeText(SignIn.this, "Email not Verify yet", Toast.LENGTH_SHORT).show();
+							}
+						}
+					}
+				});
+	}// [ attemptLogin ]
 	
 }// class [ SignIn ]
