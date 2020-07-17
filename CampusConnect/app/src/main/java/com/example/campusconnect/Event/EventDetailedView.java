@@ -341,7 +341,7 @@ public class EventDetailedView extends AppCompatActivity {
 		
 		db.collection("RSVP")
 				.document(eventID)
-				.update("eventID", FieldValue.arrayUnion(userID));
+				.update("usersWhoAreRSVP", FieldValue.arrayUnion(userID));
 		
 		Toast.makeText(EventDetailedView.this, "[TESTING] RSVP Clicked", Toast.LENGTH_SHORT).show();
 	}// [ RSVPToEvent ]
