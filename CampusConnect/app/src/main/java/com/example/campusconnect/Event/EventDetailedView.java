@@ -83,7 +83,12 @@ public class EventDetailedView extends AppCompatActivity {
 		RSVP_button.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
+				Intent intent;
 				checkRSVPEligible();
+				
+				intent = new Intent(getApplicationContext(), RSVPList.class);
+				intent.putExtra("eventID", event.getID());
+				startActivity(intent);
 			}
 		});
 		
