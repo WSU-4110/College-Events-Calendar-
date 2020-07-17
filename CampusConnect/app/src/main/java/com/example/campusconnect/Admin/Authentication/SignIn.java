@@ -41,7 +41,6 @@ public class SignIn extends AppCompatActivity {
 	GoogleSignInClient mGoogleSignInClient;
 	TextWatcher passWatcher;
 	TextWatcher emailWatcher;
-	KProgressHUD progressDialog;
 	FirebaseAuth mAuth;
 	GoogleSignInOptions gso;
 	
@@ -93,12 +92,6 @@ public class SignIn extends AppCompatActivity {
 		login_button.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-//				progressDialog = KProgressHUD.create(SignIn.this)
-//						.setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
-//						.setLabel("Please wait")
-//						.setCancellable(false);
-//				progressDialog.show();
-				
 				boolean emailWasEmpty = email.getText().toString().isEmpty();
 				boolean passwordWasEmpty = password.getText().toString().isEmpty();
 				
@@ -106,7 +99,6 @@ public class SignIn extends AppCompatActivity {
 					attemptLogin();
 				}
 				else {
-//					progressDialog.dismiss();
 					Toast.makeText(SignIn.this, "Your Password or Email Cannot be null", Toast.LENGTH_SHORT).show();
 				}
 			}
@@ -125,7 +117,6 @@ public class SignIn extends AppCompatActivity {
 				firebaseAuthWithGoogle(account);
 			}
 			catch (ApiException e) {
-//				progressDialog.dismiss();
 				Toast.makeText(SignIn.this, "Google sign in failed", Toast.LENGTH_SHORT).show();
 			}
 		}
@@ -138,14 +129,12 @@ public class SignIn extends AppCompatActivity {
 					@Override
 					public void onComplete(@NonNull Task<AuthResult> task) {
 						if (task.isSuccessful()) {
-//							progressDialog.dismiss();
 							FirebaseUser user = mAuth.getCurrentUser();
 							Toast.makeText(SignIn.this, "sign in Successfully " + user.getUid(), Toast.LENGTH_SHORT).show();
 							startActivity(new Intent(SignIn.this, MainActivity.class));
 							finish();
 						}
 						else {
-//							progressDialog.dismiss();
 							Toast.makeText(SignIn.this, "Authentication Failed.", Toast.LENGTH_SHORT).show();
 						}
 					}
@@ -225,11 +214,6 @@ public class SignIn extends AppCompatActivity {
 	}// [ setupGoogleOptions ]
 	
 	public void googleAccount(View view) {
-//		progressDialog = KProgressHUD.create(SignIn.this)
-//				.setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
-//				.setLabel("Please wait")
-//				.setCancellable(false);
-//		progressDialog.show();
 		Intent intent = mGoogleSignInClient.getSignInIntent();
 		startActivityForResult(intent, RC_SIGN_IN);
 	}// [ googleAccount ]
@@ -261,7 +245,6 @@ public class SignIn extends AppCompatActivity {
 						FirebaseUser user;
 						boolean emailVerified;
 						if (!task.isSuccessful()) {
-//										progressDialog.dismiss();
 							Toast.makeText(SignIn.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
 							return;
 						}
@@ -269,15 +252,12 @@ public class SignIn extends AppCompatActivity {
 						user = FirebaseAuth.getInstance().getCurrentUser();
 						emailVerified = user.isEmailVerified();
 						if (emailVerified) {
-//											progressDialog.dismiss();
-							
 							Toast.makeText(SignIn.this, "Signed In!", Toast.LENGTH_SHORT).show();
 							Intent intent = new Intent(SignIn.this, MainActivity.class);
 							startActivity(intent);
 							finish();
 						}
 						else {
-//											progressDialog.dismiss();
 							user.sendEmailVerification();
 							FirebaseAuth.getInstance().signOut(); // Log Out
 							Toast.makeText(SignIn.this, "Email Not Verified.\n Check Your Email.",
