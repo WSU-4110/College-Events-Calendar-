@@ -38,21 +38,21 @@ import com.kaopiz.kprogresshud.KProgressHUD;
 public class SignIn extends AppCompatActivity {
 	
 	private static final int RC_SIGN_IN = 1;
-	private GoogleSignInClient mGoogleSignInClient;
-	private boolean altWatcher = false;
+	GoogleSignInClient mGoogleSignInClient;
 	TextWatcher passWatcher;
 	TextWatcher emailWatcher;
+	KProgressHUD progressDialog;
+	FirebaseAuth mAuth;
+	GoogleSignInOptions gso;
 	
-	private EditText email;
-	private EditText password;
+	EditText email;
+	EditText password;
 	Button openCalendar_button;
 	Button login_button;
+	TextView forgotPassword;
+	TextView registerNow;
+	boolean altWatcher = false;
 	
-	private KProgressHUD progressDialog;
-	private TextView forgotpassword;
-	private TextView registernow;
-	private FirebaseAuth mAuth;
-	private GoogleSignInOptions gso;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -74,7 +74,7 @@ public class SignIn extends AppCompatActivity {
 			}
 		});
 		
-		registernow.setOnClickListener(new View.OnClickListener() {
+		registerNow.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
 				Intent intent = new Intent(SignIn.this, SignUp.class);
@@ -82,7 +82,7 @@ public class SignIn extends AppCompatActivity {
 			}
 		});
 		
-		forgotpassword.setOnClickListener(new View.OnClickListener() {
+		forgotPassword.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
 				Intent intent = new Intent(SignIn.this, ForgetPassword.class);
@@ -93,11 +93,11 @@ public class SignIn extends AppCompatActivity {
 		login_button.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				progressDialog = KProgressHUD.create(SignIn.this)
-						.setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
-						.setLabel("Please wait")
-						.setCancellable(false);
-				progressDialog.show();
+//				progressDialog = KProgressHUD.create(SignIn.this)
+//						.setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+//						.setLabel("Please wait")
+//						.setCancellable(false);
+//				progressDialog.show();
 				
 				boolean emailWasEmpty = email.getText().toString().isEmpty();
 				boolean passwordWasEmpty = password.getText().toString().isEmpty();
@@ -110,20 +110,20 @@ public class SignIn extends AppCompatActivity {
 								@Override
 								public void onComplete(@NonNull Task<AuthResult> task) {
 									if (!task.isSuccessful()) {
-										progressDialog.dismiss();
+//										progressDialog.dismiss();
 										Toast.makeText(SignIn.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
 									}
 									else {
 										FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 										boolean emailVerified = user.isEmailVerified();
 										if (emailVerified) {
-											progressDialog.dismiss();
+//											progressDialog.dismiss();
 											Toast.makeText(SignIn.this, "sign in Successfully", Toast.LENGTH_SHORT).show();
 											startActivity(new Intent(SignIn.this, MainActivity.class));
 											finish();
 										}
 										else {
-											progressDialog.dismiss();
+//											progressDialog.dismiss();
 											user.sendEmailVerification();
 											FirebaseAuth.getInstance().signOut(); // Log Out
 											Toast.makeText(SignIn.this, "Email not Verify yet", Toast.LENGTH_SHORT).show();
@@ -133,7 +133,7 @@ public class SignIn extends AppCompatActivity {
 							});
 				}
 				else {
-					progressDialog.dismiss();
+//					progressDialog.dismiss();
 					Toast.makeText(SignIn.this, "Your Password or Email Cannot be null", Toast.LENGTH_SHORT).show();
 				}
 			}
@@ -148,14 +148,14 @@ public class SignIn extends AppCompatActivity {
 					@Override
 					public void onComplete(@NonNull Task<AuthResult> task) {
 						if (task.isSuccessful()) {
-							progressDialog.dismiss();
+//							progressDialog.dismiss();
 							FirebaseUser user = mAuth.getCurrentUser();
 							Toast.makeText(SignIn.this, "sign in Successfully " + user.getUid(), Toast.LENGTH_SHORT).show();
 							startActivity(new Intent(SignIn.this, MainActivity.class));
 							finish();
 						}
 						else {
-							progressDialog.dismiss();
+//							progressDialog.dismiss();
 							Toast.makeText(SignIn.this, "Authentication Failed.", Toast.LENGTH_SHORT).show();
 						}
 					}
@@ -173,18 +173,18 @@ public class SignIn extends AppCompatActivity {
 				firebaseAuthWithGoogle(account);
 			}
 			catch (ApiException e) {
-				progressDialog.dismiss();
+//				progressDialog.dismiss();
 				Toast.makeText(SignIn.this, "Google sign in failed", Toast.LENGTH_SHORT).show();
 			}
 		}
 	}
 	
 	public void gmailAccount(View view) {
-		progressDialog = KProgressHUD.create(SignIn.this)
-				.setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
-				.setLabel("Please wait")
-				.setCancellable(false);
-		progressDialog.show();
+//		progressDialog = KProgressHUD.create(SignIn.this)
+//				.setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+//				.setLabel("Please wait")
+//				.setCancellable(false);
+//		progressDialog.show();
 		Intent i = mGoogleSignInClient.getSignInIntent();
 		startActivityForResult(i, RC_SIGN_IN);
 	}
@@ -209,9 +209,9 @@ public class SignIn extends AppCompatActivity {
 	private void setupViews(){
 		email = findViewById(R.id.email);
 		password = findViewById(R.id.password);
-		registernow = findViewById(R.id.register_now);
+		registerNow = findViewById(R.id.register_now);
 		openCalendar_button = findViewById(R.id.view_calendar_button);
-		forgotpassword = findViewById(R.id.forgot_pass);
+		forgotPassword = findViewById(R.id.forgot_pass);
 		login_button = findViewById(R.id.login_button);
 	}
 	
@@ -275,6 +275,6 @@ public class SignIn extends AppCompatActivity {
 				.build();
 		
 		mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
-	}
+	}// [ setupGoogleOptions ]
 	
 }// class [ SignIn ]
