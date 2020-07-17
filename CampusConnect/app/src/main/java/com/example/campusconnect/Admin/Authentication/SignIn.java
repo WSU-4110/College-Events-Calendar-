@@ -43,10 +43,10 @@ public class SignIn extends AppCompatActivity {
 	FirebaseAuth mAuth;
 	GoogleSignInOptions gso;
 	
+	Button login;
+	Button openCalendar;
 	EditText emailField;
 	EditText passwordField;
-	Button openCalendar;
-	Button login;
 	TextView forgotPassword;
 	TextView registerNow;
 	boolean altWatcher = false;
@@ -74,7 +74,8 @@ public class SignIn extends AppCompatActivity {
 					attemptLogin();
 				}
 				else {
-					Toast.makeText(SignIn.this, "Your Password or Email Cannot be Empty", Toast.LENGTH_SHORT).show();
+					Toast.makeText(SignIn.this,
+							"Your Password or Email Cannot be Empty", Toast.LENGTH_SHORT).show();
 				}
 			}
 		});// login
@@ -89,7 +90,8 @@ public class SignIn extends AppCompatActivity {
 					attemptLogin();
 				}
 				else {
-					Toast.makeText(SignIn.this, "Your Password or Email Cannot be Empty", Toast.LENGTH_SHORT).show();
+					Toast.makeText(SignIn.this,
+							"Your Password or Email Cannot be Empty", Toast.LENGTH_SHORT).show();
 				}
 			}
 		});// login
@@ -148,7 +150,8 @@ public class SignIn extends AppCompatActivity {
 					public void onComplete(@NonNull Task<AuthResult> task) {
 						if (task.isSuccessful()) {
 							FirebaseUser user = mAuth.getCurrentUser();
-							Toast.makeText(SignIn.this, "Sign in Successfully " + user.getUid(), Toast.LENGTH_SHORT).show();
+							Toast.makeText(SignIn.this,
+									"Sign in Successfully " + user.getUid(), Toast.LENGTH_SHORT).show();
 							startActivity(new Intent(SignIn.this, MainActivity.class));
 							finish();
 						}
