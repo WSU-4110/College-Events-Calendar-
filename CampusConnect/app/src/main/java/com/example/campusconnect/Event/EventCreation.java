@@ -213,12 +213,13 @@ public class EventCreation extends AppCompatActivity {
 		
 	}// [ processEventCreation ]
 	
-	private void addRSVPIntoDB(String ID){
+	private void addRSVPIntoDB(String eventID){
 		FirebaseFirestore db = FirebaseFirestore.getInstance();
-		RSVP rsvp = new RSVP(ID);
+		RSVP rsvp = new RSVP(eventID);
 		
 		db.collection("RSVP")
-				.add(rsvp);
+				.document(eventID)
+				.set(rsvp);
 	}
 	
 }// class [ EventCreation ]

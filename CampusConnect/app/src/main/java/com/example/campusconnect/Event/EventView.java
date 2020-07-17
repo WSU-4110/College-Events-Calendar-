@@ -51,7 +51,6 @@ public class EventView extends AppCompatActivity {
         final ArrayList<Event> arrayOfEvents;
 		final EventListAdapter adapter;
 			
-        																		// [A]
         arrayOfEvents = new ArrayList<>();										// [1]
         adapter = new EventListAdapter(this, arrayOfEvents);					// [2]
         listView = findViewById(R.id.events_listView);							// [3]
@@ -108,3 +107,11 @@ public class EventView extends AppCompatActivity {
 	}
 	
 }// class [ EventView ]
+
+//--------------------------------------------------- NOTES ---------------------------------------------------//
+
+// --| ATTACHING THE ADAPTER TO A LIST VIEW |--
+// 1. Construct the data source
+// 2. Create the Adapter to convert the array to views
+// 3. Declare the ListView object
+// 4. Attach the adapter to a ListView (XML)
