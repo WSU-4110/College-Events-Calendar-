@@ -41,14 +41,15 @@
         <activity
             android:name=".Event.SavedEvent"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-
+        <activity
+                android:name=".Event.RSVPView"
+                android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".Admin.Authentication.SignIn"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".Admin.Authentication.SignUp"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-
         <activity
             android:name=".UI.SplashScreen"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
