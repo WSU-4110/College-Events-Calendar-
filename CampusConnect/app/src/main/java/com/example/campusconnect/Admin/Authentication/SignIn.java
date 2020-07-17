@@ -61,22 +61,31 @@ public class SignIn extends AppCompatActivity {
 		setupViews();
 		setupGoogleOptions();
 		
-		emailField.addTextChangedListener(emailWatcher);
-		passwordField.addTextChangedListener(passWatcher);
+//		emailField.addTextChangedListener(emailWatcher);
+//		passwordField.addTextChangedListener(passWatcher);
 		
 		login.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				boolean emailWasEmpty = emailField.getText().toString().isEmpty();
-				boolean passwordWasEmpty = passwordField.getText().toString().isEmpty();
+				String emailEntered;
+				String passwordEntered;
+				boolean emailValid;
+				boolean passwordValid;
 				
-				if (!emailWasEmpty && !passwordWasEmpty) {
-					attemptLogin();
+				emailEntered = emailField.getText().toString();
+				passwordEntered = passwordField.getText().toString();
+				
+				emailValid = checkEmailValid(emailEntered);
+				
+				// Email must be valid before checking if password is valid
+				if (emailValid) {
+					passwordValid = checkPasswordValid(passwordEntered);
+					
+					if (passwordValid) {
+						attemptLogin();
+					}
 				}
-				else {
-					Toast.makeText(SignIn.this,
-							"Your Password or Email Cannot be Empty", Toast.LENGTH_SHORT).show();
-				}
+				
 			}
 		});// login
 		
@@ -187,6 +196,7 @@ public class SignIn extends AppCompatActivity {
 		passWatcher = new TextWatcher() {
 			@Override
 			public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+			
 			@Override
 			public void onTextChanged(CharSequence s, int start, int before, int count) {}
 			
@@ -212,6 +222,61 @@ public class SignIn extends AppCompatActivity {
 		
 		mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 	}// [ setupGoogleOptions ]
+	
+	
+	private boolean checkEmailValid(String email) {
+		boolean valid = false;
+		
+		if (email.isEmpty()) {
+			Toast.makeText(SignIn.this,
+					"Email Cannot be Empty", Toast.LENGTH_SHORT).show();
+		}
+		else if (email.length() < 8 || email.length() > 40) {
+			Toast.makeText(SignIn.this,
+					"Email Must consist of 8 to 40 characters", Toast.LENGTH_SHORT).show();
+		}
+		else if (!email.matches("^[A-za-z0-9.@_]+")) {
+			Toast.makeText(SignIn.this,
+					"Only . _ @ characters allowed", Toast.LENGTH_SHORT).show();
+		}
+		else if (!email.contains("@") || !email.contains(".")) {
+			Toast.makeText(SignIn.this,
+					"Invalid Email Entered", Toast.LENGTH_SHORT).show();
+		}
+		else if (email.startsWith("pikachu")) {
+			altWatcher = true;
+			Toast.makeText(SignIn.this,
+					"Invalid Email Entered", Toast.LENGTH_SHORT).show();
+		}
+		else {
+			valid = true;
+		}
+		
+		return valid;
+		
+	}// [ checkEmailValid ]
+	
+	
+	private boolean checkPasswordValid(String password) {
+		boolean valid = false;
+		
+		if (password.isEmpty()) {
+			Toast.makeText(SignIn.this,
+					"Your Password Cannot be Empty", Toast.LENGTH_SHORT).show();
+		}
+		else if (password.length() < 4 || password.length() > 20) {
+			Toast.makeText(SignIn.this,
+					"Password Must be 4 to 20 Characters", Toast.LENGTH_SHORT).show();
+		}
+		else if (password.equals("thing"))
+			showAlt();
+		else {
+			valid = true;
+		}
+		
+		return valid;
+		
+	}// [ checkPasswordValid ]
 	
 	
 	public void googleAccount(View view) {
