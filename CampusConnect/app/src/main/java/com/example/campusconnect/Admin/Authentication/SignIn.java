@@ -112,7 +112,7 @@ public class SignIn extends AppCompatActivity {
 			}
 			
 		});
-	
+		
 	}// [ onCreate ]
 	
 	@Override
@@ -152,36 +152,9 @@ public class SignIn extends AppCompatActivity {
 				});
 		
 	}// [ firebaseAuthWithGoogle ]
-
 	
-	public void googleAccount(View view) {
-//		progressDialog = KProgressHUD.create(SignIn.this)
-//				.setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
-//				.setLabel("Please wait")
-//				.setCancellable(false);
-//		progressDialog.show();
-		Intent intent = mGoogleSignInClient.getSignInIntent();
-		startActivityForResult(intent, RC_SIGN_IN);
-	}
 	
-	public void showAlt() {
-		final ImageView altview = (ImageView) findViewById(R.id.alt4263336);
-		
-		email.setError("");
-		password.setError("");
-		altview.setVisibility(View.VISIBLE);
-		
-		new Handler().postDelayed(new Runnable() {
-			@Override
-			public void run() {
-				altWatcher = false;
-				altview.setVisibility(View.INVISIBLE);
-				System.out.println("end");
-			}
-		}, 4000);
-	}
-	
-	private void setupViews(){
+	private void setupViews() {
 		email = findViewById(R.id.email);
 		password = findViewById(R.id.password);
 		registerNow = findViewById(R.id.register_now);
@@ -242,8 +215,7 @@ public class SignIn extends AppCompatActivity {
 		
 	}// [ setupWatchers ]
 	
-	
-	private void setupGoogleOptions(){
+	private void setupGoogleOptions() {
 		gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
 				.requestIdToken(getString(R.string.default_web_client_id))
 				.requestEmail()
@@ -252,35 +224,68 @@ public class SignIn extends AppCompatActivity {
 		mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 	}// [ setupGoogleOptions ]
 	
-	private void attemptLogin(){
+	public void googleAccount(View view) {
+//		progressDialog = KProgressHUD.create(SignIn.this)
+//				.setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+//				.setLabel("Please wait")
+//				.setCancellable(false);
+//		progressDialog.show();
+		Intent intent = mGoogleSignInClient.getSignInIntent();
+		startActivityForResult(intent, RC_SIGN_IN);
+	}// [ googleAccount ]
+	
+	public void showAlt() {
+		final ImageView altview = (ImageView) findViewById(R.id.alt4263336);
+		
+		email.setError("");
+		password.setError("");
+		altview.setVisibility(View.VISIBLE);
+		
+		new Handler().postDelayed(new Runnable() {
+			@Override
+			public void run() {
+				altWatcher = false;
+				altview.setVisibility(View.INVISIBLE);
+				System.out.println("end");
+			}
+		}, 4000);
+	}
+	
+	private void attemptLogin() {
 		FirebaseAuth.getInstance().signInWithEmailAndPassword(
 				email.getText().toString(),
 				password.getText().toString())
 				.addOnCompleteListener(SignIn.this, new OnCompleteListener<AuthResult>() {
 					@Override
 					public void onComplete(@NonNull Task<AuthResult> task) {
+						FirebaseUser user;
+						boolean emailVerified;
 						if (!task.isSuccessful()) {
 //										progressDialog.dismiss();
 							Toast.makeText(SignIn.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+							return;
+						}
+						
+						user = FirebaseAuth.getInstance().getCurrentUser();
+						emailVerified = user.isEmailVerified();
+						if (emailVerified) {
+//											progressDialog.dismiss();
+							
+							Toast.makeText(SignIn.this, "Signed In!", Toast.LENGTH_SHORT).show();
+							Intent intent = new Intent(SignIn.this, MainActivity.class);
+							startActivity(intent);
+							finish();
 						}
 						else {
-							FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-							boolean emailVerified = user.isEmailVerified();
-							if (emailVerified) {
 //											progressDialog.dismiss();
-								Toast.makeText(SignIn.this, "sign in Successfully", Toast.LENGTH_SHORT).show();
-								startActivity(new Intent(SignIn.this, MainActivity.class));
-								finish();
-							}
-							else {
-//											progressDialog.dismiss();
-								user.sendEmailVerification();
-								FirebaseAuth.getInstance().signOut(); // Log Out
-								Toast.makeText(SignIn.this, "Email not Verify yet", Toast.LENGTH_SHORT).show();
-							}
+							user.sendEmailVerification();
+							FirebaseAuth.getInstance().signOut(); // Log Out
+							Toast.makeText(SignIn.this, "Email Not Verified.\n Check Your Email.",
+									Toast.LENGTH_LONG).show();
 						}
 					}
-				});
+				});// addOnCompleteListener
+		
 	}// [ attemptLogin ]
 	
 }// class [ SignIn ]
