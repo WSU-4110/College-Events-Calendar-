@@ -288,7 +288,7 @@ public class SignInBAK extends AppCompatActivity {
 	}// [ onActivityResult ]
 	
 	
-	public void gmailAccount(View view) {
+	public void googleAccount(View view) {
 		
 		progressDialog = KProgressHUD.create(SignIn.this)
 				.setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
@@ -300,7 +300,7 @@ public class SignInBAK extends AppCompatActivity {
 		Intent intent = mGoogleSignInClient.getSignInIntent();
 		startActivityForResult(intent, RC_SIGN_IN);
 		
-	}// [ gmailAccount ]
+	}// [ googleAccount ]
 	*/
 	
 }// class [ SignInBAK ]

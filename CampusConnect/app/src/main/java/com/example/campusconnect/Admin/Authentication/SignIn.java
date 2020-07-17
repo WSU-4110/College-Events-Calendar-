@@ -154,14 +154,14 @@ public class SignIn extends AppCompatActivity {
 	}// [ firebaseAuthWithGoogle ]
 
 	
-	public void gmailAccount(View view) {
+	public void googleAccount(View view) {
 //		progressDialog = KProgressHUD.create(SignIn.this)
 //				.setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
 //				.setLabel("Please wait")
 //				.setCancellable(false);
 //		progressDialog.show();
-		Intent i = mGoogleSignInClient.getSignInIntent();
-		startActivityForResult(i, RC_SIGN_IN);
+		Intent intent = mGoogleSignInClient.getSignInIntent();
+		startActivityForResult(intent, RC_SIGN_IN);
 	}
 	
 	public void showAlt() {

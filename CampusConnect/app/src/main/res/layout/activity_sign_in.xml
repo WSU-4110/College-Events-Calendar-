@@ -82,7 +82,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:onClick="gmailAccount"
+            android:onClick="googleAccount"
             android:text="GMAIL"
             android:textColor="@color/primaryGold_75"
             android:textSize="15sp" />
