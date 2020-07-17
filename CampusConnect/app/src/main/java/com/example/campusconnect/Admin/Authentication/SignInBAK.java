@@ -101,7 +101,7 @@ public class SignInBAK extends AppCompatActivity {
 		forgotpassword.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				startActivity(new Intent(SignIn.this, ForgetPassword.class));
+				startActivity(new Intent(SignIn.this, ForgotPassword.class));
 			}
 		});
 		

@@ -20,7 +20,7 @@ import com.kaopiz.kprogresshud.KProgressHUD;
 
 import es.dmoral.toasty.Toasty;
 
-public class ForgetPassword extends AppCompatActivity {
+public class ForgotPassword extends AppCompatActivity {
 	
 	private EditText forgotpassemail;
 	private Button sendemail;
@@ -45,9 +45,9 @@ public class ForgetPassword extends AppCompatActivity {
 		sendemail.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				if (validateEmail(ForgetPassword.this, forgotpassemail.getText().toString())) {
+				if (validateEmail(ForgotPassword.this, forgotpassemail.getText().toString())) {
 					
-					final KProgressHUD progressDialog = KProgressHUD.create(ForgetPassword.this)
+					final KProgressHUD progressDialog = KProgressHUD.create(ForgotPassword.this)
 							.setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
 							.setLabel("Please wait")
 							.setCancellable(false);
@@ -60,11 +60,11 @@ public class ForgetPassword extends AppCompatActivity {
 									
 									progressDialog.dismiss();
 									if (task.isSuccessful()) {
-										Toasty.info(ForgetPassword.this, "Check your Email", Toast.LENGTH_LONG).show();
+										Toasty.info(ForgotPassword.this, "Check your Email", Toast.LENGTH_LONG).show();
 										finish();
 									}
 									else {
-										Toasty.info(ForgetPassword.this, "Error sending Email", Toast.LENGTH_LONG).show();
+										Toasty.info(ForgotPassword.this, "Error sending Email", Toast.LENGTH_LONG).show();
 									}
 								}
 							});

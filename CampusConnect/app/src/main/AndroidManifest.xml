@@ -17,7 +17,7 @@
         <activity android:name=".Admin.OrganizerList" />
 
         <activity
-            android:name=".Admin.Authentication.ForgetPassword"
+            android:name=".Admin.Authentication.ForgotPassword"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".MainActivity"

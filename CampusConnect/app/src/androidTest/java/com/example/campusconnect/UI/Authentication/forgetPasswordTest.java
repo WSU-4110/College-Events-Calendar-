@@ -6,7 +6,7 @@
 package com.example.campusconnect.UI.Authentication;
 
 
-import com.example.campusconnect.Admin.Authentication.ForgetPassword;
+import com.example.campusconnect.Admin.Authentication.ForgotPassword;
 import com.example.campusconnect.Admin.Authentication.SignUp;
 
 import org.junit.Test;
@@ -27,7 +27,7 @@ public class forgetPasswordTest {
         {
             public void run()
             {
-                assertTrue(ForgetPassword.validateEmail(getApplicationContext(), "test@gamil.com"));
+                assertTrue(ForgotPassword.validateEmail(getApplicationContext(), "test@gamil.com"));
             }
         });
     }
