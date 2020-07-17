@@ -80,21 +80,13 @@ public class SignIn extends AppCompatActivity {
 			}
 		});// login
 		
-		login.setOnClickListener(new View.OnClickListener() {
+		openCalendar.setOnClickListener(new View.OnClickListener() {
 			@Override
-			public void onClick(View view) {
-				boolean emailWasEmpty = emailField.getText().toString().isEmpty();
-				boolean passwordWasEmpty = passwordField.getText().toString().isEmpty();
-				
-				if (!emailWasEmpty && !passwordWasEmpty) {
-					attemptLogin();
-				}
-				else {
-					Toast.makeText(SignIn.this,
-							"Your Password or Email Cannot be Empty", Toast.LENGTH_SHORT).show();
-				}
+			public void onClick(View v) {
+				Intent intent = new Intent(SignIn.this, MainActivity.class);
+				startActivity(intent);
 			}
-		});// login
+		});// openCalendar
 		
 		registerNow.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -245,7 +237,7 @@ public class SignIn extends AppCompatActivity {
 		}, 4000);
 	}
 	
-	
+	// CHECK: Need addOnCompleteListener?
 	private void attemptLogin() {
 		FirebaseAuth.getInstance().signInWithEmailAndPassword(
 				emailField.getText().toString(),
