@@ -40,57 +40,11 @@ public class SignIn extends AppCompatActivity {
 	private static final int RC_SIGN_IN = 1;
 	private GoogleSignInClient mGoogleSignInClient;
 	private static boolean altWatcher = false;
+	TextWatcher passWatcher;
+	TextWatcher emailWatcher;
 	
-	//TextWatcher for Password
-	TextWatcher passWatcher = new TextWatcher() {
-		@Override
-		public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-		}
-		
-		@Override
-		public void onTextChanged(CharSequence s, int start, int before, int count) {
-		}
-		
-		@Override
-		public void afterTextChanged(Editable s) {
-			String check = s.toString();
-			if (check.length() < 4 || check.length() > 20) {
-				password.setError("Password Must consist of 4 to 20 characters");
-			}
-			else if (check.equals("thing"))
-				showAlt(); // Jay
-		}
-		
-	};
 	private EditText email, password;
-	//TextWatcher for Email
-	TextWatcher emailWatcher = new TextWatcher() {
-		@Override
-		public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-		}
-		
-		@Override
-		public void onTextChanged(CharSequence s, int start, int before, int count) {
-		}
-		
-		@Override
-		public void afterTextChanged(Editable s) {
-			String check = s.toString();
-			if (check.length() < 8 || check.length() > 40) {
-				email.setError("Email Must consist of 8 to 40 characters");
-			}
-			else if (!check.matches("^[A-za-z0-9.@_]+")) {
-				email.setError("Only . and _ and @ characters allowed");
-			}
-			else if (!check.contains("@") || !check.contains(".")) {
-				email.setError("Enter Valid Email");
-			}
-			else if (check.startsWith("pikachu")) {
-				altWatcher = true;
-				email.setError("Enter Valid Email");
-			}
-		}
-	};
+
 	private KProgressHUD progressDialog;
 	private TextView forgotpassword, registernow;
 	private FirebaseAuth mAuth;
@@ -100,6 +54,8 @@ public class SignIn extends AppCompatActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_sign_in);
+		
+		setupWatchers();
 		
 		Button btn_view = findViewById(R.id.view_calendar_button);
 		btn_view.setOnClickListener(new View.OnClickListener() {
@@ -256,4 +212,58 @@ public class SignIn extends AppCompatActivity {
 		}, 4000);
 	}
 	
-}
+	private void setupWatchers(){
+		//TextWatcher for Password
+		passWatcher = new TextWatcher() {
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+			}
+			
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before, int count) {
+			}
+			
+			@Override
+			public void afterTextChanged(Editable s) {
+				String check = s.toString();
+				if (check.length() < 4 || check.length() > 20) {
+					password.setError("Password Must consist of 4 to 20 characters");
+				}
+				else if (check.equals("thing"))
+					showAlt(); // Jay
+			}
+			
+		};
+		
+		//TextWatcher for Email
+		emailWatcher = new TextWatcher() {
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+			}
+			
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before, int count) {
+			}
+			
+			@Override
+			public void afterTextChanged(Editable s) {
+				String check = s.toString();
+				if (check.length() < 8 || check.length() > 40) {
+					email.setError("Email Must consist of 8 to 40 characters");
+				}
+				else if (!check.matches("^[A-za-z0-9.@_]+")) {
+					email.setError("Only . and _ and @ characters allowed");
+				}
+				else if (!check.contains("@") || !check.contains(".")) {
+					email.setError("Enter Valid Email");
+				}
+				else if (check.startsWith("pikachu")) {
+					altWatcher = true;
+					email.setError("Enter Valid Email");
+				}
+			}
+		};
+		
+	}// [ setupWatchers ]
+	
+}// class [ SignIn ]
