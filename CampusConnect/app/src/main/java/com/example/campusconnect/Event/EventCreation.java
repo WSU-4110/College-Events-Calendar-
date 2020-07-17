@@ -165,25 +165,24 @@ public class EventCreation extends AppCompatActivity {
 	private void processEventCreation() {
 		FirebaseFirestore db = FirebaseFirestore.getInstance();
 		FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-		// Event event;
-		// RSVP rsvp;
-		
-//		EventName = EventNameInput.getText().toString();
-//		location = locationInput.getText().toString();
-//		startTime = startTimeInput.getText().toString();
-//		date = dateInput.getText().toString();
-//		desc = descInput.getText().toString();
-//		org = orgInput.getText().toString();
-//		tag = tagSpinner.getSelectedItem().toString();
-		
-		EventName = "TEST";
-		location = "TEST";
-		startTime = "TEST";
-		date = "7/14/2020";
-		desc = "TEST";
-		org = "TEST";
-		String tag = "(None)";
 		String userID;
+		
+		EventName = EventNameInput.getText().toString();
+		location = locationInput.getText().toString();
+		startTime = startTimeInput.getText().toString();
+		date = dateInput.getText().toString();
+		desc = descInput.getText().toString();
+		org = orgInput.getText().toString();
+		tag = tagSpinner.getSelectedItem().toString();
+		
+//		EventName = "TEST";
+//		location = "TEST";
+//		startTime = "TEST";
+//		date = "7/14/2020";
+//		desc = "TEST";
+//		org = "TEST";
+//		String tag = "(None)";
+//		String userID;
 		
 		try {
 			userID = user.getUid();
@@ -191,6 +190,7 @@ public class EventCreation extends AppCompatActivity {
 		catch (NullPointerException npe) {
 			System.err.println("User Empty");
 			userID = "NoUserID";
+			return;
 		}
 		
 		Event event = new Event(EventName, location, startTime,
@@ -205,7 +205,7 @@ public class EventCreation extends AppCompatActivity {
 					public void onSuccess(DocumentReference docRef) {
 						String id = docRef.getId();                             // Get the auto-generated ID
 						docRef.update("ID", id);                                // Go back and add the ID to the Event
-						addRSVPIntoDB(id);									// Add an RSVP document to the DB
+						addRSVPEntryToDB(id);										// Add an RSVP document to the DB
 					}
 				});
 		
@@ -213,7 +213,7 @@ public class EventCreation extends AppCompatActivity {
 		
 	}// [ processEventCreation ]
 	
-	private void addRSVPIntoDB(String eventID){
+	private void addRSVPEntryToDB(String eventID){
 		FirebaseFirestore db = FirebaseFirestore.getInstance();
 		RSVP rsvp = new RSVP(eventID);
 		
