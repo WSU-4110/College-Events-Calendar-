@@ -39,7 +39,7 @@ public class SignIn extends AppCompatActivity {
 	
 	private static final int RC_SIGN_IN = 1;
 	private GoogleSignInClient mGoogleSignInClient;
-	private static boolean altWatcher = false;
+	private boolean altWatcher = false;
 	TextWatcher passWatcher;
 	TextWatcher emailWatcher;
 	
@@ -61,6 +61,8 @@ public class SignIn extends AppCompatActivity {
 		
 		setupWatchers();
 		setupViews();
+		setupGoogleOptions();
+		
 		email.addTextChangedListener(emailWatcher);
 		password.addTextChangedListener(passWatcher);
 		
@@ -80,20 +82,13 @@ public class SignIn extends AppCompatActivity {
 			}
 		});
 		
-		gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-				.requestIdToken(getString(R.string.default_web_client_id))
-				.requestEmail()
-				.build();
-		mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
-		
-		
 		forgotpassword.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				startActivity(new Intent(SignIn.this, ForgetPassword.class));
+				Intent intent = new Intent(SignIn.this, ForgetPassword.class);
+				startActivity(intent);
 			}
 		});
-		
 		
 		login_button.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -271,5 +266,15 @@ public class SignIn extends AppCompatActivity {
 		};
 		
 	}// [ setupWatchers ]
+	
+	
+	private void setupGoogleOptions(){
+		gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+				.requestIdToken(getString(R.string.default_web_client_id))
+				.requestEmail()
+				.build();
+		
+		mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+	}
 	
 }// class [ SignIn ]
