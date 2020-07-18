@@ -33,18 +33,11 @@ public class SplashScreen extends AppCompatActivity {
 		new Handler().postDelayed(new Runnable() {
 			@Override
 			public void run() {
-				final KProgressHUD progressDialog = KProgressHUD.create(SplashScreen.this)
-						.setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
-						.setLabel("Please wait")
-						.setCancellable(false);
-				progressDialog.show();
 				FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 				if (user == null) {
-					progressDialog.dismiss();
 					startActivity(new Intent(SplashScreen.this, SignIn.class));
 				}
 				else if (Objects.equals(user.getEmail(), "admin@campus.connect")) {
-					progressDialog.dismiss();
 					startActivity(new Intent(SplashScreen.this, OrganizerList.class));
 				}
 				else {
@@ -66,7 +59,6 @@ public class SplashScreen extends AppCompatActivity {
 								}
 								else {
 									boolean orgcheck = result.getBoolean("Status");
-									progressDialog.dismiss();
 									if (orgcheck) {
 										// for admin
 										startActivity(new Intent(SplashScreen.this, MainActivity.class));
@@ -82,7 +74,6 @@ public class SplashScreen extends AppCompatActivity {
 								}
 							}
 							else {
-								progressDialog.dismiss();
 								Toast.makeText(SplashScreen.this, " Internet Error ", Toast.LENGTH_SHORT).show();
 							}
 						}

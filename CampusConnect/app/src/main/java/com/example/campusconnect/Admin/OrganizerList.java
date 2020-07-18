@@ -25,18 +25,11 @@ import java.util.Map;
 
 public class OrganizerList extends AppCompatActivity {
 	
-	private KProgressHUD progressDialog;
-	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_org_list);
 		
-		progressDialog = KProgressHUD.create(OrganizerList.this)
-				.setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
-				.setLabel("Please wait")
-				.setCancellable(false);
-		progressDialog.show();
 		FirebaseFirestore.getInstance().collection("Users")
 				.document("Organizers")
 				.collection("FirebaseID")
@@ -53,11 +46,9 @@ public class OrganizerList extends AppCompatActivity {
 					OrgListAdapter adapter = new OrgListAdapter(OrganizerList.this, list);
 					ListView listView = (ListView) findViewById(R.id.orgList);
 					listView.setAdapter(adapter);
-					progressDialog.dismiss();
 					adapter.notifyDataSetChanged();
 				}
 				else {
-					progressDialog.dismiss();
 					Toast.makeText(OrganizerList.this, "Error getting documents: ", Toast.LENGTH_SHORT).show();
 				}
 			}

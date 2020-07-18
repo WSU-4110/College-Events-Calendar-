@@ -201,20 +201,12 @@ public class SignUp extends AppCompatActivity {
 				if (!(edtname.getText().toString().isEmpty() && edtemail.getText().toString().isEmpty()
 						&& edtp1.getText().toString().isEmpty() && edtp2.getText().toString().isEmpty())) {
 					
-					progressDialog = KProgressHUD.create(SignUp.this)
-							.setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
-							.setLabel("Please wait")
-							.setCancellable(false);
-					progressDialog.show();
-					
 					mAuth = FirebaseAuth.getInstance();
 					String email = edtemail.getText().toString(), password = edtp1.getText().toString();
 					mAuth.createUserWithEmailAndPassword(email, password)
 							.addOnCompleteListener(SignUp.this, new OnCompleteListener<AuthResult>() {
 								@Override
 								public void onComplete(@NonNull Task<AuthResult> task) {
-									progressDialog.dismiss();
-									
 									if (task.isSuccessful()) {
 										String type;
 										boolean status = false;

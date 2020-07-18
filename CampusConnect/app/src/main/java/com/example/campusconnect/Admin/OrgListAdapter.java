@@ -48,11 +48,6 @@ public class OrgListAdapter extends ArrayAdapter<String> {
         toggle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final KProgressHUD progressDialog = KProgressHUD.create(rowView.getContext())
-                        .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
-                        .setLabel("Please wait")
-                        .setCancellable(false);
-                progressDialog.show();
                 if (obj.get("Status").toString() == "true")
                     obj.put("Status", false);
                 else
@@ -64,7 +59,6 @@ public class OrgListAdapter extends ArrayAdapter<String> {
                         .document(obj.get("id").toString()).update(obj).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        progressDialog.dismiss();
                         notifyDataSetChanged();
                     }
                 });

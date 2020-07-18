@@ -47,18 +47,11 @@ public class ForgotPassword extends AppCompatActivity {
 			public void onClick(View view) {
 				if (validateEmail(ForgotPassword.this, forgotpassemail.getText().toString())) {
 					
-					final KProgressHUD progressDialog = KProgressHUD.create(ForgotPassword.this)
-							.setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
-							.setLabel("Please wait")
-							.setCancellable(false);
-					progressDialog.show();
-					
 					FirebaseAuth.getInstance().sendPasswordResetEmail(forgotpassemail.getText().toString())
 							.addOnCompleteListener(new OnCompleteListener<Void>() {
 								@Override
 								public void onComplete(@NonNull Task<Void> task) {
 									
-									progressDialog.dismiss();
 									if (task.isSuccessful()) {
 										Toasty.info(ForgotPassword.this, "Check your Email", Toast.LENGTH_LONG).show();
 										finish();
