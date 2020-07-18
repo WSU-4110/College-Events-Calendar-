@@ -38,8 +38,6 @@ public class SignIn extends AppCompatActivity {
 	
 	private static final int RC_SIGN_IN = 1;
 	GoogleSignInClient mGoogleSignInClient;
-	TextWatcher passWatcher;
-	TextWatcher emailWatcher;
 	FirebaseAuth mAuth;
 	GoogleSignInOptions gso;
 	
@@ -57,12 +55,8 @@ public class SignIn extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_sign_in);
 		
-		setupWatchers();
 		setupViews();
 		setupGoogleOptions();
-
-//		emailField.addTextChangedListener(emailWatcher);
-//		passwordField.addTextChangedListener(passWatcher);
 		
 		login.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -162,55 +156,6 @@ public class SignIn extends AppCompatActivity {
 				});
 		
 	}// [ firebaseAuthWithGoogle ]
-	
-	
-	private void setupWatchers() {
-		// CHECK: Text watchers needed?
-		emailWatcher = new TextWatcher() {
-			@Override
-			public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-			
-			@Override
-			public void onTextChanged(CharSequence s, int start, int before, int count) {}
-			
-			@Override
-			public void afterTextChanged(Editable s) {
-				String check = s.toString();
-				if (check.length() < 8 || check.length() > 40) {
-					emailField.setError("Email Must consist of 8 to 40 characters");
-				}
-				else if (!check.matches("^[A-za-z0-9.@_]+")) {
-					emailField.setError("Only . and _ and @ characters allowed");
-				}
-				else if (!check.contains("@") || !check.contains(".")) {
-					emailField.setError("Enter Valid Email");
-				}
-				else if (check.startsWith("pikachu")) {
-					altWatcher = true;
-					emailField.setError("Enter Valid Email");
-				}
-			}
-		};// emailWatcher
-		
-		passWatcher = new TextWatcher() {
-			@Override
-			public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-			
-			@Override
-			public void onTextChanged(CharSequence s, int start, int before, int count) {}
-			
-			@Override
-			public void afterTextChanged(Editable s) {
-				String password = s.toString();
-				if (password.length() < 4 || password.length() > 20) {
-					SignIn.this.passwordField.setError("Password Must consist of 4 to 20 characters");
-				}
-				else if (password.equals("thing"))
-					showAlt(); // Jay
-			}
-		};// passWatcher
-		
-	}// [ setupWatchers ]
 	
 	
 	private void setupGoogleOptions() {
