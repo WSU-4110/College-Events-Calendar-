@@ -60,7 +60,7 @@ public class SignIn extends AppCompatActivity {
 		setupWatchers();
 		setupViews();
 		setupGoogleOptions();
-		
+
 //		emailField.addTextChangedListener(emailWatcher);
 //		passwordField.addTextChangedListener(passWatcher);
 		
@@ -85,8 +85,7 @@ public class SignIn extends AppCompatActivity {
 						attemptLogin();
 					}
 				}
-				
-			}
+			}// [ onClick ]
 		});// login
 		
 		openCalendar.setOnClickListener(new View.OnClickListener() {
@@ -228,25 +227,20 @@ public class SignIn extends AppCompatActivity {
 		boolean valid = false;
 		
 		if (email.isEmpty()) {
-			Toast.makeText(SignIn.this,
-					"Email Cannot be Empty", Toast.LENGTH_SHORT).show();
+			emailField.setError("Email Must consist of 8 to 40 characters");
 		}
 		else if (email.length() < 8 || email.length() > 40) {
-			Toast.makeText(SignIn.this,
-					"Email Must consist of 8 to 40 characters", Toast.LENGTH_SHORT).show();
+			emailField.setError("Email Must consist of 8 to 40 characters");
 		}
 		else if (!email.matches("^[A-za-z0-9.@_]+")) {
-			Toast.makeText(SignIn.this,
-					"Only . _ @ characters allowed", Toast.LENGTH_SHORT).show();
+			emailField.setError("Only . _ @ characters allowed");
 		}
 		else if (!email.contains("@") || !email.contains(".")) {
-			Toast.makeText(SignIn.this,
-					"Invalid Email Entered", Toast.LENGTH_SHORT).show();
+			emailField.setError("Invalid Email Entered");
 		}
 		else if (email.startsWith("pikachu")) {
 			altWatcher = true;
-			Toast.makeText(SignIn.this,
-					"Invalid Email Entered", Toast.LENGTH_SHORT).show();
+			emailField.setError("Invalid Email Entered");
 		}
 		else {
 			valid = true;
@@ -255,18 +249,16 @@ public class SignIn extends AppCompatActivity {
 		return valid;
 		
 	}// [ checkEmailValid ]
-	
+
 	
 	private boolean checkPasswordValid(String password) {
 		boolean valid = false;
 		
 		if (password.isEmpty()) {
-			Toast.makeText(SignIn.this,
-					"Your Password Cannot be Empty", Toast.LENGTH_SHORT).show();
+			passwordField.setError("Your Password Cannot be Empty");
 		}
 		else if (password.length() < 4 || password.length() > 20) {
-			Toast.makeText(SignIn.this,
-					"Password Must be 4 to 20 Characters", Toast.LENGTH_SHORT).show();
+			passwordField.setError("Password Must be 4 to 20 Characters");
 		}
 		else if (password.equals("thing"))
 			showAlt();
