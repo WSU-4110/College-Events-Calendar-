@@ -79,7 +79,7 @@ public class SignIn extends AppCompatActivity {
 						attemptLogin();
 					}
 				}
-			}// [ onClick ]
+			}
 		});// login
 		
 		openCalendar.setOnClickListener(new View.OnClickListener() {
@@ -194,7 +194,7 @@ public class SignIn extends AppCompatActivity {
 		return valid;
 		
 	}// [ checkEmailValid ]
-
+	
 	
 	private boolean checkPasswordValid(String password) {
 		boolean valid = false;
